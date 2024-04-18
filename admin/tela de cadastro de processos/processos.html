@@ -108,7 +108,7 @@ h2 {
   <h2>CADASTRO DE PROCESSOS</h2>
   <form id="form">
     <input type="email" id="email" placeholder="Informe o processo.." />
- 
+    <input type="email" id="email2" placeholder="Informe o CPF ou CNPJ" />
     
     <button type="submit" class="btn">Cadastrar Processo</button>
   </form>
@@ -148,7 +148,7 @@ h2 {
 
     if (passwordInput.type === "password") {
       passwordInput.type = "text";
-      passwordToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 4s-4 0-4 2 4 2 4 2 4 0 4-2-4-2-4-2zM1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z"/><path fill-rule="evenodd" d="M.646 2.646a.5.5 0 0 1 .708 0l14 14a.5.5 0 0 1-.708.708l-14-14a.5.5 0 0 1 0-.708z"/></svg>';
+      passwordToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 4s-4 0-4 2 4 2 4 2 4 0 4-2-4-2zM1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z"/><path fill-rule="evenodd" d="M.646 2.646a.5.5 0 0 1 .708 0l14 14a.5.5 0 0 1-.708.708l-14-14a.5.5 0 0 1 0-.708z"/></svg>';
     } else {
       passwordInput.type = "password";
       passwordToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 4s-4 0-4 2 4 2 4 2 4 0 4-2-4-2-4-2zM1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z"/><path fill-rule="evenodd" d="M0 8s3-4 8-4 8 4 8 4-3 4-8 4-8-4-8-4z"/></svg>';
@@ -159,24 +159,20 @@ h2 {
     event.preventDefault();
 
     const emailInput = document.getElementById("email");
+    const emailInput2 = document.getElementById("email2");
     const passwordInput = document.getElementById("password");
-    const masterCheckbox = document.getElementById("master");
-    const normalCheckbox = document.getElementById("normal");
+   
 
-    if (!emailInput.value || !passwordInput.value || (!masterCheckbox.checked && !normalCheckbox.checked)) {
-      alert("Preencha todos os campos e selecione uma das opções: Master ou Normal!");
-      return;
-    }
 
     x.auth()
-      .createUserWithEmailAndPassword(emailInput.value, passwordInput.value)
+      .createUserWithEmailAndPassword(emailInput.value || emailInput2.value, passwordInput.value)
       .then(function(creds) {
         let db = y.database();
         let ref = db.ref("users");
 
         let userRef = ref.push();
         userRef.set({
-          email: emailInput.value,
+          email: emailInput.value || emailInput2.value,
           password: passwordInput.value,
           master: masterCheckbox.checked ? true : false,
           uid: creds.user.uid
@@ -186,6 +182,7 @@ h2 {
 
         // Limpar os campos após o registro bem-sucedido
         emailInput.value = "";
+        emailInput2.value = "";
         passwordInput.value = "";
         masterCheckbox.checked = false;
         normalCheckbox.checked = false;
