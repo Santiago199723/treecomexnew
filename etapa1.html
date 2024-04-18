@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TREE COMEX - ABERTURA</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="etapas.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+
+  <body>
+    <button class="back-button" onclick="routeTo('botoesetapas.html')">
+      Voltar
+    </button>
+
+    <!-- Contêiner da logo -->
+    <div class="logo-container">
+      <img class="logo" src="icone.png" alt="Logo" />
+    </div>
+
+    <div class="data-restante-container">
+      <p id="hint-text-remaining"></p>
+      <span style="width: 5px"></span>
+      <p id="rest-remainer"></p>
+    </div>
+
+    <!-- Informações da empresa -->
+    <div class="company-info-0">
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-name">NOME DA EMMPRESA</p>
+        </div>
+      </div>
+      -
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-type">FILIAL OU MATRIZ</p>
+        </div>
+      </div>
+      -
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-state">EX: AL</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <!-- Seu conteúdo HTML existente -->
+      <hr />
+      <h1 style="margin-top: 40px; margin-bottom: 60px">ETAPA 1 - ABERTURA</h1>
+      <div class="buttons">
+        <button class="neumorphic" id="cpf_irpf">
+          <i class="fa-light fa-folder-open"></i>
+          <span>DOCUMENTOS PESSOAIS DO SÓCIO</span>
+          <div class="message">CONCLUÍDO!</div>
+        </button>
+
+        <button type="button" class="neumorphic">
+          <!-- Corrigi um erro aqui -->
+          <i class="fa-light fa-certificate"></i>
+          <span>CERTIFICADO DIGITAL DO SÓCIO</span>
+          <div class="message">PENDENTE</div>
+        </button>
+        <!-- Adicionei as setas aqui -->
+        <button type="button" class="neumorphic" id="locacao_sala">
+          <i class="fa-light fa-handshake-o"></i>
+          <span>CONTRATAÇÃO DO CONTADOR</span>
+          <div class="message">CONCLUÍDO!</div>
+          <div class="arrow-right"></div>
+        </button>
+        <button type="button" class="neumorphic" id="contratacao_hospedagem">
+          <i class="fa-light fa-home"></i>
+          <span>CONTRATAÇÃO DE SALA</span>
+          <div class="message">CONCLUÍDO!</div>
+          <div class="arrow-right"></div>
+        </button>
+        <button type="button" class="neumorphic" id="contrato_social">
+          <i class="fa-light fa-address-card-o"></i>
+          <span>E-CNPJ A1</span>
+          <div class="message">PENDENTE</div>
+          <div class="arrow-right"></div>
+        </button>
+        <button type="button" class="neumorphic" id="habilitacao_radar">
+          <i class="fa-light fa fa-bolt"></i>
+          <span>ALTERAR CONTA DE ENERGIA PARA NOME DA EMPRESA</span>
+          <div class="message">PENDENTE</div>
+          <div class="arrow-right"></div>
+        </button>
+        <button type="button" class="neumorphic" id="habilitacao_radar">
+          <i class="fa-light fa-wifi"></i>
+          <span>SOLICITAR INTERNET/TELEFONE</span>
+          <div class="message">PENDENTE</div>
+          <div class="arrow-right"></div>
+        </button>
+        <button type="button" class="neumorphic" id="habilitacao_radar">
+          <i class="fa-light fa-industry"></i>
+          <span>CONTRATAÇÃO DE ARMAZÉM LOGÍSTICO</span>
+          <div class="message">PENDENTE</div>
+          <div class="arrow-right"></div>
+        </button>
+        <button type="button" class="neumorphic" id="habilitacao_radar">
+          <i class="fa-light fa-credit-card-alt"></i>
+          <span>COMPRA DE MÓVEIS E ELETRÔNICOS</span>
+          <div class="message">PENDENTE</div>
+          <div class="arrow-right"></div>
+        </button>
+        <button type="button" class="neumorphic" id="habilitacao_radar">
+          <i class="fa-light fa-thumbs-up"></i>
+          <span>ADEQUAÇÃO VISUAL DA SALA</span>
+          <div class="message">PENDENTE</div>
+          <div class="arrow-right"></div>
+        </button>
+        <button type="button" class="neumorphic" id="habilitacao_radar">
+          <i class="fa-light fa-cloud"></i>
+          <span>CONTRATAÇÃO DE HOSPEDAGEM E DOMÍNIO</span>
+          <div class="message">PENDENTE</div>
+          <div class="arrow-right"></div>
+        </button>
+        <button type="button" class="neumorphic" id="habilitacao_radar">
+          <i class="fa-light fa-at"></i>
+          <span>CRIAÇÃO DE EMAILS</span>
+          <div class="message">PENDENTE</div>
+          <div class="arrow-right"></div>
+        </button>
+        <button type="button" class="neumorphic" id="habilitacao_radar">
+          <i class="fa-light fa-users"></i>
+          <span>CRIAÇÃO DE REDES SOCIAIS</span>
+          <div class="message">PENDENTE</div>
+          <div class="arrow-right"></div>
+        </button>
+
+        <!-- Submenu do primeiro botao -->
+        <div id="submenu_botao" class="submenu">
+          <div style="display: flex; flex-direction: row">
+            <button
+              class="attach-file-button"
+              onclick="chooseFile('opcao1_1_input')"
+            >
+              <i class="fa-light fa-paperclip"></i> Anexar arquivo
+            </button>
+            <span style="width: 10px"></span>
+            <span class="file-name" style="display: none"></span>
+            <span style="width: 10px"></span>
+            <i
+              style="cursor: pointer; display: none; font-size: 24px"
+              class="fa"
+              id="trash"
+              >&#xf014;</i
+            >
+            <label
+              class="attach-file-label"
+              for="opcao1_1_input"
+              id="opcao1_1_label"
+            ></label>
+            <input type="file" class="file-input" style="display: none" />
+          </div>
+
+          <div class="container-data">
+            <div style="display: flex; flex-direction: row">
+              <p>Data de anexao:</p>
+              <span style="width: 10px"></span>
+              <p class="upload-date">-</p>
+              <span style="width: 15px"></span>
+              <p>Anexado por:</p>
+              <span style="width: 10px"></span>
+              <p class="uploaded-by">-</p>
+            </div>
+            <div style="display: flex; flex-direction: row">
+              <p>Removido por:</p>
+              <span style="width: 10px"></span>
+              <p class="deleted-by">-</p>
+              <span style="width: 15px"></span>
+              <p>Data de exclusao:</p>
+              <span style="width: 10px"></span>
+              <p class="deletion-date">-</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <script src="etapas.js"></script>
+  </body>
+</html>

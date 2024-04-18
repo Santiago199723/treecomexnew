@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pesquisa de CPF</title>
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>TREE COMEX</h1>
+      <form id="searchForm">
+        <input
+          type="text"
+          id="dataInput"
+          placeholder="Digite o CNPJ ou CPF do Proprietário.."
+          maxlength="14"
+        />
+        <button type="submit">Pesquisar</button>
+      </form>
+      <div id="result"></div>
+      <div id="noCadastro">Cadastrar empresa</div>
+    </div>
+
+    <script src="CPF.js"></script>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="signin.css" />
+    <link rel="icon" type="image/png" href="icone.png" />
+    <!-- Substitua pelo caminho real do seu ícone -->
+    <style>
+      /* Importação de fontes do Google */
+      @import url("https://fonts.googleapis.com/css2?family=NovaFonte:wght@400&display=swap");
+
+      
+      #linkTrocarSenha {
+        font-size: 10px; /* Tamanho da fonte em pixels */
+        color: #28d8e4; /* Cor azul */
+        text-decoration: none; /* Sem sublinhado */
+        font-family: 'Robot', sans-serif;  /* Fonte Dancing Script ou a fonte desejada */
+      }
+
+      #linkTrocarSenha:hover {
+        color: #b2ecf1; /* Cor azul clara ao passar o mouse */
+      }
+
+
+      /* Estilo do cabeçalho "Entrar" */
+      .login-header {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #28d8e4 !important; /* Corrigido para verde mais claro */
+        font-family: "Robot", sans-serif; /* Substitua 'NovaFonte' pela fonte desejada */
+      }
+
+      #disable-right-click-message {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f9fcfc;
+        padding: 20px;
+        border: 2px solid #23276a;
+        border-radius: 10px;
+        z-index: 1000;
+      }
+
+      /* Estilo específico para a palavra "Login" */
+      .login-header {
+        font-family: "Robot", sans-serif; /* Substitua 'NovaFonte' pela fonte desejada */
+      }
+
+      /* Estilo do corpo da página */
+      body {
+        background-image: url("bg-signin.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-position: center;
+        color: white;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Estilo do contêiner principal */
+      .container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        margin-top: 20px;
+      }
+
+      /* Restante do seu estilo... */
+    </style>
+    <title>TREE COMEX</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1 class="login-header">Login</h1>
+
+        <div id="msgError"></div>
+
+        <div class="label-float">
+          <input type="text" id="usuario" placeholder="" required autocomplete="email"/>
+          <label id="userLabel" for="usuario">E-mail</label>
+        </div>
+
+        <div class="label-float">
+          <input type="password" id="senha" placeholder="" required autocomplete="current-password"/>
+          <label id="senhaLabel" for="senha">Senha</label>
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </div>
+
+        <div class="justify-center">
+          <button id="btnEntrar">Entrar</button>
+        </div>
+
+        <!-- Links de cadastro -->
+        <div class="justify-center">
+          <a href="#" id="linkTrocarSenha">Esqueci a senha | Trocar senha</a>
+        </div>
+      </div>
+    </div>
+    <ins
+      class="adsbygoogle"
+      style="display: block"
+      data-ad-client="ca-pub-4150589724074166"
+      data-ad-slot="8839001946"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    ></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <div id="disable-right-click-message">
+      <p>
+        Ops, estamos usando segurança máxima! Você não tem permissão para
+        acessar ao código! Se persistir, seu login será bloqueado.
+      </p>
+    </div>
+
+    <script>
+      document
+        .getElementById("btnEntrar")
+        .addEventListener("click", function () {
+          const usuario = document.getElementById("usuario").value.trim();
+          const senha = document.getElementById("senha").value.trim();
+
+          if (usuario.toLowerCase() === "admin") {
+            // Redirecionar para o seu site desejado
+            window.location.href =
+              "administracao.html";
+          } else {
+            // Exibir mensagem de erro caso as credenciais sejam inválidas
+            document.getElementById("msgError").innerHTML =
+              "Credenciais inválidas. Tente novamente.";
+          }
+        });
+
+      // Adicione um evento de clique para o link de trocar senha
+      document.getElementById("linkTrocarSenha").addEventListener("click", function(e) {
+        e.preventDefault(); // Impede o comportamento padrão do link
+
+        // Recupere o e-mail do usuário
+        const usuario = document.getElementById("usuario").value.trim();
+
+        // Use a funcionalidade do Firebase para enviar um e-mail de redefinição de senha
+        firebase.auth().sendPasswordResetEmail(usuario)
+          .then(function() {
+            alert("E-mail de redefinição de senha enviado! Verifique sua caixa de entrada.");
+          })
+          .catch(function(error) {
+            // Trate os erros, se houver algum
+            console.error(error);
+            alert("Ocorreu um erro ao enviar o e-mail de redefinição de senha. Por favor, tente novamente.");
+          });
+      });
+    </script>
+
+    <script>
+      let isRightClickMessageVisible = false;
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+        toggleDisableRightClickMessage();
+      });
+
+      document.addEventListener("click", function (e) {
+        if (isRightClickMessageVisible) {
+          toggleDisableRightClickMessage();
+        }
+      });
+
+      function toggleDisableRightClickMessage() {
+        let messageContainer = document.getElementById(
+          "disable-right-click-message"
+        );
+        isRightClickMessageVisible = !isRightClickMessageVisible;
+
+        if (isRightClickMessageVisible) {
+          messageContainer.style.display = "block";
+        } else {
+          messageContainer.style.display = "none";
+        }
+      }
+    </script>
+
+    <script src="index.js"></script>
+    <script src="loading.js"></script>
+  </body>
+</html>

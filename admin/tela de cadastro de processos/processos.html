@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tela de cadastro de usuários</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: Montserrat, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fbfbfb;
+  background-image: url('processos.png'); /* Adicione o caminho para sua imagem aqui */
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  background-color: rgb(255, 255, 255); /* Adicionando um fundo branco semi-transparente para melhor legibilidade */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(29, 220, 241, 0.1);
+  text-align: center;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 38%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #007bff; /* Cor azul */
+
+}
+
+
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.option-label {
+  font-size: 16px; /* Ajustando o tamanho da fonte */
+  text-align: center; /* Alinhando o texto ao centro */
+  color: #007bff; /* Cor azul */
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+h2 {
+  color: #176293;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.master-label {
+  margin-left: 100px; /* Ajuste a margem direita para o rótulo "Master" */
+}
+
+.normal-label {
+  margin-left: 80px; /* Ajuste a margem esquerda para o rótulo "Normal" */
+}
+
+
+/* Adicionando margem entre os botões */
+.btn:not(:last-child) {
+  margin-right: 25px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>CADASTRO DE PROCESSOS</h2>
+  <form id="form">
+    <input type="email" id="email" placeholder="Informe o processo.." />
+ 
+    
+    <button type="submit" class="btn">Cadastrar Processo</button>
+  </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+<script>
+  let x = firebase.initializeApp(
+    {
+      apiKey: "AIzaSyAgeXs09Qgu8med_u-JVf7ON6IrNxLqYg8",
+      authDomain: "orion-global-comercio.firebaseapp.com",
+      projectId: "orion-global-comercio",
+      storageBucket: "orion-global-comercio.appspot.com",
+      messagingSenderId: "161119988323",
+      appId: "1:161119988323:web:8a6c9d9c517b16669ba656",
+      databaseURL: "https://orion-global-comercio.firebaseio.com" // Adicione esta linha com a URL do seu banco de dados
+    },
+    "authUser"
+  );
+
+  let y = firebase.initializeApp(
+    {
+    apiKey: "AIzaSyAc1f8F-f-FOZb8p-ra3q7kxKPrZhTDGdg",
+    authDomain: "adm-cadastrodeuser-orion.firebaseapp.com",
+    projectId: "adm-cadastrodeuser-orion",
+    storageBucket: "adm-cadastrodeuser-orion.appspot.com",
+    messagingSenderId: "654459962858",
+    appId: "1:654459962858:web:423f5f9eff7efbbaa31e93",
+    databaseURL: "https://adm-cadastrodeuser-orion.firebaseio.com" // Adicione esta linha com a URL do seu banco de dados
+    },
+    "database"
+  );
+
+  function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("password");
+    const passwordToggle = document.querySelector(".password-toggle");
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      passwordToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 4s-4 0-4 2 4 2 4 2 4 0 4-2-4-2-4-2zM1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z"/><path fill-rule="evenodd" d="M.646 2.646a.5.5 0 0 1 .708 0l14 14a.5.5 0 0 1-.708.708l-14-14a.5.5 0 0 1 0-.708z"/></svg>';
+    } else {
+      passwordInput.type = "password";
+      passwordToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 4s-4 0-4 2 4 2 4 2 4 0 4-2-4-2-4-2zM1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z"/><path fill-rule="evenodd" d="M0 8s3-4 8-4 8 4 8 4-3 4-8 4-8-4-8-4z"/></svg>';
+    }
+  }
+
+  document.getElementById("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const masterCheckbox = document.getElementById("master");
+    const normalCheckbox = document.getElementById("normal");
+
+    if (!emailInput.value || !passwordInput.value || (!masterCheckbox.checked && !normalCheckbox.checked)) {
+      alert("Preencha todos os campos e selecione uma das opções: Master ou Normal!");
+      return;
+    }
+
+    x.auth()
+      .createUserWithEmailAndPassword(emailInput.value, passwordInput.value)
+      .then(function(creds) {
+        let db = y.database();
+        let ref = db.ref("users");
+
+        let userRef = ref.push();
+        userRef.set({
+          email: emailInput.value,
+          password: passwordInput.value,
+          master: masterCheckbox.checked ? true : false,
+          uid: creds.user.uid
+        });
+
+        alert("Registrado com sucesso!");
+
+        // Limpar os campos após o registro bem-sucedido
+        emailInput.value = "";
+        passwordInput.value = "";
+        masterCheckbox.checked = false;
+        normalCheckbox.checked = false;
+      })
+      .catch(function(error) {
+        if (error.code === "auth/email-already-in-use") {
+          alert("E-mail já cadastrado!");
+        } else {
+          alert(error.message);
+        }
+      });
+  });
+</script>
+</body>
+</html>

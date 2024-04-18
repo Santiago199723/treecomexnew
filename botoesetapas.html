@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TELAS DE ETAPAS - TREE COMEX</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="etapas.css" />
+
+    <style>
+      body {
+        background-color: #e5e9f4;
+        padding: 2rem;
+        background: #050801;
+      }
+
+      /* Estilos para o botão "Voltar" */
+      .back-button-cyan {
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        padding: 15px 10px;
+        color: #fcfcfc;
+        background: none;
+        border: 2px solid #ffffff;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.5s;
+        letter-spacing: 4px;
+      }
+
+      .back-button-cyan:hover {
+        background: #03e9f4;
+        color: #050801;
+      }
+
+      /* Estilos para o botão "Abrir" */
+      .open-button {
+        padding: 10px 20px;
+        color: #fff;
+        background-color: #0e454d;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .open-button:hover {
+        background-color: #2a949b;
+      }
+
+      /* Estilos para o campo de entrada */
+      .input-field {
+        padding: 10px;
+        margin: 10px 0;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+      }
+
+      .input-field:focus {
+        border-color: #03e9f4;
+      }
+
+      /* Estilos para o contêiner da janela modal */
+      .modal-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999; /* Para garantir que a janela modal esteja sempre na frente */
+      }
+
+      /* Estilos para a janela modal */
+      .modal {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        max-width: 600px; /* Largura máxima da janela modal */
+        max-height: 80vh; /* Altura máxima da janela modal (80% da altura da viewport) */
+        overflow-y: auto; /* Adiciona barra de rolagem vertical se necessário */
+        text-align: center; /* Centraliza o conteúdo horizontalmente */
+        border: 5px solid #3fc1c8; /* Adiciona a borda azul clara bonita */
+      }
+
+      /* Estilos para o botão de fechar */
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 24px;
+        color: #06202e;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="
+        display: flex;
+        position: fixed;
+        justify-content: center;
+        width: 100%;
+      "
+    >
+      <!-- Contêiner da logo -->
+      <div class="logo-container">
+        <img class="logo" src="TREICO.png" alt="Logo" />
+      </div>
+
+      <!-- Elemento de sobreposição para o fundo escuro -->
+      <div id="overlay" class="overlay" style="display: none">
+        <!-- Janela modal -->
+        <div class="modal-container">
+          <div class="modal">
+            <!-- Botão para fechar a janela modal -->
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <!-- Conteúdo da janela modal -->
+            <h2 style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)">
+              IDENTIFICAR PROCESSO
+            </h2>
+            <input
+              type="text"
+              class="input-field"
+              placeholder="Digite o número do processo"
+              id="process-id"
+              name="process-id"
+            />
+            <button class="open-button" onclick="processID()">
+              Buscar Processo
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informações da empresa -->
+      <div class="company-info-0">
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-name">NOME DA EMMPRESA</p>
+          </div>
+        </div>
+        -
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-type">FILIAL OU MATRIZ</p>
+          </div>
+        </div>
+        -
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-state">EX: AL</p>
+          </div>
+        </div>
+      </div>
+      <span id="current-process" class="process-number"></span>
+      <hr style="margin-top: -20px" />
+    </div>
+
+    <div class="button-container">
+      <a href="etapa1.html"> ETAPA 1 - ESTRUTURA </a>
+      <a onclick="openModal()"> ETAPA 2 - PROCESSOS </a>
+    </div>
+
+    <button class="back-button-cyan" onclick="sair()">Voltar</button>
+    <script>
+      const userId = localStorage.getItem("userId");
+      const company = localStorage.getItem("company");
+
+      window.onload = function () {
+        if (!company) {
+          window.location.href = "CPF.html";
+        }
+
+        fetchCompanyData().then(() => showCompanyData());
+      };
+
+      function sair() {
+        localStorage.removeItem("company");
+        localStorage.removeItem("process-id");
+        window.location.href = "CPF.html";
+      }
+
+      function openModal() {
+        document.getElementById("overlay").style.display = "flex"; // Exibe o fundo escuro
+      }
+
+      function closeModal() {
+        document.getElementById("overlay").style.display = "none"; // Oculta o fundo escuro
+      }
+
+      async function fetchCompanyData() {
+        const data = JSON.parse(company);
+        fetch("http://localhost:8080/company-data", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userId,
+            company: data.cpf ? data.cpf : data.cnpj,
+          }),
+        })
+          .then(async (response) => {
+            const data = await response.json();
+            if (response.ok) {
+              localStorage.setItem("company", JSON.stringify(data));
+            }
+          })
+          .catch((error) => alert(error));
+      }
+
+      function showCompanyData() {
+        const data = JSON.parse(company);
+        if (data) {
+          document.getElementById("company-name").innerText =
+            data.companyName.toUpperCase();
+          document.getElementById("company-type").innerText = (
+            data.matriz ? "matriz" : "filial"
+          ).toUpperCase();
+          document.getElementById("company-state").innerText =
+            data.country.toUpperCase();
+        }
+      }
+
+      function processID() {
+        const id = document.getElementById("process-id");
+        if (!id.value) {
+          alert("Por favor, insira o número do Processo!");
+          return;
+        }
+
+        for (let i = 0; i < types.length; i++) {
+          ref
+            .orderByChild(types[i])
+            .equalTo(code)
+            .once("value", function (snapshot) {
+              snapshot.forEach(function (childSnapshot) {
+                const data = childSnapshot.val();
+                if (data) {
+                  if (data.PROCESS_ID) {
+                    if (data.PROCESS_ID == id.value) {
+                      localStorage.setItem("process-id", id.value);
+                      window.location.href = "/etapa2.html";
+                      return;
+                    } else if (data.PROCESS_ID !== id.value) {
+                      alert("O número do processo está incorreto.");
+                      return;
+                    }
+                  } else {
+                    data.PROCESS_ID = id.value;
+                    childSnapshot.ref
+                      .update(data)
+                      .then(() => {
+                        localStorage.setItem("process-id", id.value);
+                        window.location.href = "/etapa2.html";
+                      })
+                      .catch((error) => {
+                        console.error(error);
+                      });
+                  }
+                }
+              });
+            });
+        }
+      }
+
+      let offsetX, offsetY;
+
+      let draggable = document.querySelector(".modal-container");
+      let input = document.querySelector("#process-id");
+
+      function drag(event) {
+        draggable.style.left = event.clientX - offsetX + "px";
+        draggable.style.top = event.clientY - offsetY + "px";
+      }
+
+      function stopDragging(event) {
+        document.removeEventListener("mousemove", drag);
+        document.removeEventListener("mouseup", stopDragging);
+      }
+
+      function draggableHandler(event) {
+        event.preventDefault();
+
+        offsetX = event.clientX - draggable.getBoundingClientRect().left;
+        offsetY = event.clientY - draggable.getBoundingClientRect().top;
+
+        document.addEventListener("mousemove", drag);
+
+        document.addEventListener("mouseup", stopDragging);
+      }
+
+      draggable.addEventListener("mousedown", draggableHandler);
+
+      input.addEventListener("mousedown", function (event) {
+        draggable.removeEventListener("mousedown", draggableHandler);
+      });
+
+      input.addEventListener("blur", function (event) {
+        draggable.addEventListener("mousedown", draggableHandler);
+      });
+    </script>
+  </body>
+</html>
