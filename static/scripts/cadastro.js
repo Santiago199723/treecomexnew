@@ -44,7 +44,7 @@ document
     const matriz = document.querySelector("#matriz").checked;
     const estado = estadosSiglas[getElementVal("CodUf")];
 
-    fetch("http://localhost:8080/company-register", {
+    fetch(`${window.location.protocol}//${window.location.hostname}:8080/company-register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -45,7 +45,7 @@ function entrar() {
     return;
   }
 
-  fetch("http://localhost:8080/login", {
+  fetch(`${window.location.protocol}//${window.location.hostname}:8080/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

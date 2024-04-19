@@ -15,6 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 app.use(cors());
 app.use(bodyParser.json({ limit: "10mb" }));
+
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 413 && "body" in err) {
     return res.status(413).json({
@@ -25,7 +26,7 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.use(express.static(path.join(__dirname, "..")))
+app.use(express.static(path.join(__dirname, "..", "static")))
 
 app.post("/register", async (req, res) => {
   const { email, password, master } = req.body;

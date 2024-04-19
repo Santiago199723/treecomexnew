@@ -16,7 +16,7 @@ document
     document.getElementById("result").innerHTML =
       "Aguarde, já estamos identificando..";
 
-    fetch("http://localhost:8080/company-data", {
+    fetch(`${window.location.protocol}//${window.location.hostname}:8080/company-data`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

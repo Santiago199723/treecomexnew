@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>TELAS DE ETAPAS - TREE COMEX</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="etapas.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/etapas.css" />
 
     <style>
       body {
@@ -193,7 +193,7 @@
 
       async function fetchCompanyData() {
         const data = JSON.parse(company);
-        fetch("http://localhost:8080/company-data", {
+        fetch(`${window.location.protocol}//${window.location.hostname}:8080/company-data`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
