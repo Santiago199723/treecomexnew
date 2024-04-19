@@ -1,0 +1,19 @@
+name: Imgbot
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  imgbot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Imgbot
+        uses: imgbot/setup@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
