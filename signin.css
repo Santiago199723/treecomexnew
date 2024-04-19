@@ -47,7 +47,7 @@
 
     /* Estilo do corpo da página */
     body {
-      background-image: url("bg-signin.png");
+      background-image: url("assets/bg-signin.png");
       background-repeat: no-repeat;
       background-size: 100% 100%;
       background-attachment: fixed;
