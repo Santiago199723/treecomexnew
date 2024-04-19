@@ -13,7 +13,7 @@ const app = express();
 const k = ora("Initializing...");
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-app.use(cors());
+app.use(cors({origin: "*"}));
 app.use(bodyParser.json({ limit: "10mb" }));
 
 app.use((err, req, res, next) => {
@@ -26,7 +26,7 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.use(express.static(path.join(__dirname, "..", "static")))
+app.use("/", express.static(path.join(__dirname, "..", "public")))
 
 app.post("/register", async (req, res) => {
   const { email, password, master } = req.body;
