@@ -1,8 +1,9 @@
-import fs from "fs";
 import ora from "ora";
 import cors from "cors";
+import path from "path";
 import express from "express";
 import { Op } from "sequelize";
+import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 
 import { sequelize } from "./database.js";
@@ -10,6 +11,7 @@ import { Company, User, File } from "./models.js";
 
 const app = express();
 const k = ora("Initializing...");
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 app.use(cors());
 app.use(bodyParser.json({ limit: "10mb" }));
@@ -22,6 +24,8 @@ app.use((err, req, res, next) => {
   }
   next();
 });
+
+app.use(express.static(path.join(__dirname, "..")))
 
 app.post("/register", async (req, res) => {
   const { email, password, master } = req.body;
