@@ -58,9 +58,8 @@ function entrar() {
     .then(async (response) => {
       const data = await response.json();
       showMessage(data.message);
-      if (data.userId) {
+      if (response.ok) {
         await delay(2000)
-        localStorage.setItem("userId", data.userId);
         window.location.href = "CPF.html";
       }
     })
@@ -70,12 +69,4 @@ function entrar() {
 const btnEntrar = document.querySelector("#btnEntrar");
 if (btnEntrar) {
   btnEntrar.addEventListener("click", entrar);
-}
-
-function register() {
-  window.location.href = "pages/register/register.html";
-}
-
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }

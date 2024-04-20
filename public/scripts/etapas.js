@@ -24,7 +24,7 @@ function handleFileUpload(j, code) {
       uploadBy: userId,
     };
 
-    fetch("http://localhost:8080/upload-file", {
+    fetch(`${window.location.protocol}//${window.location.hostname}/upload-file`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +78,7 @@ function showSubmenuData(j) {
   attachBtn.onclick = () => input.click();
   input.onchange = () => handleFileUpload(j);
 
-  fetch("http://localhost:8080/file-list", {
+  fetch(`${window.location.protocol}//${window.location.hostname}/file-list`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -197,40 +197,6 @@ document.addEventListener("click", function (event) {
     submenuBotao.style.display = "none";
   }
 });
-
-async function fetchCompanyData() {
-  const data = JSON.parse(company);
-  fetch("http://localhost:8080/company-data", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      userId: userId,
-      company: data.cpf ? data.cpf : data.cnpj,
-    }),
-  })
-    .then(async (response) => {
-      const data = await response.json();
-      if (response.ok) {
-        localStorage.setItem("company", JSON.stringify(data));
-      }
-    })
-    .catch((error) => alert(error));
-}
-
-function showCompanyData() {
-  const data = JSON.parse(company);
-  if (data) {
-    document.getElementById("company-name").innerText =
-      data.companyName.toUpperCase();
-    document.getElementById("company-type").innerText = (
-      data.matriz ? "matriz" : "filial"
-    ).toUpperCase();
-    document.getElementById("company-state").innerText =
-      data.country.toUpperCase();
-  }
-}
 
 const etapas = {
   "DOCUMENTOS PESSOAIS DO SÓCIO": 1,

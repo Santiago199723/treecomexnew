@@ -22,9 +22,9 @@ document
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: userId,
-        company: code,
+        unique: code,
       }),
+      credentials: "include"
     }).then(async (response) => {
       await delay(2000)
       const data = await response.json();
@@ -44,13 +44,3 @@ document
 document.getElementById("noCadastro").addEventListener("click", function () {
   window.location.href = "cadastro.html";
 });
-
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-window.onload = function () {
-  if (!userId) {
-    window.location.href = "/";
-  }
-};

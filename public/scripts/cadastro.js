@@ -58,6 +58,7 @@ document
         matriz: matriz,
         userId: userId,
       }),
+      credentials: "include"
     })
       .then(async (response) => {
         const data = await response.json();
@@ -83,12 +84,8 @@ const getElementVal = (id) => {
   return document.getElementById(id).value;
 };
 
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 window.onload = function () {
-  if (!userId) {
+  if (!checkCookie("userId")) {
     window.location.href = "/";
   }
 };

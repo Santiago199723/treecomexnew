@@ -18,6 +18,7 @@
   "type": "module",
   "devDependencies": {
     "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
     "ora": "^8.0.1",
     "pg": "^8.11.5",
     "pg-hstore": "^2.3.4",

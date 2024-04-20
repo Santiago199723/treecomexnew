@@ -5,6 +5,7 @@ import express from "express";
 import { Op } from "sequelize";
 import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 import { sequelize } from "./database.js";
 import { Company, User, File } from "./models.js";
@@ -13,7 +14,8 @@ const app = express();
 const k = ora("Initializing...");
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-app.use(cors({origin: "*"}));
+app.use(cookieParser());
+app.use(cors({ origin: "*" }));
 app.use(bodyParser.json({ limit: "10mb" }));
 
 app.use((err, req, res, next) => {
@@ -27,6 +29,15 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/", express.static(path.join(__dirname, "..", "public")))
+
+app.post("/check-session", (req, res) => {
+  const userId = req.cookies.userId;
+  if (!userId) {
+    return res.status(401).send();
+  }
+
+  return res.status(200).send();
+})
 
 app.post("/register", async (req, res) => {
   const { email, password, master } = req.body;
@@ -76,8 +87,7 @@ app.post("/login", async (req, res) => {
     }
 
     return res
-      .status(200)
-      .json({ message: "Login bem-sucedido", userId: user.id });
+      .status(200).cookie('userId', user.id, { maxAge: 86400000, httpOnly: true, sameSite: "strict" }).json({ message: "Login bem-sucedido" });
   } catch (error) {
     return res.status(500).json({
       code: "SERVER_ERROR",
@@ -87,7 +97,8 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/company-register", async (req, res) => {
-  const { ownerName, companyName, cpf, cnpj, country, matriz, userId } =
+  const userId = req.cookies.userId;
+  const { ownerName, companyName, cpf, cnpj, country, matriz } =
     req.body;
 
   if (!ownerName || !companyName || !country) {
@@ -129,7 +140,7 @@ app.post("/company-register", async (req, res) => {
     if (userId) {
       const user = await User.findOne({ where: { id: userId } });
       if (user && !user.master) {
-        const company = await Company.findOne({ where: { regUser: user.id } });
+        const company = await Company.findOne({ where: { executor: user.id } });
         if (company) {
           return res.status(403).json({
             code: "REQUEST_BLOCKED_NORMAL_USER",
@@ -146,7 +157,7 @@ app.post("/company-register", async (req, res) => {
       cnpj: cnpj,
       country: country,
       matriz: matriz,
-      regUser: userId,
+      executor: userId,
     });
 
     return res.status(200).json({
@@ -161,15 +172,16 @@ app.post("/company-register", async (req, res) => {
 });
 
 app.post("/company-data", async (req, res) => {
-  const { userId, company } = req.body;
+  const userId = req.cookies.userId;
+  const { unique } = req.body;
 
   if (userId) {
     const user = await User.findOne({ where: { id: userId } });
     if (user && !user.master) {
       const companyOwned = await Company.findOne({
-        where: { regUser: user.id },
+        where: { executor: user.id },
       });
-      if (!companyOwned || companyOwned.regUser !== user.id) {
+      if (!companyOwned || companyOwned.executor !== user.id) {
         return res.status(403).json({
           code: "REQUEST_BLOCKED_NORMAL_USER",
           message: "Usuário não tem permissão para acessar dados desta empresa",
@@ -179,7 +191,7 @@ app.post("/company-data", async (req, res) => {
 
     const result = await Company.findOne({
       where: {
-        [Op.or]: [{ cpf: company }, { cnpj: company }],
+        [Op.or]: [{ cpf: unique }, { cnpj: unique }],
       },
     });
 
@@ -201,11 +213,11 @@ app.post("/company-data", async (req, res) => {
 
 app.post("/upload-file", async (req, res) => {
   try {
+    const userId = req.cookies.userId;
     const {
       company,
       optionType,
       stageNumber,
-      uploadBy,
       fileName,
       fileBlob,
       mimeType,
@@ -218,7 +230,7 @@ app.post("/upload-file", async (req, res) => {
       fileName: fileName,
       fileBlob: fileBlob,
       mimeType: mimeType,
-      uploadBy: uploadBy,
+      uploadedBy: userId,
     });
 
     res.status(200).send({ message: "Arquivo enviado com sucesso" });
@@ -228,22 +240,20 @@ app.post("/upload-file", async (req, res) => {
   }
 });
 
-app.post("/file-list", async (req, res) => {
+app.get("/download-file", async (req, res) => {
   try {
-    const { company, stageNumber, optionType } = req.body;
+    const { fid } = req.body;
 
-    const files = await File.findAll({
+    const file = await File.findOne({
       where: {
-        company: company,
-        stageNumber: stageNumber,
-        optionType: optionType,
+        id: fid,
       },
     });
 
-    res.status(200).send({ files: files });
+    res.status(200).send({ file: file });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: "Erro ao obter arquivo de arquivos" });
+    res.status(500).send({ message: "Erro ao obter arquivo" });
   }
 });
 

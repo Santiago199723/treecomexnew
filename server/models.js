@@ -1,4 +1,4 @@
-import { DataTypes, Op } from "sequelize";
+import { DataTypes } from "sequelize";
 import { sequelize } from "./database.js";
 
 export const User = sequelize.define("user", {
@@ -39,11 +39,11 @@ export const Company = sequelize.define('company', {
   },
   cpf: {
     type: DataTypes.STRING,
-    allowNull: true, 
+    allowNull: true,
   },
   cnpj: {
     type: DataTypes.STRING,
-    allowNull: true, 
+    allowNull: true,
   },
   country: {
     type: DataTypes.STRING,
@@ -53,13 +53,19 @@ export const Company = sequelize.define('company', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
-  regUser: {
+  executor: {
     type: DataTypes.UUID,
     allowNull: false,
   },
 });
 
 export const File = sequelize.define("file", {
+  id: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4
+  },
   company: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -84,13 +90,29 @@ export const File = sequelize.define("file", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  uploadBy: {
+  uploadedBy: {
     type: DataTypes.UUID,
     allowNull: false,
   },
-  hidden: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
+});
+
+
+export const Perm = sequelize.define("perm", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
+  action: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  data: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  unique: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
 });
