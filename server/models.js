@@ -23,7 +23,7 @@ export const User = sequelize.define("user", {
   },
 });
 
-export const Company = sequelize.define('company', {
+export const Company = sequelize.define("company", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -64,19 +64,7 @@ export const File = sequelize.define("file", {
     type: DataTypes.UUID,
     allowNull: false,
     primaryKey: true,
-    defaultValue: DataTypes.UUIDV4
-  },
-  company: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  optionType: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  stageNumber: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    defaultValue: DataTypes.UUIDV4,
   },
   fileName: {
     type: DataTypes.STRING,
@@ -90,18 +78,13 @@ export const File = sequelize.define("file", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  uploadedBy: {
-    type: DataTypes.UUID,
-    allowNull: false,
-  },
 });
-
 
 export const Perm = sequelize.define("perm", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   action: {
     type: DataTypes.STRING,
@@ -111,8 +94,8 @@ export const Perm = sequelize.define("perm", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  unique: {
+  company: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
 });

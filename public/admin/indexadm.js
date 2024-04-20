@@ -1,10 +1,10 @@
 const config = {
   apiKey: "AIzaSyAc1f8F-f-FOZb8p-ra3q7kxKPrZhTDGdg",
-    authDomain: "adm-cadastrodeuser-orion.firebaseapp.com",
-    projectId: "adm-cadastrodeuser-orion",
-    storageBucket: "adm-cadastrodeuser-orion.appspot.com",
-    messagingSenderId: "654459962858",
-    appId: "1:654459962858:web:423f5f9eff7efbbaa31e93"
+  authDomain: "adm-cadastrodeuser-orion.firebaseapp.com",
+  projectId: "adm-cadastrodeuser-orion",
+  storageBucket: "adm-cadastrodeuser-orion.appspot.com",
+  messagingSenderId: "654459962858",
+  appId: "1:654459962858:web:423f5f9eff7efbbaa31e93",
 };
 
 firebase.initializeApp(config);
@@ -64,7 +64,7 @@ async function authorize() {
 
     let user = firebase.auth().currentUser;
 
-    return {uid: user.uid, email: email};
+    return { uid: user.uid, email: email };
   } catch (err) {
     console.error("Erro durante o login:", err);
     hideLoading();

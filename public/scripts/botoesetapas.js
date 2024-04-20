@@ -1,12 +1,9 @@
-const userId = localStorage.getItem("userId");
-const company = localStorage.getItem("company");
-
 window.onload = function () {
   if (!company) {
     window.location.href = "CPF.html";
   }
 
-  fetchCompanyData().then(() => showCompanyData());
+  refreshCompanyData().then(() => showCompanyData());
 };
 
 function sair() {

@@ -1,13 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap");
 
 /* Reset de margens e preenchimento e definição de fonte padrão */
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Dancing Script', ;
+  font-family: "Dancing Script";
 }
-
 
 /* Estilo do cabeçalho "Entrar" */
 .login-header {
@@ -15,12 +14,12 @@
   margin-bottom: 20px;
   color: #2790a3 !important;
   /* Corrigido para verde mais claro */
-  font-family: 'Dancing Script', cursive, sans-serif;
+  font-family: "Dancing Script", cursive, sans-serif;
 }
 
 /* Estilo específico para a palavra "Login" */
 .login-header {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   /* Substitua 'Roboto' pela fonte desejada */
 }
 
@@ -30,12 +29,12 @@ h1 {
   margin-bottom: 20px;
   color: #4cb6e3 !important;
   /* Corrigido para verde mais claro */
-  font-family: 'Dancing Script', cursive, sans-serif;
+  font-family: "Dancing Script", cursive, sans-serif;
 }
 
 /* Estilo específico para a palavra "Login" */
 .login-header {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   /* Substitua 'Nova Fonte' pela fonte desejada */
 }
 
@@ -67,7 +66,7 @@ body {
   /* Cor azul */
   text-decoration: none;
   /* Sem sublinhado */
-  font-family: 'Robot', sans-serif;
+  font-family: "Robot", sans-serif;
   /* Fonte Dancing Script ou a fonte desejada */
 }
 
@@ -75,7 +74,6 @@ body {
   color: #b2ecf1;
   /* Cor azul clara ao passar o mouse */
 }
-
 
 /* Estilo do cabeçalho "Entrar" */
 .login-header {
@@ -135,7 +133,7 @@ h1 {
   margin-bottom: 20px;
   color: #4f9ae5 !important;
   /* Corrigido para verde mais claro */
-  font-family: 'Dancing', cursive;
+  font-family: "Dancing", cursive;
 }
 
 /* Estilo do campo de entrada de texto */
@@ -150,7 +148,7 @@ h1 {
   outline: none;
   min-width: 180px;
   font-size: 14px;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
   border-radius: 0;
   color: white;
 }
@@ -177,12 +175,12 @@ h1 {
   top: 0;
   left: 0;
   margin-top: 13px;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 /* Estilo do rótulo flutuante quando o campo está em foco ou preenchido */
-.label-float input:focus+label,
-.label-float input:valid+label {
+.label-float input:focus + label,
+.label-float input:valid + label {
   font-size: 13px;
   margin-top: 0;
   color: #2387a3;
@@ -205,7 +203,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   outline: none;
-  transition: all .4s ease-out;
+  transition: all 0.4s ease-out;
 }
 
 /* Efeito no botão ao passar o mouse */
@@ -243,7 +241,7 @@ a {
   /* Verde mais claro */
   font-weight: bold;
   text-decoration: none;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 /* Efeito no link ao passar o mouse */

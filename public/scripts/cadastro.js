@@ -1,6 +1,3 @@
-const userId = localStorage.getItem("userId");
-
-// Mapeia os valores dos estados para suas siglas correspondentes
 const estadosSiglas = {
   "": "", // Adicione a sigla padrão para quando nenhum estado for selecionado
   12: "AC",
@@ -44,36 +41,39 @@ document
     const matriz = document.querySelector("#matriz").checked;
     const estado = estadosSiglas[getElementVal("CodUf")];
 
-    fetch(`${window.location.protocol}//${window.location.hostname}/company-register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    fetch(
+      `${window.location.protocol}//${window.location.hostname}/company-register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ownerName: nome,
+          companyName: empresa,
+          cpf: cpf,
+          cnpj: cnpj,
+          country: estado,
+          matriz: matriz,
+          userId: userId,
+        }),
+        credentials: "include",
       },
-      body: JSON.stringify({
-        ownerName: nome,
-        companyName: empresa,
-        cpf: cpf,
-        cnpj: cnpj,
-        country: estado,
-        matriz: matriz,
-        userId: userId,
-      }),
-      credentials: "include"
-    })
+    )
       .then(async (response) => {
         const data = await response.json();
         if (!response.ok) {
           let alertMsg = document.querySelector(".alert");
           alertMsg.innerHTML = data.message;
           alertMsg.style.display = "block";
-          await delay(2000)
+          await delay(2000);
         } else {
           document.getElementById("cadastro-orion-global").reset();
 
           let msg = document.getElementById("mensagem-sucesso");
           msg.innerText = data.message;
           msg.style.display = "block";
-          await delay(2000)
+          await delay(2000);
           window.location.href = "CPF.html";
         }
       })
@@ -82,10 +82,4 @@ document
 
 const getElementVal = (id) => {
   return document.getElementById(id).value;
-};
-
-window.onload = function () {
-  if (!checkCookie("userId")) {
-    window.location.href = "/";
-  }
 };

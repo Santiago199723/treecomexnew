@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -122,8 +122,7 @@
 
           if (usuario.toLowerCase() === "admin") {
             // Redirecionar para o seu site desejado
-            window.location.href =
-              "administracao.html";
+            window.location.href = "administracao.html";
           } else {
             // Exibir mensagem de erro caso as credenciais sejam inválidas
             document.getElementById("msgError").innerHTML =
@@ -148,7 +147,7 @@
 
       function toggleDisableRightClickMessage() {
         let messageContainer = document.getElementById(
-          "disable-right-click-message"
+          "disable-right-click-message",
         );
         isRightClickMessageVisible = !isRightClickMessageVisible;
 

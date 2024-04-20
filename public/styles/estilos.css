@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-image: url('../assets/img.png'); /* Substitua 'caminho/para/sua/imagem.jpg' pelo caminho correto para sua imagem */
+  background-image: url("../assets/img.png"); /* Substitua 'caminho/para/sua/imagem.jpg' pelo caminho correto para sua imagem */
   background-size: cover;
   background-position: center;
   display: flex;
@@ -13,7 +13,12 @@ body {
 
 .container {
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.8); /* Adiciona um fundo branco semi-transparente */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Adiciona um fundo branco semi-transparente */
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

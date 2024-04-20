@@ -1,5 +1,3 @@
-const userId = localStorage.getItem("userId");
-
 document
   .getElementById("searchForm")
   .addEventListener("submit", function (event) {
@@ -16,29 +14,33 @@ document
     document.getElementById("result").innerHTML =
       "Aguarde, já estamos identificando..";
 
-    fetch(`${window.location.protocol}//${window.location.hostname}/company-data`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const params = new URLSearchParams({ unique: code });
+
+    fetch(
+      `${window.location.protocol}//${window.location.hostname}/company-data?${params}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
       },
-      body: JSON.stringify({
-        unique: code,
-      }),
-      credentials: "include"
-    }).then(async (response) => {
-      await delay(2000)
-      const data = await response.json();
-      if (response.ok) {
-        document.getElementById("result").innerHTML =
-        "Verificado com sucesso!";
-        await delay(2000)
-        localStorage.setItem("company", JSON.stringify(data));
-        window.location.href = "botoesetapas.html"
-      } else {
-        document.getElementById("result").innerHTML = data.message;
-        await delay(2000)
-      }
-    }).catch((error) => alert(error));
+    )
+      .then(async (response) => {
+        await delay(2000);
+        const data = await response.json();
+        if (response.ok) {
+          document.getElementById("result").innerHTML =
+            "Verificado com sucesso!";
+          await delay(2000);
+          localStorage.setItem("company", JSON.stringify(data));
+          window.location.href = "botoesetapas.html";
+        } else {
+          document.getElementById("result").innerHTML = data.message;
+          await delay(2000);
+        }
+      })
+      .catch((error) => alert(error));
   });
 
 document.getElementById("noCadastro").addEventListener("click", function () {

@@ -1,9 +1,7 @@
 let offsetX, offsetY;
-const userId = localStorage.getItem("userId");
-const company = localStorage.getItem("company");
 const csn = Number(window.location.pathname.match(/[0-9]+/)[0]);
 
-function handleFileUpload(j, code) {
+function handleFileUpload(btnIndex) {
   const fileInput = document.querySelector(".file-input");
 
   if (!fileInput.files || fileInput.files.length === 0) return;
@@ -13,24 +11,27 @@ function handleFileUpload(j, code) {
 
   reader.onload = function (event) {
     const fileBlob = event.target.result.split(",")[1];
-    const code = companyData.cpf ? companyData.cpf : companyData.cnpj
+    const code = companyData.cpf ? companyData.cpf : companyData.cnpj;
     const payload = {
       company: code,
-      optionType: getOptionType(j),
+      optionType: getOptionType(btnIndex),
       stageNumber: csn,
       fileName: file.name,
       fileBlob: fileBlob,
       mimeType: file.type,
-      uploadBy: userId,
     };
 
-    fetch(`${window.location.protocol}//${window.location.hostname}/upload-file`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    fetch(
+      `${window.location.protocol}//${window.location.hostname}/upload-file`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+        credentials: "include",
       },
-      body: JSON.stringify(payload),
-    })
+    )
       .then(async (response) => {
         const data = await response.json();
         alert(data.message);
@@ -72,23 +73,22 @@ function showSubmenuData(j) {
   deletedBy.innerText = "-";
   deletionDate.innerText = "-";
 
-  const companyData = JSON.parse(company);
-  const code = companyData.cpf ? companyData.cpf : companyData.cnpj
-  
   attachBtn.onclick = () => input.click();
   input.onchange = () => handleFileUpload(j);
 
-  fetch(`${window.location.protocol}//${window.location.hostname}/file-list`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const code = companyData.cpf ? companyData.cpf : companyData.cnpj;
+  const params = new URLSearchParams({ company: code, stage: 0, option: 0 });
+
+  fetch(
+    `${window.location.protocol}//${window.location.hostname}/stage?${params}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
     },
-    body: JSON.stringify({
-      company: code,
-      stageNumber: csn,
-      optionType: getOptionType(j),
-    }),
-  })
+  )
     .then(async (response) => {
       const data = await response.json();
       if (response.ok) {
@@ -96,7 +96,7 @@ function showSubmenuData(j) {
           fileName.innerText = resp.fileName;
 
           fileName.style.display = "flex";
-        })
+        });
       }
     })
     .catch((error) => alert(error));
@@ -113,11 +113,6 @@ function changeButtonColor(button) {
 }
 
 window.onload = function () {
-  if (!company) {
-    window.location.href = "CPF.html";
-    return;
-  }
-
   const processID = localStorage.getItem("process-id");
   if (csn === 2 && !processID) {
     window.location.href = "botoesetapas.html";
@@ -128,7 +123,7 @@ window.onload = function () {
     document.querySelector(".current-process-container").style.display = "flex";
   }
 
-  fetchCompanyData().then(() => showCompanyData());
+  refreshCompanyData().then(() => showCompanyData());
 
   if (csn === 0) {
     const creationDate = new Date(data.dataCriacao);
@@ -137,9 +132,8 @@ window.onload = function () {
     const daysPassed = 45 - Math.floor(diff / (1000 * 60 * 60 * 24));
     const remainingDays = document.querySelector(".data-restante-container");
 
-    remainingDays.querySelector(
-      "#hint-text-remaining"
-    ).innerText = `${daysPassed.toString()} dias`;
+    remainingDays.querySelector("#hint-text-remaining").innerText =
+      `${daysPassed.toString()} dias`;
     remainingDays.querySelector("#rest-remainer").innerText =
       "para terminar esta etapa";
     remainingDays.style.display = "flex";
@@ -148,9 +142,11 @@ window.onload = function () {
   const buttons = document.querySelectorAll(".neumorphic");
 
   buttons.forEach((button, index) => {
+    /*
     setInterval(() => {
       changeButtonColor(button);
     }, 1000);
+    */
 
     button.addEventListener("click", (event) => {
       event.stopPropagation();

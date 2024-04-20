@@ -59,7 +59,7 @@ function entrar() {
       const data = await response.json();
       showMessage(data.message);
       if (response.ok) {
-        await delay(2000)
+        await delay(2000);
         window.location.href = "CPF.html";
       }
     })

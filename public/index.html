@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -21,12 +21,24 @@
         <div id="msgError"></div>
 
         <div class="label-float">
-          <input type="text" id="usuario" placeholder="" required autocomplete="email"/>
+          <input
+            type="text"
+            id="usuario"
+            placeholder=""
+            required
+            autocomplete="email"
+          />
           <label id="userLabel" for="usuario">E-mail</label>
         </div>
 
         <div class="label-float">
-          <input type="password" id="senha" placeholder="" required autocomplete="current-password"/>
+          <input
+            type="password"
+            id="senha"
+            placeholder=""
+            required
+            autocomplete="current-password"
+          />
           <label id="senhaLabel" for="senha">Senha</label>
           <i class="fa fa-eye" aria-hidden="true"></i>
         </div>
@@ -68,8 +80,7 @@
 
           if (usuario.toLowerCase() === "admin") {
             // Redirecionar para o seu site desejado
-            window.location.href =
-              "administracao.html";
+            window.location.href = "administracao.html";
           } else {
             // Exibir mensagem de erro caso as credenciais sejam inválidas
             document.getElementById("msgError").innerHTML =
@@ -78,23 +89,31 @@
         });
 
       // Adicione um evento de clique para o link de trocar senha
-      document.getElementById("linkTrocarSenha").addEventListener("click", function(e) {
-        e.preventDefault(); // Impede o comportamento padrão do link
+      document
+        .getElementById("linkTrocarSenha")
+        .addEventListener("click", function (e) {
+          e.preventDefault(); // Impede o comportamento padrão do link
 
-        // Recupere o e-mail do usuário
-        const usuario = document.getElementById("usuario").value.trim();
+          // Recupere o e-mail do usuário
+          const usuario = document.getElementById("usuario").value.trim();
 
-        // Use a funcionalidade do Firebase para enviar um e-mail de redefinição de senha
-        firebase.auth().sendPasswordResetEmail(usuario)
-          .then(function() {
-            alert("E-mail de redefinição de senha enviado! Verifique sua caixa de entrada.");
-          })
-          .catch(function(error) {
-            // Trate os erros, se houver algum
-            console.error(error);
-            alert("Ocorreu um erro ao enviar o e-mail de redefinição de senha. Por favor, tente novamente.");
-          });
-      });
+          // Use a funcionalidade do Firebase para enviar um e-mail de redefinição de senha
+          firebase
+            .auth()
+            .sendPasswordResetEmail(usuario)
+            .then(function () {
+              alert(
+                "E-mail de redefinição de senha enviado! Verifique sua caixa de entrada.",
+              );
+            })
+            .catch(function (error) {
+              // Trate os erros, se houver algum
+              console.error(error);
+              alert(
+                "Ocorreu um erro ao enviar o e-mail de redefinição de senha. Por favor, tente novamente.",
+              );
+            });
+        });
     </script>
 
     <script>
@@ -113,7 +132,7 @@
 
       function toggleDisableRightClickMessage() {
         let messageContainer = document.getElementById(
-          "disable-right-click-message"
+          "disable-right-click-message",
         );
         isRightClickMessageVisible = !isRightClickMessageVisible;
 

@@ -7,12 +7,13 @@ import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 
+import { Actions } from "./enums.js";
 import { sequelize } from "./database.js";
-import { Company, User, File } from "./models.js";
+import { Company, User, File, Perm } from "./models.js";
 
 const app = express();
 const k = ora("Initializing...");
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(cookieParser());
 app.use(cors({ origin: "*" }));
@@ -28,7 +29,7 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.use("/", express.static(path.join(__dirname, "..", "public")))
+app.use("/", express.static(path.join(__dirname, "..", "public")));
 
 app.post("/check-session", (req, res) => {
   const userId = req.cookies.userId;
@@ -37,7 +38,7 @@ app.post("/check-session", (req, res) => {
   }
 
   return res.status(200).send();
-})
+});
 
 app.post("/register", async (req, res) => {
   const { email, password, master } = req.body;
@@ -87,7 +88,13 @@ app.post("/login", async (req, res) => {
     }
 
     return res
-      .status(200).cookie('userId', user.id, { maxAge: 86400000, httpOnly: true, sameSite: "strict" }).json({ message: "Login bem-sucedido" });
+      .status(200)
+      .cookie("userId", user.id, {
+        maxAge: 86400000,
+        httpOnly: true,
+        sameSite: "strict",
+      })
+      .json({ message: "Login bem-sucedido" });
   } catch (error) {
     return res.status(500).json({
       code: "SERVER_ERROR",
@@ -98,8 +105,7 @@ app.post("/login", async (req, res) => {
 
 app.post("/company-register", async (req, res) => {
   const userId = req.cookies.userId;
-  const { ownerName, companyName, cpf, cnpj, country, matriz } =
-    req.body;
+  const { ownerName, companyName, cpf, cnpj, country, matriz } = req.body;
 
   if (!ownerName || !companyName || !country) {
     return res.status(400).json({
@@ -171,9 +177,9 @@ app.post("/company-register", async (req, res) => {
   }
 });
 
-app.post("/company-data", async (req, res) => {
+app.get("/company-data", async (req, res) => {
   const userId = req.cookies.userId;
-  const { unique } = req.body;
+  const { unique } = req.query;
 
   if (userId) {
     const user = await User.findOne({ where: { id: userId } });
@@ -214,23 +220,24 @@ app.post("/company-data", async (req, res) => {
 app.post("/upload-file", async (req, res) => {
   try {
     const userId = req.cookies.userId;
-    const {
-      company,
-      optionType,
-      stageNumber,
-      fileName,
-      fileBlob,
-      mimeType,
-    } = req.body;
+    const { company, optionType, stageNumber, fileName, fileBlob, mimeType } =
+      req.body;
 
-    await File.create({
-      company: company,
-      optionType: optionType,
-      stageNumber: stageNumber,
+    const file = await File.create({
       fileName: fileName,
       fileBlob: fileBlob,
       mimeType: mimeType,
-      uploadedBy: userId,
+    });
+
+    await Perm.create({
+      action: Actions.UPLOADED_FILE,
+      data: JSON.stringify({
+        fileId: file.id,
+        optionType: optionType,
+        stageNumber: stageNumber,
+        uploadedBy: userId,
+      }),
+      company: company,
     });
 
     res.status(200).send({ message: "Arquivo enviado com sucesso" });
@@ -242,7 +249,7 @@ app.post("/upload-file", async (req, res) => {
 
 app.get("/download-file", async (req, res) => {
   try {
-    const { fid } = req.body;
+    const { fid } = req.query;
 
     const file = await File.findOne({
       where: {
@@ -254,6 +261,24 @@ app.get("/download-file", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Erro ao obter arquivo" });
+  }
+});
+
+app.get("/stage", async (req, res) => {
+  const { company, stage, option } = req.query;
+  const results = await Perm.findAll({
+    where: {
+      company: company,
+      action: {
+        [Op.in]: [Actions.REMOVED_FILE, Actions.UPLOADED_FILE],
+      },
+    },
+  });
+
+  if (results) {
+    results.forEach((result) => {
+      console.log(result);
+    })
   }
 });
 
