@@ -10,7 +10,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 
 import { Actions } from "./enums.js";
-import { sendEmail } from "./smtp.js";
+import { sendRecoveryEmail } from "./smtp.js";
 import { redis, sequelize } from "./database.js";
 import { Company, User, File, Perm, Process } from "./models.js";
 
@@ -412,36 +412,64 @@ app.post("/reset-password", async (req, res) => {
   if (!user) return res.status(404).send({ message: "Usuário não existe" })
 
   const code = randomUUID()
-  const data = { email: email, rpc: code }
-  const sent = sendEmail(email);
+  const url = `${req.protocol}://${process.env.APP_HOST}/resetPassword?code=${code}`
+  const sent = sendRecoveryEmail(email, url);
   if (sent) {
-    const x = await redis.set(code, JSON.stringify(data), (err, reply) => {
-      console.log(err, reply)
-      if (reply) {
-        redis.expire(code, 5 * 60)
-        return res.status(200).send({ message: "E-mail de redifinição de senha enviado!\n\nVerifique sua caixa de entrada" })
-      }
-    })
+    const data = { email: email }
+    const resp = await redis.set(code, JSON.stringify(data))
 
-    console.log(x)
+    if (resp) {
+      await redis.expire(code, 5 * 60)
+      return res.status(200).send({ message: "E-mail de redifinição de senha enviado!\n\nVerifique sua caixa de entrada" })
+    }
   }
 
 })
 
-app.get("/resetPassword", (req, res) => {
+app.get("/resetPassword", async (req, res) => {
 
   const code = req.query.code;
 
   if (code) {
-    redis.get(code, (_, reply) => {
-      if (reply) {
-        const resetHTML = fs.readFileSync(path.join(__dirname, "..", "public", "templates", "senha.html"), "utf-8")
-        return res.send(resetHTML)
-      }
-    })
+    const resp = await redis.get(code);
+    if (resp) {
+      const resetHTML = fs.readFileSync(path.join(__dirname, "..", "public", "templates", "senha.html"), "utf-8")
+      return res.send(resetHTML)
+    } else {
+      const resetHTML = fs.readFileSync(path.join(__dirname, "..", "public", "templates", "venceu.html"), "utf-8")
+      return res.send(resetHTML)
+    }
   }
 
   return res.status(404).send({ message: "Resource not found" })
+})
+
+app.post("/change-password", async (req, res) => {
+  const { sniffer, password } = req.body;
+
+  if (!sniffer) return res.status(400).send({ error: "MISSING_PARAMS" })
+
+  const resp = await redis.get(sniffer);
+  if (resp) {
+    const data = JSON.parse(resp)
+
+    const user = await User.findOne({
+      where: {
+        email: data.email
+      }
+    })
+
+    if (!user) return res.status(404).send({ message: "Usuário não existe" })
+
+    user.password = password;
+    await user.save();
+    await redis.del([sniffer])
+
+    return res.status(200).send({ message: "Senha alterada com sucesso!" })
+  } else {
+    return res.status(403).send({ message: "Sua senha já foi alterada, solicite um novo link caso queira alterá-la novamente" })
+  }
+
 })
 
 const port = process.env.APP_PORT || 8080;

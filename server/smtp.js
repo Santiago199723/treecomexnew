@@ -20,9 +20,8 @@ export let transporter = nodemailer.createTransport({
     },
 })
 
-export function sendEmail(to) {
-    let text = resetPassword.replace("%e", to)
-    text = resetPassword.replace("%l",)
+export function sendRecoveryEmail(to, url) {
+    const text =  resetPassword.replace("%e", to).replace("%l", url)
 
     const opts = {
         from: process.env.SMTP_EMAIL,
