@@ -1,14 +1,17 @@
+import fs from "fs";
 import ora from "ora";
 import cors from "cors";
 import path from "path";
 import express from "express";
 import { Op } from "sequelize";
 import { fileURLToPath } from "url";
+import { randomUUID } from "crypto";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 
 import { Actions } from "./enums.js";
-import { sequelize } from "./database.js";
+import { sendEmail } from "./smtp.js";
+import { redis, sequelize } from "./database.js";
 import { Company, User, File, Perm, Process } from "./models.js";
 
 const app = express();
@@ -395,9 +398,60 @@ app.get("/user", async (req, res) => {
   }
 });
 
+app.post("/reset-password", async (req, res) => {
+  const email = req.body.email;
+
+  if (!email) return res.status(400).send({ message: "Você deve fornecer um e-mail para prosseguir" })
+
+  const user = await User.findOne({
+    where: {
+      email: email
+    }
+  })
+
+  if (!user) return res.status(404).send({ message: "Usuário não existe" })
+
+  const code = randomUUID()
+  const data = { email: email, rpc: code }
+  const sent = sendEmail(email);
+  if (sent) {
+    const x = await redis.set(code, JSON.stringify(data), (err, reply) => {
+      console.log(err, reply)
+      if (reply) {
+        redis.expire(code, 5 * 60)
+        return res.status(200).send({ message: "E-mail de redifinição de senha enviado!\n\nVerifique sua caixa de entrada" })
+      }
+    })
+
+    console.log(x)
+  }
+
+})
+
+app.get("/resetPassword", (req, res) => {
+
+  const code = req.query.code;
+
+  if (code) {
+    redis.get(code, (_, reply) => {
+      if (reply) {
+        const resetHTML = fs.readFileSync(path.join(__dirname, "..", "public", "templates", "senha.html"), "utf-8")
+        return res.send(resetHTML)
+      }
+    })
+  }
+
+  return res.status(404).send({ message: "Resource not found" })
+})
+
 const port = process.env.APP_PORT || 8080;
 
-sequelize.sync().then(function () {
+sequelize.sync().then(async function () {
+  await redis.on('error', err => k.fail(err))
+    .connect();
+
+  k.succeed("Redis connected successfully")
+
   app.listen(port, () => {
     k.succeed(`Server is running on port ${port}`);
   });

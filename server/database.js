@@ -1,5 +1,6 @@
 import path from "path";
 import { config } from "dotenv";
+import {createClient} from "redis";
 import { Sequelize } from "sequelize";
 
 import { dirname } from "path";
@@ -20,3 +21,8 @@ export const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
   timezone: "-03:00",
   logging: false,
 });
+
+export const redis = createClient({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT
+})
