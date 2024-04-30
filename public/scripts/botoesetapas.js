@@ -1,14 +1,61 @@
-window.onload = function () {
+const processIdDropdown = document.getElementById("process-id-dropdown");
+const saveButton = document.getElementById("save-process");
+
+window.onload = async function () {
+  document.getElementById("register-master").style.display = "none";
+
   if (!company) {
     window.location.href = "CPF.html";
   }
 
-  refreshCompanyData().then(() => showCompanyData());
+  const userResponse = await fetch(
+    `${window.location.protocol}//${window.location.hostname}/user`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    },
+  );
+
+  const userData = await userResponse.json();
+  if (userResponse.ok && userData.master) {
+    document.getElementById("register-master").style.display = "flex";
+  }
+
+  const params = new URLSearchParams({
+    company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+  });
+
+  const response = await fetch(
+    `${window.location.protocol}//${window.location.hostname}/process?${params}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    },
+  );
+
+  const processIds = await response.json();
+  if (response.ok && processIds.length > 0) {
+    processIds.forEach((id) => {
+      const option = document.createElement("option");
+      option.value = id;
+      option.text = id;
+      processIdDropdown.appendChild(option);
+    });
+  }
+
+  await refreshCompanyData();
+  showCompanyData();
 };
 
 function sair() {
   localStorage.removeItem("company");
-  localStorage.removeItem("process-id");
+  localStorage.removeItem("processId");
   window.location.href = "CPF.html";
 }
 
@@ -18,48 +65,6 @@ function openModal() {
 
 function closeModal() {
   document.getElementById("overlay").style.display = "none"; // Oculta o fundo escuro
-}
-
-function processID() {
-  const id = document.getElementById("process-id");
-  if (!id.value) {
-    alert("Por favor, insira o número do Processo!");
-    return;
-  }
-
-  for (let i = 0; i < types.length; i++) {
-    ref
-      .orderByChild(types[i])
-      .equalTo(code)
-      .once("value", function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          const data = childSnapshot.val();
-          if (data) {
-            if (data.PROCESS_ID) {
-              if (data.PROCESS_ID == id.value) {
-                localStorage.setItem("process-id", id.value);
-                window.location.href = "/etapa2.html";
-                return;
-              } else if (data.PROCESS_ID !== id.value) {
-                alert("O número do processo está incorreto.");
-                return;
-              }
-            } else {
-              data.PROCESS_ID = id.value;
-              childSnapshot.ref
-                .update(data)
-                .then(() => {
-                  localStorage.setItem("process-id", id.value);
-                  window.location.href = "/etapa2.html";
-                })
-                .catch((error) => {
-                  console.error(error);
-                });
-            }
-          }
-        });
-      });
-  }
 }
 
 let offsetX, offsetY;
@@ -90,10 +95,24 @@ function draggableHandler(event) {
 
 draggable.addEventListener("mousedown", draggableHandler);
 
-input.addEventListener("mousedown", function (event) {
+processIdDropdown.addEventListener("mouseenter", function () {
   draggable.removeEventListener("mousedown", draggableHandler);
 });
 
-input.addEventListener("blur", function (event) {
+processIdDropdown.addEventListener("mouseleave", function () {
   draggable.addEventListener("mousedown", draggableHandler);
+});
+
+saveButton.addEventListener("mouseenter", function () {
+  draggable.removeEventListener("mousedown", draggableHandler);
+});
+
+saveButton.addEventListener("mouseleave", function () {
+  draggable.addEventListener("mousedown", draggableHandler);
+});
+
+saveButton.addEventListener("click", function () {
+  const selectedProcessId = processIdDropdown.value;
+  localStorage.setItem("processId", selectedProcessId);
+  window.location.href = "etapa2.html";
 });

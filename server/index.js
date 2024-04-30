@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 
 import { Actions } from "./enums.js";
 import { sequelize } from "./database.js";
-import { Company, User, File, Perm } from "./models.js";
+import { Company, User, File, Perm, Process } from "./models.js";
 
 const app = express();
 const k = ora("Initializing...");
@@ -187,6 +187,7 @@ app.get("/company-data", async (req, res) => {
       const companyOwned = await Company.findOne({
         where: { executor: user.id },
       });
+
       if (!companyOwned || companyOwned.executor !== user.id) {
         return res.status(403).json({
           code: "REQUEST_BLOCKED_NORMAL_USER",
@@ -219,53 +220,40 @@ app.get("/company-data", async (req, res) => {
 
 app.post("/upload-file", async (req, res) => {
   try {
-    const userId = req.cookies.userId;
-    const { company, optionType, stageNumber, fileName, fileBlob, mimeType } =
-      req.body;
+    const { name, blob, mimeType } = req.body;
 
     const file = await File.create({
-      fileName: fileName,
-      fileBlob: fileBlob,
+      name: name,
+      blob: blob,
       mimeType: mimeType,
     });
 
-    await Perm.create({
-      action: Actions.UPLOADED_FILE,
-      data: JSON.stringify({
-        fileId: file.id,
-        optionType: optionType,
-        stageNumber: stageNumber,
-        uploadedBy: userId,
-      }),
-      company: company,
-    });
-
-    res.status(200).send({ message: "Arquivo enviado com sucesso" });
+    res
+      .status(200)
+      .send({ message: "Arquivo enviado com sucesso", fileId: file.id });
   } catch (error) {
-    console.error(error);
     res.status(500).send({ message: "Erro ao carregar o arquivo" });
   }
 });
 
-app.get("/download-file", async (req, res) => {
+app.get("/file", async (req, res) => {
   try {
-    const { fid } = req.query;
+    const { id } = req.query;
 
     const file = await File.findOne({
       where: {
-        id: fid,
+        id: id,
       },
     });
 
     res.status(200).send({ file: file });
   } catch (error) {
-    console.error(error);
     res.status(500).send({ message: "Erro ao obter arquivo" });
   }
 });
 
 app.get("/stage", async (req, res) => {
-  const { company, stage, option } = req.query;
+  const { company, stage, option, processId } = req.query;
   const results = await Perm.findAll({
     where: {
       company: company,
@@ -276,13 +264,138 @@ app.get("/stage", async (req, res) => {
   });
 
   if (results) {
-    results.forEach((result) => {
-      console.log(result);
-    })
+    const data = [];
+
+    for (const result of results) {
+      const value = new Map();
+      const permData = JSON.parse(result.data);
+
+      if (
+        permData.stageNumber === Number(stage) &&
+        permData.optionType === option
+      ) {
+        const user = await User.findOne({
+          where: {
+            id: permData.triggeredUser,
+          },
+        });
+
+        if (!user) return res.status(404).send({ code: "MISSING_USER" });
+
+        if (Number(stage) === 1) {
+          if (result.action === Actions.UPLOADED_FILE) {
+            value.set("attachedDate", result.createdAt);
+            value.set("attachedBy", user.email);
+            value.set("type", 1);
+          } else {
+            value.set("removedDate", result.createdAt);
+            value.set("removedBy", user.email);
+            value.set("type", 2);
+          }
+        } else if (
+          Number(stage) !== 1 &&
+          permData.processId &&
+          permData.processId === processId
+        ) {
+          if (result.action === Actions.UPLOADED_FILE) {
+            value.set("attachedDate", result.createdAt);
+            value.set("attachedBy", user.email);
+            value.set("type", 1);
+          } else {
+            value.set("removedDate", result.createdAt);
+            value.set("removedBy", user.email);
+            value.set("type", 2);
+          }
+        }
+
+        if (value.size !== 0) {
+          value.set("fileId", permData.fileId);
+          data.push(Object.fromEntries(value));
+        }
+      }
+    }
+
+    return res.status(200).send(data);
   }
 });
 
-const port = process.env.PORT || 8080;
+app.post("/sniff", async (req, res) => {
+  try {
+    const userId = req.cookies.userId;
+    const { action, company, data } = req.body;
+
+    if (userId) data.triggeredUser = userId;
+
+    await Perm.create({
+      action: action,
+      data: JSON.stringify(data),
+      company: company,
+    });
+
+    res.status(200).send({ message: "sniffed" });
+  } catch (error) {
+    res.status(500).send({ error: error });
+  }
+});
+
+app.post("/process", async (req, res) => {
+  const { id, company } = req.body;
+
+  const existingProcess = await Process.findOne({ where: { id } });
+  if (existingProcess) {
+    return res
+      .status(400)
+      .json({ message: "O Processo ID fornecido já está em uso" });
+  }
+
+  try {
+    await Process.create({ id, company });
+    return res.status(201).send({ message: "Registrado com sucesso" });
+  } catch (error) {
+    return res.status(500).json({ error: "Erro ao criar o processo" });
+  }
+});
+
+app.get("/process", async (req, res) => {
+  try {
+    const { company } = req.query;
+    const allProcesses = await Process.findAll({
+      where: {
+        company: company,
+      },
+    });
+
+    const processIds = allProcesses.map((process) => process.id);
+
+    return res.status(200).json(processIds);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Erro ao obter os IDs dos processos" });
+  }
+});
+
+app.get("/user", async (req, res) => {
+  try {
+    const userId = req.cookies.userId;
+
+    if (userId) {
+      const user = await User.findOne({
+        where: {
+          id: userId,
+        },
+      });
+
+      if (user) return res.status(200).send(user);
+    }
+
+    res.status(404).send({ message: "404" });
+  } catch (error) {
+    res.status(500).send({ error: error });
+  }
+});
+
+const port = process.env.APP_PORT || 8080;
 
 sequelize.sync().then(function () {
   app.listen(port, () => {

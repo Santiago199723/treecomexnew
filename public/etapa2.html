@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>TREE COMEX - ABERTURA</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="etapas.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/etapas.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -303,15 +303,13 @@
               class="attach-file-button"
               onclick="chooseFile('opcao1_1_input')"
             >
-              <i class="fa-light fa-paperclip"></i>Anexar Arquivo
+              <i class="fa-light fa-paperclip"></i> Anexar arquivo
             </button>
             <span style="width: 10px"></span>
             <span class="file-name" style="display: none"></span>
             <span style="width: 10px"></span>
             <i
-              style="cursor: pointer; display: none"
-              onclick="removeArquivo('opcao1_1_input')"
-              style="font-size: 24px"
+              style="cursor: pointer; display: none; font-size: 24px"
               class="fa"
               id="trash"
               >&#xf014;</i
@@ -323,29 +321,11 @@
             ></label>
             <input type="file" class="file-input" style="display: none" />
           </div>
-
-          <div id="data-container" style="display: flex; flex-direction: row">
-            <p>Data de upload:</p>
-            <span style="width: 10px"></span>
-            <p id="data-de-upload">-</p>
-            <span style="width: 15px"></span>
-            <p>Anexado por:</p>
-            <span style="width: 10px"></span>
-            <p id="anexado-por">-</p>
-          </div>
-          <div style="display: flex; flex-direction: row">
-            <p>Arquivo excluido por:</p>
-            <span style="width: 10px"></span>
-            <p id="excluido-por">-</p>
-            <span style="width: 15px"></span>
-            <p>Data de exclusao:</p>
-            <span style="width: 10px"></span>
-            <p id="data-de-exclusao">-</p>
-          </div>
         </div>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+
     <script src="scripts/etapas.js"></script>
+    <script src="scripts/utils.js"></script>
   </body>
 </html>

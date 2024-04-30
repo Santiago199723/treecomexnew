@@ -1,4 +1,5 @@
 let offsetX, offsetY;
+const buttons = document.querySelectorAll(".neumorphic");
 const csn = Number(window.location.pathname.match(/[0-9]+/)[0]);
 
 function handleFileUpload(btnIndex) {
@@ -11,15 +12,6 @@ function handleFileUpload(btnIndex) {
 
   reader.onload = function (event) {
     const fileBlob = event.target.result.split(",")[1];
-    const code = companyData.cpf ? companyData.cpf : companyData.cnpj;
-    const payload = {
-      company: code,
-      optionType: getOptionType(btnIndex),
-      stageNumber: csn,
-      fileName: file.name,
-      fileBlob: fileBlob,
-      mimeType: file.type,
-    };
 
     fetch(
       `${window.location.protocol}//${window.location.hostname}/upload-file`,
@@ -28,56 +20,116 @@ function handleFileUpload(btnIndex) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
-        credentials: "include",
+        body: JSON.stringify({
+          name: file.name,
+          blob: fileBlob,
+          mimeType: file.type,
+        }),
       },
-    )
-      .then(async (response) => {
-        const data = await response.json();
-        alert(data.message);
-      })
-      .catch((error) => alert(error));
+    ).then(async (response) => {
+      const data = await response.json();
+
+      if (response.ok) {
+        const obj = {
+          fileId: data.fileId,
+          optionType: getOptionType(btnIndex),
+          stageNumber: csn,
+          processId: csn !== 1 ? processId : undefined,
+        };
+
+        await fetch(
+          `${window.location.protocol}//${window.location.hostname}/sniff`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              action: "uploaded_file",
+              data: obj,
+              company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+            }),
+            credentials: "include",
+          },
+        );
+      }
+
+      alert(data.message);
+      showSubmenuData(btnIndex);
+      await refreshButtons();
+    });
   };
 
   reader.readAsDataURL(file);
 }
 
-function showSubmenu(j) {
+function handleFileRemove(fileId, btnIndex) {
+  const resp = confirm("Tem certeza de que deseja excluir o arquivo?");
+  if (resp === true) {
+    const obj = {
+      fileId: fileId,
+      optionType: getOptionType(btnIndex),
+      stageNumber: csn,
+      processId: csn !== 1 ? processId : undefined,
+    };
+
+    fetch(`${window.location.protocol}//${window.location.hostname}/sniff`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        action: "removed_file",
+        data: obj,
+        company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+      }),
+      credentials: "include",
+    }).then((response) => {
+      if (response.ok) {
+        alert("Arquivo excluido com sucesso");
+        showSubmenuData(btnIndex);
+      }
+    });
+  } else {
+    alert("Operação cancelada!");
+  }
+}
+
+function showSubmenu(btnIndex) {
   const submenus = document.querySelectorAll(".submenu");
   if (submenus[0].style != "flex") {
     submenus[0].style.display = "flex";
   }
 
-  showSubmenuData(j);
+  showSubmenuData(btnIndex);
 }
 
-// Função para carregar arquivos anexados ao recarregar a página
-function showSubmenuData(j) {
+function showSubmenuData(btnIndex) {
   const submenu = document.querySelector("#submenu_botao");
-  const containerData = submenu.querySelector(".container-data");
+  const fileDetailsElements = submenu.querySelectorAll(".file-details");
+  fileDetailsElements.forEach((element) => {
+    element.remove();
+  });
 
   let trash = submenu.querySelector("#trash");
   let attachBtn = submenu.querySelector(".attach-file-button");
   let input = submenu.querySelector(".file-input");
   let fileName = submenu.querySelector(".file-name");
 
-  let uploadTime = containerData.querySelector(".upload-date");
-  let uploadBy = containerData.querySelector(".uploaded-by");
-  let deletedBy = containerData.querySelector(".deleted-by");
-  let deletionDate = containerData.querySelector(".deletion-date");
-
+  fileName.style.display = "none";
   trash.style.display = "none";
 
-  uploadTime.innerText = "-";
-  uploadBy.innerText = "-";
-  deletedBy.innerText = "-";
-  deletionDate.innerText = "-";
-
   attachBtn.onclick = () => input.click();
-  input.onchange = () => handleFileUpload(j);
+  input.onchange = () => handleFileUpload(btnIndex);
 
-  const code = companyData.cpf ? companyData.cpf : companyData.cnpj;
-  const params = new URLSearchParams({ company: code, stage: 0, option: 0 });
+  const obj = {
+    company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+    stage: csn,
+    option: getOptionType(btnIndex),
+    processId: csn !== 1 ? processId : undefined,
+  };
+
+  const params = new URLSearchParams(obj);
 
   fetch(
     `${window.location.protocol}//${window.location.hostname}/stage?${params}`,
@@ -88,66 +140,117 @@ function showSubmenuData(j) {
       },
       credentials: "include",
     },
-  )
-    .then(async (response) => {
-      const data = await response.json();
-      if (response.ok) {
-        data.files.forEach((resp) => {
-          fileName.innerText = resp.fileName;
+  ).then(async (response) => {
+    const data = await response.json();
+    if (response.ok && data.length !== 0) {
+      const attachedFiles = [];
+      const removedFiles = [];
 
-          fileName.style.display = "flex";
-        });
+      data.forEach((value) => {
+        if (value.type === 1) {
+          attachedFiles.push(value);
+        } else {
+          removedFiles.push(value);
+        }
+      });
+
+      attachedFiles.sort(
+        (a, b) => new Date(b.attachedDate) - new Date(a.attachedDate),
+      );
+      removedFiles.sort(
+        (a, b) => new Date(b.removedDate) - new Date(a.removedDate),
+      );
+
+      const sortedData = removedFiles.concat(attachedFiles);
+      sortedData.sort(
+        (a, b) =>
+          new Date(b.attachedDate || b.removedDate) -
+          new Date(a.attachedDate || a.removedDate),
+      );
+
+      if (sortedData[0].type === 1) {
+        const file = await getFileData(sortedData[0].fileId);
+        fileName.innerText = file.name;
+        fileName.onclick = () => {
+          const parts = String.fromCharCode(...new Uint8Array(file.blob.data));
+
+          const blob = new Blob([atob(parts)], { type: file.mimeType });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = file.name;
+          a.click();
+          URL.revokeObjectURL(url);
+        };
+
+        trash.onclick = () => handleFileRemove(file.id, btnIndex);
+        fileName.style.display = "flex";
+        trash.style.display = "flex";
       }
-    })
-    .catch((error) => alert(error));
+
+      sortedData.forEach((value) => {
+        const fileDetails = document.createElement("div");
+        fileDetails.classList.add("file-details");
+
+        const dateKey = value.type === 1 ? "attachedDate" : "removedDate";
+        const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
+
+        fileDetails.innerHTML = `
+            <p>Data de ${
+              value.type === 1 ? "anexo" : "exclusão"
+            }: <span class="submenu-span-red">${formatDate(
+              value[dateKey],
+            )}</span></p>
+            <span style="width: 10px"></span>
+            <p>${
+              value.type === 1 ? "Anexado por" : "Removido por"
+            }: <span class="submenu-span-red">${value[actionKey]}</span></p>
+          `;
+
+        submenu.appendChild(fileDetails);
+      });
+    }
+  });
 }
+window.onload = async function () {
+  await refreshCompanyData();
+  showCompanyData();
+  await refreshButtons();
 
-function changeButtonColor(button) {
-  if (fileIndex !== -1) {
-    button.style.boxShadow =
-      "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
-  } else {
-    button.style.boxShadow =
-      "-0.5rem -0.5rem 1rem hsl(0 0% 100% / 0.75), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
-  }
-}
-
-window.onload = function () {
-  const processID = localStorage.getItem("process-id");
-  if (csn === 2 && !processID) {
-    window.location.href = "botoesetapas.html";
-    return;
-  } else if (csn === 2) {
-    document.getElementById("current-process").innerText = "Processo:";
-    document.getElementById("current-process-number").innerText = processID;
-    document.querySelector(".current-process-container").style.display = "flex";
-  }
-
-  refreshCompanyData().then(() => showCompanyData());
-
-  if (csn === 0) {
-    const creationDate = new Date(data.dataCriacao);
+  if (csn === 1) {
+    const creationDate = new Date(companyData.createdAt);
     const currentDate = new Date();
-    const diff = currentDate - creationDate;
-    const daysPassed = 45 - Math.floor(diff / (1000 * 60 * 60 * 24));
-    const remainingDays = document.querySelector(".data-restante-container");
+    const diffInDays = Math.floor(
+      (currentDate - creationDate) / (1000 * 60 * 60 * 24),
+    );
+    const daysRemaining = 45 - diffInDays;
 
-    remainingDays.querySelector("#hint-text-remaining").innerText =
-      `${daysPassed.toString()} dias`;
-    remainingDays.querySelector("#rest-remainer").innerText =
-      "para terminar esta etapa";
-    remainingDays.style.display = "flex";
+    const remainingDaysContainer = document.querySelector(
+      ".data-restante-container",
+    );
+    const hintTextRemaining = remainingDaysContainer.querySelector(
+      "#hint-text-remaining",
+    );
+    const restRemainer = remainingDaysContainer.querySelector("#rest-remainer");
+
+    hintTextRemaining.innerText = `${daysRemaining} dias`;
+    restRemainer.innerText = "para terminar esta etapa";
+    remainingDaysContainer.style.display = "flex";
   }
 
-  const buttons = document.querySelectorAll(".neumorphic");
+  if (csn === 2) {
+    if (!processId) {
+      window.location.href = "botoesetapas.html";
+      return;
+    } else {
+      document.getElementById("current-process").innerText = "Processo:";
+      document.getElementById("current-process-number").innerText = processId;
+      document.querySelector(".current-process-container").style.display =
+        "flex";
+    }
+  }
 
   buttons.forEach((button, index) => {
-    /*
-    setInterval(() => {
-      changeButtonColor(button);
-    }, 1000);
-    */
-
     button.addEventListener("click", (event) => {
       event.stopPropagation();
       const submenuIndex = index + 1;
@@ -155,14 +258,6 @@ window.onload = function () {
     });
   });
 };
-
-function removeFile(identifier) {
-  const resp = confirm("Tem certeza de que deseja excluir o arquivo?");
-  if (resp === true) {
-  } else {
-    alert("Operação cancelada!");
-  }
-}
 
 let draggable = document.querySelector("#submenu_botao");
 
@@ -194,59 +289,37 @@ document.addEventListener("click", function (event) {
   }
 });
 
-const etapas = {
-  "DOCUMENTOS PESSOAIS DO SÓCIO": 1,
-  "CERTIFICADO DIGITAL DO SÓCIO": 2,
-  "CONTRATAÇÃO DO CONTADOR": 3,
-  "CONTRATAÇÃO DE SALA": 4,
-  "E-CNPJ A1": 5,
-  "ALTERAR CONTA DE ENERGIA PARA NOME DA EMPRESA": 6,
-  "SOLICITAR INTERNET/TELEFONE": 7,
-  "CONTRATAÇÃO DE ARMAZÉM LOGÍSTICO": 8,
-  "COMPRA DE MÓVEIS E ELETRÔNICOS": 9,
-  "ADEQUAÇÃO VISUAL DA SALA": 10,
-  "CONTRATAÇÃO DE HOSPEDAGEM E DOMÍNIO": 11,
-  "CRIAÇÃO DE EMAILS": 12,
-  "CRIAÇÃO DE REDE SOCIAIS": 13,
-  "DOCUMENTOS DA EMPRESA CONTRATO SOCIAL, CNPJ E IE": 14,
-  "HABILITAÇÃO DE RADAR": 15,
-  "CONTA GRÁFICA": 16,
-  "CONTRATAÇÃO ADM": 17,
-  "ABERTURA DE CONTA PJ BRADESCO, SANTANDER, ETC": 18,
-  "CONTRATO COM EMPRESAS DE REPRESENTAÇÃO": 19,
-  "CONTRATO DRA CLAUDIA": 20,
-  "CONTRATO OPERADOR LOGÍSTICO": 21,
-  "CONTRATO COM ARMADOR": 22,
-  "CONTRATO COM SERASA": 23,
-  "CONTRATO COM MAINO": 24,
-  "CONTRATO COM A PROSEFTUR": 25,
-  "CONTRATO COM TREECOMEX": 26,
-};
+async function refreshButtons() {
+  buttons.forEach(async (button, index) => {
+    const submenuIndex = index + 1;
 
-function getOptionType(x) {
-  for (let key in etapas) {
-    if (etapas[key] == x) {
-      return key;
+    const params = new URLSearchParams({
+      company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+      stage: csn,
+      option: getOptionType(submenuIndex),
+      processId: csn !== 1 ? processId : undefined,
+    });
+
+    const s = await fetch(
+      `${window.location.protocol}//${window.location.hostname}/stage?${params}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      },
+    );
+
+    if (s.ok) {
+      const data = await s.json();
+      if (data.length !== 0) {
+        button.style.boxShadow =
+          "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+      } else {
+        button.style.boxShadow =
+          "-0.5rem -0.5rem 1rem hsl(0 0% 100% / 0.75), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+      }
     }
-  }
-
-  return null;
-}
-
-function getFormattedDate() {
-  let date = new Date();
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-
-  const hour = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-
-  const fmt = `${day}/${month}/${year} ${hour}:${minutes}:${seconds}`;
-  return fmt;
-}
-
-function routeTo(pathName) {
-  window.location.href = pathName;
+  });
 }

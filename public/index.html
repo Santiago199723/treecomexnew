@@ -80,12 +80,18 @@
 
           if (usuario.toLowerCase() === "admin") {
             // Redirecionar para o seu site desejado
-            window.location.href = "administracao.html";
-          } else {
-            // Exibir mensagem de erro caso as credenciais sejam inválidas
-            document.getElementById("msgError").innerHTML =
-              "Credenciais inválidas. Tente novamente.";
+            window.location.href = "admin/signup.html";
+            return;
           }
+
+          if (usuario.toLowerCase() === "direcao") {
+            // Redirecionar para o seu site desejado
+            window.location.href = "manager/processos.html";
+            return;
+          }
+
+          document.getElementById("msgError").innerHTML =
+            "Credenciais inválidas. Tente novamente.";
         });
 
       // Adicione um evento de clique para o link de trocar senha

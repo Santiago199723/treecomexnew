@@ -1,7 +1,8 @@
-FROM node:20
+FROM node:latest
 
 COPY . /treecomex/
-WORKDIR /treecomex/
-RUN npm install
-EXPOSE 3000
+WORKDIR /treecomex/server
+RUN npx npm add -g pnpm
+RUN pnpm install
+EXPOSE $APP_PORT
 ENTRYPOINT [ "npm", "run", "start:prod" ]

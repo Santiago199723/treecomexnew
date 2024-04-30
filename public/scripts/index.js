@@ -26,7 +26,6 @@ function isValidEmail(email) {
 }
 
 function entrar() {
-  console.log("Tentativa de login iniciada.");
   hideErrorMessage();
   showLoading();
 
@@ -54,16 +53,14 @@ function entrar() {
       email: email,
       password: password,
     }),
-  })
-    .then(async (response) => {
-      const data = await response.json();
-      showMessage(data.message);
-      if (response.ok) {
-        await delay(2000);
-        window.location.href = "CPF.html";
-      }
-    })
-    .catch((error) => alert(error));
+  }).then(async (response) => {
+    const data = await response.json();
+    showMessage(data.message);
+    if (response.ok) {
+      await delay(2000);
+      window.location.href = "CPF.html";
+    }
+  });
 }
 
 const btnEntrar = document.querySelector("#btnEntrar");

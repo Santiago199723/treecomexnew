@@ -59,6 +59,18 @@ export const Company = sequelize.define("company", {
   },
 });
 
+export const Process = sequelize.define("process", {
+  id: {
+    type: DataTypes.STRING,
+    primaryKey: true,
+    allowNull: false,
+  },
+  company: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
+
 export const File = sequelize.define("file", {
   id: {
     type: DataTypes.UUID,
@@ -66,11 +78,11 @@ export const File = sequelize.define("file", {
     primaryKey: true,
     defaultValue: DataTypes.UUIDV4,
   },
-  fileName: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  fileBlob: {
+  blob: {
     type: DataTypes.BLOB("long"),
     allowNull: false,
   },

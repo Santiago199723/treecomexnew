@@ -35,6 +35,7 @@
         text-align: center;
       }
 
+      input[type="text"],
       input[type="email"],
       input[type="password"] {
         width: 100%;
@@ -215,12 +216,11 @@
                 master: masterCheckbox.checked,
               }),
             },
-          )
-            .then(async (response) => {
-              const data = await response.json();
-              alert(data.message);
-            })
-            .catch((error) => alert(error));
+          ).then(async (response) => {
+            if (response.ok) document.getElementById("form").reset();
+            const data = await response.json();
+            alert(data.message);
+          });
         });
     </script>
   </body>

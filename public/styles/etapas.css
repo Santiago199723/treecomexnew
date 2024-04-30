@@ -183,6 +183,7 @@ span {
 
 /* Estilo do submenu */
 .submenu {
+  max-height: 200px;
   flex-direction: column;
   background-color: #fff;
   border: 4px solid #61eff9;
@@ -194,6 +195,7 @@ span {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 999;
+  overflow: auto;
 }
 
 .submenu p {
@@ -203,10 +205,8 @@ span {
 .submenu input[type="checkbox"] {
   margin-right: 5px;
 }
-.upload-date,
-.uploaded-by,
-.deletion-date,
-.deleted-by {
+
+.submenu-span-red {
   color: #f71111;
 }
 
@@ -379,4 +379,9 @@ span {
   width: 60px;
   height: auto;
   border-radius: 5px;
+}
+
+.file-details {
+  display: flex;
+  flex-direction: row;
 }
