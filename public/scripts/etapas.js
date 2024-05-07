@@ -231,11 +231,12 @@ window.onload = async function () {
     const hintTextRemaining = remainingDaysContainer.querySelector(
       "#hint-text-remaining",
     );
-    const restRemainer = remainingDaysContainer.querySelector("#rest-remainer");
+    
+    // const restRemainer = remainingDaysContainer.querySelector("#rest-remainer");
 
-    hintTextRemaining.innerText = `${daysRemaining} dias`;
-    restRemainer.innerText = "para terminar esta etapa";
-    remainingDaysContainer.style.display = "flex";
+    hintTextRemaining.innerText = `Faltan ${daysRemaining} dias`.toUpperCase();
+    // restRemainer.innerText = "para terminar esta etapa";
+    // remainingDaysContainer.style.display = "flex";
   }
 
   if (csn === 2) {
