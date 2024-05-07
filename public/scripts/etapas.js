@@ -236,7 +236,7 @@ window.onload = async function () {
 
     hintTextRemaining.innerText = `Faltan ${daysRemaining} dias`.toUpperCase();
     // restRemainer.innerText = "para terminar esta etapa";
-    // remainingDaysContainer.style.display = "flex";
+    remainingDaysContainer.style.display = "flex";
   }
 
   if (csn === 2) {
