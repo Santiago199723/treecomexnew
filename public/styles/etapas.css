@@ -98,14 +98,6 @@ hr {
   border-radius: 5px; /* Arredondando as bordas */
 }
 
-/* Estilo para o contêiner da logo */
-.logo-container {
-  top: -40px;
-  left: 5dpx;
-  z-index: 9999;
-  position: absolute;
-}
-
 /* Estilo para a logo */
 .logo {
   width: 100px; /* Largura da logo */
@@ -211,7 +203,6 @@ span {
 
 /* Estilo para o contêiner da logo */
 .logo-container {
-  position: fixed;
   width: 100px; /* Largura da logo */
   top: -5px;
   left: 10px;
