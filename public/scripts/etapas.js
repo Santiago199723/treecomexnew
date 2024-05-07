@@ -232,10 +232,11 @@ window.onload = async function () {
       "#hint-text-remaining",
     );
     
-    // const restRemainer = remainingDaysContainer.querySelector("#rest-remainer");
+    const restRemainer = remainingDaysContainer.querySelector("#rest-remainer");
 
-    hintTextRemaining.innerText = `Faltan ${daysRemaining} dias`.toUpperCase();
-    // restRemainer.innerText = "para terminar esta etapa";
+    restRemainer.innerText = "Faltam".toUpperCase();
+    hintTextRemaining.innerText = `${daysRemaining} dias`.toUpperCase();
+  
     remainingDaysContainer.style.display = "flex";
   }
 
