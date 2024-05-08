@@ -325,8 +325,3 @@ async function refreshButtons() {
     }
   });
 }
-
-function logout() {
-  localStorage.clear();
-  window.location.href = "index.html";
-}

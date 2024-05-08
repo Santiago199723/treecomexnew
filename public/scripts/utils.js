@@ -12,7 +12,7 @@ async function checkSession() {
         "Content-Type": "application/json",
       },
       credentials: "include",
-    },
+    }
   );
 
   return response.ok;
@@ -31,7 +31,7 @@ async function refreshCompanyData() {
         "Content-Type": "application/json",
       },
       credentials: "include",
-    },
+    }
   );
 
   if (response.ok) {
@@ -51,7 +51,7 @@ async function getFileData(fileId) {
         "Content-Type": "application/json",
       },
       credentials: "include",
-    },
+    }
   );
   if (response.ok) {
     const data = await response.json();
@@ -124,4 +124,9 @@ function getOptionType(x) {
 
 function routeTo(pathName) {
   window.location.href = pathName;
+}
+
+function logout() {
+  localStorage.clear();
+  window.location.href = "index.html";
 }
