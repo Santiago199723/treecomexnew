@@ -86,9 +86,8 @@ hr {
 }
 
 .sair-button {
-  position: fixed;
   align-items: center;
-  display: flex;
+  display: inline-flex;
   bottom: 15px;
   right: 15px;
   padding: 15px 10px;

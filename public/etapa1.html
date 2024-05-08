@@ -12,10 +12,19 @@
   </head>
 
   <body>
-    <button class="sair-button" onclick="logout()">
-      <image src="/assets/sair.png"></image>
-      Sair
-    </button>
+    <div
+      style="
+        display: inline-flex;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        margin: 10px;
+      "
+    >
+      <button class="sair-button" onclick="logout()">
+        <image style="width: 20px;" src="/assets/sair.png"></image>
+      </button>
+    </div>
 
     <button class="back-button" onclick="routeTo('botoesetapas.html')">
       Voltar
