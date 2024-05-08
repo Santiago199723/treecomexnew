@@ -245,7 +245,7 @@ window.onload = async function () {
       window.location.href = "botoesetapas.html";
       return;
     } else {
-      document.getElementById("current-process").innerText = "Processo:";
+      document.getElementById("current-process").innerText = "Processo:".toUpperCase();
       document.getElementById("current-process-number").innerText = processId;
       document.querySelector(".current-process-container").style.display =
         "flex";
