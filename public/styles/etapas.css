@@ -79,7 +79,30 @@ hr {
   letter-spacing: 4px;
 }
 
+
 .back-button:hover {
+  background: #fff;
+  color: #050801;
+}
+
+.sair-button {
+  position: fixed;
+  align-items: center;
+  display: flex;
+  bottom: 15px;
+  right: 15px;
+  padding: 15px 10px;
+  color: #fcfcfc;
+  background: none;
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.5s;
+  letter-spacing: 4px;
+}
+
+
+.sair-button:hover {
   background: #fff;
   color: #050801;
 }

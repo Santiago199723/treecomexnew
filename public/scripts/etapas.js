@@ -325,3 +325,7 @@ async function refreshButtons() {
     }
   });
 }
+
+function logout() {
+  localStorage.remove()
+}
