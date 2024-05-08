@@ -7,31 +7,29 @@
     <link rel="stylesheet" href="styles/estilos.css" />
   </head>
   <body>
-    <div
-      style="
-        display: inline-flex;
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        margin: 10px;
-      "
-    >
-      <button
-        style="
-          background-color: transparent;
-          border: 2px solid #ffffff;
-          border-radius: 5px;
-        "
-        class="sair-button"
-        onclick="logout()"
-      >
-        <image style="width: 20px" src="/assets/exit-blue.png"></image>
-      </button>
     </div>
 
     <div class="container">
       <h1>TREE COMEX</h1>
       <form id="searchForm">
+        <div
+        style="
+          display: inline-flex;
+          position: fixed;
+          right: 0;
+          top: 0;
+          margin: 10px;
+        "
+      >
+        <button
+          style="
+            background-color: transparent;
+          "
+          class="sair-button"
+          onclick="logout()"
+        >
+          <image style="width: 20px" src="/assets/exit-blue.png"></image>
+        </button>
         <input
           type="text"
           id="dataInput"
