@@ -288,6 +288,10 @@ span {
   background-color: rgba(15, 165, 15, 0.5);
 }
 
+.fa-light {
+  margin-bottom: 20px;
+}
+
 .neumorphic {
   display: inline-block;
   padding: 10px 20px;
