@@ -10,7 +10,6 @@ button.neumorphic {
 
   display: grid;
   place-content: center;
-  gap: 1rem;
 
   --shadow: -0.5rem -0.5rem 1rem hsl(0 0% 100% / 0.75),
     0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5);
