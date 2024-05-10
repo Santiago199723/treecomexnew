@@ -135,10 +135,13 @@
           );
 
           const data = await response.json();
-          document.getElementById("msgError").textContent = data.message;
+          let msg = document.getElementById("msgError");
+          msg.textContent = data.message;
+          msg.style.display = "block";
+
           if (response.ok) {
             await delay(2000);
-            localStorage.setItem("__sess_admin__", "true")
+            localStorage.setItem("__sess_admin__", "true");
             window.location.href = "cadastro.html";
           }
         });
