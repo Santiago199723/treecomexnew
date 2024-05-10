@@ -44,7 +44,7 @@ function entrar() {
     return;
   }
 
-  fetch(`${window.location.protocol}//${window.location.hostname}/login`, {
+  fetch("/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

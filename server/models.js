@@ -111,3 +111,21 @@ export const Perm = sequelize.define("perm", {
     allowNull: false,
   },
 });
+
+export const Admin = sequelize.define("admin", {
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    allowNull: false,
+    defaultValue: DataTypes.UUIDV4,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});

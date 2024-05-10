@@ -162,12 +162,34 @@
             </svg>
           </span>
         </div>
+        <div class="options">
+          <label for="master" class="option-label master-label">Master</label>
+          <input
+            type="radio"
+            id="master"
+            name="user-type"
+            value="master"
+            style="margin-right: 10px"
+          />
+          <label for="normal" class="option-label normal-label">Normal</label>
+          <input
+            type="radio"
+            id="normal"
+            name="user-type"
+            value="normal"
+            style="margin-right: 100px"
+          />
+        </div>
 
         <button type="submit" class="btn">Cadastrar usuário</button>
       </form>
     </div>
 
     <script>
+      window.addEventListener("beforeunload", () => {
+        localStorage.removeItem("__sess_admin__")
+      })
+      
       function togglePasswordVisibility() {
         const passwordInput = document.getElementById("password");
         const passwordToggle = document.querySelector(".password-toggle");
@@ -190,10 +212,13 @@
 
           const emailInput = document.getElementById("email");
           const passwordInput = document.getElementById("password");
+          const masterCheckbox = document.getElementById("master");
+          const normalCheckbox = document.getElementById("normal");
 
           if (
             !emailInput.value ||
-            !passwordInput.value 
+            !passwordInput.value ||
+            (!masterCheckbox.checked && !normalCheckbox.checked)
           ) {
             alert(
               "Preencha todos os campos e selecione uma das opções: Master ou Normal!",
@@ -202,7 +227,7 @@
           }
 
           fetch(
-            "/admin/register",
+            `${window.location.protocol}//${window.location.hostname}/register`,
             {
               method: "POST",
               headers: {
@@ -211,6 +236,7 @@
               body: JSON.stringify({
                 email: emailInput.value,
                 password: passwordInput.value,
+                master: masterCheckbox.checked,
               }),
             },
           ).then(async (response) => {

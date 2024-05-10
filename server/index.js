@@ -12,7 +12,7 @@ import cookieParser from "cookie-parser";
 import { Actions } from "./enums.js";
 import { sendRecoveryEmail } from "./smtp.js";
 import { redis, sequelize } from "./database.js";
-import { Company, User, File, Perm, Process } from "./models.js";
+import { Company, User, File, Perm, Process, Admin } from "./models.js";
 
 const app = express();
 const k = ora("Initializing...");
@@ -401,84 +401,162 @@ app.get("/user", async (req, res) => {
 app.post("/reset-password", async (req, res) => {
   const email = req.body.email;
 
-  if (!email) return res.status(400).send({ message: "Você deve fornecer um e-mail para prosseguir" })
+  if (!email)
+    return res
+      .status(400)
+      .send({ message: "Você deve fornecer um e-mail para prosseguir" });
 
   const user = await User.findOne({
     where: {
-      email: email
-    }
-  })
+      email: email,
+    },
+  });
 
-  if (!user) return res.status(404).send({ message: "Usuário não existe" })
+  if (!user) return res.status(404).send({ message: "Usuário não existe" });
 
-  const code = randomUUID()
-  const url = `${req.protocol}://${process.env.APP_HOST}/resetPassword?code=${code}`
+  const code = randomUUID();
+  const url = `${req.protocol}://${process.env.APP_HOST}/resetPassword?code=${code}`;
   const sent = sendRecoveryEmail(email, url);
   if (sent) {
-    const data = { email: email }
-    const resp = await redis.set(code, JSON.stringify(data))
+    const data = { email: email };
+    const resp = await redis.set(code, JSON.stringify(data));
 
     if (resp) {
-      await redis.expire(code, 5 * 60)
-      return res.status(200).send({ message: "E-mail de redifinição de senha enviado!\n\nVerifique sua caixa de entrada" })
+      await redis.expire(code, 5 * 60);
+      return res
+        .status(200)
+        .send({
+          message:
+            "E-mail de redifinição de senha enviado!\n\nVerifique sua caixa de entrada",
+        });
     }
   }
-
-})
+});
 
 app.get("/resetPassword", async (req, res) => {
-
   const code = req.query.code;
 
   if (code) {
     const resp = await redis.get(code);
     if (resp) {
-      const resetHTML = fs.readFileSync(path.join(__dirname, "..", "public", "templates", "senha.html"), "utf-8")
-      return res.send(resetHTML)
+      const resetHTML = fs.readFileSync(
+        path.join(__dirname, "..", "public", "templates", "senha.html"),
+        "utf-8"
+      );
+      return res.send(resetHTML);
     } else {
-      const resetHTML = fs.readFileSync(path.join(__dirname, "..", "public", "templates", "venceu.html"), "utf-8")
-      return res.send(resetHTML)
+      const resetHTML = fs.readFileSync(
+        path.join(__dirname, "..", "public", "templates", "venceu.html"),
+        "utf-8"
+      );
+      return res.send(resetHTML);
     }
   }
 
-  return res.status(404).send({ message: "Resource not found" })
-})
+  return res.status(404).send({ message: "Resource not found" });
+});
 
 app.post("/change-password", async (req, res) => {
   const { sniffer, password } = req.body;
 
-  if (!sniffer) return res.status(400).send({ error: "MISSING_PARAMS" })
+  if (!sniffer) return res.status(400).send({ error: "MISSING_PARAMS" });
 
   const resp = await redis.get(sniffer);
   if (resp) {
-    const data = JSON.parse(resp)
+    const data = JSON.parse(resp);
 
     const user = await User.findOne({
       where: {
-        email: data.email
-      }
-    })
+        email: data.email,
+      },
+    });
 
-    if (!user) return res.status(404).send({ message: "Usuário não existe" })
+    if (!user) return res.status(404).send({ message: "Usuário não existe" });
 
     user.password = password;
     await user.save();
-    await redis.del([sniffer])
+    await redis.del([sniffer]);
 
-    return res.status(200).send({ message: "Senha alterada com sucesso!" })
+    return res.status(200).send({ message: "Senha alterada com sucesso!" });
   } else {
-    return res.status(403).send({ message: "Sua senha já foi alterada, solicite um novo link caso queira alterá-la novamente" })
+    return res
+      .status(403)
+      .send({
+        message:
+          "Sua senha já foi alterada, solicite um novo link caso queira alterá-la novamente",
+      });
   }
+});
 
-})
+app.post("/admin/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const admin = await Admin.findOne({ where: { email: email } });
+
+    if (!admin) {
+      return res
+        .status(404)
+        .json({ code: "USER_NOT_FOUND", message: "Usuário não encontrado" });
+    }
+
+    if (admin.password !== password) {
+      return res
+        .status(401)
+        .json({ code: "INVALID_PASSWORD", message: "Senha inválida" });
+    }
+
+    return res
+      .status(200)
+      .cookie("__admin__", admin.id, {
+        maxAge: 86400000,
+        httpOnly: true,
+        sameSite: "strict",
+      })
+      .json({ message: "Login bem-sucedido" });
+  } catch (error) {
+    return res.status(500).json({
+      code: "SERVER_ERROR",
+      message: "Ocorreu um erro interno do servidor",
+    });
+  }
+});
+
+
+app.post("/admin/register", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const newAdmin = await Admin.create({
+      email: email,
+      password: password,
+    });
+
+    return res.status(200).json({
+      message: "Usuário criado com sucesso",
+      userId: newAdmin.id,
+    });
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      return res.status(409).json({
+        code: "EMAIL_REGISTERED",
+        message: "O e-mail já está registrado",
+      });
+    }
+
+    return res.status(500).json({
+      code: "SERVER_ERROR",
+      message: "Ocorreu um erro interno do servidor",
+    });
+  }
+});
 
 const port = process.env.APP_PORT || 8080;
 
 sequelize.sync().then(async function () {
-  await redis.on('error', err => k.fail(err))
-    .connect();
+  await redis.on("error", (err) => k.fail(err)).connect();
 
-  k.succeed("Redis connected successfully")
+  k.succeed("Redis connected successfully");
 
   app.listen(port, () => {
     k.succeed(`Server is running on port ${port}`);
