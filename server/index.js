@@ -13,6 +13,7 @@ import { Actions } from "./enums.js";
 import { sendRecoveryEmail } from "./smtp.js";
 import { redis, sequelize } from "./database.js";
 import { Company, User, File, Perm, Process, Admin } from "./models.js";
+import { headmasterCredentials } from "./raw.js";
 
 const app = express();
 const k = ora("Initializing...");
@@ -520,58 +521,59 @@ app.post("/admin/login", async (req, res) => {
 
 app.get("/admin/signup", (req, res) => {
   const { email, password } = req.query;
+
   if (!email || !password) {
     return res.send(`
-  <script>
-    window.onload = async function() {
-      const email = prompt("Digite seu e-mail");
-      const password = prompt("Digite seu senha");
+      <script>
+        window.onload = async function() {
+          const email = prompt("Digite seu e-mail");
+          const password = prompt("Digite seu senha");
 
-      if (email && password) {
-        const data = {email: email, password: password};
-        const url = "/admin/signup?" + (new URLSearchParams(data))
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-      } else {
-        alert("Preencha os campos ou seu acesso será bloqueado");
-      }
-    }
-  </script>
-  `);
-  } else {
-    const headmasterEmail = "direcaotreecomex@gmail.com.br";
-    const headmasterPassword = "direcaotreecomex";
-    if (email !== headmasterEmail) {
-      return res.send(`
+          if (email && password) {
+            window.location.href = "/admin/signup?email=" + encodeURIComponent(email) + "&password=" + encodeURIComponent(password);
+          } else {
+            alert("Preencha os campos ou seu acesso será bloqueado");
+          }
+        }
+      </script>
+    `);
+  }
+
+  if (email !== headmasterCredentials.email) {
+    return res.send(`
       <script>
         window.onload = function() {
           alert("E-mail errado!");
         }
       </script>
-      `);
-    }
+    `);
+  }
 
-    if (password !== headmasterPassword) {
-      return res.send(`
+  if (password !== headmasterCredentials.password) {
+    return res.send(`
       <script>
         window.onload = function() {
           alert("Senha incorreta!");
         }
       </script>
-      `);
+    `);
+  }
+
+  const pagePath = path.join(
+    __dirname,
+    "..",
+    "public",
+    "templates",
+    "headmasterRegisterPage.html"
+  );
+
+  fs.readFile(pagePath, "utf-8", (err, page) => {
+    if (err) {
+      return res.status(500).send("Internal Server Error");
     }
 
-    const page = fs.readFileSync(
-      path.join(__dirname, "..", "public", "templates", "headmasterRegisterPage.html"),
-      "utf-8"
-    );
-
-    return res.send(page)
-  }
+    res.send(page);
+  });
 });
 
 app.post("/admin/register", async (req, res) => {
