@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -120,19 +120,16 @@
           const usuario = document.getElementById("usuario").value.trim();
           const senha = document.getElementById("senha").value;
 
-          const response = await fetch(
-            `${window.location.protocol}//${window.location.hostname}/login`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                email: usuario,
-                password: senha,
-              }),
-            }
-          );
+          const response = await fetch("/admin/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: usuario,
+              password: senha,
+            }),
+          });
 
           const data = await response.json();
           let msg = document.getElementById("msgError");
@@ -163,7 +160,7 @@
 
       function toggleDisableRightClickMessage() {
         let messageContainer = document.getElementById(
-          "disable-right-click-message"
+          "disable-right-click-message",
         );
         isRightClickMessageVisible = !isRightClickMessageVisible;
 

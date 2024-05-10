@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -228,25 +228,22 @@
             (!masterCheckbox.checked && !normalCheckbox.checked)
           ) {
             alert(
-              "Preencha todos os campos e selecione uma das opções: Master ou Normal!"
+              "Preencha todos os campos e selecione uma das opções: Master ou Normal!",
             );
             return;
           }
 
-          fetch(
-            `${window.location.protocol}//${window.location.hostname}/register`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                email: emailInput.value,
-                password: passwordInput.value,
-                master: masterCheckbox.checked,
-              }),
-            }
-          ).then(async (response) => {
+          fetch("/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: emailInput.value,
+              password: passwordInput.value,
+              master: masterCheckbox.checked,
+            }),
+          }).then(async (response) => {
             if (response.ok) document.getElementById("form").reset();
             const data = await response.json();
             alert(data.message);

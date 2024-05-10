@@ -109,7 +109,9 @@
   </head>
   <body>
     <div class="container">
-      <div style="display: inline-flex; transform:  translate(-13.7rem, 17.2rem);">
+      <div
+        style="display: inline-flex; transform: translate(-13.7rem, 17.2rem)"
+      >
         <button
           style="
             background-color: transparent;
@@ -191,29 +193,23 @@
           const emailInput = document.getElementById("email");
           const passwordInput = document.getElementById("password");
 
-          if (
-            !emailInput.value ||
-            !passwordInput.value 
-          ) {
+          if (!emailInput.value || !passwordInput.value) {
             alert(
               "Preencha todos os campos e selecione uma das opções: Master ou Normal!",
             );
             return;
           }
 
-          fetch(
-            "/admin/register",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                email: emailInput.value,
-                password: passwordInput.value,
-              }),
+          fetch("/admin/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-          ).then(async (response) => {
+            body: JSON.stringify({
+              email: emailInput.value,
+              password: passwordInput.value,
+            }),
+          }).then(async (response) => {
             if (response.ok) document.getElementById("form").reset();
             const data = await response.json();
             alert(data.message);
