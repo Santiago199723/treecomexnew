@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -109,7 +109,9 @@
   </head>
   <body>
     <div class="container">
-      <div style="display: inline-flex; transform:  translate(-13.7rem, 17.2rem);">
+      <div
+        style="display: inline-flex; transform: translate(-13.7rem, 17.2rem)"
+      >
         <button
           style="
             background-color: transparent;
@@ -186,10 +188,15 @@
     </div>
 
     <script>
+      window.onload = function () {
+        if (!localStorage.getItem("__sess_admin"))
+          window.location.href = "/admin/login.html";
+      };
+
       window.addEventListener("beforeunload", () => {
-        localStorage.removeItem("__sess_admin__")
-      })
-      
+        localStorage.removeItem("__sess_admin__");
+      });
+
       function togglePasswordVisibility() {
         const passwordInput = document.getElementById("password");
         const passwordToggle = document.querySelector(".password-toggle");
@@ -221,7 +228,7 @@
             (!masterCheckbox.checked && !normalCheckbox.checked)
           ) {
             alert(
-              "Preencha todos os campos e selecione uma das opções: Master ou Normal!",
+              "Preencha todos os campos e selecione uma das opções: Master ou Normal!"
             );
             return;
           }
@@ -238,7 +245,7 @@
                 password: passwordInput.value,
                 master: masterCheckbox.checked,
               }),
-            },
+            }
           ).then(async (response) => {
             if (response.ok) document.getElementById("form").reset();
             const data = await response.json();
