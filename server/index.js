@@ -543,12 +543,14 @@ app.get("/admin/signup", (req, res) => {
   </script>
   `);
   } else {
-    const headmasterEmail = "";
-    const headmasterPassword = "";
+    const headmasterEmail = "direcaotreecomex@gmail.com.br";
+    const headmasterPassword = "direcaotreecomex";
     if (email !== headmasterEmail) {
       return res.send(`
       <script>
-        alert("E-mail errado");
+        window.onload = function() {
+          alert("E-mail errado!");
+        }
       </script>
       `);
     }
@@ -556,7 +558,9 @@ app.get("/admin/signup", (req, res) => {
     if (password !== headmasterPassword) {
       return res.send(`
       <script>
-        alert("Senha incorreta");
+        window.onload = function() {
+          alert("Senha incorreta!");
+        }
       </script>
       `);
     }
