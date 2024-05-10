@@ -114,6 +114,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
 
     <script>
+      window.onload = function() {
+        if (!localStorage.getItem("__sess_admin")) window.location.href = "/admin/login.html"
+      }
+      
       document
         .getElementById("btnEntrar")
         .addEventListener("click", async function () {

@@ -586,7 +586,7 @@ app.post("/admin/register", async (req, res) => {
     });
 
     return res.status(200).json({
-      message: "Usuário criado com sucesso",
+      message: "Administrador criado com sucesso",
       userId: newAdmin.id,
     });
   } catch (error) {
