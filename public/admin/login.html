@@ -135,7 +135,7 @@
           );
 
           const data = await response.json();
-          showMessage(data.message);
+          document.getElementById("msgError").textContent = data.message;
           if (response.ok) {
             await delay(2000);
             localStorage.setItem("__sess_admin__", "true")
