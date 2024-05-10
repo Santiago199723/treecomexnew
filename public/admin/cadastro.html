@@ -193,10 +193,6 @@
           window.location.href = "/admin/login.html";
       };
 
-      window.addEventListener("beforeunload", () => {
-        localStorage.removeItem("__sess_admin__");
-      });
-
       function togglePasswordVisibility() {
         const passwordInput = document.getElementById("password");
         const passwordToggle = document.querySelector(".password-toggle");
