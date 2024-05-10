@@ -564,7 +564,7 @@ app.get("/admin/signup", (req, res) => {
     "..",
     "public",
     "templates",
-    "headmasterRegisterPage.html"
+    "hrp.html"
   );
 
   fs.readFile(pagePath, "utf-8", (err, page) => {
