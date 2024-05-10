@@ -423,12 +423,10 @@ app.post("/reset-password", async (req, res) => {
 
     if (resp) {
       await redis.expire(code, 5 * 60);
-      return res
-        .status(200)
-        .send({
-          message:
-            "E-mail de redifinição de senha enviado!\n\nVerifique sua caixa de entrada",
-        });
+      return res.status(200).send({
+        message:
+          "E-mail de redifinição de senha enviado!\n\nVerifique sua caixa de entrada",
+      });
     }
   }
 });
@@ -479,12 +477,10 @@ app.post("/change-password", async (req, res) => {
 
     return res.status(200).send({ message: "Senha alterada com sucesso!" });
   } else {
-    return res
-      .status(403)
-      .send({
-        message:
-          "Sua senha já foi alterada, solicite um novo link caso queira alterá-la novamente",
-      });
+    return res.status(403).send({
+      message:
+        "Sua senha já foi alterada, solicite um novo link caso queira alterá-la novamente",
+    });
   }
 });
 
@@ -522,6 +518,57 @@ app.post("/admin/login", async (req, res) => {
   }
 });
 
+app.get("/admin/signup", (req, res) => {
+  const { email, password } = req.query;
+  if (!email || !password) {
+    return res.send(`
+  <script>
+    window.onload = async function() {
+      const email = prompt("Digite seu e-mail");
+      const password = prompt("Digite seu senha");
+
+      if (email && password) {
+        const data = {email: email, password: password};
+        const url = "/admin/signup?" + (new URLSearchParams(data))
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+      } else {
+        alert("Preencha os campos ou seu acesso será bloqueado");
+      }
+    }
+  </script>
+  `);
+  } else {
+    const headmasterEmail = "";
+    const headmasterPassword = "";
+    if (email !== headmasterEmail) {
+      return res.send(`
+      <script>
+        alert("E-mail errado");
+      </script>
+      `);
+    }
+
+    if (password !== headmasterPassword) {
+      return res.send(`
+      <script>
+        alert("Senha incorreta");
+      </script>
+      `);
+    }
+
+    const page = fs.readFileSync(
+      path.join(__dirname, "..", "public", "templates", "headmasterRegisterPage.html"),
+      "utf-8"
+    );
+
+    return res.send(page)
+  }
+});
 
 app.post("/admin/register", async (req, res) => {
   const { email, password } = req.body;
