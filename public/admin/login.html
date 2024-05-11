@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -10,7 +10,7 @@
     />
     <link rel="stylesheet" href="../styles/signin.css" />
     <link rel="icon" type="image/png" href="../assets/icone.png" />
-    
+
     <title>TREE COMEX - Administração</title>
   </head>
   <body>
@@ -89,6 +89,14 @@
     </script>
 
     <script>
+      let btn = document.querySelector(".fa-eye");
+      btn.addEventListener("click", () => {
+        if (inputSenha.getAttribute("type") === "password") {
+          inputSenha.setAttribute("type", "text");
+        } else {
+          inputSenha.setAttribute("type", "password");
+        }
+      });
       let isRightClickMessageVisible = false;
 
       document.addEventListener("contextmenu", function (e) {
@@ -104,7 +112,7 @@
 
       function toggleDisableRightClickMessage() {
         let messageContainer = document.getElementById(
-          "disable-right-click-message",
+          "disable-right-click-message"
         );
         isRightClickMessageVisible = !isRightClickMessageVisible;
 
