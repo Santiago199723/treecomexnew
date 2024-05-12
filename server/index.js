@@ -4,6 +4,7 @@ import cors from "cors";
 import path from "path";
 import express from "express";
 import { Op } from "sequelize";
+import httpProxy from "http-proxy";
 import { fileURLToPath } from "url";
 import { randomUUID } from "crypto";
 import bodyParser from "body-parser";
@@ -16,12 +17,17 @@ import { Company, User, File, Perm, Process, Admin } from "./models.js";
 import { headmasterCredentials } from "./raw.js";
 
 const app = express();
+const proxy = httpProxy.createProxyServer();
 const k = ora("Initializing...");
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(cookieParser());
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.json({ limit: "10mb" }));
+
+app.use("/", (req, res) => {
+  proxy.web(req, res, { target: "http://localhost:5050" });
+});
 
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 413 && "body" in err) {
@@ -440,13 +446,13 @@ app.get("/resetPassword", async (req, res) => {
     if (resp) {
       const resetHTML = fs.readFileSync(
         path.join(__dirname, "..", "public", "templates", "senha.html"),
-        "utf-8",
+        "utf-8"
       );
       return res.send(resetHTML);
     } else {
       const resetHTML = fs.readFileSync(
         path.join(__dirname, "..", "public", "templates", "venceu.html"),
-        "utf-8",
+        "utf-8"
       );
       return res.send(resetHTML);
     }
@@ -564,7 +570,7 @@ app.get("/admin/signup", (req, res) => {
     "..",
     "public",
     "templates",
-    "hrp.html",
+    "hrp.html"
   );
 
   fs.readFile(pagePath, "utf-8", (err, page) => {
