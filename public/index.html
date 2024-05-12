@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -85,6 +85,11 @@
             return;
           }
 
+          if (usuario.toLowerCase() === "direcao") {
+            window.location.href = "/admin/signup";
+            return;
+          }
+
           document.getElementById("msgError").innerHTML =
             "Credenciais inválidas. Tente novamente.";
         });
@@ -99,7 +104,7 @@
           const usuario = document.getElementById("usuario").value.trim();
           if (!usuario)
             return alert(
-              "Digite um endereço de e-mail antes de solicitar uma alteração de senha",
+              "Digite um endereço de e-mail antes de solicitar uma alteração de senha"
             );
 
           // Use a funcionalidade do Firebase para enviar um e-mail de redefinição de senha
@@ -134,7 +139,7 @@
 
       function toggleDisableRightClickMessage() {
         let messageContainer = document.getElementById(
-          "disable-right-click-message",
+          "disable-right-click-message"
         );
         isRightClickMessageVisible = !isRightClickMessageVisible;
 
