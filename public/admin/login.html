@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -15,15 +15,33 @@
   </head>
   <body>
     <div class="container">
-      <div style="display: inline-flex; transform: translate(60px, -50px)">
-          <button
-            style="background-color: transparent"
-            class="sair-button"
-            onclick="logout()"
-          >
-            <image style="width: 20px" src="/assets/exit-blue.png"></image>
-          </button>
-        </div>
+      <div
+        style="
+          display: inline-flex;
+          transform: translate(-6.9rem, 19.5rem);
+          z-index: 9999;
+        "
+      >
+        <button
+          style="
+            background-color: transparent;
+            color: #5dc9dc;
+            padding: 7px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            transition: all 0.4s ease-out;
+          "
+          onclick="logout()"
+        >
+          <image style="width: 20px" src="/assets/exit-blue.png"></image>
+        </button>
+      </div>
       <div class="card">
         <h1 class="login-header">Login ADM</h1>
 
@@ -122,7 +140,7 @@
 
       function toggleDisableRightClickMessage() {
         let messageContainer = document.getElementById(
-          "disable-right-click-message"
+          "disable-right-click-message",
         );
         isRightClickMessageVisible = !isRightClickMessageVisible;
 
