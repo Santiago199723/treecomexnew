@@ -14,7 +14,7 @@ import { Actions } from "./enums.js";
 import { sendRecoveryEmail } from "./smtp.js";
 import { redis, sequelize } from "./database.js";
 import { Company, User, File, Perm, Process, Admin } from "./models.js";
-import { headmasterCredentials } from "./raw.js";
+import { hmc } from "./raw.js";
 
 const app = express();
 const proxy = httpProxy.createProxyServer();
@@ -525,61 +525,18 @@ app.post("/admin/login", async (req, res) => {
   }
 });
 
-app.get("/admin/signup", (req, res) => {
-  const { email, password } = req.query;
+app.post("/hm/login", (req, res) => {
+  const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.send(`
-      <script>
-        window.onload = async function() {
-          const email = prompt("Digite seu e-mail");
-          const password = prompt("Digite seu senha");
-
-          if (email && password) {
-            window.location.href = "/admin/signup?email=" + encodeURIComponent(email) + "&password=" + encodeURIComponent(password);
-          } else {
-            alert("Preencha os campos ou seu acesso será bloqueado");
-          }
-        }
-      </script>
-    `);
+  if (email !== hmc.email) {
+    return res.status(400).send({message: "E-mail não encontrado"});
   }
 
-  if (email !== headmasterCredentials.email) {
-    return res.send(`
-      <script>
-        window.onload = function() {
-          alert("E-mail errado!");
-        }
-      </script>
-    `);
+  if (password !== hmc.password) {
+    return res.status(400).send({message: "Senha inválida"});
   }
 
-  if (password !== headmasterCredentials.password) {
-    return res.send(`
-      <script>
-        window.onload = function() {
-          alert("Senha incorreta!");
-        }
-      </script>
-    `);
-  }
-
-  const pagePath = path.join(
-    __dirname,
-    "..",
-    "public",
-    "templates",
-    "hrp.html"
-  );
-
-  fs.readFile(pagePath, "utf-8", (err, page) => {
-    if (err) {
-      return res.status(500).send("Internal Server Error");
-    }
-
-    res.send(page);
-  });
+  return res.status(200).send({message: "Login bem-sucedido"});
 });
 
 app.post("/admin/register", async (req, res) => {

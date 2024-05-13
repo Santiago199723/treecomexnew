@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -170,6 +170,11 @@
     </div>
 
     <script>
+      window.onload = function () {
+        if (!localStorage.getItem("__sess_hm__"))
+          window.location.href = "login.html";
+      };
+
       function togglePasswordVisibility() {
         const passwordInput = document.getElementById("password");
         const passwordToggle = document.querySelector(".password-toggle");
@@ -195,7 +200,7 @@
 
           if (!emailInput.value || !passwordInput.value) {
             alert(
-              "Preencha todos os campos e selecione uma das opções: Master ou Normal!",
+              "Preencha todos os campos e selecione uma das opções: Master ou Normal!"
             );
             return;
           }
