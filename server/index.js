@@ -26,6 +26,7 @@ app.use(cors({ origin: "*" }));
 app.use(bodyParser.json({ limit: "10mb" }));
 
 app.use("/pgAdmin/", (req, res) => {
+  req.url = req.url.replace(/^\/pgAdmin(\/)?/, '/');
   proxy.web(req, res, { target: "http://localhost:5050" });
 });
 
