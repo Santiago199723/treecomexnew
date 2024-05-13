@@ -25,11 +25,9 @@ app.use(cookieParser());
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.json({ limit: "10mb" }));
 
-app.use("/pgAdmin/", (req, res, next) => {
-  req.url = req.url.replace(/^\/pgAdmin(\/)?/, '/');
+app.use("/pgAdmin/", (req, res) => {
+  req.url = req.url.replace(/^\/pgAdmin(\/)?/, "/pgAdmin$1");
   proxy.web(req, res, { target: "http://localhost:5050" });
-
-  next();
 });
 
 app.use((err, req, res, next) => {
@@ -532,14 +530,14 @@ app.post("/hm/login", (req, res) => {
   const { email, password } = req.body;
 
   if (email !== hmc.email) {
-    return res.status(400).send({message: "E-mail não encontrado"});
+    return res.status(400).send({ message: "E-mail não encontrado" });
   }
 
   if (password !== hmc.password) {
-    return res.status(400).send({message: "Senha inválida"});
+    return res.status(400).send({ message: "Senha inválida" });
   }
 
-  return res.status(200).send({message: "Login bem-sucedido"});
+  return res.status(200).send({ message: "Login bem-sucedido" });
 });
 
 app.post("/admin/register", async (req, res) => {
