@@ -25,8 +25,11 @@ app.use(cookieParser());
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.json({ limit: "10mb" }));
 
-app.use("/pgAdmin/", (req, res) => {
-  req.url = req.url.replace(/^\/pgAdmin(\/)?/, "/pgAdmin$1");
+app.use("/pgAdmin", (req, res) => {
+  if (!req.url.startsWith("/pgAdmin")) {
+    req.url = `/pgAdmin${req.url}`
+  }
+  
   proxy.web(req, res, { target: "http://localhost:5050" });
 });
 
