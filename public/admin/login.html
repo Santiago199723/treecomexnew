@@ -16,9 +16,11 @@
   <body>
     <div class="container">
       <div
+        id="exit-btn-container"
         style="
+          position: fixed;
           display: inline-flex;
-          transform: translate(-6.9rem, 19.5rem);
+          transform: translate(-6.9rem, 8rem);
           z-index: 9999;
         "
       >
@@ -106,6 +108,8 @@
           let msg = document.getElementById("msgError");
           msg.textContent = data.message;
           msg.style.display = "block";
+          document.getElementById("exit-btn-container").style.transform =
+            "translate(-6.9rem, 9.5rem)";
 
           if (response.ok) {
             await delay(2000);
