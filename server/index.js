@@ -494,7 +494,7 @@ app.post("/admin/login", async (req, res) => {
     if (!admin) {
       return res
         .status(404)
-        .json({ code: "USER_NOT_FOUND", message: "Usuário não encontrado" });
+        .json({ code: "ADMIN_NOT_FOUND", message: "Administrador não encontrado" });
     }
 
     if (admin.password !== password) {
