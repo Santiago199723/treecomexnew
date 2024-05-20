@@ -1,131 +1,162 @@
 <!doctype html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="styles/signin.css" />
+    <link rel="icon" type="image/png" href="assets/icone.png" />
+    <!-- Substitua pelo caminho real do seu ícone -->
+    <title>TREE COMEX</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="styles/signin.css" />
-  <link rel="icon" type="image/png" href="assets/icone.png" />
-  <!-- Substitua pelo caminho real do seu ícone -->
-  <title>TREE COMEX</title>
-</head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1 class="login-header">Login</h1>
 
-<body>
-  <div class="container">
-    <div class="card">
-      <h1 class="login-header">Login</h1>
+        <div id="msgError"></div>
 
-      <div id="msgError"></div>
+        <div class="label-float">
+          <input
+            type="text"
+            id="usuario"
+            placeholder=""
+            required
+            autocomplete="email"
+          />
+          <label id="userLabel" for="usuario">E-mail</label>
+        </div>
 
-      <div class="label-float">
-        <input type="text" id="usuario" placeholder="" required autocomplete="email" />
-        <label id="userLabel" for="usuario">E-mail</label>
-      </div>
+        <div class="label-float">
+          <input
+            type="password"
+            id="senha"
+            placeholder=""
+            required
+            autocomplete="current-password"
+          />
+          <label id="senhaLabel" for="senha">Senha</label>
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </div>
 
-      <div class="label-float">
-        <input type="password" id="senha" placeholder="" required autocomplete="current-password" />
-        <label id="senhaLabel" for="senha">Senha</label>
-        <i class="fa fa-eye" aria-hidden="true"></i>
-      </div>
+        <div class="justify-center">
+          <button id="btnEntrar">Entrar</button>
+        </div>
 
-      <div class="justify-center">
-        <button id="btnEntrar">Entrar</button>
-      </div>
-
-      <!-- Links de cadastro -->
-      <div class="justify-center">
-        <a href="#" id="linkTrocarSenha">Esqueci a senha | Trocar senha</a>
+        <!-- Links de cadastro -->
+        <div class="justify-center">
+          <a href="#" id="linkTrocarSenha">Esqueci a senha | Trocar senha</a>
+        </div>
       </div>
     </div>
-  </div>
-  <ins class="adsbygoogle" style="display: block" data-ad-client="ca-pub-4150589724074166" data-ad-slot="8839001946"
-    data-ad-format="auto" data-full-width-responsive="true"></ins>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-  <div id="disable-right-click-message">
-    <p>
-      Ops, estamos usando segurança máxima! Você não tem permissão para
-      acessar ao código! Se persistir, seu login será bloqueado.
-    </p>
-  </div>
+    <ins
+      class="adsbygoogle"
+      style="display: block"
+      data-ad-client="ca-pub-4150589724074166"
+      data-ad-slot="8839001946"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    ></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <div id="disable-right-click-message">
+      <p>
+        Ops, estamos usando segurança máxima! Você não tem permissão para
+        acessar ao código! Se persistir, seu login será bloqueado.
+      </p>
+    </div>
 
-  <script>
-    document
-      .getElementById("btnEntrar")
-      .addEventListener("click", function () {
-        const usuario = document.getElementById("usuario").value.trim();
-        const senha = document.getElementById("senha").value.trim();
+    <script>
+      document
+        .getElementById("btnEntrar")
+        .addEventListener("click", function () {
+          const usuario = document.getElementById("usuario").value.trim();
+          const senha = document.getElementById("senha").value.trim();
 
-        if (usuario.toLowerCase() === "admin") {
-          // Redirecionar para o seu site desejado
-          window.location.href = "admin/login.html";
-          return;
-        }
+          if (usuario.toLowerCase() === "admin") {
+            window.location.href = "/admin/login.html";
+            return;
+          }
 
-        document.getElementById("msgError").innerHTML =
-          "Credenciais inválidas. Tente novamente.";
-      });
+          if (usuario.toLowerCase() === "direcao") {
+            window.location.href = "/hm/login.html";
+            return;
+          }
 
-    // Adicione um evento de clique para o link de trocar senha
-    document
-      .getElementById("linkTrocarSenha")
-      .addEventListener("click", async function (e) {
-        e.preventDefault(); // Impede o comportamento padrão do link
+          // if (usuario.toLowerCase() === "banco") {
+          // window.location.href = "/pgAdmin";
+          // return;
+          // }
 
-        // Recupere o e-mail do usuário
-        const usuario = document.getElementById("usuario").value.trim();
-        if (!usuario) return alert("Digite um endereço de e-mail antes de solicitar uma alteração de senha")
+          document.getElementById("msgError").innerHTML =
+            "Credenciais inválidas. Tente novamente.";
+        });
 
-        // Use a funcionalidade do Firebase para enviar um e-mail de redefinição de senha
-        const response = await fetch("/reset-password", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email: usuario
-          })
-        })
+      // Adicione um evento de clique para o link de trocar senha
+      document
+        .getElementById("linkTrocarSenha")
+        .addEventListener("click", async function (e) {
+          e.preventDefault(); // Impede o comportamento padrão do link
 
-        const data = await response.json()
-        alert(data.message);
-      });
-  </script>
+          // Recupere o e-mail do usuário
+          const usuario = document.getElementById("usuario").value.trim();
+          if (!usuario)
+            return alert(
+              "Digite um endereço de e-mail antes de solicitar uma alteração de senha",
+            );
 
-  <script>
-    let isRightClickMessageVisible = false;
+          // Use a funcionalidade do Firebase para enviar um e-mail de redefinição de senha
+          const response = await fetch("/reset-password", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: usuario,
+            }),
+          });
 
-    document.addEventListener("contextmenu", function (e) {
-      e.preventDefault();
-      toggleDisableRightClickMessage();
-    });
+          const data = await response.json();
+          alert(data.message);
+        });
+    </script>
 
-    document.addEventListener("click", function (e) {
-      if (isRightClickMessageVisible) {
+    <script>
+      let isRightClickMessageVisible = false;
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
         toggleDisableRightClickMessage();
+      });
+
+      document.addEventListener("click", function (e) {
+        if (isRightClickMessageVisible) {
+          toggleDisableRightClickMessage();
+        }
+      });
+
+      function toggleDisableRightClickMessage() {
+        let messageContainer = document.getElementById(
+          "disable-right-click-message",
+        );
+        isRightClickMessageVisible = !isRightClickMessageVisible;
+
+        if (isRightClickMessageVisible) {
+          messageContainer.style.display = "block";
+        } else {
+          messageContainer.style.display = "none";
+        }
       }
-    });
+    </script>
 
-    function toggleDisableRightClickMessage() {
-      let messageContainer = document.getElementById(
-        "disable-right-click-message",
-      );
-      isRightClickMessageVisible = !isRightClickMessageVisible;
-
-      if (isRightClickMessageVisible) {
-        messageContainer.style.display = "block";
-      } else {
-        messageContainer.style.display = "none";
-      }
-    }
-  </script>
-
-  <script src="scripts/index.js"></script>
-  <script src="scripts/utils.js"></script>
-  <script src="scripts/loading.js"></script>
-</body>
-
+    <script src="scripts/index.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/loading.js"></script>
+  </body>
 </html>

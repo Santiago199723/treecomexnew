@@ -13,7 +13,7 @@
 
     <title>TREE COMEX - Administração</title>
   </head>
-  <body>
+  <body style="overflow: hidden">
     <div class="container">
       <div
         id="exit-btn-container"
@@ -45,7 +45,7 @@
         </button>
       </div>
       <div class="card">
-        <h1 class="login-header">Login ADM</h1>
+        <h1 class="login-header">Login Diretor</h1>
 
         <div id="msgError"></div>
 
@@ -93,7 +93,7 @@
           const usuario = document.getElementById("usuario").value.trim();
           const senha = document.getElementById("senha").value;
 
-          const response = await fetch("/admin/login", {
+          const response = await fetch("/hm/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -110,10 +110,9 @@
           msg.style.display = "block";
           document.getElementById("exit-btn-container").style.transform =
             "translate(-6.9rem, 9.5rem)";
-
           if (response.ok) {
             await delay(2000);
-            localStorage.setItem("__sess_admin__", "true");
+            localStorage.setItem("__sess_hm__", "true");
             window.location.href = "signup.html";
           }
         });
@@ -129,6 +128,7 @@
           inputSenha.setAttribute("type", "password");
         }
       });
+
       let isRightClickMessageVisible = false;
 
       document.addEventListener("contextmenu", function (e) {

@@ -108,8 +108,8 @@
     </style>
   </head>
   <body>
-    <div class="container">
-      <div style="display: inline-flex; transform:  translate(-13.7rem, 17.2rem);">
+    <div class="container" style="position: relative">
+      <div style="position: absolute; left: 0; bottom: 0">
         <button
           style="
             background-color: transparent;
@@ -123,7 +123,7 @@
             transition: 0.5s;
             letter-spacing: 4px;
           "
-          onclick="routeTo('/index.html')"
+          onclick="routeTo('login.html')"
         >
           <image style="width: 26px" src="/assets/voltar.png"></image>
         </button>
@@ -168,6 +168,11 @@
     </div>
 
     <script>
+      window.onload = function () {
+        if (!localStorage.getItem("__sess_hm__"))
+          window.location.href = "login.html";
+      };
+
       function togglePasswordVisibility() {
         const passwordInput = document.getElementById("password");
         const passwordToggle = document.querySelector(".password-toggle");
@@ -191,29 +196,23 @@
           const emailInput = document.getElementById("email");
           const passwordInput = document.getElementById("password");
 
-          if (
-            !emailInput.value ||
-            !passwordInput.value 
-          ) {
+          if (!emailInput.value || !passwordInput.value) {
             alert(
               "Preencha todos os campos e selecione uma das opções: Master ou Normal!",
             );
             return;
           }
 
-          fetch(
-            "/admin/register",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                email: emailInput.value,
-                password: passwordInput.value,
-              }),
+          fetch("/admin/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-          ).then(async (response) => {
+            body: JSON.stringify({
+              email: emailInput.value,
+              password: passwordInput.value,
+            }),
+          }).then(async (response) => {
             if (response.ok) document.getElementById("form").reset();
             const data = await response.json();
             alert(data.message);

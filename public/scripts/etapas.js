@@ -25,7 +25,7 @@ function handleFileUpload(btnIndex) {
           blob: fileBlob,
           mimeType: file.type,
         }),
-      }
+      },
     ).then(async (response) => {
       const data = await response.json();
 
@@ -50,7 +50,7 @@ function handleFileUpload(btnIndex) {
               company: companyData.cpf ? companyData.cpf : companyData.cnpj,
             }),
             credentials: "include",
-          }
+          },
         );
       }
 
@@ -139,7 +139,7 @@ function showSubmenuData(btnIndex) {
         "Content-Type": "application/json",
       },
       credentials: "include",
-    }
+    },
   ).then(async (response) => {
     const data = await response.json();
     if (response.ok && data.length !== 0) {
@@ -155,17 +155,17 @@ function showSubmenuData(btnIndex) {
       });
 
       attachedFiles.sort(
-        (a, b) => new Date(b.attachedDate) - new Date(a.attachedDate)
+        (a, b) => new Date(b.attachedDate) - new Date(a.attachedDate),
       );
       removedFiles.sort(
-        (a, b) => new Date(b.removedDate) - new Date(a.removedDate)
+        (a, b) => new Date(b.removedDate) - new Date(a.removedDate),
       );
 
       const sortedData = removedFiles.concat(attachedFiles);
       sortedData.sort(
         (a, b) =>
           new Date(b.attachedDate || b.removedDate) -
-          new Date(a.attachedDate || a.removedDate)
+          new Date(a.attachedDate || a.removedDate),
       );
 
       if (sortedData[0].type === 1) {
@@ -199,8 +199,8 @@ function showSubmenuData(btnIndex) {
             <p>Data de ${
               value.type === 1 ? "anexo" : "exclusão"
             }: <span class="submenu-span-red">${formatDate(
-          value[dateKey]
-        )}</span></p>
+              value[dateKey],
+            )}</span></p>
             <span style="width: 10px"></span>
             <p>${
               value.type === 1 ? "Anexado por" : "Removido por"
@@ -221,15 +221,15 @@ window.onload = async function () {
     const creationDate = new Date(companyData.createdAt);
     const currentDate = new Date();
     const diffInDays = Math.floor(
-      (currentDate - creationDate) / (1000 * 60 * 60 * 24)
+      (currentDate - creationDate) / (1000 * 60 * 60 * 24),
     );
     const daysRemaining = 45 - diffInDays;
 
     const remainingDaysContainer = document.querySelector(
-      ".data-restante-container"
+      ".data-restante-container",
     );
     const hintTextRemaining = remainingDaysContainer.querySelector(
-      "#hint-text-remaining"
+      "#hint-text-remaining",
     );
 
     const restRemainer = remainingDaysContainer.querySelector("#rest-remainer");
@@ -245,7 +245,8 @@ window.onload = async function () {
       window.location.href = "botoesetapas.html";
       return;
     } else {
-      document.getElementById("current-process").innerText = "Processo:".toUpperCase();
+      document.getElementById("current-process").innerText =
+        "Processo:".toUpperCase();
       document.getElementById("current-process-number").innerText = processId;
       document.querySelector(".current-process-container").style.display =
         "flex";
@@ -310,7 +311,7 @@ async function refreshButtons() {
           "Content-Type": "application/json",
         },
         credentials: "include",
-      }
+      },
     );
 
     if (s.ok) {

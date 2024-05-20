@@ -1,139 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recuperação de Senha</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('/assets/fundo.png');
-            /* Adicione o caminho para sua imagem de fundo */
-            background-size: cover;
-            background-position: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("/assets/fundo.png");
+        /* Adicione o caminho para sua imagem de fundo */
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
 
-        .container {
-            background-color: rgb(255, 255, 255);
-            /* Cor de fundo com transparência */
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-            width: 300px;
-            text-align: center;
-            border: 4px solid #80e0d6;
-            /* Cor brilhante (rosa, por exemplo) */
-        }
+      .container {
+        background-color: rgb(255, 255, 255);
+        /* Cor de fundo com transparência */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        width: 300px;
+        text-align: center;
+        border: 4px solid #80e0d6;
+        /* Cor brilhante (rosa, por exemplo) */
+      }
 
+      h2 {
+        margin-bottom: 20px;
+        color: #17607b;
+        font-family: "Arial Narrow Bold", sans-serif;
+      }
 
+      .form-control {
+        margin-bottom: 20px;
+        text-align: left;
+        /* Ajuste para alinhar o texto à esquerda */
+      }
 
-        h2 {
-            margin-bottom: 20px;
-            color: #17607b;
-            font-family: 'Arial Narrow Bold', sans-serif;
-        }
+      input {
+        width: calc(100% - 22px);
+        /* Ajusta a largura do input */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: center;
+        /* Centraliza o texto dentro do input */
+      }
 
-        .form-control {
-            margin-bottom: 20px;
-            text-align: left;
-            /* Ajuste para alinhar o texto à esquerda */
-        }
+      input::placeholder {
+        text-align: left;
+        /* Ajusta a posição do texto do placeholder */
+      }
 
-        input {
-            width: calc(100% - 22px);
-            /* Ajusta a largura do input */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            text-align: center;
-            /* Centraliza o texto dentro do input */
-        }
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-        input::placeholder {
-            text-align: left;
-            /* Ajusta a posição do texto do placeholder */
-        }
+      button:hover {
+        background-color: #0056b3;
+      }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .message {
-            margin-top: 23px;
-            color: #0b5158;
-            /* Cor azul bonita */
-            font-family: "sans-serif", sans-serif;
-            /* Fonte bonita */
-            font-size: 16px;
-        }
+      .message {
+        margin-top: 23px;
+        color: #0b5158;
+        /* Cor azul bonita */
+        font-family: "sans-serif", sans-serif;
+        /* Fonte bonita */
+        font-size: 16px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <form id="reset-form">
-            <h2 style="text-align: center;">ALTERAÇÃO DE SENHA</h2>
-            <div class="form-control">
-                <input type="senha" id="password" name="senha" placeholder="Insira uma nova senha" required>
-            </div>
-            <button type="submit">ALTERAR SENHA</button>
-        </form>
-        <div class="message" id="message"></div>
+      <form id="reset-form">
+        <h2 style="text-align: center">ALTERAÇÃO DE SENHA</h2>
+        <div class="form-control">
+          <input
+            type="senha"
+            id="password"
+            name="senha"
+            placeholder="Insira uma nova senha"
+            required
+          />
+        </div>
+        <button type="submit">ALTERAR SENHA</button>
+      </form>
+      <div class="message" id="message"></div>
     </div>
     <script>
-        function getQueryParam(param) {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            return urlParams.get(param);
+      function getQueryParam(param) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        return urlParams.get(param);
+      }
+
+      const form = document.getElementById("reset-form");
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        var password = document.getElementById("password").value;
+        if (password) {
+          const response = await fetch("/change-password", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              sniffer: getQueryParam("code"),
+              password: password,
+            }),
+          });
+
+          const data = await response.json();
+          document.getElementById("message").innerText = data.message;
+
+          if (response.ok) {
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 2500);
+          }
+        } else {
+          document.getElementById("message").innerText =
+            "Por favor, insira seu e-mail.";
         }
-
-        const form = document.getElementById("reset-form");
-
-        form.addEventListener("submit", async function (event) {
-            event.preventDefault();
-            var password = document.getElementById("password").value;
-            if (password) {
-                const response = await fetch("/change-password", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        sniffer: getQueryParam("code"),
-                        password: password
-                    })
-                })
-
-                const data = await response.json();
-                document.getElementById("message").innerText = data.message;
-
-                if (response.ok) {
-                    setTimeout(() => {
-                        window.location.href = "index.html";
-                    }, 2500);
-                }
-            } else {
-                document.getElementById("message").innerText = "Por favor, insira seu e-mail.";
-            }
-        });
+      });
     </script>
-</body>
-
+  </body>
 </html>
