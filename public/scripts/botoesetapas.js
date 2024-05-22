@@ -60,11 +60,11 @@ function sair() {
 }
 
 function openModal() {
-  document.getElementById("overlay").style.display = "flex"; // Exibe o fundo escuro
+  document.getElementById("overlay").style.display = "flex"; 
 }
 
 function closeModal() {
-  document.getElementById("overlay").style.display = "none"; // Oculta o fundo escuro
+  document.getElementById("overlay").style.display = "none";
 }
 
 let offsetX, offsetY;
