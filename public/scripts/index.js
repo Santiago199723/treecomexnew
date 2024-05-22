@@ -60,12 +60,11 @@ function entrar() {
       await delay(2000);
       const encodedCompany = btoa(JSON.stringify(data.company));
       localStorage.setItem("company", encodedCompany);
-      if (!data.master) {
-        window.location.href = "/botoesetapas.html";
-      } else {
+      if (data.master) {
         localStorage.setItem("__sess_admin__", "true");
-        window.location.href = "/admin/signup.html";
       }
+
+      window.location.href = "/botoesetapas.html";
     }
   });
 }
