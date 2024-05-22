@@ -4,7 +4,6 @@ import cors from "cors";
 import path from "path";
 import express from "express";
 import { Op } from "sequelize";
-// import httpProxy from "http-proxy";
 import { fileURLToPath } from "url";
 import { randomUUID } from "crypto";
 import bodyParser from "body-parser";
