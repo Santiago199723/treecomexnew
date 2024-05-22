@@ -58,7 +58,7 @@ function entrar() {
     showMessage(data.message);
     if (response.ok) {
       await delay(2000);
-      localStorage.setItem("company", btoa(data.company));
+      localStorage.setItem("company", btoa(JSON.stringify(data.company)));
       if (!data.master) {
         window.location.href = "/botoesetapas.html";
       } else {
