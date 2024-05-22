@@ -16,7 +16,6 @@ import { Company, User, File, Perm, Process, Admin } from "./models.js";
 import { hmc } from "./raw.js";
 
 const app = express();
-const proxy = httpProxy.createProxyServer();
 const k = ora("Initializing...");
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
