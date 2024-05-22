@@ -58,8 +58,7 @@ function entrar() {
     showMessage(data.message);
     if (response.ok) {
       await delay(2000);
-      const encodedCompany = btoa(JSON.stringify(data.company))
-      console.log(encodedCompany)
+      const encodedCompany = btoa(JSON.stringify(data.company));
       localStorage.setItem("company", encodedCompany);
       if (!data.master) {
         window.location.href = "/botoesetapas.html";
