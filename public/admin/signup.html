@@ -239,132 +239,130 @@
           />
         </div>
 
-        <div class="container">
-          <div
-            style="display: inline-flex; transform: translate(-14rem, 33.5rem)"
+        <div
+          style="display: inline-flex; transform: translate(-14rem, 33.5rem)"
+        >
+          <button
+            style="
+              background-color: transparent;
+              align-items: center;
+              display: inline-flex;
+              color: #fcfcfc;
+              background: none;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: 0.5s;
+              letter-spacing: 4px;
+            "
+            onclick="routeTo('CPF.html')"
           >
-            <button
-              style="
-                background-color: transparent;
-                align-items: center;
-                display: inline-flex;
-                color: #fcfcfc;
-                background: none;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: 0.5s;
-                letter-spacing: 4px;
-              "
-              onclick="routeTo('CPF.html')"
-            >
-              <image style="width: 26px" src="/assets/voltar.png"></image>
-            </button>
-          </div>
-
-          <div class="alert" id="mensagem-sucesso" style="display: none">
-            Suas informações foram enviadas!
-          </div>
-
-          <div class="inputBox">
-            <input
-              type="text"
-              id="nome"
-              placeholder="NOME COMPLETO DO PROPRIETÁRIO.."
-              required
-            />
-          </div>
-
-          <div class="inputBox">
-            <input
-              type="text"
-              id="empresa"
-              placeholder="NOME DA EMPRESA.."
-              required
-            />
-          </div>
-
-          <div class="inputBox">
-            <input
-              type="text"
-              id="cpf"
-              placeholder="INFORME O CPF.."
-              pattern="\d{11}"
-              title="Por favor, insira só números. Está faltando números!"
-              required
-            />
-          </div>
-
-          <div class="inputBox">
-            <input
-              type="text"
-              id="cnpj"
-              placeholder="INFORME O CNPJ (Caso tenha)"
-              pattern="\d{14}"
-              title="Por favor, insira só números. Está faltando números!"
-            />
-          </div>
-          <br />
-          <br />
-          <div class="form-group-checkbox">
-            <div class="checkbox-container">
-              <input type="checkbox" id="matriz" name="tipo" value="Matriz" />
-              <label for="matriz" style="font-weight: Arial; color: #787c7c"
-                >Matriz</label
-              >
-            </div>
-
-            <div class="checkbox-container">
-              <input type="checkbox" id="filial" name="tipo" value="Filial" />
-              <label for="filial" style="font-weight: Arial; color: #787c7c"
-                >Filial</label
-              >
-            </div>
-          </div>
-          <br />
-          <div class="form-group" id="estado-container">
-            <label for="codUf" id="label-estado">SELECIONE O ESTADO:</label>
-            <select
-              class="form-control"
-              data-val="true"
-              data-val-number="The field UF must be a number."
-              data-val-required="Informe a UF do contribuinte"
-              id="CodUf"
-              name="CodUf"
-            >
-              <option value=""></option>
-              <option value="12">AC</option>
-              <option value="27">AL</option>
-              <option value="13">AM</option>
-              <option value="16">AP</option>
-              <option value="29">BA</option>
-              <option value="23">CE</option>
-              <option value="53">DF</option>
-              <option value="32">ES</option>
-              <option value="52">GO</option>
-              <option value="21">MA</option>
-              <option value="31">MG</option>
-              <option value="50">MS</option>
-              <option value="51">MT</option>
-              <option value="15">PA</option>
-              <option value="25">PB</option>
-              <option value="26">PE</option>
-              <option value="22">PI</option>
-              <option value="41">PR</option>
-              <option value="33">RJ</option>
-              <option value="24">RN</option>
-              <option value="11">RO</option>
-              <option value="14">RR</option>
-              <option value="43">RS</option>
-              <option value="42">SC</option>
-              <option value="28">SE</option>
-              <option value="35">SP</option>
-              <option value="17">TO</option>
-            </select>
-          </div>
-          <br />
-          <br />
+            <image style="width: 26px" src="/assets/voltar.png"></image>
+          </button>
         </div>
+
+        <div class="alert" id="mensagem-sucesso" style="display: none">
+          Suas informações foram enviadas!
+        </div>
+
+        <div class="inputBox">
+          <input
+            type="text"
+            id="nome"
+            placeholder="NOME COMPLETO DO PROPRIETÁRIO.."
+            required
+          />
+        </div>
+
+        <div class="inputBox">
+          <input
+            type="text"
+            id="empresa"
+            placeholder="NOME DA EMPRESA.."
+            required
+          />
+        </div>
+
+        <div class="inputBox">
+          <input
+            type="text"
+            id="cpf"
+            placeholder="INFORME O CPF.."
+            pattern="\d{11}"
+            title="Por favor, insira só números. Está faltando números!"
+            required
+          />
+        </div>
+
+        <div class="inputBox">
+          <input
+            type="text"
+            id="cnpj"
+            placeholder="INFORME O CNPJ (Caso tenha)"
+            pattern="\d{14}"
+            title="Por favor, insira só números. Está faltando números!"
+          />
+        </div>
+        <br />
+        <br />
+        <div class="form-group-checkbox">
+          <div class="checkbox-container">
+            <input type="checkbox" id="matriz" name="tipo" value="Matriz" />
+            <label for="matriz" style="font-weight: Arial; color: #787c7c"
+              >Matriz</label
+            >
+          </div>
+
+          <div class="checkbox-container">
+            <input type="checkbox" id="filial" name="tipo" value="Filial" />
+            <label for="filial" style="font-weight: Arial; color: #787c7c"
+              >Filial</label
+            >
+          </div>
+        </div>
+        <br />
+        <div class="form-group" id="estado-container">
+          <label for="codUf" id="label-estado">SELECIONE O ESTADO:</label>
+          <select
+            class="form-control"
+            data-val="true"
+            data-val-number="The field UF must be a number."
+            data-val-required="Informe a UF do contribuinte"
+            id="CodUf"
+            name="CodUf"
+          >
+            <option value=""></option>
+            <option value="12">AC</option>
+            <option value="27">AL</option>
+            <option value="13">AM</option>
+            <option value="16">AP</option>
+            <option value="29">BA</option>
+            <option value="23">CE</option>
+            <option value="53">DF</option>
+            <option value="32">ES</option>
+            <option value="52">GO</option>
+            <option value="21">MA</option>
+            <option value="31">MG</option>
+            <option value="50">MS</option>
+            <option value="51">MT</option>
+            <option value="15">PA</option>
+            <option value="25">PB</option>
+            <option value="26">PE</option>
+            <option value="22">PI</option>
+            <option value="41">PR</option>
+            <option value="33">RJ</option>
+            <option value="24">RN</option>
+            <option value="11">RO</option>
+            <option value="14">RR</option>
+            <option value="43">RS</option>
+            <option value="42">SC</option>
+            <option value="28">SE</option>
+            <option value="35">SP</option>
+            <option value="17">TO</option>
+          </select>
+        </div>
+        <br />
+        <br />
         <button type="submit" class="btn">Cadastrar usuário</button>
       </form>
     </div>
