@@ -257,7 +257,7 @@
               transition: 0.5s;
               letter-spacing: 4px;
             "
-            onclick="routeTo('CPF.html')"
+            onclick="routeTo('/login.html')"
           >
             <image style="width: 26px" src="/assets/voltar.png"></image>
           </button>
@@ -309,14 +309,26 @@
         <br />
         <div class="form-group-checkbox">
           <div class="checkbox-container">
-            <input type="checkbox" id="matriz" name="tipo" value="Matriz" />
+            <input
+              type="checkbox"
+              id="matriz"
+              name="tipo"
+              value="Matriz"
+              onchange="checkboxHandler(this)"
+            />
             <label for="matriz" style="font-weight: Arial; color: #787c7c"
               >Matriz</label
             >
           </div>
 
           <div class="checkbox-container">
-            <input type="checkbox" id="filial" name="tipo" value="Filial" />
+            <input
+              type="checkbox"
+              id="filial"
+              name="tipo"
+              value="Filial"
+              onchange="checkboxHandler(this)"
+            />
             <label for="filial" style="font-weight: Arial; color: #787c7c"
               >Filial</label
             >
@@ -370,6 +382,13 @@
     </div>
 
     <script>
+      function checkboxHandler(cx) {
+        if (cx.id == "matriz") {
+          document.getElementById("filial").checked = false;
+        } else if (cx.id == "filial") {
+          document.getElementById("matriz").checked = false;
+        }
+      }
       const estadosSiglas = {
         "": "",
         12: "AC",
