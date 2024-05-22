@@ -59,7 +59,7 @@ function entrar() {
     if (response.ok) {
       await delay(2000);
       localStorage.setItem("company", btoa(data.company));
-      if (!userId.master) {
+      if (!data.master) {
         window.location.href = "/botoesetapas.html";
       } else {
         localStorage.setItem("__sess_admin__", "true");
