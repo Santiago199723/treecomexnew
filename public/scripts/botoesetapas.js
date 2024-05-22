@@ -5,7 +5,7 @@ window.onload = async function () {
   document.getElementById("register-master").style.display = "none";
 
   if (!company) {
-    window.location.href = "CPF.html";
+    window.location.href = "/index.html";
   }
 
   const userResponse = await fetch(
@@ -56,7 +56,7 @@ window.onload = async function () {
 function sair() {
   localStorage.removeItem("company");
   localStorage.removeItem("processId");
-  window.location.href = "CPF.html";
+  window.location.href = "/index.html";
 }
 
 function openModal() {
