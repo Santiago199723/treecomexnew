@@ -46,7 +46,17 @@ app.post("/check-session", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  const { email, password, master } = req.body;
+  const {
+    email,
+    password,
+    master,
+    ownerName,
+    companyName,
+    cpf,
+    cnpj,
+    country,
+    matriz,
+  } = req.body;
 
   try {
     const newUser = await User.create({
@@ -55,9 +65,65 @@ app.post("/register", async (req, res) => {
       master: master,
     });
 
+    if (!ownerName || !companyName || !country) {
+      return res.status(400).json({
+        code: "MISSING_FIELDS",
+        message:
+          "Todos os campos são obrigatórios, exceto CPF e CNPJ (pelo menos um deles deve ser fornecido)",
+      });
+    }
+
+    if (!cpf && !cnpj) {
+      return res.status(400).json({
+        code: "MISSING_FIELDS",
+        message: "Você deve fornecer pelo menos um CPF ou CNPJ",
+      });
+    }
+
+    const existingCPFCompany = cpf
+      ? await Company.findOne({ where: { cpf: cpf } })
+      : null;
+    if (existingCPFCompany) {
+      return res.status(409).json({
+        code: "CPF_REGISTERED",
+        message: "CPF já registrado para outra empresa",
+      });
+    }
+
+    const existingCNPJCompany = cnpj
+      ? await Company.findOne({ where: { cnpj: cnpj } })
+      : null;
+    if (existingCNPJCompany) {
+      return res.status(409).json({
+        code: "CNPJ_REGISTERED",
+        message: "CNPJ já registrado para outra empresa",
+      });
+    }
+
+    if (newUser && !newUser.master) {
+      const company = await Company.findOne({
+        where: { executor: newUser.id },
+      });
+      if (company) {
+        return res.status(403).json({
+          code: "REQUEST_BLOCKED_NORMAL_USER",
+          message: "Usuário não tem permissão para registrar mais empresas",
+        });
+      }
+    }
+
+    await Company.create({
+      ownerName: ownerName,
+      companyName: companyName,
+      cpf: cpf,
+      cnpj: cnpj,
+      country: country,
+      matriz: matriz,
+      executor: newUser.id,
+    });
+
     return res.status(200).json({
       message: "Usuário criado com sucesso",
-      userId: newUser.id,
     });
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
@@ -92,88 +158,21 @@ app.post("/login", async (req, res) => {
         .json({ code: "INVALID_PASSWORD", message: "Senha inválida" });
     }
 
-    return res
-      .status(200)
-      .cookie("userId", user.id, {
-        maxAge: 86400000,
-        httpOnly: true,
-        sameSite: "strict",
-      })
-      .json({ message: "Login bem-sucedido" });
-  } catch (error) {
-    return res.status(500).json({
-      code: "SERVER_ERROR",
-      message: "Ocorreu um erro interno do servidor",
-    });
-  }
-});
-
-app.post("/company-register", async (req, res) => {
-  const userId = req.cookies.userId;
-  const { ownerName, companyName, cpf, cnpj, country, matriz } = req.body;
-
-  if (!ownerName || !companyName || !country) {
-    return res.status(400).json({
-      code: "MISSING_FIELDS",
-      message:
-        "Todos os campos são obrigatórios, exceto CPF e CNPJ (pelo menos um deles deve ser fornecido)",
-    });
-  }
-
-  if (!cpf && !cnpj) {
-    return res.status(400).json({
-      code: "MISSING_FIELDS",
-      message: "Você deve fornecer pelo menos um CPF ou CNPJ",
-    });
-  }
-
-  try {
-    const existingCPFCompany = cpf
-      ? await Company.findOne({ where: { cpf: cpf } })
-      : null;
-    if (existingCPFCompany) {
-      return res.status(409).json({
-        code: "CPF_REGISTERED",
-        message: "CPF já registrado para outra empresa",
-      });
+    const company = await Company.findOne({ where: { executor: user.id } });
+    if (company) {
+      return res
+        .status(200)
+        .cookie("userId", user.id, {
+          maxAge: 86400000,
+          httpOnly: true,
+          sameSite: "strict",
+        })
+        .json({
+          message: "Login bem-sucedido",
+          company: company,
+          master: user.master,
+        });
     }
-
-    const existingCNPJCompany = cnpj
-      ? await Company.findOne({ where: { cnpj: cnpj } })
-      : null;
-    if (existingCNPJCompany) {
-      return res.status(409).json({
-        code: "CNPJ_REGISTERED",
-        message: "CNPJ já registrado para outra empresa",
-      });
-    }
-
-    if (userId) {
-      const user = await User.findOne({ where: { id: userId } });
-      if (user && !user.master) {
-        const company = await Company.findOne({ where: { executor: user.id } });
-        if (company) {
-          return res.status(403).json({
-            code: "REQUEST_BLOCKED_NORMAL_USER",
-            message: "Usuário não tem permissão para registrar mais empresas",
-          });
-        }
-      }
-    }
-
-    await Company.create({
-      ownerName: ownerName,
-      companyName: companyName,
-      cpf: cpf,
-      cnpj: cnpj,
-      country: country,
-      matriz: matriz,
-      executor: userId,
-    });
-
-    return res.status(200).json({
-      message: "Registro bem-sucedido",
-    });
   } catch (error) {
     return res.status(500).json({
       code: "SERVER_ERROR",
@@ -441,13 +440,13 @@ app.get("/resetPassword", async (req, res) => {
     if (resp) {
       const resetHTML = fs.readFileSync(
         path.join(__dirname, "..", "public", "templates", "senha.html"),
-        "utf-8",
+        "utf-8"
       );
       return res.send(resetHTML);
     } else {
       const resetHTML = fs.readFileSync(
         path.join(__dirname, "..", "public", "templates", "venceu.html"),
-        "utf-8",
+        "utf-8"
       );
       return res.send(resetHTML);
     }
@@ -493,9 +492,10 @@ app.post("/admin/login", async (req, res) => {
     const admin = await Admin.findOne({ where: { email: email } });
 
     if (!admin) {
-      return res
-        .status(404)
-        .json({ code: "ADMIN_NOT_FOUND", message: "Administrador não encontrado" });
+      return res.status(404).json({
+        code: "ADMIN_NOT_FOUND",
+        message: "Administrador não encontrado",
+      });
     }
 
     if (admin.password !== password) {
