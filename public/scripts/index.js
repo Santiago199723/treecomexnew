@@ -1,21 +1,23 @@
-let btn = document.querySelector(".fa-eye");
-let inputSenha = document.querySelector("#senha");
-let msgError = document.querySelector("#msgError");
+let usuario = document.getElementsByName("session[email]")[0];
+let senha = document.getElementsByName("session[password]")[0];
 
-btn.addEventListener("click", () => {
-  if (inputSenha.getAttribute("type") === "password") {
-    inputSenha.setAttribute("type", "text");
-  } else {
-    inputSenha.setAttribute("type", "password");
-  }
-});
+let msg = document.querySelector(".alert-info");
+let msgError = document.querySelector(".error");
 
 function showMessage(message) {
-  msgError.style.display = "block";
+  msg.style.display = "flex";
+  msg.innerHTML = message;
+}
+
+function showErrorMessage(message) {
+  msgError.style.display = "flex";
   msgError.innerHTML = message;
 }
 
-function hideErrorMessage() {
+function hideMessages() {
+  msg.style.display = "none";
+  msg.innerHTML = "";
+
   msgError.style.display = "none";
   msgError.innerHTML = "";
 }
@@ -25,38 +27,55 @@ function isValidEmail(email) {
   return emailRegex.test(email);
 }
 
-function entrar() {
-  hideErrorMessage();
-  showLoading();
+document
+  .getElementById("new_session")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-  if (!usuario.value || !senha.value) {
-    showMessage("Preencha todos os campos para poder logar.");
-    hideLoading();
-    return;
-  }
+    hideMessages();
+    showLoading();
 
-  const email = usuario.value;
-  const password = senha.value;
+    if (!usuario.value || !senha.value) {
+      showErrorMessage("Preencha todos os campos para poder logar.");
+      hideLoading();
+      return;
+    }
 
-  if (!isValidEmail(email)) {
-    showMessage("Formato de e-mail inválido.");
-    hideLoading();
-    return;
-  }
+    const email = usuario.value;
+    const password = senha.value;
 
-  fetch("/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
-  }).then(async (response) => {
+    if (email.toLowerCase() === "admin") {
+      window.location.href = "/admin/login.html";
+      return;
+    }
+
+    if (email.toLowerCase() === "direcao") {
+      window.location.href = "/hm/login.html";
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      showErrorMessage("Formato de e-mail inválido.");
+      hideLoading();
+      return;
+    }
+
+    const response = await fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+
     const data = await response.json();
-    showMessage(data.message);
-    if (response.ok) {
+    if (!response.ok) {
+      showErrorMessage(data.message);
+    } else {
+      showMessage(data.message);
       await delay(2000);
       const encodedCompany = btoa(JSON.stringify(data.company));
       localStorage.setItem("company", encodedCompany);
@@ -67,9 +86,37 @@ function entrar() {
       window.location.href = "/botoesetapas.html";
     }
   });
-}
 
-const btnEntrar = document.querySelector("#btnEntrar");
-if (btnEntrar) {
-  btnEntrar.addEventListener("click", entrar);
-}
+document
+  .getElementById("reset-password")
+  .addEventListener("click", async function (e) {
+    e.preventDefault();
+    hideMessages();
+
+    const email = usuario.value.trim();
+
+    if (!email) {
+      showErrorMessage(
+        "Digite um endereço de e-mail antes de solicitar uma alteração de senha"
+      );
+
+      return;
+    }
+
+    const response = await fetch("/reset-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      showErrorMessage(data.message);
+    } else {
+      showMessage(data.message);
+    }
+  });

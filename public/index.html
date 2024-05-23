@@ -1,162 +1,106 @@
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html dir="ltr" lang="pt-BR">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Treecomex" />
+    <style>
+      .logo-login {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+
+    <title>TREE COMEX - LOGIN</title>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Julius+Sans+One"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      src="../../use.fontawesome.com/releases/v5.0.6/js/all.js"
+    ></script>
+
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      media="all"
+      href="styles/login-6c4e8723114d0150e8032d3e20842aa749f64cb8c87751960c6d164bc1abf428.css"
     />
-    <link rel="stylesheet" href="styles/signin.css" />
-    <link rel="icon" type="image/png" href="assets/icone.png" />
-    <!-- Substitua pelo caminho real do seu ícone -->
-    <title>TREE COMEX</title>
   </head>
 
-  <body>
-    <div class="container">
-      <div class="card">
-        <h1 class="login-header">Login</h1>
+  <body
+    style="
+      background-image: url(assets/tela_de_login_programa_de_indicacao.png);
+      height: 100vh;
+      background-size: cover;
+    "
+  >
+    <div class="grid-login">
+      <div class="signin-box">
 
-        <div id="msgError"></div>
+        <h3>Bem-vindo(a)!</h3>
 
-        <div class="label-float">
-          <input
-            type="text"
-            id="usuario"
-            placeholder=""
-            required
-            autocomplete="email"
-          />
-          <label id="userLabel" for="usuario">E-mail</label>
-        </div>
+        <div class="error" style="display: none; justify-content: center"></div>
+        <div
+          class="alert-info"
+          style="display: none; justify-content: center"
+        ></div>
 
-        <div class="label-float">
-          <input
-            type="password"
-            id="senha"
-            placeholder=""
-            required
-            autocomplete="current-password"
-          />
-          <label id="senhaLabel" for="senha">Senha</label>
-          <i class="fa fa-eye" aria-hidden="true"></i>
-        </div>
+        <form class="new_session" id="new_session">
+          <div class="input-box">
+            <label for="session_email">E-mail</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-user"></i></span>
+              <input
+                autofocus="autofocus"
+                required="required"
+                type="email"
+                name="session[email]"
+                id="session_email"
+              />
+            </div>
+          </div>
 
-        <div class="justify-center">
-          <button id="btnEntrar">Entrar</button>
-        </div>
+          <div class="input-box">
+            <label for="session_password">Senha</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+              <input
+                required="required"
+                type="password"
+                name="session[password]"
+                id="session_password"
+              />
+            </div>
+          </div>
 
-        <!-- Links de cadastro -->
-        <div class="justify-center">
-          <a href="#" id="linkTrocarSenha">Esqueci a senha | Trocar senha</a>
-        </div>
+          <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+              <a id="reset-password" style="cursor: pointer; color: #114766">Esqueci minha senha</a>
+            </div>
+          </div>
+
+          <p class="text-center mt-20">
+            <input
+              type="submit"
+              name="commit"
+              value="Entrar"
+              class="btn btn-primary"
+              data-disable-with="Entrar"
+            />
+          </p>
+
+        </form>
       </div>
     </div>
-    <ins
-      class="adsbygoogle"
-      style="display: block"
-      data-ad-client="ca-pub-4150589724074166"
-      data-ad-slot="8839001946"
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    ></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-    <div id="disable-right-click-message">
-      <p>
-        Ops, estamos usando segurança máxima! Você não tem permissão para
-        acessar ao código! Se persistir, seu login será bloqueado.
-      </p>
-    </div>
-
-    <script>
-      document
-        .getElementById("btnEntrar")
-        .addEventListener("click", function () {
-          const usuario = document.getElementById("usuario").value.trim();
-          const senha = document.getElementById("senha").value.trim();
-
-          if (usuario.toLowerCase() === "admin") {
-            window.location.href = "/admin/login.html";
-            return;
-          }
-
-          if (usuario.toLowerCase() === "direcao") {
-            window.location.href = "/hm/login.html";
-            return;
-          }
-
-          // if (usuario.toLowerCase() === "banco") {
-          // window.location.href = "/pgAdmin";
-          // return;
-          // }
-
-          document.getElementById("msgError").innerHTML =
-            "Credenciais inválidas. Tente novamente.";
-        });
-
-      // Adicione um evento de clique para o link de trocar senha
-      document
-        .getElementById("linkTrocarSenha")
-        .addEventListener("click", async function (e) {
-          e.preventDefault(); // Impede o comportamento padrão do link
-
-          // Recupere o e-mail do usuário
-          const usuario = document.getElementById("usuario").value.trim();
-          if (!usuario)
-            return alert(
-              "Digite um endereço de e-mail antes de solicitar uma alteração de senha",
-            );
-
-          // Use a funcionalidade do Firebase para enviar um e-mail de redefinição de senha
-          const response = await fetch("/reset-password", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: usuario,
-            }),
-          });
-
-          const data = await response.json();
-          alert(data.message);
-        });
-    </script>
-
-    <script>
-      let isRightClickMessageVisible = false;
-
-      document.addEventListener("contextmenu", function (e) {
-        e.preventDefault();
-        toggleDisableRightClickMessage();
-      });
-
-      document.addEventListener("click", function (e) {
-        if (isRightClickMessageVisible) {
-          toggleDisableRightClickMessage();
-        }
-      });
-
-      function toggleDisableRightClickMessage() {
-        let messageContainer = document.getElementById(
-          "disable-right-click-message",
-        );
-        isRightClickMessageVisible = !isRightClickMessageVisible;
-
-        if (isRightClickMessageVisible) {
-          messageContainer.style.display = "block";
-        } else {
-          messageContainer.style.display = "none";
-        }
-      }
-    </script>
 
     <script src="scripts/index.js"></script>
-    <script src="scripts/utils.js"></script>
     <script src="scripts/loading.js"></script>
+    <script src="scripts/utils.js"></script>
   </body>
 </html>
