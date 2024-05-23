@@ -36,7 +36,7 @@ document
     showLoading();
 
     if (!usuario.value || !senha.value) {
-      showMessage("Preencha todos os campos para poder logar.");
+      showErrorMessage("Preencha todos os campos para poder logar.");
       hideLoading();
       return;
     }
@@ -44,12 +44,12 @@ document
     const email = usuario.value;
     const password = senha.value;
 
-    if (usuario.toLowerCase() === "admin") {
+    if (email.toLowerCase() === "admin") {
       window.location.href = "/admin/login.html";
       return;
     }
 
-    if (usuario.toLowerCase() === "direcao") {
+    if (email.toLowerCase() === "direcao") {
       window.location.href = "/hm/login.html";
       return;
     }
@@ -70,7 +70,7 @@ document
         password: password,
       }),
     });
-    
+
     const data = await response.json();
     if (!response.ok) {
       showErrorMessage(data.message);
