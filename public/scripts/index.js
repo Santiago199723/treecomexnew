@@ -79,10 +79,7 @@ function entrar() {
   });
 }
 
-const sel = document.getElementsByName("commit");
-if (sel.length > 0) {
-  sel[0].addEventListener("click", entrar);
-}
+document.getElementById("new_session").addEventListener("submit", entrar);
 
 document
   .getElementById("reset-password")
