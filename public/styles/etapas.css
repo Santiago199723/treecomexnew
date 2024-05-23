@@ -3,6 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background-color: #e5e9f4;
+  padding: 2rem;
+  background: #114766;
+}
 
 /* Adicione este estilo para organizar os botões verticalmente */
 .button-container {
