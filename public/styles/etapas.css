@@ -3,6 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background-color: #e5e9f4;
+  padding: 2rem;
+  background: #114766;
+}
 
 /* Adicione este estilo para organizar os botões verticalmente */
 .button-container {
@@ -11,7 +16,6 @@
   justify-content: center; /* Centralizando os botões verticalmente */
   align-items: center; /* Centralizando os botões horizontalmente */
   height: 75vh; /* Definindo a altura para centralizar na tela */
-  background: #050801; /* Fundo preto */
   padding: 20px; /* Espaçamento interno para os botões */
 }
 
@@ -190,6 +194,7 @@ span {
 }
 
 .main-container {
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   margin-top: 50px;

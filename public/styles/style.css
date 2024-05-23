@@ -9,7 +9,7 @@ button.neumorphic {
   border: 0.5rem solid transparent;
   border-radius: 1rem;
   color: #e5e9f4;
-  background: none;
+  background: #00000075;
 
   display: grid;
   place-content: center;
