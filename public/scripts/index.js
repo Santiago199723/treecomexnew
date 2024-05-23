@@ -23,63 +23,65 @@ function isValidEmail(email) {
   return emailRegex.test(email);
 }
 
-function entrar() {
-  hideErrorMessage();
-  showLoading();
+document
+  .getElementById("new_session")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-  if (!usuario.value || !senha.value) {
-    showMessage("Preencha todos os campos para poder logar.");
-    hideLoading();
-    return;
-  }
+    hideErrorMessage();
+    showLoading();
 
-  const email = usuario.value;
-  const password = senha.value;
-
-  if (usuario.toLowerCase() === "admin") {
-    window.location.href = "/admin/login.html";
-    return;
-  }
-
-  if (usuario.toLowerCase() === "direcao") {
-    window.location.href = "/hm/login.html";
-    return;
-  }
-
-  if (!isValidEmail(email)) {
-    showErrorMessage("Formato de e-mail inválido.");
-    hideLoading();
-    return;
-  }
-
-  fetch("/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
-  }).then(async (response) => {
-    const data = await response.json();
-    if (!response.ok) {
-      showErrorMessage(data.message);
-    } else {
-      showMessage(data.message);
-      await delay(2000);
-      const encodedCompany = btoa(JSON.stringify(data.company));
-      localStorage.setItem("company", encodedCompany);
-      if (data.master) {
-        localStorage.setItem("__sess_admin__", "true");
-      }
-
-      window.location.href = "/botoesetapas.html";
+    if (!usuario.value || !senha.value) {
+      showMessage("Preencha todos os campos para poder logar.");
+      hideLoading();
+      return;
     }
-  });
-}
 
-document.getElementById("new_session").addEventListener("submit", entrar);
+    const email = usuario.value;
+    const password = senha.value;
+
+    if (usuario.toLowerCase() === "admin") {
+      window.location.href = "/admin/login.html";
+      return;
+    }
+
+    if (usuario.toLowerCase() === "direcao") {
+      window.location.href = "/hm/login.html";
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      showErrorMessage("Formato de e-mail inválido.");
+      hideLoading();
+      return;
+    }
+
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    }).then(async (response) => {
+      const data = await response.json();
+      if (!response.ok) {
+        showErrorMessage(data.message);
+      } else {
+        showMessage(data.message);
+        await delay(2000);
+        const encodedCompany = btoa(JSON.stringify(data.company));
+        localStorage.setItem("company", encodedCompany);
+        if (data.master) {
+          localStorage.setItem("__sess_admin__", "true");
+        }
+
+        window.location.href = "/botoesetapas.html";
+      }
+    });
+  });
 
 document
   .getElementById("reset-password")
