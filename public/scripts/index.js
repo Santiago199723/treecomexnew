@@ -90,26 +90,33 @@ document
 document
   .getElementById("reset-password")
   .addEventListener("click", async function (e) {
-    e.preventDefault(); // Impede o comportamento padrão do link
+    e.preventDefault();
+    hideMessages();
 
-    // Recupere o e-mail do usuário
-    const usuario = document.getElementById("usuario").value.trim();
-    if (!usuario)
-      return alert(
+    const email = usuario.value.trim();
+
+    if (!email) {
+      showErrorMessage(
         "Digite um endereço de e-mail antes de solicitar uma alteração de senha"
       );
 
-    // Use a funcionalidade do Firebase para enviar um e-mail de redefinição de senha
+      return;
+    }
+
     const response = await fetch("/reset-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: usuario,
+        email: email,
       }),
     });
 
-    const data = await response.json();
-    alert(data.message);
+    if (!response.ok) {
+      showErrorMessage(data.message);
+    } else {
+      const data = await response.json();
+      showMessage(data.message);
+    }
   });
