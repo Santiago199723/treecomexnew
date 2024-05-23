@@ -1,16 +1,14 @@
-let btn = document.querySelector(".fa-eye");
-let inputSenha = document.querySelector("#senha");
-let msgError = document.querySelector("#msgError");
-
-btn.addEventListener("click", () => {
-  if (inputSenha.getAttribute("type") === "password") {
-    inputSenha.setAttribute("type", "text");
-  } else {
-    inputSenha.setAttribute("type", "password");
-  }
-});
+let usuario = document.getElementsByName("session[email]")[0];
+let senha = document.getElementsByName("session[password]")[0];
 
 function showMessage(message) {
+  let msg = document.querySelector(".alert-info");
+  msg.style.display = "block";
+  msg.innerHTML = message;
+}
+
+function showErrorMessage(message) {
+  let msgError = document.querySelector(".error");
   msgError.style.display = "block";
   msgError.innerHTML = message;
 }
@@ -39,7 +37,7 @@ function entrar() {
   const password = senha.value;
 
   if (!isValidEmail(email)) {
-    showMessage("Formato de e-mail inválido.");
+    showErrorMessage("Formato de e-mail inválido.");
     hideLoading();
     return;
   }
@@ -55,8 +53,10 @@ function entrar() {
     }),
   }).then(async (response) => {
     const data = await response.json();
-    showMessage(data.message);
-    if (response.ok) {
+    if (!response.ok) {
+      showErrorMessage(data.message);
+    } else {
+      showMessage(data.message);
       await delay(2000);
       const encodedCompany = btoa(JSON.stringify(data.company));
       localStorage.setItem("company", encodedCompany);
@@ -69,7 +69,7 @@ function entrar() {
   });
 }
 
-const btnEntrar = document.querySelector("#btnEntrar");
-if (btnEntrar) {
-  btnEntrar.addEventListener("click", entrar);
+const sel = document.getElementsByName("commit");
+if (sel.length > 0) {
+  sel[0].addEventListener("click", entrar);
 }
