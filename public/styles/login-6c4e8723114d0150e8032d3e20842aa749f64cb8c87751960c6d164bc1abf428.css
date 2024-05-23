@@ -293,7 +293,7 @@ nav a#pull {
   clear: both;
 }
 .clearfix {
-  *zoom: 1;
+  zoom: 1;
 }
 .slide {
   margin-top: 100px;
@@ -3682,11 +3682,14 @@ p {
   align-items: center;
   display: flex;
 }
+
 .logo-login {
-  height: 70px;
+  width: 100px;
+  height: 100px;
   z-index: 99999;
   margin: 0 auto 20px auto;
 }
+
 .link-capa-login {
   position: fixed;
   width: 100%;
