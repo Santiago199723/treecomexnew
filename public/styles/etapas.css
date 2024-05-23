@@ -11,7 +11,6 @@
   justify-content: center; /* Centralizando os botões verticalmente */
   align-items: center; /* Centralizando os botões horizontalmente */
   height: 75vh; /* Definindo a altura para centralizar na tela */
-  background: #050801; /* Fundo preto */
   padding: 20px; /* Espaçamento interno para os botões */
 }
 
