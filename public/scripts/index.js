@@ -113,10 +113,10 @@ document
       }),
     });
 
+    const data = await response.json();
     if (!response.ok) {
       showErrorMessage(data.message);
     } else {
-      const data = await response.json();
       showMessage(data.message);
     }
   });
