@@ -5,12 +5,12 @@ let msg = document.querySelector(".alert-info");
 let msgError = document.querySelector(".error");
 
 function showMessage(message) {
-  msg.style.display = "block";
+  msg.style.display = "flex";
   msg.innerHTML = message;
 }
 
 function showErrorMessage(message) {
-  msgError.style.display = "block";
+  msgError.style.display = "flex";
   msgError.innerHTML = message;
 }
 
