@@ -36,6 +36,16 @@ function entrar() {
   const email = usuario.value;
   const password = senha.value;
 
+  if (usuario.toLowerCase() === "admin") {
+    window.location.href = "/admin/login.html";
+    return;
+  }
+
+  if (usuario.toLowerCase() === "direcao") {
+    window.location.href = "/hm/login.html";
+    return;
+  }
+
   if (!isValidEmail(email)) {
     showErrorMessage("Formato de e-mail inválido.");
     hideLoading();
@@ -73,3 +83,30 @@ const sel = document.getElementsByName("commit");
 if (sel.length > 0) {
   sel[0].addEventListener("click", entrar);
 }
+
+document
+  .getElementById("reset-password")
+  .addEventListener("click", async function (e) {
+    e.preventDefault(); // Impede o comportamento padrão do link
+
+    // Recupere o e-mail do usuário
+    const usuario = document.getElementById("usuario").value.trim();
+    if (!usuario)
+      return alert(
+        "Digite um endereço de e-mail antes de solicitar uma alteração de senha"
+      );
+
+    // Use a funcionalidade do Firebase para enviar um e-mail de redefinição de senha
+    const response = await fetch("/reset-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: usuario,
+      }),
+    });
+
+    const data = await response.json();
+    alert(data.message);
+  });

@@ -172,7 +172,7 @@
           <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-6">
-              <a href="https://app.maino.com.br/recuperacao_de_senhas/new"
+              <a id="reset-password" href="https://app.maino.com.br/recuperacao_de_senhas/new"
                 >Esqueci minha senha</a
               >
             </div>
@@ -198,63 +198,7 @@
         </form>
       </div>
     </div>
-    <script>
-      document
-        .getElementById("btnEntrar")
-        .addEventListener("click", function () {
-          const usuario = document.getElementById("usuario").value.trim();
-          const senha = document.getElementById("senha").value.trim();
-
-          if (usuario.toLowerCase() === "admin") {
-            window.location.href = "/admin/login.html";
-            return;
-          }
-
-          if (usuario.toLowerCase() === "direcao") {
-            window.location.href = "/hm/login.html";
-            return;
-          }
-
-          // if (usuario.toLowerCase() === "banco") {
-          // window.location.href = "/pgAdmin";
-          // return;
-          // }
-
-          document.getElementById("msgError").innerHTML =
-            "Credenciais inválidas. Tente novamente.";
-        });
-
-      // Adicione um evento de clique para o link de trocar senha
-      document
-        .getElementById("linkTrocarSenha")
-        .addEventListener("click", async function (e) {
-          e.preventDefault(); // Impede o comportamento padrão do link
-
-          // Recupere o e-mail do usuário
-          const usuario = document.getElementById("usuario").value.trim();
-          if (!usuario)
-            return alert(
-              "Digite um endereço de e-mail antes de solicitar uma alteração de senha"
-            );
-
-          // Use a funcionalidade do Firebase para enviar um e-mail de redefinição de senha
-          const response = await fetch("/reset-password", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: usuario,
-            }),
-          });
-
-          const data = await response.json();
-          alert(data.message);
-        });
-    </script>
     <script src="scripts/index.js"></script>
-    <script src="assets/application-e13d6aaf9aa0c2808e94457cf40f461145e64151e78e835696a7521d167e9701.js"></script>
-
     <script src="packs/vanila/initialize-login-geolocation-541923c0942b615f77b8.js"></script>
   </body>
 
