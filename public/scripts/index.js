@@ -1,19 +1,23 @@
 let usuario = document.getElementsByName("session[email]")[0];
 let senha = document.getElementsByName("session[password]")[0];
 
+let msg = document.querySelector(".alert-info");
+let msgError = document.querySelector(".error");
+
 function showMessage(message) {
-  let msg = document.querySelector(".alert-info");
   msg.style.display = "block";
   msg.innerHTML = message;
 }
 
 function showErrorMessage(message) {
-  let msgError = document.querySelector(".error");
   msgError.style.display = "block";
   msgError.innerHTML = message;
 }
 
-function hideErrorMessage() {
+function hideMessages() {
+  msg.style.display = "none";
+  msg.innerHTML = "";
+
   msgError.style.display = "none";
   msgError.innerHTML = "";
 }
@@ -28,7 +32,7 @@ document
   .addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    hideErrorMessage();
+    hideMessages();
     showLoading();
 
     if (!usuario.value || !senha.value) {
@@ -56,7 +60,7 @@ document
       return;
     }
 
-    fetch("/login", {
+    const response = await fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,22 +69,22 @@ document
         email: email,
         password: password,
       }),
-    }).then(async (response) => {
-      const data = await response.json();
-      if (!response.ok) {
-        showErrorMessage(data.message);
-      } else {
-        showMessage(data.message);
-        await delay(2000);
-        const encodedCompany = btoa(JSON.stringify(data.company));
-        localStorage.setItem("company", encodedCompany);
-        if (data.master) {
-          localStorage.setItem("__sess_admin__", "true");
-        }
-
-        window.location.href = "/botoesetapas.html";
-      }
     });
+    
+    const data = await response.json();
+    if (!response.ok) {
+      showErrorMessage(data.message);
+    } else {
+      showMessage(data.message);
+      await delay(2000);
+      const encodedCompany = btoa(JSON.stringify(data.company));
+      localStorage.setItem("company", encodedCompany);
+      if (data.master) {
+        localStorage.setItem("__sess_admin__", "true");
+      }
+
+      window.location.href = "/botoesetapas.html";
+    }
   });
 
 document
