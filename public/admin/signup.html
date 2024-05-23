@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -9,6 +9,67 @@
       rel="stylesheet"
     />
     <style>
+      .container {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .form-group-checkbox {
+        right: -30%;
+        position: relative;
+        display: flex;
+        gap: 15px;
+        margin-top: -20px;
+      }
+
+      .form-group-checkbox label {
+        margin-right: 10px;
+        font-weight: Arial;
+        color: #707272;
+        font-size: 18px;
+      }
+
+      .checkbox-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .checkbox-container input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 25px;
+        height: 25px;
+        border: 2px solid #707272;
+        border-radius: 5px;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+
+      .checkbox-container input[type="checkbox"]:checked {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+
+      .checkbox-container input[type="checkbox"]:checked::before {
+        content: "\2713";
+        display: inline-block;
+        color: #fff;
+        font-size: 18px;
+        line-height: 25px;
+        text-align: center;
+      }
+
+      .checkbox-container label {
+        font-size: 18px;
+        font-family: Arial, sans-serif; /* Define a fonte */
+        color: #707272; /* Define a cor do texto */
+      }
+
       body {
         font-family: Montserrat, sans-serif;
         margin: 0;
@@ -63,7 +124,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
       }
 
       .option-label {
@@ -181,11 +241,185 @@
           />
         </div>
 
+        <div
+          style="display: inline-flex; transform: translate(-14rem, 33.5rem)"
+        >
+          <button
+            style="
+              background-color: transparent;
+              align-items: center;
+              display: inline-flex;
+              color: #fcfcfc;
+              background: none;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: 0.5s;
+              letter-spacing: 4px;
+            "
+            onclick="routeTo('/login.html')"
+          >
+            <image style="width: 26px" src="/assets/voltar.png"></image>
+          </button>
+        </div>
+
+        <div class="alert" id="mensagem-sucesso" style="display: none">
+          Suas informações foram enviadas!
+        </div>
+
+        <div class="inputBox">
+          <input
+            type="text"
+            id="nome"
+            placeholder="NOME COMPLETO DO PROPRIETÁRIO.."
+            required
+          />
+        </div>
+
+        <div class="inputBox">
+          <input
+            type="text"
+            id="empresa"
+            placeholder="NOME DA EMPRESA.."
+            required
+          />
+        </div>
+
+        <div class="inputBox">
+          <input
+            type="text"
+            id="cpf"
+            placeholder="INFORME O CPF.."
+            pattern="\d{11}"
+            title="Por favor, insira só números. Está faltando números!"
+            required
+          />
+        </div>
+
+        <div class="inputBox">
+          <input
+            type="text"
+            id="cnpj"
+            placeholder="INFORME O CNPJ (Caso tenha)"
+            pattern="\d{14}"
+            title="Por favor, insira só números. Está faltando números!"
+          />
+        </div>
+        <br />
+        <br />
+        <div class="form-group-checkbox">
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="matriz"
+              name="tipo"
+              value="Matriz"
+              onchange="checkboxHandler(this)"
+            />
+            <label for="matriz" style="font-weight: Arial; color: #787c7c"
+              >Matriz</label
+            >
+          </div>
+
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="filial"
+              name="tipo"
+              value="Filial"
+              onchange="checkboxHandler(this)"
+            />
+            <label for="filial" style="font-weight: Arial; color: #787c7c"
+              >Filial</label
+            >
+          </div>
+        </div>
+        <br />
+        <div class="form-group" id="estado-container">
+          <label for="codUf" id="label-estado">SELECIONE O ESTADO:</label>
+          <select
+            class="form-control"
+            data-val="true"
+            data-val-number="The field UF must be a number."
+            data-val-required="Informe a UF do contribuinte"
+            id="CodUf"
+            name="CodUf"
+          >
+            <option value=""></option>
+            <option value="12">AC</option>
+            <option value="27">AL</option>
+            <option value="13">AM</option>
+            <option value="16">AP</option>
+            <option value="29">BA</option>
+            <option value="23">CE</option>
+            <option value="53">DF</option>
+            <option value="32">ES</option>
+            <option value="52">GO</option>
+            <option value="21">MA</option>
+            <option value="31">MG</option>
+            <option value="50">MS</option>
+            <option value="51">MT</option>
+            <option value="15">PA</option>
+            <option value="25">PB</option>
+            <option value="26">PE</option>
+            <option value="22">PI</option>
+            <option value="41">PR</option>
+            <option value="33">RJ</option>
+            <option value="24">RN</option>
+            <option value="11">RO</option>
+            <option value="14">RR</option>
+            <option value="43">RS</option>
+            <option value="42">SC</option>
+            <option value="28">SE</option>
+            <option value="35">SP</option>
+            <option value="17">TO</option>
+          </select>
+        </div>
+        <br />
+        <br />
         <button type="submit" class="btn">Cadastrar usuário</button>
       </form>
     </div>
 
     <script>
+      function checkboxHandler(cx) {
+        if (cx.id == "matriz") {
+          document.getElementById("filial").checked = false;
+        } else if (cx.id == "filial") {
+          document.getElementById("matriz").checked = false;
+        }
+      }
+      const estadosSiglas = {
+        "": "",
+        12: "AC",
+        27: "AL",
+        13: "AM",
+        16: "AP",
+        29: "BA",
+        23: "CE",
+        53: "DF",
+        32: "ES",
+        52: "GO",
+        21: "MA",
+        31: "MG",
+        50: "MS",
+        51: "MT",
+        15: "PA",
+        25: "PB",
+        26: "PE",
+        22: "PI",
+        41: "PR",
+        33: "RJ",
+        24: "RN",
+        11: "RO",
+        14: "RR",
+        43: "RS",
+        42: "SC",
+        28: "SE",
+        35: "SP",
+        17: "TO",
+      };
+
       window.onload = function () {
         if (!localStorage.getItem("__sess_admin__"))
           window.location.href = "login.html";
@@ -215,6 +449,12 @@
           const passwordInput = document.getElementById("password");
           const masterCheckbox = document.getElementById("master");
           const normalCheckbox = document.getElementById("normal");
+          const nome = getElementVal("nome");
+          const empresa = getElementVal("empresa");
+          const cpf = getElementVal("cpf");
+          const cnpj = getElementVal("cnpj");
+          const matriz = document.querySelector("#matriz").checked;
+          const estado = estadosSiglas[getElementVal("CodUf")];
 
           if (
             !emailInput.value ||
@@ -222,7 +462,7 @@
             (!masterCheckbox.checked && !normalCheckbox.checked)
           ) {
             alert(
-              "Preencha todos os campos e selecione uma das opções: Master ou Normal!",
+              "Preencha todos os campos e selecione uma das opções: Master ou Normal!"
             );
             return;
           }
@@ -236,6 +476,12 @@
               email: emailInput.value,
               password: passwordInput.value,
               master: masterCheckbox.checked,
+              ownerName: nome,
+              companyName: empresa,
+              cpf: cpf,
+              cnpj: cnpj,
+              country: estado,
+              matriz: matriz,
             }),
           }).then(async (response) => {
             if (response.ok) document.getElementById("form").reset();
@@ -243,6 +489,10 @@
             alert(data.message);
           });
         });
+
+      const getElementVal = (id) => {
+        return document.getElementById(id).value;
+      };
     </script>
     <script src="../scripts/utils.js"></script>
   </body>

@@ -58,7 +58,13 @@ function entrar() {
     showMessage(data.message);
     if (response.ok) {
       await delay(2000);
-      window.location.href = "CPF.html";
+      const encodedCompany = btoa(JSON.stringify(data.company));
+      localStorage.setItem("company", encodedCompany);
+      if (data.master) {
+        localStorage.setItem("__sess_admin__", "true");
+      }
+
+      window.location.href = "/botoesetapas.html";
     }
   });
 }

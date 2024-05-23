@@ -68,7 +68,7 @@ hr {
 .back-button {
   position: fixed;
   bottom: 15px;
-  right: 15px;
+  left: 15px;
   padding: 15px 10px;
   color: #fcfcfc;
   background: none;
@@ -89,6 +89,7 @@ hr {
   display: inline-flex;
   bottom: 15px;
   right: 15px;
+  position: fixed;
   padding: 15px 10px;
   color: #fcfcfc;
   background: none;

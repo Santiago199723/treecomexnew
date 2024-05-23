@@ -5,7 +5,7 @@ window.onload = async function () {
   document.getElementById("register-master").style.display = "none";
 
   if (!company) {
-    window.location.href = "CPF.html";
+    window.location.href = "/index.html";
   }
 
   const userResponse = await fetch(
@@ -56,15 +56,15 @@ window.onload = async function () {
 function sair() {
   localStorage.removeItem("company");
   localStorage.removeItem("processId");
-  window.location.href = "CPF.html";
+  window.location.href = "/index.html";
 }
 
 function openModal() {
-  document.getElementById("overlay").style.display = "flex"; // Exibe o fundo escuro
+  document.getElementById("overlay").style.display = "flex"; 
 }
 
 function closeModal() {
-  document.getElementById("overlay").style.display = "none"; // Oculta o fundo escuro
+  document.getElementById("overlay").style.display = "none";
 }
 
 let offsetX, offsetY;

@@ -17,7 +17,7 @@
       .back-button-cyan {
         position: fixed;
         bottom: 15px;
-        right: 15px;
+        left: 15px;
         padding: 15px 10px;
         color: #fcfcfc;
         background: none;
@@ -148,13 +148,13 @@
         <a
           id="register-master"
           style="display: none"
-          onclick="routeTo('manager/processos.html')"
+          onclick="routeTo('/manager/processos.html')"
           >CADASTRAR PROCESSO</a
         >
       </div>
     </div>
 
-    <button class="back-button-cyan" onclick="sair()">Voltar</button>
+    <button class="back-button-cyan" onclick="sair()">Logout</button>
 
     <script src="scripts/botoesetapas.js"></script>
     <script src="scripts/utils.js"></script>

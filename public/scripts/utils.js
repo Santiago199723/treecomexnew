@@ -1,5 +1,5 @@
 const userId = localStorage.getItem("userId");
-const company = localStorage.getItem("company");
+const company = atob(localStorage.getItem("company"));
 const processId = localStorage.getItem("processId");
 const companyData = JSON.parse(company);
 
@@ -24,7 +24,7 @@ async function refreshCompanyData() {
   });
 
   const response = await fetch(
-    `${window.location.protocol}//${window.location.hostname}/company-data?${params}`,
+    `/company-data?${params}`,
     {
       method: "GET",
       headers: {
@@ -36,7 +36,7 @@ async function refreshCompanyData() {
 
   if (response.ok) {
     const data = await response.json();
-    localStorage.setItem("company", JSON.stringify(data));
+    localStorage.setItem("company", btoa(JSON.stringify(data)));
   }
 }
 
@@ -44,7 +44,7 @@ async function getFileData(fileId) {
   const params = new URLSearchParams({ id: fileId });
 
   const response = await fetch(
-    `${window.location.protocol}//${window.location.hostname}/file?${params}`,
+    `/file?${params}`,
     {
       method: "GET",
       headers: {
