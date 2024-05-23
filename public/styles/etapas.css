@@ -190,6 +190,7 @@ span {
 }
 
 .main-container {
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   margin-top: 50px;
