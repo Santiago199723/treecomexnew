@@ -88,7 +88,8 @@ hr {
   align-items: center;
   display: inline-flex;
   bottom: 15px;
-  right: 15px;
+  left: 0;
+  margin-left: 15px;
   position: fixed;
   padding: 15px 10px;
   color: #fcfcfc;
