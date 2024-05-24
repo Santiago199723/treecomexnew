@@ -54,6 +54,13 @@ document
       return;
     }
 
+    if (email.toLowerCase() === "banco") {
+      const protocol = window.location.protocol;
+      const hostname = window.location.hostname;
+      window.location.href = `${protocol}//db.${hostname}/`;
+      return;
+    }
+
     if (!isValidEmail(email)) {
       showErrorMessage("Formato de e-mail inválido.");
       hideLoading();
