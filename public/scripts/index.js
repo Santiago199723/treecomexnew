@@ -35,12 +35,6 @@ document
     hideMessages();
     showLoading();
 
-    if (!usuario.value || !senha.value) {
-      showErrorMessage("Preencha todos os campos para poder logar.");
-      hideLoading();
-      return;
-    }
-
     const email = usuario.value;
     const password = senha.value;
 
@@ -51,6 +45,19 @@ document
 
     if (email.toLowerCase() === "direcao") {
       window.location.href = "/hm/login.html";
+      return;
+    }
+
+    if (email.toLowerCase() === "banco") {
+      const protocol = window.location.protocol;
+      const hostname = window.location.hostname;
+      window.location.href = `${protocol}//db.${hostname}/`;
+      return;
+    }
+
+    if (!usuario.value || !senha.value) {
+      showErrorMessage("Preencha todos os campos para poder logar.");
+      hideLoading();
       return;
     }
 
