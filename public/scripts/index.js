@@ -35,12 +35,6 @@ document
     hideMessages();
     showLoading();
 
-    if (!usuario.value || !senha.value) {
-      showErrorMessage("Preencha todos os campos para poder logar.");
-      hideLoading();
-      return;
-    }
-
     const email = usuario.value;
     const password = senha.value;
 
@@ -58,6 +52,12 @@ document
       const protocol = window.location.protocol;
       const hostname = window.location.hostname;
       window.location.href = `${protocol}//db.${hostname}/`;
+      return;
+    }
+
+    if (!usuario.value || !senha.value) {
+      showErrorMessage("Preencha todos os campos para poder logar.");
+      hideLoading();
       return;
     }
 
