@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        console.log("Login bem-sucedido.");
+        console.log(" bem-sucedido.");
         hideLoading();
         window.location.href = "administracao.html";
       })

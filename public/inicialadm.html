@@ -121,19 +121,17 @@
     <div class="company-info-0">
       <div class="info-item-0">
         <div class="info-value-0">
-          <p id="company-name">NOME DA EMMPRESA</p>
+          <p id="company-name"></p>
         </div>
       </div>
-      -
       <div class="info-item-0">
         <div class="info-value-0">
-          <p id="company-type">FILIAL OU MATRIZ</p>
+          <p id="company-type"></p>
         </div>
       </div>
-      -
       <div class="info-item-0">
         <div class="info-value-0">
-          <p id="company-state">EX: AL</p>
+          <p id="company-state"></p>
         </div>
       </div>
     </div>
@@ -143,10 +141,9 @@
       <hr />
 
       <div class="button-container">
-        <a href="etapa1.html"> ETAPA 1 - ESTRUTURA </a>
-        <a onclick="openModal()"> ETAPA 2 - PROCESSOS </a>
-        <a href="#" onclick="showMessage(); return false;">FINANCEIRO</a>
-
+        <a href="admin\signup.html">CADASTRAR USUÁRIO/EMPRESA</a>
+        <a href="manager\processos.html">CADASTRAR PROCESSO</a>
+        <a href="#" onclick="showMessage(); return false;">PARÂMETROS</a>
         <a
           id="register-master"
           style="display: none"
@@ -159,11 +156,14 @@
     <button class="back-button-cyan" onclick="sair()">
       <image style="width: 20px" src="/assets/back-white.png"></image>
     </button>
+
+    
     <script>
       function showMessage() {
           alert("Está em desenvolvimento!");
       }
   </script>
+
     <script src="scripts/botoesetapas.js"></script>
     <script src="scripts/utils.js"></script>
   </body>

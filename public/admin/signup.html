@@ -183,7 +183,7 @@
             transition: 0.5s;
             letter-spacing: 4px;
           "
-          onclick="routeTo('login.html')"
+          onclick="routeTo('../inicialadm.html')"
         >
           <image style="width: 26px" src="/assets/voltar.png"></image>
         </button>
@@ -237,8 +237,16 @@
             id="normal"
             name="user-type"
             value="normal"
-            style="margin-right: 100px"
-          />
+            style="margin-right: 50px"
+          /> 
+          <label for="normal" class="option-label normal-label">Financeiro</label>
+          <input
+            type="radio"
+            id="normal"
+            name="user-type"
+            value="normal"
+            style="margin-right: 50px"
+            /> 
         </div>
 
         <div
@@ -257,7 +265,7 @@
               transition: 0.5s;
               letter-spacing: 4px;
             "
-            onclick="routeTo('/login.html')"
+            onclick="routeTo('inicialadm.html')"
           >
             <image style="width: 26px" src="/assets/voltar.png"></image>
           </button>
@@ -420,10 +428,6 @@
         17: "TO",
       };
 
-      window.onload = function () {
-        if (!localStorage.getItem("__sess_admin__"))
-          window.location.href = "login.html";
-      };
 
       function togglePasswordVisibility() {
         const passwordInput = document.getElementById("password");

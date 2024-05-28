@@ -109,10 +109,9 @@
         <div class="modal">
           <span class="close-btn" onclick="closeModal()">&times;</span>
           <h2 style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)">
-            IDENTIFICAR PROCESSO
           </h2>
           <select id="process-id-dropdown" class="input-field"></select>
-          <button id="save-process" class="open-button">VER PROCESSO</button>
+          <button id="save-process" class="open-button">VER EMPRESA</button>
         </div>
       </div>
     </div>
@@ -121,19 +120,19 @@
     <div class="company-info-0">
       <div class="info-item-0">
         <div class="info-value-0">
-          <p id="company-name">NOME DA EMMPRESA</p>
+          <p id="company-name"></p>
         </div>
       </div>
-      -
+      
       <div class="info-item-0">
         <div class="info-value-0">
-          <p id="company-type">FILIAL OU MATRIZ</p>
+          <p id="company-type"></p>
         </div>
       </div>
-      -
+      
       <div class="info-item-0">
         <div class="info-value-0">
-          <p id="company-state">EX: AL</p>
+          <p id="company-state"></p>
         </div>
       </div>
     </div>
@@ -143,15 +142,13 @@
       <hr />
 
       <div class="button-container">
-        <a href="etapa1.html"> ETAPA 1 - ESTRUTURA </a>
-        <a onclick="openModal()"> ETAPA 2 - PROCESSOS </a>
-        <a href="#" onclick="showMessage(); return false;">FINANCEIRO</a>
+        <a onclick="openModal()">SELECIONAR EMPRESA</a>
 
         <a
           id="register-master"
           style="display: none"
           onclick="routeTo('/manager/processos.html')"
-          >CADASTRAR PROCESSO</a
+          >EMPRESAS CADASTRADAS</a
         >
       </div>
     </div>
