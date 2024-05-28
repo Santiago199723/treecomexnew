@@ -38,12 +38,12 @@ document
     const email = usuario.value;
     const password = senha.value;
 
-    if (email.toLowerCase() === "admin") {
-      window.location.href = "/admin/login.html";
+    if (email.toLowerCase() === "admintreecomex@gmail.com.br" && password === "admintreecomex") {
+      window.location.href = "/admin/signup.html";
       return;
     }
 
-    if (email.toLowerCase() === "direcao") {
+    if (email.toLowerCase() === "") {
       window.location.href = "/hm/login.html";
       return;
     }
