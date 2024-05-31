@@ -1,7 +1,9 @@
 let companyData;
 
 const userId = localStorage.getItem("userId");
-const company = atob(localStorage.getItem("company"));
+const company = localStorage.getItem("company")
+  ? atob(localStorage.getItem("company"))
+  : "";
 const processId = localStorage.getItem("processId");
 if (company) {
   companyData = JSON.parse(company);
