@@ -45,17 +45,13 @@ app.post("/check-session", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  const {
-    email,
-    password,
-    userType,
-  } = req.body;
+  const { email, password, userType } = req.body;
 
   try {
-    const newUser = await User.create({
+    await User.create({
       email: email,
       password: password,
-      user_type: String(userType).toUpperCase(),
+      user_type: userType,
     });
 
     return res.status(200).json({
@@ -376,13 +372,13 @@ app.get("/resetPassword", async (req, res) => {
     if (resp) {
       const resetHTML = fs.readFileSync(
         path.join(__dirname, "..", "public", "templates", "senha.html"),
-        "utf-8",
+        "utf-8"
       );
       return res.send(resetHTML);
     } else {
       const resetHTML = fs.readFileSync(
         path.join(__dirname, "..", "public", "templates", "venceu.html"),
-        "utf-8",
+        "utf-8"
       );
       return res.send(resetHTML);
     }
