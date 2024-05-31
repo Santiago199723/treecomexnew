@@ -229,10 +229,10 @@ app.get("/company-data", async (req, res) => {
     const user = await User.findOne({ where: { id: userId } });
     if (user && user.user_type !== UserType.MASTER) {
       const companyOwned = await Company.findOne({
-        where: { executor: user.id },
+        where: { ofUser: user.id },
       });
 
-      if (!companyOwned || companyOwned.executor !== user.id) {
+      if (!companyOwned || companyOwned.ofUser !== user.id) {
         return res.status(403).json({
           code: "REQUEST_BLOCKED_NORMAL_USER",
           message: "Usuário não tem permissão para acessar dados desta empresa",

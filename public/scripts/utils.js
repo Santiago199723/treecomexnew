@@ -10,6 +10,7 @@ if (company) {
 }
 
 class UserType {
+  static ADMIN = "admin";
   static NORMAL = "normal";
   static MASTER = "master";
   static FINANCIAL = "financial";

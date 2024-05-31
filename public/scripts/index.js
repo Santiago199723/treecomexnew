@@ -87,9 +87,9 @@ document
     } else {
       showMessage(data.message);
       await delay(2000);
-      if (data.userType === UserType.MASTER) {
+      if (data.userType === UserType.ADMIN) {
         localStorage.setItem("__sess_admin__", "true");
-        window.location.href = "/admin/signup.html";
+        window.location.href = "/admin/index.html";
         return;
       } else if (data.company) {
         const encodedCompany = btoa(JSON.stringify(data.company));
