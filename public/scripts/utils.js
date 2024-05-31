@@ -3,12 +3,6 @@ const company = atob(localStorage.getItem("company"));
 const processId = localStorage.getItem("processId");
 const companyData = JSON.parse(company);
 
-class UserType {
-  static NORMAL = "normal";
-  static MASTER = "master";
-  static FINANCIAL = "financial";
-}
-
 async function checkSession() {
   const response = await fetch(
     `${window.location.protocol}//${window.location.hostname}/check-session`,

@@ -89,7 +89,7 @@ document
       await delay(2000);
       const encodedCompany = btoa(JSON.stringify(data.company));
       localStorage.setItem("company", encodedCompany);
-      if (data.user_type === UserType.MASTER) {
+      if (data.userType === "master") {
         localStorage.setItem("__sess_admin__", "true");
       }
 
