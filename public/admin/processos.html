@@ -158,7 +158,7 @@
           }
 
           const response = await fetch(
-            `${window.location.protocol}//${window.location.hostname}/process`,
+            "/process",
             {
               method: "POST",
               headers: {
@@ -179,5 +179,6 @@
         });
     </script>
     <script src="../scripts/utils.js"></script>
+    <script src="session.js"></script>
   </body>
 </html>
