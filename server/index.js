@@ -103,12 +103,12 @@ app.post("/login", async (req, res) => {
         })
         .json({
           message: "Login bem-sucedido",
-          userType: user.userType,
+          userType: data.userType,
         });
     }
 
     if (data.userType && data.userType === UserType.NORMAL) {
-      const company = await Company.findOne({ where: { ofUser: user.id } });
+      const company = await Company.findOne({ where: { ofUser: data.id } });
       if (company) {
         return res
           .status(200)
@@ -120,7 +120,7 @@ app.post("/login", async (req, res) => {
           .json({
             message: "Login bem-sucedido",
             company: company,
-            userType: user.userType,
+            userType: data.userType,
           });
       } else {
         return res.status(404).json({
@@ -131,7 +131,7 @@ app.post("/login", async (req, res) => {
 
     return res
       .status(200)
-      .cookie("userId", user.id, {
+      .cookie("userId", data.id, {
         maxAge: 86400000,
         httpOnly: true,
         sameSite: "strict",
