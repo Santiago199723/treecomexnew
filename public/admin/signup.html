@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -328,7 +328,7 @@
               !financialCheckbox.checked)
           ) {
             alert(
-              "Preencha todos os campos e selecione uma das opções: Master ou Normal!",
+              "Preencha todos os campos e selecione uma das opções: Master ou Normal!"
             );
             return;
           }
@@ -354,9 +354,11 @@
               userType: userType,
             }),
           }).then(async (response) => {
-            if (response.ok) document.getElementById("form").reset();
             const data = await response.json();
-            localStorage.setItem("__next_reg__", data.user);
+            if (response.ok) {
+              document.getElementById("form").reset();
+              localStorage.setItem("__next_reg__", data.user);
+            }
             alert(data.message);
           });
         });
