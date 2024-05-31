@@ -1,7 +1,15 @@
 const userId = localStorage.getItem("userId");
 const company = atob(localStorage.getItem("company"));
 const processId = localStorage.getItem("processId");
-const companyData = JSON.parse(company);
+if (company) {
+  const companyData = JSON.parse(company);
+}
+
+class UserType {
+  static NORMAL = "normal";
+  static MASTER = "master";
+  static FINANCIAL = "financial";
+}
 
 async function checkSession() {
   const response = await fetch(
@@ -12,7 +20,7 @@ async function checkSession() {
         "Content-Type": "application/json",
       },
       credentials: "include",
-    },
+    }
   );
 
   return response.ok;

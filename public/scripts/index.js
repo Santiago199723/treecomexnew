@@ -89,7 +89,7 @@ document
       await delay(2000);
       const encodedCompany = btoa(JSON.stringify(data.company));
       localStorage.setItem("company", encodedCompany);
-      if (data.userType === "master") {
+      if (data.userType === UserType.MASTER) {
         localStorage.setItem("__sess_admin__", "true");
       }
 
@@ -107,7 +107,7 @@ document
 
     if (!email) {
       showErrorMessage(
-        "Digite um endereço de e-mail antes de solicitar uma alteração de senha",
+        "Digite um endereço de e-mail antes de solicitar uma alteração de senha"
       );
 
       return;

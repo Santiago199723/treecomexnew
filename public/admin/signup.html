@@ -334,11 +334,11 @@
           let userType = "";
 
           if (normalCheckbox.checked) {
-            userType = normalCheckbox.value;
+            userType = UserType.NORMAL;
           } else if (masterCheckbox.checked) {
-            userType = masterCheckbox.value;
+            userType = UserType.MASTER;
           } else if (financialCheckbox.checked) {
-            userType = financialCheckbox.value;
+            userType = UserType.FINANCIAL;
           }
 
           fetch("/register", {
