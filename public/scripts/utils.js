@@ -1,8 +1,10 @@
+let companyData;
+
 const userId = localStorage.getItem("userId");
 const company = atob(localStorage.getItem("company"));
 const processId = localStorage.getItem("processId");
 if (company) {
-  const companyData = JSON.parse(company);
+  companyData = JSON.parse(company);
 }
 
 class UserType {
@@ -12,36 +14,35 @@ class UserType {
 }
 
 async function checkSession() {
-  const response = await fetch(
-    `${window.location.protocol}//${window.location.hostname}/check-session`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    }
-  );
-
-  return response.ok;
-}
-
-async function refreshCompanyData() {
-  const params = new URLSearchParams({
-    unique: companyData.cpf ? companyData.cpf : companyData.cnpj,
-  });
-
-  const response = await fetch(`/company-data?${params}`, {
-    method: "GET",
+  const response = await fetch("/check-session", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
   });
 
-  if (response.ok) {
-    const data = await response.json();
-    localStorage.setItem("company", btoa(JSON.stringify(data)));
+  return response.ok;
+}
+
+async function refreshCompanyData() {
+  if (companyData) {
+    const params = new URLSearchParams({
+      unique: companyData.cpf ? companyData.cpf : companyData.cnpj,
+    });
+
+    const response = await fetch(`/company-data?${params}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem("company", btoa(JSON.stringify(data)));
+    }
   }
 }
 
