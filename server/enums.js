@@ -4,6 +4,7 @@ export class Actions {
 }
 
 export class UserType {
+  static ADMIN = "admin";
   static NORMAL = "normal";
   static MASTER = "master";
   static FINANCIAL = "financial";

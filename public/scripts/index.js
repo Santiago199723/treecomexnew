@@ -110,7 +110,7 @@ document
 
     if (!email) {
       showErrorMessage(
-        "Digite um endereço de e-mail antes de solicitar uma alteração de senha"
+        "Digite um endereço de e-mail antes de solicitar uma alteração de senha",
       );
 
       return;

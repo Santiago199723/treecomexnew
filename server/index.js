@@ -78,45 +78,142 @@ app.post("/login", async (req, res) => {
 
   try {
     const user = await User.findOne({ where: { email: email } });
+    const admin = await Admin.findOne({ where: { email: email } });
 
-    if (!user) {
+    if (!user && !admin) {
       return res
         .status(404)
-        .json({ code: "USER_NOT_FOUND", message: "Usuário não encontrado" });
+        .json({ code: "NOT_FOUND", message: "Usuário não encontrado" });
     }
 
-    if (user.password !== password) {
+    const data = user ?? admin;
+
+    if (data.password !== password) {
       return res
         .status(401)
         .json({ code: "INVALID_PASSWORD", message: "Senha inválida" });
     }
 
-    if (user.userType === UserType.MASTER) {
-      return res.status(200).json({
-        message: "Login bem-sucedido",
-        userType: user.userType,
-      });
-    }
-
-    const company = await Company.findOne({ where: { for: user.id } });
-    if (company) {
+    if (data.userType && data.userType === UserType.MASTER) {
       return res
         .status(200)
-        .cookie("userId", user.id, {
+        .cookie("userId", data.id, {
           maxAge: 86400000,
           httpOnly: true,
           sameSite: "strict",
         })
         .json({
           message: "Login bem-sucedido",
-          company: company,
           userType: user.userType,
         });
-    } else {
-      return res.status(404).json({
-        message: "Usuário não possui cadastro de empresa",
+    }
+
+    if (data.userType && data.userType === UserType.NORMAL) {
+      const company = await Company.findOne({ where: { ofUser: user.id } });
+      if (company) {
+        return res
+          .status(200)
+          .cookie("userId", data.id, {
+            maxAge: 86400000,
+            httpOnly: true,
+            sameSite: "strict",
+          })
+          .json({
+            message: "Login bem-sucedido",
+            company: company,
+            userType: user.userType,
+          });
+      } else {
+        return res.status(404).json({
+          message: "Usuário não possui cadastro de empresa",
+        });
+      }
+    }
+
+    return res
+      .status(200)
+      .cookie("userId", user.id, {
+        maxAge: 86400000,
+        httpOnly: true,
+        sameSite: "strict",
+      })
+      .json({
+        message: "Bem vindo administrador!",
+        userType: UserType.ADMIN,
+      });
+  } catch (error) {
+    return res.status(500).json({
+      code: "SERVER_ERROR",
+      message: "Ocorreu um erro interno do servidor",
+    });
+  }
+});
+
+app.post("/company-register", async (req, res) => {
+  const userId = req.cookies.userId;
+  const { ownerName, companyName, cpf, cnpj, country, matriz, ofUser } =
+    req.body;
+
+  if (!ownerName || !companyName || !country) {
+    return res.status(400).json({
+      code: "MISSING_FIELDS",
+      message:
+        "Todos os campos são obrigatórios, exceto CPF e CNPJ (pelo menos um deles deve ser fornecido)",
+    });
+  }
+
+  if (!cpf && !cnpj) {
+    return res.status(400).json({
+      code: "MISSING_FIELDS",
+      message: "Você deve fornecer pelo menos um CPF ou CNPJ",
+    });
+  }
+
+  try {
+    const existingCPFCompany = cpf
+      ? await Company.findOne({ where: { cpf: cpf } })
+      : null;
+    if (existingCPFCompany) {
+      return res.status(409).json({
+        code: "CPF_REGISTERED",
+        message: "CPF já registrado para outra empresa",
       });
     }
+
+    const existingCNPJCompany = cnpj
+      ? await Company.findOne({ where: { cnpj: cnpj } })
+      : null;
+    if (existingCNPJCompany) {
+      return res.status(409).json({
+        code: "CNPJ_REGISTERED",
+        message: "CNPJ já registrado para outra empresa",
+      });
+    }
+
+    if (userId) {
+      const admin = await Admin.findOne({ where: { id: userId } });
+      if (!admin) {
+        return res.status(401).json({
+          code: "REQUEST_BLOCKED_USER",
+          message: "Usuário não tem permissão para registrar",
+        });
+      }
+    }
+
+    await Company.create({
+      ownerName: ownerName,
+      companyName: companyName,
+      cpf: cpf,
+      cnpj: cnpj,
+      country: country,
+      matriz: matriz,
+      registrant: userId,
+      ofUser: ofUser,
+    });
+
+    return res.status(200).json({
+      message: "Registro bem-sucedido",
+    });
   } catch (error) {
     return res.status(500).json({
       code: "SERVER_ERROR",

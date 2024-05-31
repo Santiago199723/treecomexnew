@@ -53,7 +53,11 @@ export const Company = sequelize.define("company", {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
-  for: {
+  registrant: {
+    type: DataTypes.UUID,
+    allowNull: false
+  },
+  ofUser: {
     type: DataTypes.UUID,
     allowNull: false,
   },
