@@ -323,7 +323,9 @@
           if (
             !emailInput.value ||
             !passwordInput.value ||
-            (!masterCheckbox.checked && !normalCheckbox.checked && !financialCheckbox.checked)
+            (!masterCheckbox.checked &&
+              !normalCheckbox.checked &&
+              !financialCheckbox.checked)
           ) {
             alert(
               "Preencha todos os campos e selecione uma das opções: Master ou Normal!"
@@ -354,6 +356,7 @@
           }).then(async (response) => {
             if (response.ok) document.getElementById("form").reset();
             const data = await response.json();
+            localStorage.setItem("__next_reg__", data.user);
             alert(data.message);
           });
         });

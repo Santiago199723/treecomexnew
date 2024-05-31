@@ -48,14 +48,15 @@ app.post("/register", async (req, res) => {
   const { email, password, userType } = req.body;
 
   try {
-    await User.create({
+    const newUser = await User.create({
       email: email,
       password: password,
-      user_type: userType,
+      userType: userType,
     });
 
     return res.status(200).json({
       message: "Usuário criado com sucesso",
+      user: newUser.id,
     });
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
@@ -90,7 +91,14 @@ app.post("/login", async (req, res) => {
         .json({ code: "INVALID_PASSWORD", message: "Senha inválida" });
     }
 
-    const company = await Company.findOne({ where: { executor: user.id } });
+    if (user.userType === UserType.MASTER) {
+      return res.status(200).json({
+        message: "Login bem-sucedido",
+        userType: user.userType,
+      });
+    }
+
+    const company = await Company.findOne({ where: { for: user.id } });
     if (company) {
       return res
         .status(200)
@@ -102,8 +110,12 @@ app.post("/login", async (req, res) => {
         .json({
           message: "Login bem-sucedido",
           company: company,
-          user_type: user.user_type,
+          userType: user.userType,
         });
+    } else {
+      return res.status(404).json({
+        message: "Usuário não possui cadastro de empresa",
+      });
     }
   } catch (error) {
     return res.status(500).json({

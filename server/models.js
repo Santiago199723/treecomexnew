@@ -17,7 +17,7 @@ export const User = sequelize.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  user_type: {
+  userType: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -53,7 +53,7 @@ export const Company = sequelize.define("company", {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
-  executor: {
+  for: {
     type: DataTypes.UUID,
     allowNull: false,
   },
