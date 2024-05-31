@@ -349,7 +349,7 @@
             body: JSON.stringify({
               email: emailInput.value,
               password: passwordInput.value,
-              userType: userType,
+              userType: userType.toLowerCase(),
             }),
           }).then(async (response) => {
             if (response.ok) document.getElementById("form").reset();
