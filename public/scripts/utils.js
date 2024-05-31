@@ -3,7 +3,7 @@ const company = atob(localStorage.getItem("company"));
 const processId = localStorage.getItem("processId");
 const companyData = JSON.parse(company);
 
-export class UserType {
+class UserType {
   static NORMAL = "normal";
   static MASTER = "master";
   static FINANCIAL = "financial";
