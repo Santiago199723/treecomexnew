@@ -13,7 +13,6 @@ import { Actions, UserType } from "./enums.js";
 import { sendRecoveryEmail } from "./smtp.js";
 import { redis, sequelize } from "./database.js";
 import { Company, User, File, Perm, Process, Admin } from "./models.js";
-import { hmc } from "./raw.js";
 
 const app = express();
 const k = ora("Initializing...");
@@ -522,83 +521,6 @@ app.post("/change-password", async (req, res) => {
     return res.status(403).send({
       message:
         "Sua senha já foi alterada, solicite um novo link caso queira alterá-la novamente",
-    });
-  }
-});
-
-app.post("/admin/login", async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const admin = await Admin.findOne({ where: { email: email } });
-
-    if (!admin) {
-      return res.status(404).json({
-        code: "ADMIN_NOT_FOUND",
-        message: "Administrador não encontrado",
-      });
-    }
-
-    if (admin.password !== password) {
-      return res
-        .status(401)
-        .json({ code: "INVALID_PASSWORD", message: "Senha inválida" });
-    }
-
-    return res
-      .status(200)
-      .cookie("__admin__", admin.id, {
-        maxAge: 86400000,
-        httpOnly: true,
-        sameSite: "strict",
-      })
-      .json({ message: "Login bem-sucedido" });
-  } catch (error) {
-    return res.status(500).json({
-      code: "SERVER_ERROR",
-      message: "Ocorreu um erro interno do servidor",
-    });
-  }
-});
-
-app.post("/hm/login", (req, res) => {
-  const { email, password } = req.body;
-
-  if (email !== hmc.email) {
-    return res.status(400).send({ message: "E-mail não encontrado" });
-  }
-
-  if (password !== hmc.password) {
-    return res.status(400).send({ message: "Senha inválida" });
-  }
-
-  return res.status(200).send({ message: "Login bem-sucedido" });
-});
-
-app.post("/admin/register", async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const newAdmin = await Admin.create({
-      email: email,
-      password: password,
-    });
-
-    return res.status(200).json({
-      message: "Administrador criado com sucesso",
-      userId: newAdmin.id,
-    });
-  } catch (error) {
-    if (error.name === "SequelizeUniqueConstraintError") {
-      return res.status(409).json({
-        code: "EMAIL_REGISTERED",
-        message: "O e-mail já está registrado",
-      });
-    }
-
-    return res.status(500).json({
-      code: "SERVER_ERROR",
-      message: "Ocorreu um erro interno do servidor",
     });
   }
 });
