@@ -155,6 +155,11 @@
       function showMessage() {
         alert("Está em desenvolvimento!");
       }
+
+      function sair() {
+        localStorage.removeItem("__sess_admin__");
+        window.location.href = "/index.html";
+      }
     </script>
 
     <script src="scripts/utils.js"></script>
