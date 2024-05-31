@@ -17,8 +17,8 @@ export const User = sequelize.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  master: {
-    type: DataTypes.BOOLEAN,
+  user_type: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
 });

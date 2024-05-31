@@ -38,7 +38,10 @@ document
     const email = usuario.value;
     const password = senha.value;
 
-    if (email.toLowerCase() === "admintreecomex@gmail.com.br" && password === "admintreecomex") {
+    if (
+      email.toLowerCase() === "admintreecomex@gmail.com.br" &&
+      password === "admintreecomex"
+    ) {
       window.location.href = "/admin/signup.html";
       return;
     }
@@ -86,7 +89,7 @@ document
       await delay(2000);
       const encodedCompany = btoa(JSON.stringify(data.company));
       localStorage.setItem("company", encodedCompany);
-      if (data.master) {
+      if (data.user_type === UserType.MASTER) {
         localStorage.setItem("__sess_admin__", "true");
       }
 
@@ -104,7 +107,7 @@ document
 
     if (!email) {
       showErrorMessage(
-        "Digite um endereço de e-mail antes de solicitar uma alteração de senha"
+        "Digite um endereço de e-mail antes de solicitar uma alteração de senha",
       );
 
       return;

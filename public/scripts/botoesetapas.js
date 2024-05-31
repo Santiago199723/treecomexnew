@@ -60,7 +60,7 @@ function sair() {
 }
 
 function openModal() {
-  document.getElementById("overlay").style.display = "flex"; 
+  document.getElementById("overlay").style.display = "flex";
 }
 
 function closeModal() {

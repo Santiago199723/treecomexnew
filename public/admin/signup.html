@@ -238,15 +238,17 @@
             name="user-type"
             value="normal"
             style="margin-right: 50px"
-          /> 
-          <label for="normal" class="option-label normal-label">Financeiro</label>
+          />
+          <label for="normal" class="option-label normal-label"
+            >Financeiro</label
+          >
           <input
             type="radio"
-            id="normal"
+            id="financial"
             name="user-type"
-            value="normal"
+            value="financial"
             style="margin-right: 50px"
-            /> 
+          />
         </div>
 
         <div
@@ -428,7 +430,6 @@
         17: "TO",
       };
 
-
       function togglePasswordVisibility() {
         const passwordInput = document.getElementById("password");
         const passwordToggle = document.querySelector(".password-toggle");
@@ -451,14 +452,9 @@
 
           const emailInput = document.getElementById("email");
           const passwordInput = document.getElementById("password");
-          const masterCheckbox = document.getElementById("master");
           const normalCheckbox = document.getElementById("normal");
-          const nome = getElementVal("nome");
-          const empresa = getElementVal("empresa");
-          const cpf = getElementVal("cpf");
-          const cnpj = getElementVal("cnpj");
-          const matriz = document.querySelector("#matriz").checked;
-          const estado = estadosSiglas[getElementVal("CodUf")];
+          const masterCheckbox = document.getElementById("master");
+          const financialCheckbox = document.getElementById("financial");
 
           if (
             !emailInput.value ||
@@ -471,6 +467,16 @@
             return;
           }
 
+          let userType = "";
+
+          if (normalCheckbox.checked) {
+            userType = UserType.NORMAL;
+          } else if (masterCheckbox.checked) {
+            userType = UserType.MASTER;
+          } else if (financialCheckbox.checked) {
+            userType = UserType.FINANCIAL;
+          }
+
           fetch("/register", {
             method: "POST",
             headers: {
@@ -479,13 +485,7 @@
             body: JSON.stringify({
               email: emailInput.value,
               password: passwordInput.value,
-              master: masterCheckbox.checked,
-              ownerName: nome,
-              companyName: empresa,
-              cpf: cpf,
-              cnpj: cnpj,
-              country: estado,
-              matriz: matriz,
+              userType: userType,
             }),
           }).then(async (response) => {
             if (response.ok) document.getElementById("form").reset();
