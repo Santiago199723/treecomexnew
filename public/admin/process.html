@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -135,9 +135,9 @@
           id="process-company"
           placeholder="Informe o CPF ou CNPJ"
         />
-        <input type="text" id="process-id" placeholder="Cliente" />
+        <input type="text" id="client" placeholder="Cliente" />
 
-        <input type="text" id="process-id" placeholder="Previsão de Gasto" />
+        <input type="text" id="forecast" placeholder="Previsão de Gasto" />
 
         <button type="submit" class="btn">Cadastrar Processo</button>
       </form>
@@ -149,28 +149,28 @@
         .addEventListener("submit", async function (event) {
           event.preventDefault();
           const processId = document.getElementById("process-id").value;
-          const processCompany =
-            document.getElementById("process-company").value;
+          const company = document.getElementById("process-company").value;
+          const client = document.getElementById("client").value;
+          const forecast = document.getElementById("forecast").value;
 
-          if (!processId && !processCompany) {
+          if (!processId && !company) {
             alert("Por favor, preencha todos os campos.");
             return;
           }
 
-          const response = await fetch(
-            "/process",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                id: processId,
-                company: processCompany,
-              }),
-              credentials: "include",
+          const response = await fetch("/process", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-          );
+            body: JSON.stringify({
+              id: processId,
+              company: company,
+              client: client,
+              forecast: forecast,
+            }),
+            credentials: "include",
+          });
 
           if (response.ok) document.getElementById("form").reset();
 
