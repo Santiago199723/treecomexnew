@@ -4,10 +4,6 @@ const saveButton = document.getElementById("save-process");
 window.onload = async function () {
   document.getElementById("register-master").style.display = "none";
 
-  if (!company) {
-    window.location.href = "/index.html";
-  }
-
   const userResponse = await fetch(
     "/user",
     {
@@ -20,8 +16,10 @@ window.onload = async function () {
   );
 
   const userData = await userResponse.json();
-  if (userResponse.ok && userData.master) {
-    document.getElementById("register-master").style.display = "flex";
+  if (userResponse.ok && userData.userType === UserType.MASTER) {
+    document.getElementById("financial").style.display = "flex";
+  } else {
+    if (!company) window.location.href = "/index.html"
   }
 
   const params = new URLSearchParams({
