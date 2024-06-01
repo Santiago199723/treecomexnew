@@ -78,6 +78,10 @@ document
         localStorage.setItem("__sess_admin__", "true");
         window.location.href = "/admin/index.html";
         return;
+      } else if (data.userType === UserType.FINANCIAL) {
+        localStorage.setItem("__sess_financial__", "true");
+        window.location.href = "/financial/index.html";
+        return;
       } else if (data.company) {
         const encodedCompany = btoa(JSON.stringify(data.company));
         localStorage.setItem("company", encodedCompany);
@@ -97,7 +101,7 @@ document
 
     if (!email) {
       showErrorMessage(
-        "Digite um endereço de e-mail antes de solicitar uma alteração de senha",
+        "Digite um endereço de e-mail antes de solicitar uma alteração de senha"
       );
 
       return;
