@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -8,108 +8,11 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
       rel="stylesheet"
     />
-    <style>
-      body {
-        font-family: Montserrat, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #fbfbfb;
-        background-image: url("../assets/processos.png"); /* Adicione o caminho para sua imagem aqui */
-        background-size: cover;
-        background-position: center;
-      }
-
-      .container {
-        background-color: rgb(
-          255,
-          255,
-          255
-        ); 
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(29, 220, 241, 0.1);
-        text-align: center;
-        position: relative;
-      }
-
-      input[type="text"],
-      input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
-
-      .password-container {
-        position: relative;
-      }
-
-      .password-toggle {
-        position: absolute;
-        top: 38%;
-        right: 10px;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: #007bff; /* Cor azul */
-      }
-
-      .options {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-
-      .option-label {
-        font-size: 16px; /* Ajustando o tamanho da fonte */
-        text-align: center; /* Alinhando o texto ao centro */
-        color: #007bff; /* Cor azul */
-      }
-
-      .btn {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-
-      .btn:hover {
-        background-color: #0056b3;
-      }
-
-      h2 {
-        color: #176293;
-        font-size: 24px;
-        font-weight: 500;
-        margin-bottom: 20px;
-      }
-
-      .master-label {
-        margin-left: 100px; /* Ajuste a margem direita para o rótulo "Master" */
-      }
-
-      .normal-label {
-        margin-left: 80px; /* Ajuste a margem esquerda para o rótulo "Normal" */
-      }
-
-      /* Adicionando margem entre os botões */
-      .btn:not(:last-child) {
-        margin-right: 25px;
-      }
-    </style>
+    <style src="css/admin.css"></style>
   </head>
   <body>
     <div class="container">
-      <div style="position: absolute; bottom: 0; left: 0;">
+      <div style="position: absolute; bottom: 0; left: 0">
         <button
           style="
             background-color: transparent;
@@ -123,7 +26,7 @@
             transition: 0.5s;
             letter-spacing: 4px;
           "
-          onclick="routeTo('/botoesetapas.html')"
+          onclick="routeTo('/admin/index.html')"
         >
           <image style="width: 26px" src="/assets/voltar.png"></image>
         </button>
@@ -180,6 +83,6 @@
         });
     </script>
     <script src="../scripts/utils.js"></script>
-    <script src="session.js"></script>
+    <script src="js/session.js"></script>
   </body>
 </html>

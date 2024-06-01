@@ -483,13 +483,13 @@ app.get("/resetPassword", async (req, res) => {
     if (resp) {
       const resetHTML = fs.readFileSync(
         path.join(__dirname, "..", "public", "templates", "senha.html"),
-        "utf-8"
+        "utf-8",
       );
       return res.send(resetHTML);
     } else {
       const resetHTML = fs.readFileSync(
         path.join(__dirname, "..", "public", "templates", "venceu.html"),
-        "utf-8"
+        "utf-8",
       );
       return res.send(resetHTML);
     }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -8,169 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
       rel="stylesheet"
     />
-    <style>
-      .container {
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-      }
-
-      .form-group-checkbox {
-        right: -30%;
-        position: relative;
-        display: flex;
-        gap: 15px;
-        margin-top: -20px;
-      }
-
-      .form-group-checkbox label {
-        margin-right: 10px;
-        font-weight: Arial;
-        color: #707272;
-        font-size: 18px;
-      }
-
-      .checkbox-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-
-      .checkbox-container input[type="checkbox"] {
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        width: 25px;
-        height: 25px;
-        border: 2px solid #707272;
-        border-radius: 5px;
-        margin-right: 10px;
-        cursor: pointer;
-      }
-
-      .checkbox-container input[type="checkbox"]:checked {
-        background-color: #007bff;
-        border-color: #007bff;
-      }
-
-      .checkbox-container input[type="checkbox"]:checked::before {
-        content: "\2713";
-        display: inline-block;
-        color: #fff;
-        font-size: 18px;
-        line-height: 25px;
-        text-align: center;
-      }
-
-      .checkbox-container label {
-        font-size: 18px;
-        font-family: Arial, sans-serif; /* Define a fonte */
-        color: #707272; /* Define a cor do texto */
-      }
-
-      body {
-        font-family: Montserrat, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #fbfbfb;
-        background-image: url("../assets/fundo.png"); /* Adicione o caminho para sua imagem aqui */
-        background-size: cover;
-        background-position: center;
-      }
-
-      .container {
-        background-color: rgb(255, 255, 255);
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(29, 220, 241, 0.1);
-        text-align: center;
-        position: relative;
-      }
-
-      input[type="text"],
-      input[type="email"],
-      input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
-
-      .password-container {
-        position: relative;
-        width: 100%;
-      }
-
-      .password-toggle {
-        position: absolute;
-        top: 38%;
-        right: 10px;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: #007bff; /* Cor azul */
-      }
-
-      .options {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .option-label {
-        font-size: 16px; /* Ajustando o tamanho da fonte */
-        text-align: center; /* Alinhando o texto ao centro */
-        color: #007bff; /* Cor azul */
-      }
-
-      .btn {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-
-      .btn:hover {
-        background-color: #0056b3;
-      }
-
-      h2 {
-        color: #176293;
-        font-size: 24px;
-        font-weight: 500;
-        margin-bottom: 20px;
-      }
-
-      .master-label {
-        margin-left: 100px; /* Ajuste a margem direita para o rótulo "Master" */
-      }
-
-      .normal-label {
-        margin-left: 80px; /* Ajuste a margem esquerda para o rótulo "Normal" */
-      }
-
-      /* Adicionando margem entre os botões */
-      .btn:not(:last-child) {
-        margin-right: 25px;
-      }
-
-      #form {
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-      }
-    </style>
+    <style src="css/admin.css"></style>
   </head>
   <body>
     <div class="container">
@@ -188,7 +26,7 @@
             transition: 0.5s;
             letter-spacing: 4px;
           "
-          onclick="routeTo('../inicialadm.html')"
+          onclick="routeTo('/admin/index.html')"
         >
           <image style="width: 26px" src="/assets/voltar.png"></image>
         </button>
@@ -261,14 +99,6 @@
     </div>
 
     <script>
-      function checkboxHandler(cx) {
-        if (cx.id == "matriz") {
-          document.getElementById("filial").checked = false;
-        } else if (cx.id == "filial") {
-          document.getElementById("matriz").checked = false;
-        }
-      }
-
       function togglePasswordVisibility() {
         const passwordInput = document.getElementById("password");
         const passwordToggle = document.querySelector(".password-toggle");
@@ -303,7 +133,7 @@
               !financialCheckbox.checked)
           ) {
             alert(
-              "Preencha todos os campos e selecione uma das opções: Master, Normal ou Financeiro!"
+              "Preencha todos os campos e selecione uma das opções: Master, Normal ou Financeiro!",
             );
             return;
           }
@@ -344,6 +174,6 @@
       };
     </script>
     <script src="../scripts/utils.js"></script>
-    <script src="session.js"></script>
+    <script src="js/session.js"></script>
   </body>
 </html>
