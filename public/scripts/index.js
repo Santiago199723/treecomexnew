@@ -74,7 +74,9 @@ document
     } else {
       showMessage(data.message);
       await delay(2000);
-      if (data.userType === UserType.ADMIN) {
+      if (data.userType === UserType.MASTER) {
+        window.location.href = "/master.html";
+      } else if (data.userType === UserType.ADMIN) {
         localStorage.setItem("__sess_admin__", "true");
         window.location.href = "/admin/index.html";
         return;
