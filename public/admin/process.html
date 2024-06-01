@@ -61,19 +61,23 @@
       function formatReal(input) {
         let value = input.value;
 
-        if (value === "" || value === ".") {
-          input.value = "";
-          return;
-        }
-
+        // Eliminar todos los caracteres que no sean dígitos o puntos
         value = value.replace(/[^0-9.]/g, "");
-        if (value.indexOf(".") === -1) {
-          value += ".00";
-        } else {
-          let decimalPart = value.split(".")[1];
-          if (decimalPart.length === 1) {
+
+        // Verificar si el valor es un número decimal
+        if (value.includes(".")) {
+          // Dividir el valor en parte entera y parte decimal
+          let [integerPart, decimalPart] = value.split(".");
+
+          // Añadir ceros al final si es necesario
+          if (decimalPart.length === 0) {
+            value += "00";
+          } else if (decimalPart.length === 1) {
             value += "0";
           }
+        } else {
+          // Si no hay punto decimal, añadir ".00" al final
+          value += ".00";
         }
 
         input.value = value;
