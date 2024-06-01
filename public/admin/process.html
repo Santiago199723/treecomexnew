@@ -9,6 +9,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/admin.css" />
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -58,30 +59,11 @@
     </div>
 
     <script>
-      function formatReal(input) {
-        let value = input.value;
-
-        // Eliminar todos los caracteres que no sean dígitos o puntos
-        value = value.replace(/[^0-9.]/g, "");
-
-        // Verificar si el valor es un número decimal
-        if (value.includes(".")) {
-          // Dividir el valor en parte entera y parte decimal
-          let [integerPart, decimalPart] = value.split(".");
-
-          // Añadir ceros al final si es necesario
-          if (decimalPart.length === 0) {
-            value += "00";
-          } else if (decimalPart.length === 1) {
-            value += "0";
-          }
-        } else {
-          // Si no hay punto decimal, añadir ".00" al final
-          value += ".00";
-        }
-
-        input.value = value;
-      }
+      let cleave = new Cleave("#forecast", {
+        numeral: true,
+        numeralDecimalMark: ".",
+        numeralDecimalScale: 2,
+      });
 
       document
         .getElementById("form")
