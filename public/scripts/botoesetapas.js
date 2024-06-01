@@ -50,7 +50,7 @@ window.onload = async function () {
   showCompanyData();
 };
 
-function sair() {
+function logout() {
   localStorage.removeItem("company");
   localStorage.removeItem("processId");
   window.location.href = "/index.html";

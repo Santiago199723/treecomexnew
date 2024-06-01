@@ -147,7 +147,7 @@
       </div>
     </div>
 
-    <button class="back-button-cyan" onclick="sair()">
+    <button class="back-button-cyan" onclick="logout()">
       <image style="width: 20px" src="/assets/back-white.png"></image>
     </button>
 
@@ -156,13 +156,13 @@
         alert("Está em desenvolvimento!");
       }
 
-      function sair() {
+      function logout() {
         localStorage.removeItem("__sess_admin__");
         window.location.href = "/index.html";
       }
     </script>
 
-    <script src="scripts/utils.js"></script>
+    <script src="../scripts/utils.js"></script>
     <script src="session.js"></script>
   </body>
 </html>
