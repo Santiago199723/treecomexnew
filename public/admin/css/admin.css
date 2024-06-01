@@ -36,13 +36,21 @@ input[type="password"] {
   position: relative;
 }
 
-.left-element {
-  position: absolute;
-  top: 38%;
-  left: 10px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #0000;
+.reais-box {
+  width: 40px;
+  display: flex;
+  height: 40px;
+  top: 0;
+  color: black;
+  background-color: #cdcdcd;
+  justify-content: center;
+}
+
+.reais-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .right-element {
