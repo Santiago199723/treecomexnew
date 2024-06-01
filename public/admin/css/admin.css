@@ -38,7 +38,7 @@ input[type="password"] {
   box-sizing: border-box;
 }
 
-input[type="number"] {
+input[type="numeric"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
