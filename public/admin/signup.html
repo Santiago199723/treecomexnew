@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -9,6 +9,33 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/admin.css" />
+    <style>
+      @media only screen and (max-width: 768px) {
+        #master {
+          margin-right: 0px;
+        }
+
+        #normal {
+          margin-right: 0px;
+        }
+
+        #financial {
+          margin-right: 0px;
+        }
+      }
+
+      #master {
+        margin-right: 10px;
+      }
+
+      #normal {
+        margin-right: 50px;
+      }
+
+      #financial {
+        margin-right: 50px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -67,21 +94,9 @@
         </div>
         <div class="options">
           <label for="master" class="option-label master-label">Master</label>
-          <input
-            type="radio"
-            id="master"
-            name="user-type"
-            value="master"
-            style="margin-right: 10px"
-          />
+          <input type="radio" id="master" name="user-type" value="master" />
           <label for="normal" class="option-label normal-label">Normal</label>
-          <input
-            type="radio"
-            id="normal"
-            name="user-type"
-            value="normal"
-            style="margin-right: 50px"
-          />
+          <input type="radio" id="normal" name="user-type" value="normal" />
           <label for="normal" class="option-label normal-label"
             >Financeiro</label
           >
@@ -90,7 +105,6 @@
             id="financial"
             name="user-type"
             value="financial"
-            style="margin-right: 50px"
           />
         </div>
 
@@ -133,7 +147,7 @@
               !financialCheckbox.checked)
           ) {
             alert(
-              "Preencha todos os campos e selecione uma das opções: Master, Normal ou Financeiro!",
+              "Preencha todos os campos e selecione uma das opções: Master, Normal ou Financeiro!"
             );
             return;
           }
