@@ -41,7 +41,12 @@
         />
         <input type="text" id="client" placeholder="Cliente" />
 
-        <input type="text" id="forecast" placeholder="Previsão de Gasto" />
+        <div class="mixed-container">
+          <input type="text" id="forecast" placeholder="Previsão de Gasto" />
+          <span class="left-element" onclick="togglePasswordVisibility()">
+            <p>R$</p>
+          </span>
+        </div>
 
         <button type="submit" class="btn">Cadastrar Processo</button>
       </form>

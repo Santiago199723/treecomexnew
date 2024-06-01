@@ -32,17 +32,26 @@ input[type="password"] {
   box-sizing: border-box;
 }
 
-.password-container {
+.mixed-container {
   position: relative;
 }
 
-.password-toggle {
+.left-element {
+  position: absolute;
+  top: 38%;
+  left: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #007bff;
+}
+
+.right-element {
   position: absolute;
   top: 38%;
   right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
-  color: #007bff; /* Cor azul */
+  color: #007bff;
 }
 
 .options {
