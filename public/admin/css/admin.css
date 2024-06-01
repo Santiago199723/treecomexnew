@@ -54,6 +54,7 @@ input[type="numeric"] {
 }
 
 .reais-box {
+  z-index: 9999;
   width: 40px;
   display: flex;
   height: 40px;
