@@ -61,8 +61,7 @@
       function formatReal(input) {
         let value = input.value;
 
-        // Permitir la eliminación de todos los caracteres, incluidos los puntos decimales
-        if (value === "") {
+        if (value === "" || value === ".") {
           input.value = "";
           return;
         }
@@ -70,8 +69,11 @@
         value = value.replace(/[^0-9.]/g, "");
         if (value.indexOf(".") === -1) {
           value += ".00";
-        } else if (value.split(".")[1].length === 1) {
-          value += "0";
+        } else {
+          let decimalPart = value.split(".")[1];
+          if (decimalPart.length === 1) {
+            value += "0";
+          }
         }
 
         input.value = value;
