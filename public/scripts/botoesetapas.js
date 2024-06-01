@@ -2,7 +2,6 @@ const processIdDropdown = document.getElementById("process-id-dropdown");
 const saveButton = document.getElementById("save-process");
 
 window.onload = async function () {
-  document.getElementById("register-master").style.display = "none";
 
   const userResponse = await fetch(
     "/user",
