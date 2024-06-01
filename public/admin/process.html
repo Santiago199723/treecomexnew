@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/admin.css" />
-    <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.1.0/autoNumeric.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -46,11 +46,7 @@
           <div class="reais-box">
             <p>R$</p>
           </div>
-          <input
-            type="number"
-            id="forecast"
-            placeholder="Previsão de Gasto"
-          />
+          <input type="number" id="forecast" placeholder="Previsão de Gasto" />
         </div>
 
         <button type="submit" class="btn">Cadastrar Processo</button>
@@ -58,10 +54,11 @@
     </div>
 
     <script>
-      let cleave = new Cleave("#forecast", {
-        numeral: true,
-        numeralDecimalMark: ".",
-        numeralDecimalScale: 2,
+      new AutoNumeric("#forecast", {
+        digitGroupSeparator: "",
+        decimalCharacter: ".",
+        decimalPlaces: 2,
+        unformatOnSubmit: true,
       });
 
       document
