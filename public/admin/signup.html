@@ -85,11 +85,7 @@
       }
 
       .container {
-        background-color: rgb(
-          255,
-          255,
-          255
-        ); 
+        background-color: rgb(255, 255, 255);
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(29, 220, 241, 0.1);
@@ -290,7 +286,7 @@
 
       document
         .getElementById("form")
-        .addEventListener("submit", function (event) {
+        .addEventListener("submit", async function (event) {
           event.preventDefault();
 
           const emailInput = document.getElementById("email");
@@ -307,7 +303,7 @@
               !financialCheckbox.checked)
           ) {
             alert(
-              "Preencha todos os campos e selecione uma das opções: Master ou Normal!"
+              "Preencha todos os campos e selecione uma das opções: Master, Normal ou Financeiro!"
             );
             return;
           }
@@ -322,7 +318,7 @@
             userType = UserType.FINANCIAL;
           }
 
-          fetch("/register", {
+          const response = await fetch("/register", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -332,15 +328,15 @@
               password: passwordInput.value,
               userType: userType,
             }),
-          }).then(async (response) => {
-            const data = await response.json();
-            if (response.ok) {
-              document.getElementById("form").reset();
-              localStorage.setItem("__next_reg__", data.user);
-            }
-
-            alert(data.message);
           });
+
+          const data = await response.json();
+          if (response.ok) {
+            document.getElementById("form").reset();
+            localStorage.setItem("__next_reg__", data.user);
+          }
+
+          alert(data.message);
         });
 
       const getElementVal = (id) => {
