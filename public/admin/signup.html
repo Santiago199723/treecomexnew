@@ -89,11 +89,12 @@
           255,
           255,
           255
-        ); /* Adicionando um fundo branco semi-transparente para melhor legibilidade */
+        ); 
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(29, 220, 241, 0.1);
         text-align: center;
+        position: relative;
       }
 
       input[type="text"],
@@ -176,7 +177,7 @@
     </style>
   </head>
   <body>
-    <div class="container" style="position: relative">
+    <div class="container">
       <div style="position: absolute; left: 0; bottom: 0">
         <button
           style="
@@ -257,28 +258,6 @@
             value="financial"
             style="margin-right: 50px"
           />
-        </div>
-
-        <div
-          style="display: inline-flex; transform: translate(-14rem, 33.5rem)"
-        >
-          <button
-            style="
-              background-color: transparent;
-              align-items: center;
-              display: inline-flex;
-              color: #fcfcfc;
-              background: none;
-              border: none;
-              border-radius: 5px;
-              cursor: pointer;
-              transition: 0.5s;
-              letter-spacing: 4px;
-            "
-            onclick="routeTo('inicialadm.html')"
-          >
-            <image style="width: 26px" src="/assets/voltar.png"></image>
-          </button>
         </div>
 
         <button type="submit" class="btn">Cadastrar usuário</button>
