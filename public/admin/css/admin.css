@@ -126,6 +126,10 @@ h2 {
   margin-left: 80px; /* Ajuste a margem esquerda para o rótulo "Normal" */
 }
 
+.financial-label {
+  margin-left: 80px; /* Ajuste a margem esquerda para o rótulo "Normal" */
+}
+
 /* Adicionando margem entre os botões */
 .btn:not(:last-child) {
   margin-right: 25px;

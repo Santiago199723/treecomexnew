@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -21,6 +21,18 @@
 
         #financial {
           margin-right: 0px;
+        }
+
+        .normal-label {
+          margin-left: 0px;
+        }
+
+        .master-label {
+          margin-left: 0px;
+        }
+
+        .financial-label {
+          margin-left: 0px;
         }
       }
 
@@ -97,7 +109,7 @@
           <input type="radio" id="master" name="user-type" value="master" />
           <label for="normal" class="option-label normal-label">Normal</label>
           <input type="radio" id="normal" name="user-type" value="normal" />
-          <label for="normal" class="option-label normal-label"
+          <label for="normal" class="option-label financial-label"
             >Financeiro</label
           >
           <input
@@ -147,7 +159,7 @@
               !financialCheckbox.checked)
           ) {
             alert(
-              "Preencha todos os campos e selecione uma das opções: Master, Normal ou Financeiro!"
+              "Preencha todos os campos e selecione uma das opções: Master, Normal ou Financeiro!",
             );
             return;
           }
