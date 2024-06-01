@@ -1,0 +1,14 @@
+{
+  "name": "treecomexnew",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "forever": "forever -w --minUptime=1000 --spinSleepTime=1000 server/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "forever": "^4.0.3"
+  }
+}

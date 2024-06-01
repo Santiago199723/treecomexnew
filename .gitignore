@@ -1,4 +1,4 @@
 node_modules
 postgres
-
+package-lock.json
 pnpm-lock.yaml
