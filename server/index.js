@@ -93,7 +93,10 @@ app.post("/login", async (req, res) => {
         .json({ code: "INVALID_PASSWORD", message: "Senha inválida" });
     }
 
-    if (data.userType && data.userType === UserType.MASTER) {
+    if (
+      (data.userType && data.userType === UserType.MASTER) ||
+      data.userType === UserType.FINANCIAL
+    ) {
       return res
         .status(200)
         .cookie("userId", data.id, {
