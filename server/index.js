@@ -386,7 +386,7 @@ app.post("/sniff", async (req, res) => {
 });
 
 app.post("/process", async (req, res) => {
-  const { id, company } = req.body;
+  const { id, company, client, forecast } = req.body;
 
   const existingProcess = await Process.findOne({ where: { id } });
   if (existingProcess) {
@@ -396,7 +396,7 @@ app.post("/process", async (req, res) => {
   }
 
   try {
-    await Process.create({ id, company });
+    await Process.create({ id, company, client, forecast });
     return res.status(201).send({ message: "Registrado com sucesso" });
   } catch (error) {
     return res.status(500).json({ error: "Erro ao criar o processo" });
