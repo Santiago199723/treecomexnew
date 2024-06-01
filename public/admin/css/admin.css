@@ -7,7 +7,7 @@ body {
   align-items: center;
   height: 100vh;
   background-color: #fbfbfb;
-  background-image: url("../assets/processos.png");
+  background-image: url("/assets/fundo.png");
   background-size: cover;
   background-position: center;
 }
