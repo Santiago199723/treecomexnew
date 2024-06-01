@@ -55,7 +55,7 @@ export const Company = sequelize.define("company", {
   },
   registrant: {
     type: DataTypes.UUID,
-    allowNull: false
+    allowNull: false,
   },
   ofUser: {
     type: DataTypes.UUID,
@@ -70,6 +70,14 @@ export const Process = sequelize.define("process", {
     allowNull: false,
   },
   company: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  client: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  forecast: {
     type: DataTypes.STRING,
     allowNull: false,
   },
