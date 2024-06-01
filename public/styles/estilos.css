@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-image: url("../assets/img.png"); /* Substitua 'caminho/para/sua/imagem.jpg' pelo caminho correto para sua imagem */
+  background-image: url("/assets/img.png"); /* Substitua 'caminho/para/sua/imagem.jpg' pelo caminho correto para sua imagem */
   background-size: cover;
   background-position: center;
   display: flex;
