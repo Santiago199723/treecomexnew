@@ -9,7 +9,7 @@ window.onload = async function () {
   }
 
   const userResponse = await fetch(
-    `${window.location.protocol}//${window.location.hostname}/user`,
+    "/user",
     {
       method: "GET",
       headers: {
@@ -29,7 +29,7 @@ window.onload = async function () {
   });
 
   const response = await fetch(
-    `${window.location.protocol}//${window.location.hostname}/process?${params}`,
+    `/process?${params}`,
     {
       method: "GET",
       headers: {
