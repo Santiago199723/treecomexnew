@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -45,7 +45,7 @@
           <div class="reais-box">
             <p>R$</p>
           </div>
-          <input type="number" id="forecast" placeholder="Previsão de Gasto" />
+          <input type="number" id="forecast" placeholder="Previsão de Gasto" oninput="formatReal(this)" />
         </div>
 
         <button type="submit" class="btn">Cadastrar Processo</button>
@@ -53,6 +53,18 @@
     </div>
 
     <script>
+      function formatReal(input) {
+        let value = input.value;
+
+        value = value.replace(/[^0-9.]/g, "");
+        if (value.indexOf(".") === -1) {
+          value += ".00";
+        } else if (value.split(".")[1].length === 1) {
+          value += "0";
+        }
+
+        input.value = value;
+      }
       document
         .getElementById("form")
         .addEventListener("submit", async function (event) {
