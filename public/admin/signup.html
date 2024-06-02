@@ -36,16 +36,18 @@
         }
       }
 
-      .master {
-        margin-right: 10px;
-      }
+      @media only screen and (min-width: 769px) {
+        .master {
+          margin-right: 10px;
+        }
 
-      .normal {
-        margin-right: 50px;
-      }
+        .normal {
+          margin-right: 50px;
+        }
 
-      .financial {
-        margin-right: 50px;
+        .financial {
+          margin-right: 50px;
+        }
       }
     </style>
   </head>
@@ -106,9 +108,21 @@
         </div>
         <div class="options">
           <label for="master" class="option-label master-label">Master</label>
-          <input type="radio" class="master" id="master" name="user-type" value="master" />
+          <input
+            type="radio"
+            class="master"
+            id="master"
+            name="user-type"
+            value="master"
+          />
           <label for="normal" class="option-label normal-label">Normal</label>
-          <input type="radio" class="normal" id="normal" name="user-type" value="normal" />
+          <input
+            type="radio"
+            class="normal"
+            id="normal"
+            name="user-type"
+            value="normal"
+          />
           <label for="normal" class="option-label financial-label"
             >Financeiro</label
           >
