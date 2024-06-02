@@ -54,14 +54,14 @@
     </div>
 
     <script>
-      new AutoNumeric("#forecast", {
-        digitGroupSeparator: ",",
-        decimalCharacter: ".",
-        decimalPlaces: 3,
-        unformatOnSubmit: false,
-        modifyValueOnWheel: false,
-        currencySymbol: "",
-      });
+   new AutoNumeric("#forecast", {
+    digitGroupSeparator: ".",
+    decimalCharacter: ",",
+    decimalPlaces: 0,
+    unformatOnSubmit: false,
+    allowDecimalPadding: false,
+    currencySymbol: "",
+});
 
       document
         .getElementById("form")
