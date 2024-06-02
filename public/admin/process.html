@@ -55,10 +55,12 @@
 
     <script>
       new AutoNumeric("#forecast", {
-        decimalCharacter: ".",
-        digitGroupSeparator: ",",
-        decimalPlaces: 0,
+        digitGroupSeparator: ".",
+        decimalCharacter: ",",
+        decimalPlaces: 3,
         unformatOnSubmit: false,
+        allowDecimalPadding: true,
+        currencySymbol: "",
       });
 
       document
