@@ -59,8 +59,17 @@
         decimalCharacter: ".",
         decimalPlaces: 3,
         unformatOnSubmit: false,
-        outputFormat: "custom",
-        outputDivisor: 1000,
+        modifyValueOnWheel: false,
+        outputFormat: {
+          to: function (value) {
+            return (value / 1000)
+              .toFixed(0)
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          },
+          from: function (value) {
+            return value.replace(/,/g, "") * 1000;
+          },
+        },
         currencySymbol: "",
       });
 
