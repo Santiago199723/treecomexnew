@@ -57,8 +57,11 @@
       new AutoNumeric("#forecast", {
         digitGroupSeparator: ",",
         decimalCharacter: ".",
-        decimalPlaces: 2,
+        decimalPlaces: 3,
         unformatOnSubmit: false,
+        outputFormat: "custom",
+        outputDivisor: 1000,
+        currencySymbol: "",
       });
 
       document
