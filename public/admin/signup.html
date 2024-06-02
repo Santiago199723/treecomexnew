@@ -11,15 +11,15 @@
     <link rel="stylesheet" href="css/admin.css" />
     <style>
       @media only screen and (max-width: 768px) {
-        #master {
+        .master {
           margin-right: 0px;
         }
 
-        #normal {
+        .normal {
           margin-right: 0px;
         }
 
-        #financial {
+        .financial {
           margin-right: 0px;
         }
 
@@ -36,15 +36,15 @@
         }
       }
 
-      #master {
+      .master {
         margin-right: 10px;
       }
 
-      #normal {
+      .normal {
         margin-right: 50px;
       }
 
-      #financial {
+      .financial {
         margin-right: 50px;
       }
     </style>
@@ -106,15 +106,16 @@
         </div>
         <div class="options">
           <label for="master" class="option-label master-label">Master</label>
-          <input type="radio" id="master" name="user-type" value="master" />
+          <input type="radio" class="master" id="master" name="user-type" value="master" />
           <label for="normal" class="option-label normal-label">Normal</label>
-          <input type="radio" id="normal" name="user-type" value="normal" />
+          <input type="radio" class="normal" id="normal" name="user-type" value="normal" />
           <label for="normal" class="option-label financial-label"
             >Financeiro</label
           >
           <input
             type="radio"
             id="financial"
+            class="financial"
             name="user-type"
             value="financial"
           />
