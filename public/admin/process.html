@@ -54,14 +54,15 @@
     </div>
 
     <script>
-   new AutoNumeric("#forecast", {
+  new AutoNumeric("#forecast", {
     digitGroupSeparator: ".",
     decimalCharacter: ",",
-    decimalPlaces: 0,
+    decimalPlaces: 3, // Cambiado a 3 para reflejar 100.000,000
     unformatOnSubmit: false,
     allowDecimalPadding: false,
     currencySymbol: "",
 });
+
 
       document
         .getElementById("form")
