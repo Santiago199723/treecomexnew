@@ -400,6 +400,7 @@
       document.addEventListener("click", function (event) {
         const accountContent = document.getElementById("account-content");
         if (event.target !== accountContent) {
+          console.log(accountContent.style.display)
           if (accountContent.style.display !== "none") {
             accountContent.style.display = "none";
           }
