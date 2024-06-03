@@ -152,9 +152,9 @@
     <div
       class="selectize-control zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope single plugin-clear_button">
       <div class="selectize-input items not-full has-options ng-valid ng-pristine"><input type="undefined"
-          autocomplete="off" tabindex="0" id="showCategories-selectized" placeholder="Buscar a categoria.."
+          autocomplete="off" tabindex="0" id="showCategories-selectized" placeholder="Selecione uma empresa"
           style="width: 137px; opacity: 1; position: relative; left: 0px;"></div>
-      <div
+      <div id="dropdown-content" onclick="openModal()"
         class="selectize-dropdown single zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope plugin-clear_button"
         style="display: none; width: 171px; top: 36px; left: 0px; visibility: visible;">
         <div class="selectize-dropdown-content">
@@ -239,6 +239,15 @@
     <image style="width: 20px" src="/assets/back-white.png"></image>
   </button>
   <script>
+    function openModal() {
+      const modal = document.getElementById("dropdown-modal")
+      if (modal.style.display == "none") {
+        modal.style.display == "flex"
+      } else {
+        modal.style.display == "none"
+      }
+    }
+
     function showMessage() {
       alert("Está em desenvolvimento!");
     }
