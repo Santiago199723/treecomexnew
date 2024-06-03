@@ -155,6 +155,7 @@
         class="selectize-control zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope single plugin-clear_button"
       >
         <div
+        id="dropdown-container"
           class="selectize-input items not-full has-options ng-valid ng-pristine"
         >
           <input
@@ -436,7 +437,7 @@
       }
 
       document
-        .getElementById("showCategories-selectized")
+        .getElementById("dropdown-container")
         .addEventListener("click", openModal);
 
       function showMessage() {
