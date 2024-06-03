@@ -548,7 +548,7 @@ app.get("/companies/codes", async (req, res) => {
 
   const companies = await Company.findAll();
 
-  const codes = companies.map((company) => company.id);
+  const codes = companies.map((company) => company.cpf ?? company.cnpj);
 
   return res.status(200).json(codes);
 });
