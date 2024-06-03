@@ -220,6 +220,15 @@
           codes.forEach((code) => {
             const div = document.createElement("div");
             div.className = "category zze-truncate zze-icon-left";
+            div.style.cursor = "pointer";
+            div.addEventListener("click", function () {
+              const company = JSON.stringify({
+                cpf: code,
+              });
+
+              localStorage.setItem("company", btoa(company));
+              window.location.href = "/botoesetapas.html";
+            });
             const i = document.createElement("i");
             i.className = "zze-icon-categories icon-category-ship";
             i.style.display = "flex";
@@ -235,7 +244,7 @@
         }
       };
 
-      async function openModal() {
+      async function handleModal() {
         const modal = document.getElementById("dropdown-modal");
         if (modal.style.display === "none") {
           modal.style.display = "flex";
@@ -246,7 +255,7 @@
 
       document
         .getElementById("dropdown-container")
-        .addEventListener("click", openModal);
+        .addEventListener("click", handleModal);
 
       function showMessage() {
         alert("Está em desenvolvimento!");
