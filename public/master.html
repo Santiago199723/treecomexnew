@@ -205,6 +205,10 @@
       <image style="width: 20px" src="/assets/back-white.png"></image>
     </button>
     <script>
+      let codes;
+      const dropdownContent = document.getElementById("selectize-content");
+      const searchInput = document.getElementById("showCategories-selectized");
+
       window.onload = async function () {
         const response = await fetch("/companies/codes", {
           method: "GET",
@@ -214,9 +218,9 @@
           credentials: "include",
         });
 
-        const codes = await response.json();
-        if (response.ok && codes.length > 0) {
-          const dropdownContent = document.getElementById("selectize-content");
+        const data = await response.json();
+        if (response.ok && data.length > 0) {
+          codes = data;
           codes.forEach((code) => {
             const div = document.createElement("div");
             div.className = "category zze-truncate zze-icon-left";
@@ -243,6 +247,38 @@
           });
         }
       };
+
+      function filterCodes() {
+        const searchText = searchInput.value.toLowerCase();
+        dropdownContent.innerHTML = "";
+
+        codes.forEach((code) => {
+          if (searchText === "" || code.toLowerCase().includes(searchText)) {
+            const div = document.createElement("div");
+            div.className = "category zze-truncate zze-icon-left";
+            div.style.cursor = "pointer";
+            div.addEventListener("click", function () {
+              const company = JSON.stringify({
+                cpf: code,
+              });
+
+              localStorage.setItem("company", btoa(company));
+              window.location.href = "/botoesetapas.html";
+            });
+            const i = document.createElement("i");
+            i.className = "zze-icon-categories icon-category-ship";
+            i.style.display = "flex";
+            i.style.justifyContent = "center";
+            i.style.backgroundColor = "#626491";
+            const span = document.createElement("span");
+            span.textContent = code;
+            span.className = "zze-selectize-label";
+            div.appendChild(i);
+            div.appendChild(span);
+            dropdownContent.appendChild(div);
+          }
+        });
+      }
 
       async function handleModal() {
         const modal = document.getElementById("dropdown-modal");
