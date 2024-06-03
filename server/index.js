@@ -531,7 +531,7 @@ app.post("/change-password", async (req, res) => {
 app.get("/companies/codes", async (req, res) => {
   const { userId } = req.cookies;
   if (!userId) {
-    return res.redirect("/index.html")
+    return res.redirect("/index.html");
   }
 
   const admin = await User.findOne({
@@ -542,16 +542,16 @@ app.get("/companies/codes", async (req, res) => {
 
   if (!admin) {
     return res.status(401).json({
-      message: "Acesso à solicitação negado"
-    })
+      message: "Acesso à solicitação negado",
+    });
   }
 
-  const companies = await Company.findAll()
+  const companies = await Company.findAll();
 
   const codes = companies.map((company) => company.id);
 
   return res.status(200).json(codes);
-})
+});
 
 const port = process.env.APP_PORT || 8080;
 
