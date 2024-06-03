@@ -37478,7 +37478,8 @@ body.settings .alert-box {
 }
 
 .drop-down {
-  position: relative;
+  position: absolute;
+  right: 20px;
 }
 
 .drop-down.arrow-left .drop-down-box:after {
