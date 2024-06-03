@@ -225,7 +225,8 @@
             const span = document.createElement("span");
             span.textContent = code;
             span.className = "zze-selectize-label";
-            div.append([i, span]);
+            div.appendChild(i);
+            div.appendChild(span)
             dropdownContent.appendChild(div);
           });
         }
