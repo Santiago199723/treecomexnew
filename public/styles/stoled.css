@@ -32646,6 +32646,10 @@ form .input-row .zze-datepicker .ui-datepicker-trigger {
   white-space: nowrap;
 }
 
+.zze-selectize-label {
+  color: black;
+}
+
 .zze-context_transactions-dialog
   form
   .selectize-control.zze-selectize
