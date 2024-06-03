@@ -296,7 +296,7 @@
         if (response.ok) {
           const data = await response.json()
           const email = document.getElementById("email")
-          email.textContent = data.email;
+          email.innerHTML = data.email;
           }
 
         response = await fetch("/companies/codes", {
