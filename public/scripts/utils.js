@@ -74,6 +74,7 @@ async function refreshCompanyData() {
 
     if (response.ok) {
       const data = await response.json();
+      companyData = data;
       localStorage.setItem("company", btoa(JSON.stringify(data)));
       showCompanyData();
     }
