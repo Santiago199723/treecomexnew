@@ -5411,6 +5411,14 @@ body.ngdialog-open {
   content: "\e045";
 }
 
+.icon-category-ship:before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-image: url('/assets/ship.png');
+}
+
 .icon-category-gifts-and-donations:before {
   content: "\e046";
 }
