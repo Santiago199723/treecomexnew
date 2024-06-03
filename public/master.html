@@ -201,8 +201,10 @@
             div.className = "category zze-truncate zze-icon-left"
             const i = document.createElement("i");
             i.className = "zze-icon-categories icon-category-food"
-            i.value = code;
-            i.textContent = code;
+            const span = document.createElement("span")
+            span.textContent = code
+            span.className = "zze-selectize-label"
+            i.appendChild(span)
             div.appendChild(i);
             dropdownContent.appendChild(div);
           });
