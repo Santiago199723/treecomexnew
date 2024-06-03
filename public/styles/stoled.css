@@ -5411,7 +5411,7 @@ body.ngdialog-open {
   content: "\e045";
 }
 
-.icon-category-ship:before {
+.icon-category-ship:after {
   content: "";
   display: block;
   width: 20px;
