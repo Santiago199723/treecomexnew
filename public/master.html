@@ -196,7 +196,7 @@
                 class="details"
                 style="display: flex; justify-content: center"
               >
-                <span id="name">Santiago Ramirez</span>
+                <span id="email"></span>
               </div>
             </a>
           </div>
@@ -205,9 +205,6 @@
             class="account-menu"
             style="display: flex; align-items: center; flex-direction: column"
           >
-            <li>
-              <a id="">Minha conta</a>
-            </li>
             <li class="logout" data-no-turbolink="true">
               <a
                 title="Clique para deslogar de sua conta"
@@ -288,7 +285,21 @@
       const searchInput = document.getElementById("showCategories-selectized");
 
       window.onload = async function () {
-        const response = await fetch("/companies/codes", {
+        let response = await fetch("/user", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          const data = await response.json()
+          const email = document.getElementById("email")
+          email.textContent = data.email;
+          }
+
+        response = await fetch("/companies/codes", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
