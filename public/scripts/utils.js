@@ -28,27 +28,6 @@ async function checkSession() {
   return response.ok;
 }
 
-async function refreshCompanyData() {
-  if (companyData) {
-    const params = new URLSearchParams({
-      unique: companyData.cpf ? companyData.cpf : companyData.cnpj,
-    });
-
-    const response = await fetch(`/company-data?${params}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("company", btoa(JSON.stringify(data)));
-    }
-  }
-}
-
 async function getFileData(fileId) {
   const params = new URLSearchParams({ id: fileId });
 
@@ -76,6 +55,28 @@ function showCompanyData() {
     ).toUpperCase();
     document.getElementById("company-state").innerText =
       companyData.country.toUpperCase();
+  }
+}
+
+async function refreshCompanyData() {
+  if (companyData) {
+    const params = new URLSearchParams({
+      unique: companyData.cpf ? companyData.cpf : companyData.cnpj,
+    });
+
+    const response = await fetch(`/company-data?${params}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem("company", btoa(JSON.stringify(data)));
+      showCompanyData();
+    }
   }
 }
 
