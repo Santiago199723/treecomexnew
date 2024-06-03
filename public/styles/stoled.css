@@ -43336,7 +43336,6 @@ table tr:last-child td {
 }
 
 .selectize-dropdown {
-  position: absolute;
   z-index: 10;
   margin-top: 0;
   background: #fefdf9;
