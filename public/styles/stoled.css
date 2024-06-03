@@ -5415,8 +5415,9 @@ body.ngdialog-open {
   content: "";
   display: block;
   width: 20px;
+  background-size: cover;
   height: 20px;
-  background-image: url('/assets/ship.png');
+  background-image: url(/assets/ship.png);
 }
 
 .icon-category-gifts-and-donations:before {

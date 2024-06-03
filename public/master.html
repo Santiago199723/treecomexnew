@@ -222,11 +222,13 @@
             div.className = "category zze-truncate zze-icon-left";
             const i = document.createElement("i");
             i.className = "zze-icon-categories icon-category-ship";
+            i.style.display = "flex";
+            i.style.justifyContent = "center";
             const span = document.createElement("span");
             span.textContent = code;
             span.className = "zze-selectize-label";
             div.appendChild(i);
-            div.appendChild(span)
+            div.appendChild(span);
             dropdownContent.appendChild(div);
           });
         }
