@@ -401,7 +401,7 @@
         const accountContent = document.getElementById("account-content");
         if (event.target !== accountContent) {
           console.log(accountContent.style.display)
-          if (accountContent.style.display !== "none") {
+          if (accountContent.style.display.toLowerCase() === "flex") {
             accountContent.style.display = "none";
           }
         }
