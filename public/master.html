@@ -1,230 +1,255 @@
 <!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TELAS DE ETAPAS - TREE COMEX</title>
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/etapas.css" />
+    <link rel="stylesheet" href="styles/stoled.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <title>TELAS DE ETAPAS - TREE COMEX</title>
-  <link rel="stylesheet" href="styles/style.css" />
-  <link rel="stylesheet" href="styles/etapas.css" />
-  <link rel="stylesheet" href="styles/stoled.css" />
+    <style>
+      body {
+        background-color: #e5e9f4;
+        padding: 2rem;
+        background: #114766;
+      }
 
-  <style>
-    body {
-      background-color: #e5e9f4;
-      padding: 2rem;
-      background: #114766;
-    }
+      /* Estilos para o botão "Voltar" */
+      .back-button-cyan {
+        position: fixed;
+        bottom: 15px;
+        left: 15px;
+        padding: 15px 10px;
+        color: #fcfcfc;
+        background: none;
+        border: 2px solid #ffffff;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.5s;
+        letter-spacing: 4px;
+      }
 
-    /* Estilos para o botão "Voltar" */
-    .back-button-cyan {
-      position: fixed;
-      bottom: 15px;
-      left: 15px;
-      padding: 15px 10px;
-      color: #fcfcfc;
-      background: none;
-      border: 2px solid #ffffff;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: 0.5s;
-      letter-spacing: 4px;
-    }
+      .back-button-cyan:hover {
+        background: #03e9f4;
+        color: #050801;
+      }
 
-    .back-button-cyan:hover {
-      background: #03e9f4;
-      color: #050801;
-    }
+      /* Estilos para o botão "Abrir" */
+      .open-button {
+        padding: 10px 20px;
+        color: #fff;
+        background-color: #0e454d;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
-    /* Estilos para o botão "Abrir" */
-    .open-button {
-      padding: 10px 20px;
-      color: #fff;
-      background-color: #0e454d;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+      .open-button:hover {
+        background-color: #2a949b;
+      }
 
-    .open-button:hover {
-      background-color: #2a949b;
-    }
+      /* Estilos para o campo de entrada */
+      .input-field {
+        max-height: 100px;
+        padding: 10px;
+        margin: 10px 0;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+        overflow-y: auto;
+      }
 
-    /* Estilos para o campo de entrada */
-    .input-field {
-      max-height: 100px;
-      padding: 10px;
-      margin: 10px 0;
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-      transition: border-color 0.3s ease;
-      overflow-y: auto;
-    }
+      .input-field:focus {
+        border-color: #03e9f4;
+      }
 
-    .input-field:focus {
-      border-color: #03e9f4;
-    }
+      /* Estilos para o contêiner da janela modal */
+      .modal-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        /* Para garantir que a janela modal esteja sempre na frente */
+      }
 
-    /* Estilos para o contêiner da janela modal */
-    .modal-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      /* Para garantir que a janela modal esteja sempre na frente */
-    }
+      /* Estilos para a janela modal */
+      .modal {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        max-width: 600px;
+        /* Largura máxima da janela modal */
+        max-height: 80vh;
+        /* Altura máxima da janela modal (80% da altura da viewport) */
+        overflow-y: auto;
+        /* Adiciona barra de rolagem vertical se necessário */
+        text-align: center;
+        /* Centraliza o conteúdo horizontalmente */
+        border: 5px solid #3fc1c8;
+        /* Adiciona a borda azul clara bonita */
+      }
 
-    /* Estilos para a janela modal */
-    .modal {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      max-width: 600px;
-      /* Largura máxima da janela modal */
-      max-height: 80vh;
-      /* Altura máxima da janela modal (80% da altura da viewport) */
-      overflow-y: auto;
-      /* Adiciona barra de rolagem vertical se necessário */
-      text-align: center;
-      /* Centraliza o conteúdo horizontalmente */
-      border: 5px solid #3fc1c8;
-      /* Adiciona a borda azul clara bonita */
-    }
+      /* Estilos para o botão de fechar */
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 24px;
+        color: #06202e;
+      }
+    </style>
+  </head>
 
-    /* Estilos para o botão de fechar */
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 24px;
-      color: #06202e;
-    }
-  </style>
-</head>
-
-<body>
-  <!-- Contêiner da logo -->
-  <div class="logo-container">
-    <img class="logo" src="assets/TREICO.png" alt="Logo" />
-  </div>
-
-  <div id="overlay" class="overlay" style="display: none">
-    <div class="modal-container">
-      <div class="modal">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <h2 style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)"></h2>
-        <select id="process-id-dropdown" class="input-field"></select>
-        <button id="save-process" class="open-button">VER EMPRESA</button>
-      </div>
+  <body>
+    <!-- Contêiner da logo -->
+    <div class="logo-container">
+      <img class="logo" src="assets/TREICO.png" alt="Logo" />
     </div>
-  </div>
 
-  <!-- Informações da empresa -->
-  <div class="company-info-0">
-    <div class="info-item-0">
-      <div class="info-value-0">
-        <p id="company-name"></p>
+    <div id="overlay" class="overlay" style="display: none">
+      <div class="modal-container">
+        <div class="modal">
+          <span class="close-btn" onclick="closeModal()">&times;</span>
+          <h2
+            style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)"
+          ></h2>
+          <select id="process-id-dropdown" class="input-field"></select>
+          <button id="save-process" class="open-button">VER EMPRESA</button>
+        </div>
       </div>
     </div>
 
-    <div class="info-item-0">
-      <div class="info-value-0">
-        <p id="company-type"></p>
+    <!-- Informações da empresa -->
+    <div class="company-info-0">
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-name"></p>
+        </div>
+      </div>
+
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-type"></p>
+        </div>
+      </div>
+
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-state"></p>
+        </div>
       </div>
     </div>
 
-    <div class="info-item-0">
-      <div class="info-value-0">
-        <p id="company-state"></p>
-      </div>
-    </div>
-  </div>
+    <div class="main-container">
+      <span id="current-process" class="process-number"></span>
+      <hr />
 
-  <div class="main-container">
-    <span id="current-process" class="process-number"></span>
-    <hr />
-
-    <div>
-      <div style="
+      <div>
+        <div
+          style="
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             top: 162px;
           "
-        class="selectize-control zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope single plugin-clear_button">
-        <div id="dropdown-container" class="selectize-input items not-full has-options ng-valid ng-pristine">
-          <input type="undefined" autocomplete="off" tabindex="0" id="showCategories-selectized"
-            placeholder="Selecione uma empresa" style="width: 157px; opacity: 1; position: relative; left: 0px" />
-        </div>
-        <div id="dropdown-modal"
-          class="selectize-dropdown single zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope plugin-clear_button"
-          style="
+          class="selectize-control zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope single plugin-clear_button"
+        >
+          <div
+            id="dropdown-container"
+            class="selectize-input items not-full has-options ng-valid ng-pristine"
+          >
+            <input
+              type="undefined"
+              autocomplete="off"
+              tabindex="0"
+              id="showCategories-selectized"
+              placeholder="Selecione uma empresa"
+              style="width: 157px; opacity: 1; position: relative; left: 0px"
+            />
+          </div>
+          <div
+            id="dropdown-modal"
+            class="selectize-dropdown single zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope plugin-clear_button"
+            style="
               display: none;
               width: 171px;
               top: 36px;
               left: 368px;
               visibility: visible;
-            ">
-          <div class="selectize-dropdown-content" id="selectize-content"></div>
+            "
+          >
+            <div
+              class="selectize-dropdown-content"
+              id="selectize-content"
+            ></div>
+          </div>
+          <span
+            class="clearAll"
+            tabindex="-1"
+            title="Limpar"
+            style="display: none"
+            ><i class="icon-close"></i
+          ></span>
         </div>
-        <span class="clearAll" tabindex="-1" title="Limpar" style="display: none"><i class="icon-close"></i></span>
       </div>
     </div>
-  </div>
 
-  <button class="back-button-cyan" onclick="logout()">
-    <image style="width: 20px" src="/assets/back-white.png"></image>
-  </button>
-  <script>
-    async function openModal() {
-      const modal = document.getElementById("dropdown-modal");
-      if (modal.style.display === "none") {
+    <button class="back-button-cyan" onclick="logout()">
+      <image style="width: 20px" src="/assets/back-white.png"></image>
+    </button>
+    <script>
+      window.onload = async function () {
         const response = await fetch("/companies/codes", {
           method: "GET",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
-          credentials: "include"
-        })
+          credentials: "include",
+        });
 
         const codes = await response.json();
         if (response.ok && codes.length > 0) {
-          const dropdownContent = document.getElementById("selectize-content")
+          const dropdownContent = document.getElementById("selectize-content");
           codes.forEach((code) => {
             const div = document.createElement("div");
-            div.className = "category zze-truncate zze-icon-left"
+            div.className = "category zze-truncate zze-icon-left";
             const i = document.createElement("i");
-            i.className = "zze-icon-categories icon-category-food"
-            const span = document.createElement("span")
-            span.textContent = code
-            span.className = "zze-selectize-label"
-            i.appendChild(span)
+            i.className = "zze-icon-categories icon-category-food";
+            const span = document.createElement("span");
+            span.textContent = code;
+            span.className = "zze-selectize-label";
+            i.appendChild(span);
             div.appendChild(i);
             dropdownContent.appendChild(div);
           });
-          modal.style.display = "flex";
         }
-      } else {
-        modal.style.display = "none";
+      };
+
+      async function openModal() {
+        const modal = document.getElementById("dropdown-modal");
+        if (modal.style.display === "none") {
+          modal.style.display = "flex";
+        } else {
+          modal.style.display = "none";
+        }
       }
-    }
 
-    document
-      .getElementById("dropdown-container")
-      .addEventListener("click", openModal);
+      document
+        .getElementById("dropdown-container")
+        .addEventListener("click", openModal);
 
-    function showMessage() {
-      alert("Está em desenvolvimento!");
-    }
-  </script>
+      function showMessage() {
+        alert("Está em desenvolvimento!");
+      }
+    </script>
 
-  <script src="scripts/utils.js"></script>
-</body>
-
+    <script src="scripts/utils.js"></script>
+  </body>
 </html>

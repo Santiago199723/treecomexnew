@@ -541,9 +541,7 @@ app.get("/companies/codes", async (req, res) => {
   });
 
   if (!admin) {
-    return res.status(401).json({
-      message: "Acesso à solicitação negado",
-    });
+    return res.redirect("/index.html");
   }
 
   const companies = await Company.findAll();
