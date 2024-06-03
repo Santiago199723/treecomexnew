@@ -146,6 +146,62 @@
       </div>
     </div>
 
+    <li class="my-account drop-down arrow-right" data-drop-down="hover">
+      <a href="#" onclick="return false" class="user-avatar">
+        <img
+          data-user-avatar="image"
+          height="29"
+          width="29"
+          src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+          alt="Avatar missing"
+        />
+      </a>
+
+      <!-- user-accounts select -->
+      <div
+        class="drop-down-box"
+        zze-scope="user-accounts-select"
+        data-drop-down="box"
+        style="display: none"
+      >
+        <div class="user-menu-group">
+          <div class="user-info" zze-mark="current">
+            <a class="user-avatar" href="/5557101/configuracoes/minha-conta">
+              <div class="image">
+                <img
+                  data-user-avatar="image"
+                  src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+                  alt="Avatar missing"
+                />
+              </div>
+              <div class="details">
+                <span id="name">Santiago Ramirez</span>
+              </div>
+            </a>
+          </div>
+
+          <ul class="account-menu">
+            <li>
+              <a href="/5557101/configuracoes/minha-conta">Minha conta</a>
+            </li>
+            <li class="logout" data-no-turbolink="true">
+              <a
+                title="Clique para deslogar de sua conta"
+                data-link="logout"
+                href="/logout?current_entity_id=5557101"
+                >Sair</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="user-menu-accounts hide" id="zze-user-accounts">
+          <h6 class="list-title">OUTRAS CONTAS</h6>
+          <ul class="list-accounts" id="zze-user-accounts-list"></ul>
+        </div>
+      </div>
+    </li>
+
     <div class="main-container">
       <span id="current-process" class="process-number"></span>
       <hr />
@@ -300,6 +356,6 @@
       }
     </script>
 
-    <script src="scripts/utils.js"></script>
+    <script src="/scripts/utils.js"></script>
   </body>
 </html>
