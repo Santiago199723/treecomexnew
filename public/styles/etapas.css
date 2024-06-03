@@ -185,7 +185,7 @@ hr {
 
 /* Removendo os estilos para as bordas animadas */
 a:hover {
-  background: #03e9f4;
+  /* background: #03e9f4; */
   color: #050801;
 }
 
