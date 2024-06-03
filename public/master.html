@@ -347,14 +347,16 @@
 
       searchInput.addEventListener("input", filterCodes);
 
-      async function handleModal() {
+      function handleModal() {
         const modal = document.getElementById("dropdown-modal");
         if (modal.style.display === "none") {
           modal.style.display = "flex";
         } else {
           modal.style.display = "none";
         }
+      }
 
+      function handleUserModal() {
         const userModal = document.getElementById("account-content");
         if (userModal.style.display === "none") {
           userModal.style.display = "flex";
@@ -369,7 +371,7 @@
 
       document
         .getElementById("account-popover")
-        .addEventListener("click", handleModal);
+        .addEventListener("click", handleUserModal);
       function showMessage() {
         alert("Está em desenvolvimento!");
       }
