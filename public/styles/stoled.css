@@ -43227,7 +43227,7 @@ table tr:last-child td {
   position: relative;
   z-index: 1;
   display: inline-block;
-  width: 100%;
+  width: 30%;
   padding: 2px 4px;
   overflow: hidden;
   border: 2px solid #e8eaeb;
@@ -43296,7 +43296,7 @@ table tr:last-child td {
 
 .selectize-input > input {
   display: inline-block !important;
-  max-width: 30% !important;
+  max-width: 100% !important;
   max-height: none !important;
   min-height: 0 !important;
   line-height: inherit !important;
