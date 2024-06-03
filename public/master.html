@@ -210,7 +210,7 @@
                 title="Clique para deslogar de sua conta"
                 data-link="logout"
                 onclick="logout()"
-                style="cursor: pointer;"
+                style="cursor: pointer"
                 >Sair</a
               >
             </li>
@@ -294,10 +294,10 @@
         });
 
         if (response.ok) {
-          const data = await response.json()
-          const email = document.getElementById("email")
+          const data = await response.json();
+          const email = document.getElementById("email");
           email.innerHTML = data.email;
-          }
+        }
 
         response = await fetch("/companies/codes", {
           method: "GET",
@@ -396,6 +396,14 @@
       document
         .getElementById("account-popover")
         .addEventListener("click", handleUserModal);
+
+      document.addEventListener("click", function (event) {
+        const accountContent = document.getElementById("account-content");
+        if (event.target !== accountContent) {
+          accountContent.style.display = "none";
+        }
+      });
+
       function showMessage() {
         alert("Está em desenvolvimento!");
       }
