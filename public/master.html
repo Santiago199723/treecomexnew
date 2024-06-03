@@ -150,7 +150,11 @@
       </div>
     </div>
 
-    <li class="my-account drop-down arrow-right" data-drop-down="hover">
+    <li
+      class="my-account drop-down arrow-right"
+      data-drop-down="hover"
+      id="account-popover"
+    >
       <a href="#" onclick="return false" class="user-avatar">
         <img
           data-user-avatar="image"
@@ -163,6 +167,7 @@
 
       <!-- user-accounts select -->
       <div
+        id="account-content"
         class="drop-down-box"
         zze-scope="user-accounts-select"
         data-drop-down="box"
@@ -349,12 +354,22 @@
         } else {
           modal.style.display = "none";
         }
+
+        const userModal = document.getElementById("account-content");
+        if (userModal.style.display === "none") {
+          userModal.style.display = "flex";
+        } else {
+          userModal.style.display = "none";
+        }
       }
 
       document
         .getElementById("dropdown-container")
         .addEventListener("click", handleModal);
 
+      document
+        .getElementById("account-popover")
+        .addEventListener("click", handleModal);
       function showMessage() {
         alert("Está em desenvolvimento!");
       }
