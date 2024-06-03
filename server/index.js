@@ -230,7 +230,7 @@ app.get("/company-data", async (req, res) => {
 
   if (userId) {
     const user = await User.findOne({ where: { id: userId } });
-    if (user && user.user_type !== UserType.MASTER) {
+    if (user && user.userType !== UserType.MASTER) {
       const companyOwned = await Company.findOne({
         where: { ofUser: user.id },
       });
