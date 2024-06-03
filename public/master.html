@@ -280,6 +280,8 @@
         });
       }
 
+      searchInput.addEventListener("input", filterCodes);
+
       async function handleModal() {
         const modal = document.getElementById("dropdown-modal");
         if (modal.style.display === "none") {
