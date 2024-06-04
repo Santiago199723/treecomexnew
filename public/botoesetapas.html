@@ -1,165 +1,215 @@
 <!DOCTYPE html">
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>TELAS DE ETAPAS - TREE COMEX</title>
-    <link rel="stylesheet" href="styles/style.css" />
-    <link rel="stylesheet" href="styles/etapas.css" />
 
-    <style>
-      body {
-        background-color: #e5e9f4;
-        padding: 2rem;
-        background: #114766;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <title>TELAS DE ETAPAS - TREE COMEX</title>
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/etapas.css" />
+  <link rel="stylesheet" href="styles/stoled.css" />
 
-      /* Estilos para o botão "Voltar" */
-      .back-button-cyan {
-        position: fixed;
-        bottom: 15px;
-        left: 15px;
-        padding: 15px 10px;
-        color: #fcfcfc;
-        background: none;
-        border: 2px solid #ffffff;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: 0.5s;
-        letter-spacing: 4px;
-      }
+  <style>
+    body {
+      background-color: #e5e9f4;
+      padding: 2rem;
+      background: #114766;
+    }
 
-      .back-button-cyan:hover {
-        background: #03e9f4;
-        color: #050801;
-      }
+    /* Estilos para o botão "Voltar" */
+    .back-button-cyan {
+      position: fixed;
+      bottom: 15px;
+      left: 15px;
+      padding: 15px 10px;
+      color: #fcfcfc;
+      background: none;
+      border: 2px solid #ffffff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.5s;
+      letter-spacing: 4px;
+    }
 
-      /* Estilos para o botão "Abrir" */
-      .open-button {
-        padding: 10px 20px;
-        color: #fff;
-        background-color: #0e454d;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
+    .back-button-cyan:hover {
+      background: #03e9f4;
+      color: #050801;
+    }
 
-      .open-button:hover {
-        background-color: #2a949b;
-      }
+    /* Estilos para o botão "Abrir" */
+    .open-button {
+      padding: 10px 20px;
+      color: #fff;
+      background-color: #0e454d;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-      /* Estilos para o campo de entrada */
-      .input-field {
-        max-height: 100px;
-        padding: 10px;
-        margin: 10px 0;
-        width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-        transition: border-color 0.3s ease;
-        overflow-y: auto;
-      }
+    .open-button:hover {
+      background-color: #2a949b;
+    }
 
-      .input-field:focus {
-        border-color: #03e9f4;
-      }
+    /* Estilos para o campo de entrada */
+    .input-field {
+      max-height: 100px;
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+      overflow-y: auto;
+    }
 
-      /* Estilos para o contêiner da janela modal */
-      .modal-container {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 9999; /* Para garantir que a janela modal esteja sempre na frente */
-      }
+    .input-field:focus {
+      border-color: #03e9f4;
+    }
 
-      /* Estilos para a janela modal */
-      .modal {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        max-width: 600px; /* Largura máxima da janela modal */
-        max-height: 80vh; /* Altura máxima da janela modal (80% da altura da viewport) */
-        overflow-y: auto; /* Adiciona barra de rolagem vertical se necessário */
-        text-align: center; /* Centraliza o conteúdo horizontalmente */
-        border: 5px solid #3fc1c8; /* Adiciona a borda azul clara bonita */
-      }
+    /* Estilos para o contêiner da janela modal */
+    .modal-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      /* Para garantir que a janela modal esteja sempre na frente */
+    }
 
-      /* Estilos para o botão de fechar */
-      .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-        font-size: 24px;
-        color: #06202e;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Contêiner da logo -->
-    <div class="logo-container">
-      <img class="logo" src="assets/TREICO.png" alt="Logo" />
-    </div>
+    /* Estilos para a janela modal */
+    .modal {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      /* Largura máxima da janela modal */
+      max-height: 80vh;
+      /* Altura máxima da janela modal (80% da altura da viewport) */
+      overflow-y: auto;
+      /* Adiciona barra de rolagem vertical se necessário */
+      text-align: center;
+      /* Centraliza o conteúdo horizontalmente */
+      border: 5px solid #3fc1c8;
+      /* Adiciona a borda azul clara bonita */
+    }
 
-    <div id="overlay" class="overlay" style="display: none">
-      <div class="modal-container">
-        <div class="modal">
-          <span class="close-btn" onclick="closeModal()">&times;</span>
-          <h2 style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)">
-            IDENTIFICAR PROCESSO
-          </h2>
-          <select id="process-id-dropdown" class="input-field"></select>
-          <button id="save-process" class="open-button">VER PROCESSO</button>
-        </div>
+    /* Estilos para o botão de fechar */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 24px;
+      color: #06202e;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Contêiner da logo -->
+  <div class="logo-container">
+    <img class="logo" src="assets/TREICO.png" alt="Logo" />
+  </div>
+
+  <div id="overlay" class="overlay" style="display: none">
+    <div class="modal-container">
+      <div class="modal">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2 style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)">
+          IDENTIFICAR PROCESSO
+        </h2>
+        <select id="process-id-dropdown" class="input-field"></select>
+        <button id="save-process" class="open-button">VER PROCESSO</button>
       </div>
     </div>
+  </div>
 
-    <!-- Informações da empresa -->
-    <div class="company-info-0">
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-name">NOME DA EMMPRESA</p>
+  <li class="my-account drop-down arrow-right" data-drop-down="hover" id="account-popover">
+    <a href="#" onclick="return false" class="user-avatar">
+      <img data-user-avatar="image" height="37" width="37"
+        src="https://utils.organizze.com.br/avatar/avatar-missing.png" alt="Avatar missing" />
+    </a>
+
+    <!-- user-accounts select -->
+    <div id="account-content" class="drop-down-box" zze-scope="user-accounts-select" data-drop-down="box"
+      style="display: none">
+      <div class="user-menu-group">
+        <div class="user-info" zze-mark="current">
+          <a class="user-avatar">
+            <div class="image" style="
+                display: flex;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                justify-content: center;
+              ">
+              <img data-user-avatar="image" src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+                alt="Avatar missing" style="width: 50px" />
+            </div>
+            <div class="details" style="display: flex; justify-content: center">
+              <span id="email"></span>
+            </div>
+          </a>
         </div>
+
+        <ul class="account-menu" style="display: flex; align-items: center; flex-direction: column">
+          <li class="logout" data-no-turbolink="true">
+            <a title="Clique para deslogar de sua conta" data-link="logout" onclick="logout()"
+              style="cursor: pointer">Sair</a>
+          </li>
+        </ul>
       </div>
-      -
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-type">FILIAL OU MATRIZ</p>
-        </div>
-      </div>
-      -
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-state">EX: AL</p>
-        </div>
+
+      <div class="user-menu-accounts hide" id="zze-user-accounts">
+        <h6 class="list-title">OUTRAS CONTAS</h6>
+        <ul class="list-accounts" id="zze-user-accounts-list"></ul>
       </div>
     </div>
+  </li>
 
-    <div class="main-container">
-      <span id="current-process" class="process-number"></span>
-      <hr />
-
-      <div class="button-container">
-        <a href="etapa1.html"> ETAPA 1 - ESTRUTURA </a>
-        <a onclick="openModal()"> ETAPA 2 - PROCESSOS </a>
-        <a id="financial" style="display: none" href="/financial/process.html"
-          >FINANCEIRO</a
-        >
+  <!-- Informações da empresa -->
+  <div class="company-info-0">
+    <div class="info-item-0">
+      <div class="info-value-0">
+        <p id="company-name">NOME DA EMMPRESA</p>
       </div>
     </div>
+    -
+    <div class="info-item-0">
+      <div class="info-value-0">
+        <p id="company-type">FILIAL OU MATRIZ</p>
+      </div>
+    </div>
+    -
+    <div class="info-item-0">
+      <div class="info-value-0">
+        <p id="company-state">EX: AL</p>
+      </div>
+    </div>
+  </div>
 
-    <button class="back-button-cyan" onclick="logout()">
-      <image style="width: 20px" src="/assets/back-white.png"></image>
-    </button>
-    <script>
-      function showMessage() {
-        alert("Está em desenvolvimento!");
-      }
-    </script>
-    <script src="scripts/botoesetapas.js"></script>
-    <script src="scripts/utils.js"></script>
-  </body>
+  <div class="main-container">
+    <span id="current-process" class="process-number"></span>
+    <hr />
+
+    <div class="button-container">
+      <a href="etapa1.html"> ETAPA 1 - ESTRUTURA </a>
+      <a onclick="openModal()"> ETAPA 2 - PROCESSOS </a>
+      <a id="financial" style="display: none" href="/financial/process.html">FINANCEIRO</a>
+    </div>
+  </div>
+
+  <button class="back-button-cyan" onclick="logout()">
+    <image style="width: 20px" src="/assets/back-white.png"></image>
+  </button>
+  <script>
+    function showMessage() {
+      alert("Está em desenvolvimento!");
+    }
+  </script>
+  <script src="scripts/botoesetapas.js"></script>
+  <script src="scripts/utils.js"></script>
+</body>
+
 </html>
