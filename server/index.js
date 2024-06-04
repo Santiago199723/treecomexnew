@@ -279,6 +279,7 @@ app.post("/upload-file", async (req, res) => {
       .status(200)
       .send({ message: "Arquivo enviado com sucesso", fileId: file.id });
   } catch (error) {
+    console.log(error)
     res.status(500).send({ message: "Erro ao carregar o arquivo" });
   }
 });
@@ -316,7 +317,6 @@ app.get("/stage", async (req, res) => {
     for (const result of results) {
       const value = new Map();
       const permData = JSON.parse(result.data);
-      console.log(permData)
 
       if (
         permData.stageNumber === Number(stage) &&
