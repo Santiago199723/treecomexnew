@@ -214,6 +214,8 @@ hr {
 .stage-selectors {
   width: 282px;
   height: 50px;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stage-selectors:hover {
