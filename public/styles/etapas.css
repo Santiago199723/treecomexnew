@@ -211,6 +211,11 @@ hr {
   }
 }
 
+.stage-selectors {
+  width: 282px;
+  height: 50px;
+}
+
 .stage-selectors:hover {
   color: #050801;
 }
