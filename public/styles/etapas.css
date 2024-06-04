@@ -22,6 +22,7 @@ body {
 /* Estilo para as informações da empresa */
 .company-info-0 {
   color: #fcfcfc;
+  top: 35px;
   background-color: #0000;
   padding: 20px;
   display: flex;
