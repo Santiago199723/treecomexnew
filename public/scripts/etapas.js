@@ -2,6 +2,22 @@ let offsetX, offsetY;
 const buttons = document.querySelectorAll(".neumorphic");
 const csn = Number(window.location.pathname.match(/[0-9]+/)[0]);
 
+window.onload = async function () {
+  const response = await fetch("/user", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    const email = document.getElementById("email");
+    email.innerHTML = data.email;
+  }
+};
+
 function handleFileUpload(btnIndex) {
   const fileInput = document.querySelector(".file-input");
 
@@ -326,3 +342,29 @@ async function refreshButtons() {
     }
   });
 }
+
+function handleUserModal(event) {
+  const userModal = document.getElementById("account-content");
+  if (userModal.style.display === "none") {
+    userModal.style.display = "flex";
+  } else {
+    userModal.style.display = "none";
+  }
+
+  event.stopPropagation();
+}
+
+document
+  .getElementById("account-popover")
+  .addEventListener("click", handleUserModal);
+
+document.addEventListener("click", function (event) {
+  const accountContent = document.getElementById("account-content");
+
+  if (
+    event.target !== accountContent &&
+    !accountContent.contains(event.target)
+  ) {
+    accountContent.style.display = "none";
+  }
+});
