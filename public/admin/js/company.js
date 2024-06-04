@@ -72,15 +72,14 @@ document
       alertMsg.innerHTML = data.message;
       alertMsg.style.display = "block";
       await delay(2000);
-      localStorage.removeItem("__next_reg__");
     } else {
       document.getElementById("cadastro-orion-global").reset();
-
       let msg = document.getElementById("mensagem-sucesso");
       msg.innerText = data.message;
       msg.style.display = "block";
       await delay(2000);
-      window.location.href = "CPF.html";
+      localStorage.removeItem("__next_reg__");
+      window.location.href = "/admin/signup.html";
     }
   });
 
