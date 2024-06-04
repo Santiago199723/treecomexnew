@@ -142,8 +142,9 @@ hr {
 }
 
 .data-restante-container {
+  top: 35px;
   align-items: center;
-  right: 80px;
+  right: 100px;
   z-index: 8000;
   position: absolute;
   display: none;
