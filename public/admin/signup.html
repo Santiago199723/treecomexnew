@@ -203,12 +203,14 @@
           });
 
           const data = await response.json();
+          alert(data.message);
+
           if (response.ok) {
             document.getElementById("form").reset();
             localStorage.setItem("__next_reg__", data.user);
+            await delay(2000);
+            window.location.href = "/admin/company.html";
           }
-
-          alert(data.message);
         });
 
       const getElementVal = (id) => {
