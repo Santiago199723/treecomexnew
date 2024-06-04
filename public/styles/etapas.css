@@ -184,9 +184,9 @@ hr {
   }
 }
 
-/* Removendo os estilos para as bordas animadas */
-a:hover {
-  /* background: #03e9f4; */
+.compant-name:hover
+.compant-type:hover,
+.compant-state:hover {
   color: #050801;
 }
 
