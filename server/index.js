@@ -316,6 +316,7 @@ app.get("/stage", async (req, res) => {
     for (const result of results) {
       const value = new Map();
       const permData = JSON.parse(result.data);
+      console.log(permData)
 
       if (
         permData.stageNumber === Number(stage) &&

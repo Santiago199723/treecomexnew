@@ -132,7 +132,7 @@ function showSubmenuData(btnIndex) {
   const params = new URLSearchParams(obj);
 
   fetch(
-    `${window.location.protocol}//${window.location.hostname}/stage?${params}`,
+    `/stage?${params}`,
     {
       method: "GET",
       headers: {
@@ -318,7 +318,7 @@ async function refreshButtons() {
     });
 
     const s = await fetch(
-      `${window.location.protocol}//${window.location.hostname}/stage?${params}`,
+      `/stage?${params}`,
       {
         method: "GET",
         headers: {
