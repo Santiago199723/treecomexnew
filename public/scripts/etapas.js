@@ -122,77 +122,82 @@ function showSubmenuData(btnIndex) {
   attachBtn.onclick = () => input.click();
   input.onchange = () => handleFileUpload(btnIndex);
 
-  const obj = {
-    company: companyData.cpf ? companyData.cpf : companyData.cnpj,
-    stage: csn,
-    option: getOptionType(btnIndex),
-    processId: csn !== 1 ? processId : undefined,
-  };
+  const option = getOptionType(btnIndex);
+  if (option) {
+    let obj = {
+      company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+      stage: csn,
+      option: option,
+    };
 
-  const params = new URLSearchParams(obj);
+    if (csn !== 1) obj.processId = processId;
 
-  fetch(`/stage?${params}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-  }).then(async (response) => {
-    const data = await response.json();
-    if (response.ok && data.length !== 0) {
-      const attachedFiles = [];
-      const removedFiles = [];
+    const params = new URLSearchParams(obj);
 
-      data.forEach((value) => {
-        if (value.type === 1) {
-          attachedFiles.push(value);
-        } else {
-          removedFiles.push(value);
+    fetch(`/stage?${params}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    }).then(async (response) => {
+      const data = await response.json();
+      if (response.ok && data.length !== 0) {
+        const attachedFiles = [];
+        const removedFiles = [];
+
+        data.forEach((value) => {
+          if (value.type === 1) {
+            attachedFiles.push(value);
+          } else {
+            removedFiles.push(value);
+          }
+        });
+
+        attachedFiles.sort(
+          (a, b) => new Date(b.attachedDate) - new Date(a.attachedDate),
+        );
+        removedFiles.sort(
+          (a, b) => new Date(b.removedDate) - new Date(a.removedDate),
+        );
+
+        const sortedData = removedFiles.concat(attachedFiles);
+        sortedData.sort(
+          (a, b) =>
+            new Date(b.attachedDate || b.removedDate) -
+            new Date(a.attachedDate || a.removedDate),
+        );
+
+        if (sortedData[0].type === 1) {
+          const file = await getFileData(sortedData[0].fileId);
+          fileName.innerText = file.name;
+          fileName.onclick = () => {
+            const parts = String.fromCharCode(
+              ...new Uint8Array(file.blob.data),
+            );
+
+            const blob = new Blob([atob(parts)], { type: file.mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = file.name;
+            a.click();
+            URL.revokeObjectURL(url);
+          };
+
+          trash.onclick = () => handleFileRemove(file.id, btnIndex);
+          fileName.style.display = "flex";
+          trash.style.display = "flex";
         }
-      });
 
-      attachedFiles.sort(
-        (a, b) => new Date(b.attachedDate) - new Date(a.attachedDate),
-      );
-      removedFiles.sort(
-        (a, b) => new Date(b.removedDate) - new Date(a.removedDate),
-      );
+        sortedData.forEach((value) => {
+          const fileDetails = document.createElement("div");
+          fileDetails.classList.add("file-details");
 
-      const sortedData = removedFiles.concat(attachedFiles);
-      sortedData.sort(
-        (a, b) =>
-          new Date(b.attachedDate || b.removedDate) -
-          new Date(a.attachedDate || a.removedDate),
-      );
+          const dateKey = value.type === 1 ? "attachedDate" : "removedDate";
+          const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
 
-      if (sortedData[0].type === 1) {
-        const file = await getFileData(sortedData[0].fileId);
-        fileName.innerText = file.name;
-        fileName.onclick = () => {
-          const parts = String.fromCharCode(...new Uint8Array(file.blob.data));
-
-          const blob = new Blob([atob(parts)], { type: file.mimeType });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = file.name;
-          a.click();
-          URL.revokeObjectURL(url);
-        };
-
-        trash.onclick = () => handleFileRemove(file.id, btnIndex);
-        fileName.style.display = "flex";
-        trash.style.display = "flex";
-      }
-
-      sortedData.forEach((value) => {
-        const fileDetails = document.createElement("div");
-        fileDetails.classList.add("file-details");
-
-        const dateKey = value.type === 1 ? "attachedDate" : "removedDate";
-        const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
-
-        fileDetails.innerHTML = `
+          fileDetails.innerHTML = `
             <p>Data de ${
               value.type === 1 ? "anexo" : "exclusão"
             }: <span class="submenu-span-red">${formatDate(
@@ -204,11 +209,13 @@ function showSubmenuData(btnIndex) {
             }: <span class="submenu-span-red">${value[actionKey]}</span></p>
           `;
 
-        submenu.appendChild(fileDetails);
-      });
-    }
-  });
+          submenu.appendChild(fileDetails);
+        });
+      }
+    });
+  }
 }
+
 window.onload = async function () {
   const response = await fetch("/user", {
     method: "GET",
