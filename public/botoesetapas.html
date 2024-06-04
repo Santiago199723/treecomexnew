@@ -184,7 +184,7 @@
               <a
                 title="Clique para retornar"
                 data-link="voltar"
-                onclick="() => {window.history.back()}"
+                onclick="window.history.back()"
                 style="cursor: pointer"
                 >Voltar</a
               >
@@ -241,7 +241,7 @@
         >
       </div>
     </div>
-    
+
     <script>
       function handleUserModal(event) {
         const userModal = document.getElementById("account-content");
