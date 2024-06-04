@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background-color: #e5e9f4;
   padding: 2rem;
@@ -13,10 +14,14 @@ body {
 .button-container {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centralizando os botões verticalmente */
-  align-items: center; /* Centralizando os botões horizontalmente */
-  height: 75vh; /* Definindo a altura para centralizar na tela */
-  padding: 20px; /* Espaçamento interno para os botões */
+  justify-content: center;
+  /* Centralizando os botões verticalmente */
+  align-items: center;
+  /* Centralizando os botões horizontalmente */
+  height: 75vh;
+  /* Definindo a altura para centralizar na tela */
+  padding: 20px;
+  /* Espaçamento interno para os botões */
 }
 
 /* Estilo para as informações da empresa */
@@ -43,12 +48,16 @@ body {
 
 hr {
   position: absolute;
-  top: 65px; /* Ajuste conforme necessário */
+  top: 65px;
+  /* Ajuste conforme necessário */
   left: 2px;
   width: 100%;
-  height: 1px; /* Altura da linha */
-  border: none; /* Remover a borda padrão */
-  background-color: #ffffff; /* Cor da linha */
+  height: 1px;
+  /* Altura da linha */
+  border: none;
+  /* Remover a borda padrão */
+  background-color: #ffffff;
+  /* Cor da linha */
   display: flex;
   top: 85px;
 }
@@ -108,16 +117,21 @@ hr {
 
 /* Estilo para cada botão */
 .button-container a {
-  display: inline-block; /* Alterando para exibir como bloco inline */
-  margin-bottom: 70px; /* Espaçamento entre os botões */
-  padding: 15px 30px; /* Espaçamento interno do botão */
+  display: inline-block;
+  /* Alterando para exibir como bloco inline */
+  margin-bottom: 70px;
+  /* Espaçamento entre os botões */
+  padding: 15px 30px;
+  /* Espaçamento interno do botão */
   color: #ffffff;
   text-decoration: none;
   text-transform: uppercase;
   transition: 0.5s;
   letter-spacing: 4px;
-  border: 2px solid #ffffff; /* Adicionando borda azul luminoso */
-  border-radius: 5px; /* Arredondando as bordas */
+  border: 2px solid #ffffff;
+  /* Adicionando borda azul luminoso */
+  border-radius: 5px;
+  /* Arredondando as bordas */
 }
 
 /* Estilo para o contêiner da logo */
@@ -130,10 +144,14 @@ hr {
 
 /* Estilo para a logo */
 .logo {
-  width: 100px; /* Largura da logo */
-  height: auto; /* Altura automática para manter a proporção */
-  filter: drop-shadow(0 0 10px rgba(203, 248, 249, 0.801)); /* Sombra na logo */
-  animation: shine 0s infinite alternate; /* Animação de brilho */
+  width: 100px;
+  /* Largura da logo */
+  height: auto;
+  /* Altura automática para manter a proporção */
+  filter: drop-shadow(0 0 10px rgba(203, 248, 249, 0.801));
+  /* Sombra na logo */
+  animation: shine 0s infinite alternate;
+  /* Animação de brilho */
 }
 
 #hint-text-remaining {
@@ -149,7 +167,8 @@ hr {
   position: absolute;
   display: none;
   /* Adicionando o fundo azul */
-  padding: 1px; /* Adicionando um espaçamento interno de 5px */
+  padding: 1px;
+  /* Adicionando um espaçamento interno de 5px */
 }
 
 #rest-remainer {
@@ -164,16 +183,20 @@ hr {
 }
 
 #current-process {
-  color: #fff; /* Cor padrão para o número do processo */
+  color: #fff;
+  /* Cor padrão para o número do processo */
   position: relative;
-  clip-path: inset(0 0 0 0px); /* Define o tamanho da área com fundo azul */
+  clip-path: inset(0 0 0 0px);
+  /* Define o tamanho da área com fundo azul */
 }
 
 #current-process-number {
   background-color: rgb(31, 142, 150);
-  color: #fff; /* Cor padrão para o número do processo */
+  color: #fff;
+  /* Cor padrão para o número do processo */
   position: relative;
-  clip-path: inset(0 0 0 0px); /* Define o tamanho da área com fundo azul */
+  clip-path: inset(0 0 0 0px);
+  /* Define o tamanho da área com fundo azul */
 }
 
 /* Animação de brilho */
@@ -181,6 +204,7 @@ hr {
   0% {
     opacity: 0.3;
   }
+
   100% {
     opacity: 1;
   }
@@ -232,7 +256,8 @@ span {
 
 /* Estilo para o contêiner da logo */
 .logo-container {
-  width: 100px; /* Largura da logo */
+  width: 100px;
+  /* Largura da logo */
   top: -5px;
   left: 10px;
   z-index: 9999;
@@ -311,6 +336,13 @@ span {
 
 .fa-light {
   margin-bottom: 20px;
+  justify-content: center;
+  color: #fff;
+  display: flex;
+}
+
+.fa-light:hover {
+  color: #df391c;
 }
 
 .neumorphic {
