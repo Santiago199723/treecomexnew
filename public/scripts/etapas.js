@@ -318,29 +318,33 @@ async function refreshButtons() {
   buttons.forEach(async (button, index) => {
     const submenuIndex = index + 1;
 
-    const params = new URLSearchParams({
-      company: companyData.cpf ? companyData.cpf : companyData.cnpj,
-      stage: csn,
-      option: getOptionType(submenuIndex),
-      processId: csn !== 1 ? processId : undefined,
-    });
+    const option = getOptionType(submenuIndex);
+    if (option) {
+      let params = new URLSearchParams({
+        company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+        stage: csn,
+        option: option,
+      });
 
-    const s = await fetch(`/stage?${params}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
+      if (csn !== 1) params.processId = processId;
 
-    if (s.ok) {
-      const data = await s.json();
-      if (data.length !== 0) {
-        button.style.boxShadow =
-          "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
-      } else {
-        button.style.boxShadow =
-          "-0.5rem -0.5rem 1rem hsl(0 0% 100% / 0.75), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+      const s = await fetch(`/stage?${params}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      if (s.ok) {
+        const data = await s.json();
+        if (data.length !== 0) {
+          button.style.boxShadow =
+            "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+        } else {
+          button.style.boxShadow =
+            "-0.5rem -0.5rem 1rem hsl(0 0% 100% / 0.75), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+        }
       }
     }
   });
