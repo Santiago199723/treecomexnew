@@ -209,7 +209,7 @@
     const searchInput = document.getElementById("showCategories-selectized");
 
     window.onload = async function () {
-      let response = await fetch("/user", {
+      const response = await fetch("/user", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -241,17 +241,12 @@
 
     document.addEventListener("click", function (event) {
       const accountContent = document.getElementById("account-content");
-      const modal = document.getElementById("dropdown-modal");
 
       if (
         event.target !== accountContent &&
         !accountContent.contains(event.target)
       ) {
         accountContent.style.display = "none";
-      }
-
-      if (event.target !== modal && !modal.contains(event.target)) {
-        modal.style.display = "none";
       }
     });
 
