@@ -36,7 +36,8 @@ body {
 #company-name,
 #company-type,
 #company-state {
-  font-size: 20px; /* Defina o tamanho da fonte desejado */
+  font-size: 20px;
+  color: white;
 }
 
 hr {
