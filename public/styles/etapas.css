@@ -176,7 +176,8 @@ hr {
 }
 
 .current-process-container {
-  right: 80px;
+  top: 42px;
+  right: 115px;
   z-index: 9999;
   position: absolute;
   display: none;
