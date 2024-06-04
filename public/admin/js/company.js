@@ -49,7 +49,7 @@ document
     const matriz = document.querySelector("#matriz").checked;
     const estado = estadosSiglas[getElementVal("CodUf")];
 
-    fetch("/company-register", {
+    const response = await fetch("/company-register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
