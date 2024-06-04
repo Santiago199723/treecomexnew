@@ -2,8 +2,8 @@
 
 button.neumorphic {
   container-type: inline-size;
-  aspect-ratio: 1/1;
-  height: 100%;
+  height: 131px;
+  width: 131px;
   margin-left: 10px;
   margin-right: 10px;
   border: 0.5rem solid transparent;
