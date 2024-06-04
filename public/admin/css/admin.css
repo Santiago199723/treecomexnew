@@ -136,7 +136,7 @@ h2 {
 }
 
 .form-group-checkbox {
-  justify
+  justify-content: center;
   position: relative;
   display: flex;
   gap: 15px;
