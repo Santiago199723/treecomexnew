@@ -2,22 +2,6 @@ let offsetX, offsetY;
 const buttons = document.querySelectorAll(".neumorphic");
 const csn = Number(window.location.pathname.match(/[0-9]+/)[0]);
 
-window.onload = async function () {
-  const response = await fetch("/user", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-  });
-
-  if (response.ok) {
-    const data = await response.json();
-    const email = document.getElementById("email");
-    email.innerHTML = data.email;
-  }
-};
-
 function handleFileUpload(btnIndex) {
   const fileInput = document.querySelector(".file-input");
 
@@ -229,6 +213,20 @@ function showSubmenuData(btnIndex) {
   });
 }
 window.onload = async function () {
+  const response = await fetch("/user", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    const email = document.getElementById("email");
+    email.innerHTML = data.email;
+  }
+
   await refreshCompanyData();
   showCompanyData();
   await refreshButtons();
