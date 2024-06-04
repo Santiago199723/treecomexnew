@@ -208,23 +208,6 @@
     const dropdownContent = document.getElementById("selectize-content");
     const searchInput = document.getElementById("showCategories-selectized");
 
-    window.onload = async function () {
-      const response = await fetch("/user", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-
-      console.log(response.status)
-      if (response.ok) {
-        const data = await response.json();
-        const email = document.getElementById("email");
-        email.innerHTML = data.email;
-      }
-    };
-
     function handleUserModal(event) {
       const userModal = document.getElementById("account-content");
       if (userModal.style.display === "none") {

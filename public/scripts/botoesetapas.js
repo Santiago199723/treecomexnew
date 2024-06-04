@@ -13,6 +13,8 @@ window.onload = async function () {
   const userData = await userResponse.json();
   if (userResponse.ok && userData.userType === UserType.MASTER) {
     document.getElementById("financial").style.display = "flex";
+    const email = document.getElementById("email");
+    email.innerHTML = data.email;
   } else {
     if (!company) window.location.href = "/index.html";
   }
