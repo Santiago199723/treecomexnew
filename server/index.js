@@ -279,7 +279,7 @@ app.post("/upload-file", async (req, res) => {
       .status(200)
       .send({ message: "Arquivo enviado com sucesso", fileId: file.id });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).send({ message: "Erro ao carregar o arquivo" });
   }
 });
