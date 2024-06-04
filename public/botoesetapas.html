@@ -217,6 +217,7 @@
         credentials: "include",
       });
 
+      console.log(response.statusCode)
       if (response.ok) {
         const data = await response.json();
         const email = document.getElementById("email");
