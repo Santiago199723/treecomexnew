@@ -184,9 +184,7 @@ hr {
   }
 }
 
-.compant-name:hover
-.compant-type:hover,
-.compant-state:hover {
+.stage-selectors:hover {
   color: #050801;
 }
 
