@@ -404,12 +404,15 @@
       document.addEventListener("click", function (event) {
         const accountContent = document.getElementById("account-content");
         const modal = document.getElementById("dropdown-modal");
+
         if (
           event.target !== accountContent &&
           !accountContent.contains(event.target)
         ) {
           accountContent.style.display = "none";
-        } else if (event.target !== modal && !modal.contains(event.target)) {
+        }
+
+        if (event.target !== modal && !modal.contains(event.target)) {
           modal.style.display = "none";
         }
       });
