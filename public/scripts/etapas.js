@@ -131,16 +131,13 @@ function showSubmenuData(btnIndex) {
 
   const params = new URLSearchParams(obj);
 
-  fetch(
-    `/stage?${params}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
+  fetch(`/stage?${params}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
     },
-  ).then(async (response) => {
+    credentials: "include",
+  }).then(async (response) => {
     const data = await response.json();
     if (response.ok && data.length !== 0) {
       const attachedFiles = [];
@@ -272,6 +269,8 @@ window.onload = async function () {
       event.stopPropagation();
       const submenuIndex = index + 1;
       showSubmenu(submenuIndex);
+
+      event.stopPropagation();
     });
   });
 };
@@ -304,6 +303,8 @@ document.addEventListener("click", function (event) {
   if (!submenuBotao.contains(event.target)) {
     submenuBotao.style.display = "none";
   }
+
+  event.stopPropagation();
 });
 
 async function refreshButtons() {
@@ -317,16 +318,13 @@ async function refreshButtons() {
       processId: csn !== 1 ? processId : undefined,
     });
 
-    const s = await fetch(
-      `/stage?${params}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
+    const s = await fetch(`/stage?${params}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      credentials: "include",
+    });
 
     if (s.ok) {
       const data = await s.json();
@@ -365,4 +363,6 @@ document.addEventListener("click", function (event) {
   ) {
     accountContent.style.display = "none";
   }
+
+  event.stopPropagation();
 });
