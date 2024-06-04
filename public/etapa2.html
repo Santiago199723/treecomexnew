@@ -5,6 +5,7 @@
     <title>TREE COMEX - ABERTURA</title>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/etapas.css" />
+    <link rel="stylesheet" href="styles/stoled.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -22,6 +23,90 @@
       <span style="width: 5px"></span>
       <p id="current-process-number"></p>
     </div>
+
+    <li
+      class="my-account drop-down arrow-right"
+      data-drop-down="hover"
+      id="account-popover"
+      style="right: 42px"
+    >
+      <a href="#" onclick="return false" class="user-avatar">
+        <img
+          data-user-avatar="image"
+          height="37"
+          width="37"
+          src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+          alt="Avatar missing"
+        />
+      </a>
+
+      <!-- user-accounts select -->
+      <div
+        id="account-content"
+        class="drop-down-box"
+        zze-scope="user-accounts-select"
+        data-drop-down="box"
+        style="display: none"
+      >
+        <div class="user-menu-group">
+          <div class="user-info" zze-mark="current">
+            <a class="user-avatar">
+              <div
+                class="image"
+                style="
+                  display: flex;
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  justify-content: center;
+                "
+              >
+                <img
+                  data-user-avatar="image"
+                  src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+                  alt="Avatar missing"
+                  style="width: 50px"
+                />
+              </div>
+              <div
+                class="details"
+                style="display: flex; justify-content: center"
+              >
+                <span id="email"></span>
+              </div>
+            </a>
+          </div>
+
+          <ul
+            class="account-menu"
+            style="display: flex; align-items: center; flex-direction: column"
+          >
+            <li data-no-turbolink="true">
+              <a
+                title="Clique para retornar"
+                data-link="voltar"
+                onclick="window.history.back()"
+                style="cursor: pointer"
+                >Voltar</a
+              >
+            </li>
+            <li class="logout" data-no-turbolink="true">
+              <a
+                title="Clique para deslogar de sua conta"
+                data-link="logout"
+                onclick="logout()"
+                style="cursor: pointer"
+                >Sair</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="user-menu-accounts hide" id="zze-user-accounts">
+          <h6 class="list-title">OUTRAS CONTAS</h6>
+          <ul class="list-accounts" id="zze-user-accounts-list"></ul>
+        </div>
+      </div>
+    </li>
 
     <!-- Informações da empresa -->
     <div class="company-info-0">
