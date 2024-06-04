@@ -2,7 +2,7 @@ const nextReg = localStorage.getItem("__next_reg__");
 
 window.onload = function () {
   if (!nextReg) {
-    window.location.href = "/index.html";
+    window.location.href = "/admin/signup.html";
   }
 };
 
