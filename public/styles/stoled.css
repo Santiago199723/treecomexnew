@@ -37501,11 +37501,11 @@ body.settings .alert-box {
 .drop-down .drop-down-box {
   position: absolute;
   margin-top: 4px;
-  left: -139px;
+  left: -165px;
   top: 45px;
   background: #fefdf9;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.17);
-  width: 180px;
+  width: 210px;
   z-index: 2;
   justify-content: center;
   border-radius: 6px;
