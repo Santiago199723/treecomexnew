@@ -21,7 +21,7 @@ window.onload = async function () {
   email.innerHTML = userData.email;
 
   const params = new URLSearchParams({
-    company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+    company: companyData.cnpj,
   });
 
   const response = await fetch(`/process?${params}`, {

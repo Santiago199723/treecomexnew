@@ -61,7 +61,7 @@ function showCompanyData() {
 async function refreshCompanyData() {
   if (companyData) {
     const params = new URLSearchParams({
-      unique: companyData.cpf ? companyData.cpf : companyData.cnpj,
+      unique: companyData.cnpj,
     });
 
     const response = await fetch(`/company-data?${params}`, {
@@ -127,9 +127,9 @@ const etapas = {
   "CONTRATO TCX": 33,
   "CATÁLOGO DE PRODUTO": 34,
   "TROCA DE E-MAIL": 35,
-  "NUMERÁRIO": 36,
+  NUMERÁRIO: 36,
   "PROFORMA INVOICE": 37,
-  "PACKLIST": 38,
+  PACKLIST: 38,
   "CERTIFICADO DE ORIGEM": 39,
   "LI DEFERIDA (SE FOR PRÉ EMBARQUE)": 40,
   "COMERCIAL INVOICE": 41,

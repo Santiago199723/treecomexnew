@@ -51,6 +51,7 @@
       }
     </style>
   </head>
+
   <body>
     <div class="container">
       <div style="position: absolute; left: 0; bottom: 0">
@@ -135,7 +136,7 @@
           />
         </div>
         <button type="submit" class="btn" style="width: 50%; max-width: 50%">
-          Cadastrar usuário
+          SALVAR USUÁRIO
         </button>
       </form>
     </div>
@@ -207,9 +208,11 @@
 
           if (response.ok) {
             document.getElementById("form").reset();
-            localStorage.setItem("__next_reg__", data.user);
-            await delay(2000);
-            window.location.href = "/admin/company.html";
+            if (userType === UserType.NORMAL) {
+              localStorage.setItem("__next_reg__", data.user);
+              await delay(2000);
+              window.location.href = "/admin/company.html";
+            }
           }
         });
 
@@ -218,6 +221,6 @@
       };
     </script>
     <script src="/scripts/utils.js"></script>
-    <script src="js/session.js"></script>
+    <script src="/scripts/session.js"></script>
   </body>
 </html>

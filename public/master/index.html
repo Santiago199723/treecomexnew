@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <title>TELAS DE ETAPAS - TREE COMEX</title>
-    <link rel="stylesheet" href="styles/style.css" />
-    <link rel="stylesheet" href="styles/etapas.css" />
-    <link rel="stylesheet" href="styles/stoled.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/etapas.css" />
+    <link rel="stylesheet" href="/styles/stoled.css" />
 
     <style>
       body {
@@ -109,7 +109,7 @@
   <body>
     <!-- Contêiner da logo -->
     <div class="logo-container">
-      <img class="logo" src="assets/TREICO.png" alt="Logo" />
+      <img class="logo" src="/assets/TREICO.png" alt="Logo" />
     </div>
 
     <div id="overlay" class="overlay" style="display: none">
@@ -312,7 +312,7 @@
             div.style.cursor = "pointer";
             div.addEventListener("click", function () {
               const company = JSON.stringify({
-                cpf: code,
+                cnpj: code,
               });
 
               localStorage.setItem("company", btoa(company));
@@ -344,7 +344,7 @@
             div.style.cursor = "pointer";
             div.addEventListener("click", function () {
               const company = JSON.stringify({
-                cpf: code,
+                cnpj: code,
               });
 
               localStorage.setItem("company", btoa(company));
@@ -419,5 +419,6 @@
     </script>
 
     <script src="/scripts/utils.js"></script>
+    <script src="/scripts/session.js"></script>
   </body>
 </html>

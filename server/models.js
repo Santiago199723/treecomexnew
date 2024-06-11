@@ -37,10 +37,6 @@ export const Company = sequelize.define("company", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  cpf: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
   cnpj: {
     type: DataTypes.STRING,
     allowNull: true,

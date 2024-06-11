@@ -47,7 +47,7 @@ function handleFileUpload(btnIndex) {
             body: JSON.stringify({
               action: "uploaded_file",
               data: obj,
-              company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+              company: companyData.cnpj,
             }),
             credentials: "include",
           },
@@ -81,7 +81,7 @@ function handleFileRemove(fileId, btnIndex) {
       body: JSON.stringify({
         action: "removed_file",
         data: obj,
-        company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+        company: companyData.cnpj,
       }),
       credentials: "include",
     }).then((response) => {
@@ -125,7 +125,7 @@ function showSubmenuData(btnIndex) {
   const option = getOptionType(btnIndex);
   if (option) {
     let obj = {
-      company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+      company: companyData.cnpj,
       stage: csn,
       option: option,
     };
@@ -321,7 +321,7 @@ async function refreshButtons() {
     const option = getOptionType(submenuIndex);
     if (option) {
       let params = new URLSearchParams({
-        company: companyData.cpf ? companyData.cpf : companyData.cnpj,
+        company: companyData.cnpj,
         stage: csn,
         option: option,
       });

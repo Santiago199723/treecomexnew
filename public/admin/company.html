@@ -14,6 +14,7 @@
         width: 555px;
       }
     }
+
     @media (max-width: 768px) {
       .responsive {
         width: 75%;
@@ -37,7 +38,7 @@
             transition: 0.5s;
             letter-spacing: 4px;
           "
-          onclick="routeTo('CPF.html')"
+          onclick="routeTo('/admin/signup.html')"
         >
           <image style="width: 26px" src="/assets/voltar.png"></image>
         </button>
@@ -69,22 +70,15 @@
         <div class="inputBox">
           <input
             type="text"
-            id="cpf"
-            placeholder="INFORME O CPF.."
-            pattern="\d{11}"
+            id="cnpj"
+            placeholder="INFORME O CNPJ"
+            pattern="\d{14}"
             title="Por favor, insira só números. Está faltando números!"
-            required
           />
         </div>
 
         <div class="inputBox">
-          <input
-            type="text"
-            id="cnpj"
-            placeholder="INFORME O CNPJ (Caso tenha)"
-            pattern="\d{14}"
-            title="Por favor, insira só números. Está faltando números!"
-          />
+          <input type="text" id="id" placeholder="EMAIL OU ID DE USUÁRIO" />
         </div>
         <br />
         <br />
@@ -149,19 +143,105 @@
 
         <div class="inputBox">
           <button type="submit" id="confirmar-cadastro" class="btn">
-            CONFIRMAR CADASTRO
+            SALVAR CADASTRO
           </button>
         </div>
       </form>
     </div>
 
-    <script src="js/company.js"></script>
     <script src="/scripts/utils.js"></script>
-    <scripr src="js/session.js"></scripr>
+    <scripr src="/scripts/session.js"></scripr>
     <script>
       document.getElementById("filial").addEventListener("click", function () {
         document.getElementById("matriz").checked = false;
       });
+
+      let regUserId = document.getElementById("id");
+      let nextReg = localStorage.getItem("__next_reg__");
+
+      window.onload = function () {
+        if (nextReg && document.referrer.includes("signup.html")) {
+          regUserId.value = nextReg;
+          regUserId.disabled = true;
+        }
+      };
+
+      const estadosSiglas = {
+        "": "",
+        12: "AC",
+        27: "AL",
+        13: "AM",
+        16: "AP",
+        29: "BA",
+        23: "CE",
+        53: "DF",
+        32: "ES",
+        52: "GO",
+        21: "MA",
+        31: "MG",
+        50: "MS",
+        51: "MT",
+        15: "PA",
+        25: "PB",
+        26: "PE",
+        22: "PI",
+        41: "PR",
+        33: "RJ",
+        24: "RN",
+        11: "RO",
+        14: "RR",
+        43: "RS",
+        42: "SC",
+        28: "SE",
+        35: "SP",
+        17: "TO",
+      };
+
+      document
+        .getElementById("cadastro-orion-global")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const nome = getElementVal("nome");
+          const empresa = getElementVal("empresa");
+          const cnpj = getElementVal("cnpj");
+          const matriz = document.querySelector("#matriz").checked;
+          const estado = estadosSiglas[getElementVal("CodUf")];
+
+          if (!regUserId.value) {
+            alert("Você deve inserir o ID do usuário ou e-mail");
+            return;
+          }
+
+          const response = await fetch("/company-register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ownerName: nome,
+              companyName: empresa,
+              cnpj: cnpj,
+              country: estado,
+              matriz: matriz,
+              ofUser: regUserId.value,
+            }),
+            credentials: "include",
+          });
+
+          const data = await response.json();
+          alert(data.message);
+          if (response.ok) {
+            await delay(2000);
+            document.getElementById("cadastro-orion-global").reset();
+            localStorage.removeItem("__next_reg__");
+            window.location.href = "/admin/signup.html";
+          }
+        });
+
+      const getElementVal = (id) => {
+        return document.getElementById(id).value;
+      };
     </script>
   </body>
 </html>

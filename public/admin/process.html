@@ -34,13 +34,9 @@
       </div>
       <h2>CADASTRO DE PROCESSO</h2>
       <form id="form">
+        <input type="text" id="process-company" placeholder="Informe o CNPJ" />
         <input type="text" id="process-id" placeholder="Informe o processo" />
-        <input
-          type="text"
-          id="process-company"
-          placeholder="Informe o CPF ou CNPJ"
-        />
-        <input type="text" id="client" placeholder="Cliente" />
+        <input type="text" id="client" placeholder="Nome do Cliente" />
 
         <div class="reais-container">
           <div class="reais-box">
@@ -49,7 +45,7 @@
           <input type="numeric" id="forecast" placeholder="Previsão de Gasto" />
         </div>
 
-        <button type="submit" class="btn">Cadastrar Processo</button>
+        <button type="submit" class="btn">SALVAR PROCESSO</button>
       </form>
     </div>
 
@@ -98,6 +94,6 @@
         });
     </script>
     <script src="/scripts/utils.js"></script>
-    <script src="js/session.js"></script>
+    <script src="/scripts/session.js"></script>
   </body>
 </html>

@@ -152,65 +152,52 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/company-register", async (req, res) => {
-  const userId = req.cookies.userId;
-  const { ownerName, companyName, cpf, cnpj, country, matriz, ofUser } =
-    req.body;
-
-  if (!ownerName || !companyName || !country) {
-    return res.status(400).json({
-      code: "MISSING_FIELDS",
-      message:
-        "Todos os campos são obrigatórios, exceto CPF e CNPJ (pelo menos um deles deve ser fornecido)",
-    });
-  }
-
-  if (!cpf && !cnpj) {
-    return res.status(400).json({
-      code: "MISSING_FIELDS",
-      message: "Você deve fornecer pelo menos um CPF ou CNPJ",
-    });
-  }
-
   try {
-    const existingCPFCompany = cpf
-      ? await Company.findOne({ where: { cpf: cpf } })
-      : null;
-    if (existingCPFCompany) {
-      return res.status(409).json({
-        code: "CPF_REGISTERED",
-        message: "CPF já registrado para outra empresa",
+    const { ownerName, companyName, cnpj, country, matriz, ofUser } = req.body;
+
+    if (!ownerName || !companyName || !country) {
+      return res.status(400).json({
+        code: "MISSING_FIELDS",
+        message: "Todos os campos são obrigatórios",
       });
     }
 
-    const existingCNPJCompany = cnpj
-      ? await Company.findOne({ where: { cnpj: cnpj } })
-      : null;
-    if (existingCNPJCompany) {
-      return res.status(409).json({
-        code: "CNPJ_REGISTERED",
-        message: "CNPJ já registrado para outra empresa",
+    const existingCompany = await Company.findOne({ where: { cnpj } });
+    if (existingCompany) {
+      existingCompany.ownerName = ownerName;
+      existingCompany.companyName = companyName;
+      existingCompany.country = country;
+      existingCompany.matriz = matriz;
+      existingCompany.ofUser = ofUser;
+
+      await existingCompany.save();
+
+      return res.status(200).json({
+        message: "Empresa atualizada com sucesso",
       });
     }
 
-    if (userId) {
-      const admin = await Admin.findOne({ where: { id: userId } });
-      if (!admin) {
-        return res.status(401).json({
-          code: "REQUEST_BLOCKED_USER",
-          message: "Usuário não tem permissão para registrar",
+    let userRegId = null;
+    if (typeof ofUser === "string" && ofUser.includes("@")) {
+      const userReg = await User.findOne({ where: { email: ofUser } });
+      if (!userReg) {
+        return res.status(404).json({
+          code: "USER_NOT_FOUND",
+          message: "Usuário não encontrado",
         });
+      } else {
+        userRegId = userReg.id;
       }
     }
 
     await Company.create({
-      ownerName: ownerName,
-      companyName: companyName,
-      cpf: cpf,
-      cnpj: cnpj,
-      country: country,
-      matriz: matriz,
-      registrant: userId,
-      ofUser: ofUser,
+      ownerName,
+      companyName,
+      cnpj,
+      country,
+      matriz,
+      registrant: req.cookies.userId,
+      ofUser: userRegId || ofUser,
     });
 
     return res.status(200).json({
@@ -245,14 +232,14 @@ app.get("/company-data", async (req, res) => {
 
     const result = await Company.findOne({
       where: {
-        [Op.or]: [{ cpf: unique }, { cnpj: unique }],
+        cnpj: unique,
       },
     });
 
     if (!result) {
       return res.status(404).json({
         code: "DATA_NOT_FOUND",
-        message: "Não foram encontrados dados para o CPF ou CNPJ fornecido",
+        message: "Não foram encontrados dados para o CNPJ fornecido",
       });
     }
 
@@ -428,18 +415,30 @@ app.get("/user", async (req, res) => {
     const userId = req.cookies.userId;
 
     if (userId) {
-      const user = await User.findOne({
+      let user = await User.findOne({
         where: {
           id: userId,
         },
       });
 
-      if (user) return res.status(200).send(user);
+      if (!user) {
+        user = await Admin.findOne({
+          where: {
+            id: userId,
+          },
+        });
+      }
+
+      if (user) {
+        return res.status(200).send(user);
+      } else {
+        return res.status(404).send({ message: "Usuário não encontrado" });
+      }
     }
 
-    res.status(404).send({ message: "404" });
+    res.status(404).send({ message: "ID do usuário não fornecido" });
   } catch (error) {
-    res.status(500).send({ error: error });
+    res.status(500).send({ error: error.message });
   }
 });
 
@@ -535,19 +534,25 @@ app.get("/companies/codes", async (req, res) => {
     return res.redirect("/index.html");
   }
 
-  const admin = await User.findOne({
+  const admin = await Admin.findOne({
     where: {
       id: userId,
     },
   });
 
-  if (!admin) {
+  const user = await User.findOne({
+    where: {
+      id: userId,
+    },
+  });
+
+  if ((!admin && !user) || (user && user.userType !== UserType.MASTER)) {
     return res.redirect("/index.html");
   }
 
   const companies = await Company.findAll();
 
-  const codes = companies.map((company) => company.cpf ?? company.cnpj);
+  const codes = companies.map((company) => company.cnpj);
 
   return res.status(200).json(codes);
 });
@@ -555,7 +560,7 @@ app.get("/companies/codes", async (req, res) => {
 const port = process.env.APP_PORT || 8080;
 
 sequelize.sync().then(async function () {
-  await redis.on("error", (err) => k.fail(err)).connect();
+  // await redis.on("error", (err) => k.fail(err)).connect();
 
   k.succeed("Redis connected successfully");
 
