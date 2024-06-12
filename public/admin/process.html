@@ -456,43 +456,58 @@
 
     function filterCodes() {
       const searchText = processID.value.toLowerCase();
-      if (searchText) {
-        dropdownContent.innerHTML = "";
+      dropdownContent.innerHTML = "";
 
-        if (codes) {
-          codes.forEach(async (code) => {
-            if (
-              searchText === "" ||
-              code.toLowerCase().includes(searchText)
-            ) {
-              const div = document.createElement("div");
-              div.className = "category zze-truncate zze-icon-left";
-              div.style.cursor = "pointer";
-              div.addEventListener("click", function () {
-                processID.value = code;
+      if (codes) {
+        codes.forEach(async (code) => {
+          if (
+            searchText === "" ||
+            code.toLowerCase().includes(searchText)
+          ) {
+            const div = document.createElement("div");
+            div.className = "category zze-truncate zze-icon-left";
+            div.style.cursor = "pointer";
+            div.addEventListener("click", function () {
+              processID.value = code;
+            });
+
+            const i = document.createElement("i");
+            i.className = "zze-icon-categories icon-category-recipient";
+            i.style.display = "flex";
+            i.style.justifyContent = "center";
+            i.style.backgroundColor = "#626491";
+
+            const span = document.createElement("span");
+            span.textContent = code;
+            span.className = "zze-selectize-label";
+
+            const pencil = document.createElement("img");
+            pencil.src = "/assets/pencil.png";
+            pencil.style.position = "absolute";
+            pencil.style.cursor = "pointer";
+            pencil.style.width = "15px";
+            pencil.style.right = "35px";
+            pencil.style.top = "10px";
+            pencil.addEventListener("click", async function (event) {
+              event.stopPropagation();
+
+              let response = await fetch(`/process/data?id=${code}`, {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
               });
 
-              const i = document.createElement("i");
-              i.className = "zze-icon-categories icon-category-recipient";
-              i.style.display = "flex";
-              i.style.justifyContent = "center";
-              i.style.backgroundColor = "#626491";
+              const x = await response.json();
 
-              const span = document.createElement("span");
-              span.textContent = code;
-              span.className = "zze-selectize-label";
+              if (response.ok) {
+                companyCode.value = x.data.company;
+                client.value = x.data.client;
+                forecast.value = x.data.forecast;
+                processID.value = x.data.id;
 
-              const pencil = document.createElement("img");
-              pencil.src = "/assets/pencil.png";
-              pencil.style.position = "absolute";
-              pencil.style.cursor = "pointer";
-              pencil.style.width = "15px";
-              pencil.style.right = "35px";
-              pencil.style.top = "10px";
-              pencil.addEventListener("click", async function (event) {
-                event.stopPropagation();
-
-                let response = await fetch(`/process/data?id=${code}`, {
+                response = await fetch("/process", {
                   method: "GET",
                   headers: {
                     "Content-Type": "application/json",
@@ -500,84 +515,67 @@
                   credentials: "include",
                 });
 
-                const x = await response.json();
-
-                if (response.ok) {
-                  companyCode.value = x.data.company;
-                  client.value = x.data.client;
-                  forecast.value = x.data.forecast;
-                  processID.value = x.data.id;
-
-                  response = await fetch("/process", {
-                    method: "GET",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                  });
-
-                  const data = await response.json();
-                  if (data.length > 0) {
-                    codes = data;
-                  }
-                } else {
-                  alert(x.error);
+                const data = await response.json();
+                if (data.length > 0) {
+                  codes = data;
                 }
+              } else {
+                alert(x.error);
+              }
 
-                handleModal(event);
+              handleModal(event);
+            });
+
+            const trash = document.createElement("img");
+            trash.src = "/assets/trash.png";
+            trash.style.position = "absolute";
+            trash.style.cursor = "pointer";
+            trash.style.width = "15px";
+            trash.style.right = "10px";
+            trash.style.top = "10px";
+            trash.addEventListener("click", async function (event) {
+              event.stopPropagation();
+              let response = await fetch("/process/remove", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  id: code,
+                }),
+                credentials: "include",
               });
 
-              const trash = document.createElement("img");
-              trash.src = "/assets/trash.png";
-              trash.style.position = "absolute";
-              trash.style.cursor = "pointer";
-              trash.style.width = "15px";
-              trash.style.right = "10px";
-              trash.style.top = "10px";
-              trash.addEventListener("click", async function (event) {
-                event.stopPropagation();
-                let response = await fetch("/process/remove", {
-                  method: "POST",
+              if (response.ok) {
+                div.style.display = "none";
+                document.querySelector("form").reset();
+
+                response = await fetch("/process", {
+                  method: "GET",
                   headers: {
                     "Content-Type": "application/json",
                   },
-                  body: JSON.stringify({
-                    id: code,
-                  }),
                   credentials: "include",
                 });
 
-                if (response.ok) {
-                  div.style.display = "none";
-                  document.querySelector("form").reset();
-
-                  response = await fetch("/process", {
-                    method: "GET",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                  });
-
-                  const data = await response.json();
-                  if (data.length > 0) {
-                    codes = data;
-                  }
-                }
-
                 const data = await response.json();
-                alert(data.message);
-              });
+                if (data.length > 0) {
+                  codes = data;
+                }
+              }
 
-              div.appendChild(i);
-              div.appendChild(span);
-              div.appendChild(pencil);
-              div.appendChild(trash);
+              const data = await response.json();
+              alert(data.message);
+            });
 
-              dropdownContent.appendChild(div);
-            }
-          });
-        }
+            div.appendChild(i);
+            div.appendChild(span);
+            div.appendChild(pencil);
+            div.appendChild(trash);
+
+            dropdownContent.appendChild(div);
+          }
+        });
       }
     }
 
