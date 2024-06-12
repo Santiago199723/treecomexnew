@@ -432,15 +432,11 @@ app.post("/sniff", async (req, res) => {
 });
 
 app.post("/process", async (req, res) => {
-  const { id, company, client, forecast, edit } = req.body;
+  const { id, company, client, forecast } = req.body;
 
   try {
     const existingProcess = await Process.findOne({ where: { id } });
-    if (existingProcess && !edit) {
-      return res
-        .status(400)
-        .json({ message: "O Processo ID fornecido já está em uso" });
-    } else if (existingProcess && edit) {
+    if (existingProcess) {
       existingProcess.id = id;
       existingProcess.company = company;
       existingProcess.client = client;
