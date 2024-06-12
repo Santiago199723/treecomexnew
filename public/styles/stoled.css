@@ -37478,7 +37478,13 @@ body.settings .alert-box {
 
 .drop-down {
   position: absolute;
-  right: 27px;
+  right: 15px;
+  top: 2px;
+}
+
+.user-pic {
+  width: 30px;
+  height: 30px;
 }
 
 .drop-down.arrow-left .drop-down-box:after {
