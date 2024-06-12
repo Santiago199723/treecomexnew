@@ -24,7 +24,7 @@
 
   <body>
     <div class="container responsive">
-      <div style="display: inline-flex; transform: translate(-14rem, 33.5rem)">
+      <div style="position: absolute; left: 0; bottom: 0">
         <button
           style="
             background-color: transparent;
@@ -159,6 +159,24 @@
       let cnpj = document.getElementById("cnpj");
       let regUserId = document.getElementById("id");
       let nextReg = localStorage.getItem("__next_reg__");
+
+      cnpj.addEventListener("input", function () {
+        let value = cnpj.value.replace(/\D/g, "");
+
+        if (value.length > 14) {
+          value = value.substr(0, 14);
+        }
+
+        let formattedValue = value.replace(/^(\d{2})(\d)/, "$1.$2");
+        formattedValue = formattedValue.replace(
+          /^(\d{2})\.(\d{3})(\d)/,
+          "$1.$2.$3",
+        );
+        formattedValue = formattedValue.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        formattedValue = formattedValue.replace(/(\d{4})(\d)/, "$1-$2");
+
+        cnpj.value = formattedValue;
+      });
 
       window.onload = function () {
         const urlParams = new URLSearchParams(window.location.search);

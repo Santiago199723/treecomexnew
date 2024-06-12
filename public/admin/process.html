@@ -9,8 +9,253 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/admin.css" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.10.5/autoNumeric.js"></script>
   </head>
+
+  <style>
+    input {
+      font-family: inherit;
+    }
+
+    .selectize-control.zze-selectize
+      .selectize-dropdown
+      .selectize-dropdown-content
+      .zze-icon-left {
+      position: relative;
+      padding: 8px 15px 8px 37px;
+    }
+
+    .selectize-control.zze-selectize
+      .selectize-dropdown
+      .selectize-dropdown-content
+      .zze-icon-left.category
+      > i {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 14px;
+      width: 26px;
+      height: 26px;
+      margin: auto;
+      font-size: 17px;
+      border-radius: 50%;
+    }
+
+    .zze-icon-categories {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background: #dbded8;
+      margin-right: 9px;
+      border-radius: 50%;
+    }
+
+    .zze-icon-categories {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background: #dbded8;
+      margin-right: 15px;
+      border-radius: 50%;
+    }
+
+    .selectize-control.zze-selectize
+      .selectize-dropdown
+      .selectize-dropdown-content
+      .zze-icon-left
+      .zze-selectize-label {
+      display: block;
+      padding-left: 10px;
+    }
+
+    .selectize-control.zze-selectize .selectize-dropdown {
+      box-shadow: 0 0 22px rgba(0, 0, 0, 0.2);
+      border-radius: 2px;
+    }
+
+    .selectize-dropdown {
+      z-index: 10;
+      margin-top: 0;
+      background: #fefdf9;
+      border-radius: 2px;
+      box-shadow: 2px 2px 40px rgba(0, 0, 0, 0.2);
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    .zze-selectize-label {
+      color: black;
+    }
+
+    span {
+      color: #fff;
+      text-align: center;
+    }
+
+    .zze-icon-categories {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background: #dbded8;
+      margin-right: 15px;
+      border-radius: 50%;
+    }
+
+    .selectize-dropdown-content {
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-height: 200px;
+    }
+
+    .selectize-control.zze-selectize
+      .selectize-dropdown
+      .selectize-dropdown-content {
+      width: 100%;
+      max-height: 367px;
+    }
+
+    .selectize-control.zze-selectize .selectize-input {
+      display: block;
+      height: 36px;
+    }
+
+    .selectize-input {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      width: 30%;
+      padding: 2px 4px;
+      overflow: hidden;
+      border: 2px solid #e8eaeb;
+      min-height: 36px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      border-radius: 3px;
+      appearance: none;
+      transition: none;
+    }
+
+    .selectize-input > input {
+      display: inline-block !important;
+      max-width: 100% !important;
+      max-height: none !important;
+      min-height: 0 !important;
+      line-height: inherit !important;
+      font-size: 14px !important;
+      text-indent: 0 !important;
+      background: 0 0 !important;
+      border: 0 !important;
+      -webkit-user-select: auto !important;
+      -webkit-box-shadow: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 4px 6px !important;
+      transition: none;
+    }
+
+    .selectize-dropdown,
+    .selectize-input,
+    .selectize-input input {
+      color: #2e312d;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 18px;
+      -webkit-font-smoothing: inherit;
+      outline: none;
+    }
+
+    .icon-category-recipient:after {
+      content: "";
+      display: block;
+      width: 20px;
+      background-size: cover;
+      height: 20px;
+      background-image: url(/assets/recipient.png);
+    }
+
+    .selectize-input * {
+      vertical-align: baseline;
+      display: -moz-inline-stack;
+      display: inline-block;
+      zoom: 1;
+    }
+
+    .selectize-control.single .selectize-input:after {
+      padding: 3px 5px;
+      content: "\e006";
+      cursor: pointer;
+    }
+
+    .selectize-control.single .selectize-input:after,
+    .selectize-control.single .selectize-input.dropdown-active:after {
+      font-family: organizze-icon !important;
+      line-height: 2;
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #fefdf9;
+      height: 32px;
+      font-size: 13px;
+      width: 22px;
+      color: #898989;
+    }
+
+    .selectize-control.single .selectize-input:after {
+      padding: 3px 5px;
+      content: "\e006";
+      cursor: pointer;
+    }
+
+    .selectize-input::after {
+      display: block;
+      clear: left;
+      content: " ";
+    }
+
+    .selectize-control.single .selectize-input:after,
+    .selectize-control.single .selectize-input.dropdown-active:after {
+      font-family: organizze-icon !important;
+      line-height: 2;
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #fefdf9;
+      height: 32px;
+      font-size: 13px;
+      width: 22px;
+      color: #898989;
+    }
+
+    @font-face {
+      font-family: organizze-icon;
+      src: url(/assets/organizze-icon-1c6b2791e9af11e4819b2fd69d356ac04b0f9ee0e74fe553fcc44986cf3003fa.eot);
+      src:
+        url(/assets/organizze-icon-1c6b2791e9af11e4819b2fd69d356ac04b0f9ee0e74fe553fcc44986cf3003fa.eot?#iefix)
+          format("embedded-opentype"),
+        url(/assets/organizze-icon-9890c4a82fa203aa1385584509019d1f33a4b29daca11bc37cf003c3769aba53.woff)
+          format("woff"),
+        url(/assets/organizze-icon-b54398962d22be924f2ea546267cc63ecf22e8d3a8a0d9c55a633db0d998fb9d.ttf)
+          format("truetype"),
+        url(/assets/organizze-icon-b5531bb68788f8b1cc9cc50db7cb1c0572869e8850f3ead1ee70642d3b4106d8.svg#1620909847)
+          format("svg");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    #dropdown-container {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  </style>
+
   <body>
     <div class="container">
       <div style="position: absolute; bottom: 0; left: 0">
@@ -35,7 +280,56 @@
       <h2>CADASTRO DE PROCESSO</h2>
       <form id="form">
         <input type="text" id="process-company" placeholder="Informe o CNPJ" />
-        <input type="text" id="process-id" placeholder="Informe o processo" />
+
+        <div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+              top: 162px;
+            "
+            class="selectize-control zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope single plugin-clear_button"
+          >
+            <div
+              id="dropdown-container"
+              class="selectize-input items not-full has-options ng-valid ng-pristine"
+            >
+              <input
+                type="undefined"
+                autocomplete="off"
+                tabindex="0"
+                id="showCategories-selectized"
+                placeholder="Informe o processo"
+                style="opacity: 1; position: absolute; left: 0px"
+              />
+            </div>
+            <div
+              id="dropdown-modal"
+              class="selectize-dropdown single zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope plugin-clear_button"
+              style="
+                display: none;
+                width: 88%;
+                top: 181px;
+                visibility: visible;
+                position: absolute;
+              "
+            >
+              <div
+                class="selectize-dropdown-content"
+                id="selectize-content"
+              ></div>
+            </div>
+            <span
+              class="clearAll"
+              tabindex="-1"
+              title="Limpar"
+              style="display: none"
+              ><i class="icon-close"></i
+            ></span>
+          </div>
+        </div>
         <input type="text" id="client" placeholder="Nome do Cliente" />
 
         <div class="reais-container">
@@ -50,6 +344,235 @@
     </div>
 
     <script>
+      let codes;
+      let edit = false;
+      const dropdownContent = document.getElementById("selectize-content");
+      let processID = document.getElementById("showCategories-selectized");
+      let companyCode = document.getElementById("process-company");
+      let client = document.getElementById("client");
+      let forecast = document.getElementById("forecast");
+
+      const modal = document.getElementById("dropdown-modal");
+
+      window.onload = async function () {
+        response = await fetch("/process", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+
+        const data = await response.json();
+        if (response.ok && data.length > 0) {
+          codes = data;
+          codes.forEach((code) => {
+            const div = document.createElement("div");
+            div.className = "category zze-truncate zze-icon-left";
+            div.style.cursor = "pointer";
+            div.addEventListener("click", function (e) {
+              if (e.target !== e.currentTarget.querySelector("img")) {
+                processID.value = code;
+                handleModal(e);
+              }
+            });
+
+            const i = document.createElement("i");
+            i.className = "zze-icon-categories icon-category-recipient";
+            i.style.display = "flex";
+            i.style.justifyContent = "center";
+            i.style.backgroundColor = "#626491";
+
+            const span = document.createElement("span");
+            span.textContent = code;
+            span.className = "zze-selectize-label";
+
+            const pencil = document.createElement("img");
+            pencil.src = "/assets/pencil.png";
+            pencil.style.position = "absolute";
+            pencil.style.cursor = "pointer";
+            pencil.style.width = "15px";
+            pencil.style.right = "35px";
+            pencil.style.top = "10px";
+            pencil.addEventListener("click", async function (event) {
+              event.stopPropagation();
+              edit = true;
+              let response = await fetch(`/process/data?id=${code}`, {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
+              });
+
+              const x = await response.json();
+
+              if (response.ok) {
+                companyCode.value = x.data.company;
+                client.value = x.data.client;
+                forecast.value = x.data.forecast;
+                processID.value = x.data.id;
+
+                response = await fetch("/process", {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  credentials: "include",
+                });
+
+                const data = await response.json();
+                if (response.ok && data.length > 0) {
+                  codes = data;
+                }
+              } else {
+                alert(x.error);
+              }
+
+              handleModal(event);
+            });
+
+            const trash = document.createElement("img");
+            trash.src = "/assets/trash.png";
+            trash.style.position = "absolute";
+            trash.style.cursor = "pointer";
+            trash.style.width = "15px";
+            trash.style.right = "10px";
+            trash.style.top = "10px";
+            trash.addEventListener("click", async function (event) {
+              event.stopPropagation();
+              let response = await fetch("/process/remove", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  id: code,
+                }),
+                credentials: "include",
+              });
+
+              if (response.ok) {
+                div.style.display = "none";
+                document.querySelector("form").reset();
+
+                response = await fetch("/process", {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  credentials: "include",
+                });
+
+                const data = await response.json();
+                if (response.ok && data.length > 0) {
+                  codes = data;
+                }
+              }
+
+              const data = await response.json();
+              alert(data.message);
+            });
+
+            div.appendChild(i);
+            div.appendChild(span);
+            div.appendChild(pencil);
+            div.appendChild(trash);
+
+            dropdownContent.appendChild(div);
+          });
+        }
+      };
+
+      function filterCodes() {
+        const searchText = processID.value.toLowerCase();
+        dropdownContent.innerHTML = "";
+
+        codes.forEach((code) => {
+          if (searchText === "" || code.toLowerCase().includes(searchText)) {
+            const div = document.createElement("div");
+            div.className = "category zze-truncate zze-icon-left";
+            div.style.cursor = "pointer";
+            div.addEventListener("click", function () {
+              processID.value = code;
+            });
+
+            const i = document.createElement("i");
+            i.className = "zze-icon-categories icon-category-recipient";
+            i.style.display = "flex";
+            i.style.justifyContent = "center";
+            i.style.backgroundColor = "#626491";
+
+            const span = document.createElement("span");
+            span.textContent = code;
+            span.className = "zze-selectize-label";
+
+            const pencil = document.createElement("img");
+            pencil.src = "/assets/pencil.png";
+            pencil.style.position = "absolute";
+            pencil.style.cursor = "pointer";
+            pencil.style.width = "15px";
+            pencil.style.right = "35px";
+            pencil.style.top = "10px";
+            pencil.addEventListener("click", async function (event) {
+              event.stopPropagation();
+              edit = true;
+              const response = await fetch(`/process/data?${code}`, {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
+              });
+
+              if (response.ok) {
+                div.style.display = "none";
+              }
+
+              const data = await response.json();
+              alert(data.message);
+            });
+
+            const trash = document.createElement("img");
+            trash.src = "/assets/trash.png";
+            trash.style.position = "absolute";
+            trash.style.cursor = "pointer";
+            trash.style.width = "15px";
+            trash.style.right = "10px";
+            trash.style.top = "10px";
+            trash.addEventListener("click", async function (event) {
+              event.stopPropagation();
+              const response = await fetch("/process/remove", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  code: code,
+                }),
+                credentials: "include",
+              });
+
+              if (response.ok) {
+                div.style.display = "none";
+              }
+
+              const data = await response.json();
+              alert(data.message);
+            });
+
+            div.appendChild(i);
+            div.appendChild(span);
+            div.appendChild(pencil);
+            div.appendChild(trash);
+
+            dropdownContent.appendChild(div);
+          }
+        });
+      }
+
+      processID.addEventListener("input", filterCodes);
+
       new AutoNumeric("#forecast", {
         digitGroupSeparator: ".",
         decimalCharacter: ",",
@@ -63,35 +586,86 @@
         .getElementById("form")
         .addEventListener("submit", async function (event) {
           event.preventDefault();
-          const processId = document.getElementById("process-id").value;
-          const company = document.getElementById("process-company").value;
-          const client = document.getElementById("client").value;
-          const forecast = document.getElementById("forecast").value;
 
-          if (!processId && !company) {
+          if (!processID && !companyCode) {
             alert("Por favor, preencha todos os campos.");
             return;
           }
 
-          const response = await fetch("/process", {
+          let response = await fetch("/process", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              id: processId,
-              company: company,
-              client: client,
-              forecast: forecast,
+              id: processID.value,
+              company: companyCode.value,
+              client: client.value,
+              forecast: forecast.value,
+              edit: edit,
             }),
             credentials: "include",
           });
 
-          if (response.ok) document.getElementById("form").reset();
+          if (response.ok) {
+            edit = false;
+            response = await fetch("/process", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+            });
+
+            const data = await response.json();
+            if (response.ok && data.length > 0) {
+              codes = data;
+            }
+
+            document.getElementById("form").reset();
+          }
 
           const data = await response.json();
           alert(data.message || data.error);
         });
+
+      function handleModal(event) {
+        if (modal.style.display === "none") {
+          modal.style.display = "flex";
+        } else {
+          modal.style.display = "none";
+        }
+
+        event.stopPropagation();
+      }
+
+      document
+        .getElementById("dropdown-container")
+        .addEventListener("click", handleModal);
+
+      document.addEventListener("click", function (event) {
+        if (event.target !== modal && !modal.contains(event.target)) {
+          modal.style.display = "none";
+        }
+      });
+
+      companyCode.addEventListener("input", function () {
+        let value = companyCode.value.replace(/\D/g, "");
+
+        if (value.length > 14) {
+          value = value.substr(0, 14);
+        }
+
+        let formattedValue = value.replace(/^(\d{2})(\d)/, "$1.$2");
+        formattedValue = formattedValue.replace(
+          /^(\d{2})\.(\d{3})(\d)/,
+          "$1.$2.$3",
+        );
+        formattedValue = formattedValue.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        formattedValue = formattedValue.replace(/(\d{4})(\d)/, "$1-$2");
+
+        companyCode.value = formattedValue;
+      });
     </script>
     <script src="/scripts/utils.js"></script>
     <script src="/scripts/session.js"></script>

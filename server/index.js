@@ -281,6 +281,35 @@ app.post("/company/remove", async (req, res) => {
   return res.status(403).json({ message: "Acesso não autorizado" });
 });
 
+app.get("/companies/codes", async (req, res) => {
+  const { userId } = req.cookies;
+  if (!userId) {
+    return res.redirect("/index.html");
+  }
+
+  const admin = await Admin.findOne({
+    where: {
+      id: userId,
+    },
+  });
+
+  const user = await User.findOne({
+    where: {
+      id: userId,
+    },
+  });
+
+  if ((!admin && !user) || (user && user.userType !== UserType.MASTER)) {
+    return res.redirect("/index.html");
+  }
+
+  const companies = await Company.findAll();
+
+  const codes = companies.map((company) => company.cnpj);
+
+  return res.status(200).json(codes);
+});
+
 app.post("/upload-file", async (req, res) => {
   try {
     const { name, blob, mimeType } = req.body;
@@ -403,17 +432,31 @@ app.post("/sniff", async (req, res) => {
 });
 
 app.post("/process", async (req, res) => {
-  const { id, company, client, forecast } = req.body;
-
-  const existingProcess = await Process.findOne({ where: { id } });
-  if (existingProcess) {
-    return res
-      .status(400)
-      .json({ message: "O Processo ID fornecido já está em uso" });
-  }
+  const { id, company, client, forecast, edit } = req.body;
 
   try {
-    await Process.create({ id, company, client, forecast });
+    const existingProcess = await Process.findOne({ where: { id } });
+    if (existingProcess && !edit) {
+      return res
+        .status(400)
+        .json({ message: "O Processo ID fornecido já está em uso" });
+    } else if (existingProcess && edit) {
+      existingProcess.id = id;
+      existingProcess.company = company;
+      existingProcess.client = client;
+      existingProcess.forecast = forecast;
+
+      await existingProcess.save();
+      return res.status(200).json({ message: "Processo editado com sucesso" });
+    }
+
+    await Process.create({
+      id: id,
+      company: company,
+      client: client,
+      forecast: forecast,
+    });
+
     return res.status(201).send({ message: "Registrado com sucesso" });
   } catch (error) {
     return res.status(500).json({ error: "Erro ao criar o processo" });
@@ -422,21 +465,103 @@ app.post("/process", async (req, res) => {
 
 app.get("/process", async (req, res) => {
   try {
+    let processes = [];
     const { company } = req.query;
-    const allProcesses = await Process.findAll({
-      where: {
-        company: company,
-      },
-    });
+    const { userId } = req.cookies;
 
-    const processIds = allProcesses.map((process) => process.id);
+    if (userId) {
+      const admin = await Admin.findOne({
+        where: {
+          id: userId,
+        },
+      });
+
+      if (admin) {
+        processes = await Process.findAll();
+      }
+    } else if (company) {
+      processes = await Process.findAll({
+        where: {
+          company: company,
+        },
+      });
+    } else {
+      return res.status(400).json({ error: "Parâmetro 'company' ausente" });
+    }
+
+    const processIds = processes.map((process) => process.id);
 
     return res.status(200).json(processIds);
-  } catch (error) {
+  } catch (_) {
     return res
       .status(500)
       .json({ error: "Erro ao obter os IDs dos processos" });
   }
+});
+
+app.get("/process/data", async (req, res) => {
+  try {
+    const { id } = req.query;
+    const { userId } = req.cookies;
+
+    if (!userId) {
+      return res.status(401).json({ error: "Não autorizado" });
+    }
+
+    const admin = await Admin.findOne({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!admin) {
+      return res.status(403).json({ error: "Proibido" });
+    }
+
+    const data = await Process.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!data) {
+      return res.status(404).json({ error: "Dados não encontrados" });
+    }
+
+    return res.status(200).json({ data: data });
+  } catch (_) {
+    return res.status(500).json({ error: "Erro interno do servidor" });
+  }
+});
+
+app.post("/process/remove", async (req, res) => {
+  const { id } = req.body;
+  const userId = req.cookies.userId;
+
+  const admin = await Admin.findOne({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (admin) {
+    const result = await Process.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (result) {
+      await result.destroy();
+      return res.status(200).json({
+        message: "Processo excluído com sucesso",
+      });
+    }
+
+    return res.status(404).json({ message: "Processo não encontrado" });
+  }
+
+  return res.status(403).json({ message: "Acesso não autorizado" });
 });
 
 app.get("/user", async (req, res) => {
@@ -557,39 +682,10 @@ app.post("/change-password", async (req, res) => {
   }
 });
 
-app.get("/companies/codes", async (req, res) => {
-  const { userId } = req.cookies;
-  if (!userId) {
-    return res.redirect("/index.html");
-  }
-
-  const admin = await Admin.findOne({
-    where: {
-      id: userId,
-    },
-  });
-
-  const user = await User.findOne({
-    where: {
-      id: userId,
-    },
-  });
-
-  if ((!admin && !user) || (user && user.userType !== UserType.MASTER)) {
-    return res.redirect("/index.html");
-  }
-
-  const companies = await Company.findAll();
-
-  const codes = companies.map((company) => company.cnpj);
-
-  return res.status(200).json(codes);
-});
-
 const port = process.env.APP_PORT || 8080;
 
 sequelize.sync().then(async function () {
-  await redis.on("error", (err) => k.fail(err)).connect();
+  // await redis.on("error", (err) => k.fail(err)).connect();
 
   k.succeed("Redis connected successfully");
 

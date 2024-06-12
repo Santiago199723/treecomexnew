@@ -410,14 +410,17 @@
               localStorage.setItem("company", btoa(company));
               window.location.href = "/botoesetapas.html";
             });
+
             const i = document.createElement("i");
             i.className = "zze-icon-categories icon-category-ship";
             i.style.display = "flex";
             i.style.justifyContent = "center";
             i.style.backgroundColor = "#626491";
+
             const span = document.createElement("span");
             span.textContent = code;
             span.className = "zze-selectize-label";
+
             div.appendChild(i);
             div.appendChild(span);
             dropdownContent.appendChild(div);
@@ -471,6 +474,24 @@
         if (event.target !== modal && !modal.contains(event.target)) {
           modal.style.display = "none";
         }
+      });
+
+      searchInput.addEventListener("input", function () {
+        let value = searchInput.value.replace(/\D/g, "");
+
+        if (value.length > 14) {
+          value = value.substr(0, 14);
+        }
+
+        let formattedValue = value.replace(/^(\d{2})(\d)/, "$1.$2");
+        formattedValue = formattedValue.replace(
+          /^(\d{2})\.(\d{3})(\d)/,
+          "$1.$2.$3",
+        );
+        formattedValue = formattedValue.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        formattedValue = formattedValue.replace(/(\d{4})(\d)/, "$1-$2");
+
+        searchInput.value = formattedValue;
       });
 
       function showMessage() {
