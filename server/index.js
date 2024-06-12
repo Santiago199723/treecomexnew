@@ -151,7 +151,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/company-register", async (req, res) => {
+app.post("/company/register", async (req, res) => {
   try {
     const { ownerName, companyName, cnpj, country, matriz, ofUser } = req.body;
 
@@ -168,7 +168,6 @@ app.post("/company-register", async (req, res) => {
       existingCompany.companyName = companyName;
       existingCompany.country = country;
       existingCompany.matriz = matriz;
-      existingCompany.ofUser = ofUser;
 
       await existingCompany.save();
 
@@ -211,7 +210,7 @@ app.post("/company-register", async (req, res) => {
   }
 });
 
-app.get("/company-data", async (req, res) => {
+app.get("/company/data", async (req, res) => {
   const userId = req.cookies.userId;
   const { unique } = req.query;
 
@@ -250,6 +249,36 @@ app.get("/company-data", async (req, res) => {
       message: "UUID do usuário não fornecido",
     });
   }
+});
+
+app.post("/company/remove", async (req, res) => {
+  const { code } = req.body;
+  const userId = req.cookies.userId;
+
+  const admin = await Admin.findOne({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (admin) {
+    const result = await Company.findOne({
+      where: {
+        cnpj: code,
+      },
+    });
+
+    if (result) {
+      await result.destroy();
+      return res.status(200).json({
+        message: "Empresa excluída com sucesso",
+      });
+    }
+
+    return res.status(404).json({ message: "Empresa não encontrada" });
+  }
+
+  return res.status(403).json({ message: "Acesso não autorizado" });
 });
 
 app.post("/upload-file", async (req, res) => {
@@ -560,7 +589,7 @@ app.get("/companies/codes", async (req, res) => {
 const port = process.env.APP_PORT || 8080;
 
 sequelize.sync().then(async function () {
-  // await redis.on("error", (err) => k.fail(err)).connect();
+  await redis.on("error", (err) => k.fail(err)).connect();
 
   k.succeed("Redis connected successfully");
 

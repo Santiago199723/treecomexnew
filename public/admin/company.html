@@ -156,13 +156,18 @@
         document.getElementById("matriz").checked = false;
       });
 
+      let cnpj = document.getElementById("cnpj");
       let regUserId = document.getElementById("id");
       let nextReg = localStorage.getItem("__next_reg__");
 
       window.onload = function () {
+        const urlParams = new URLSearchParams(window.location.search);
         if (nextReg && document.referrer.includes("signup.html")) {
           regUserId.value = nextReg;
           regUserId.disabled = true;
+        } else if (urlParams.get("code")) {
+          cnpj.value = urlParams.get("code");
+          cnpj.disabled = true;
         }
       };
 
@@ -204,7 +209,6 @@
 
           const nome = getElementVal("nome");
           const empresa = getElementVal("empresa");
-          const cnpj = getElementVal("cnpj");
           const matriz = document.querySelector("#matriz").checked;
           const estado = estadosSiglas[getElementVal("CodUf")];
 
@@ -213,7 +217,7 @@
             return;
           }
 
-          const response = await fetch("/company-register", {
+          const response = await fetch("/company/register", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -221,7 +225,7 @@
             body: JSON.stringify({
               ownerName: nome,
               companyName: empresa,
-              cnpj: cnpj,
+              cnpj: cnpj.value,
               country: estado,
               matriz: matriz,
               ofUser: regUserId.value,

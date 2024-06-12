@@ -266,7 +266,7 @@
             class="selectize-dropdown single zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope plugin-clear_button"
             style="
               display: none;
-              width: 171px;
+              width: 30%;
               top: 36px;
               left: 368px;
               visibility: visible;
@@ -322,24 +322,72 @@
             const div = document.createElement("div");
             div.className = "category zze-truncate zze-icon-left";
             div.style.cursor = "pointer";
-            div.addEventListener("click", function () {
-              const company = JSON.stringify({
-                cnpj: code,
-              });
+            div.addEventListener("click", function (e) {
+              if (e.target !== e.currentTarget.querySelector("img")) {
+                const company = JSON.stringify({
+                  cnpj: code,
+                });
 
-              localStorage.setItem("company", btoa(company));
-              window.location.href = "/botoesetapas.html";
+                localStorage.setItem("company", btoa(company));
+                window.location.href = "/botoesetapas.html";
+              }
             });
+
             const i = document.createElement("i");
             i.className = "zze-icon-categories icon-category-ship";
             i.style.display = "flex";
             i.style.justifyContent = "center";
             i.style.backgroundColor = "#626491";
+
             const span = document.createElement("span");
             span.textContent = code;
             span.className = "zze-selectize-label";
+
+            const pencil = document.createElement("img");
+            pencil.src = "/assets/pencil.png";
+            pencil.style.position = "absolute";
+            pencil.style.cursor = "pointer";
+            pencil.style.width = "15px";
+            pencil.style.right = "35px";
+            pencil.style.top = "10px";
+            pencil.addEventListener("click", function (event) {
+              event.stopPropagation();
+              window.location.href = `/admin/company.html?code=${code}`;
+            });
+
+            const trash = document.createElement("img");
+            trash.src = "/assets/trash.png";
+            trash.style.position = "absolute";
+            trash.style.cursor = "pointer";
+            trash.style.width = "15px";
+            trash.style.right = "10px";
+            trash.style.top = "10px";
+            trash.addEventListener("click", async function (event) {
+              event.stopPropagation();
+              const response = await fetch("/company/remove", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  code: code,
+                }),
+                credentials: "include",
+              });
+
+              if (response.ok) {
+                div.style.display = "none";
+              }
+
+              const data = await response.json();
+              alert(data.message);
+            });
+
             div.appendChild(i);
             div.appendChild(span);
+            div.appendChild(pencil);
+            div.appendChild(trash);
+
             dropdownContent.appendChild(div);
           });
         }

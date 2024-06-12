@@ -64,7 +64,7 @@ async function refreshCompanyData() {
       unique: companyData.cnpj,
     });
 
-    const response = await fetch(`/company-data?${params}`, {
+    const response = await fetch(`/company/data?${params}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

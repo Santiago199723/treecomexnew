@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "forever": "forever -w --minUptime=1000 --spinSleepTime=1000 server/index.js"
+    "forever": "forever -w --minUptime=1000 --spinSleepTime=1000 server/index.js",
+    "start": "nodemon server/index.js"
   },
   "author": "",
   "license": "ISC",
