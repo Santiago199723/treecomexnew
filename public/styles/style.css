@@ -8,6 +8,7 @@
   height: 38px;
   position: absolute;
   top: 0;
+  justify-content: space-around;
 }
 
 button.neumorphic {
@@ -44,20 +45,20 @@ button.neumorphic {
       inset -0.5rem -0.5rem 1rem hsl(0 0% 100% / 0.75);
     color: hsl(10 80% 50%);
 
-    >i {
+    > i {
       font-size: 28cqi;
     }
 
-    >span {
+    > span {
       font-size: 13cqi;
     }
   }
 
-  >i {
+  > i {
     font-size: 31cqi;
   }
 
-  >span {
+  > span {
     font-family: system-ui, sans-serif;
     font-size: 16cqi;
   }

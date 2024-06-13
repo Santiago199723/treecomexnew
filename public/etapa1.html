@@ -14,124 +14,123 @@
 
   <body>
     <!-- Contêiner da logo -->
-    <div class="logo-container">
-      <img class="logo" src="assets/icone.png" alt="Logo" />
-    </div>
+    <nav class="header">
+      <!-- Contêiner da logo -->
+      <div class="logo-container">
+        <img class="logo" src="/assets/TREICO.png" alt="Logo" />
+      </div>
 
-    <div class="data-restante-container">
-      <p id="rest-remainer"></p>
-      <span style="width: 5px"></span>
-      <p id="hint-text-remaining"></p>
-    </div>
+      <div class="data-restante-container">
+        <p id="rest-remainer"></p>
+        <span style="width: 5px"></span>
+        <p id="hint-text-remaining"></p>
+      </div>
 
-    <li
-      class="my-account drop-down arrow-right"
-      data-drop-down="hover"
-      id="account-popover"
-      style="right: 42px"
-    >
-      <a href="#" onclick="return false" class="user-avatar">
-        <img
-          data-user-avatar="image"
-          height="37"
-          width="37"
-          src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-          alt="Avatar missing"
-        />
-      </a>
+      <!-- Informações da empresa -->
+      <div class="company-info-0">
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-name">NOME DA EMMPRESA</p>
+          </div>
+        </div>
+        -
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-type">FILIAL OU MATRIZ</p>
+          </div>
+        </div>
+        -
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-state">EX: AL</p>
+          </div>
+        </div>
+      </div>
 
-      <!-- user-accounts select -->
-      <div
-        id="account-content"
-        class="drop-down-box"
-        zze-scope="user-accounts-select"
-        data-drop-down="box"
-        style="display: none"
+      <li
+        class="my-account drop-down arrow-right"
+        data-drop-down="hover"
+        id="account-popover"
       >
-        <div class="user-menu-group">
-          <div class="user-info" zze-mark="current">
-            <a class="user-avatar">
-              <div
-                class="image"
-                style="
-                  display: flex;
-                  margin-top: 10px;
-                  margin-bottom: 10px;
-                  justify-content: center;
-                "
-              >
-                <img
-                  data-user-avatar="image"
-                  src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-                  alt="Avatar missing"
-                  style="width: 50px"
-                />
-              </div>
-              <div
-                class="details"
-                style="display: flex; justify-content: center"
-              >
-                <span id="email"></span>
-              </div>
-            </a>
+        <a href="#" onclick="return false" class="user-avatar">
+          <img
+            data-user-avatar="image"
+            class="user-pic"
+            src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+            alt="Avatar missing"
+          />
+        </a>
+
+        <!-- user-accounts select -->
+        <div
+          id="account-content"
+          class="drop-down-box"
+          zze-scope="user-accounts-select"
+          data-drop-down="box"
+          style="display: none"
+        >
+          <div class="user-menu-group">
+            <div class="user-info" zze-mark="current">
+              <a class="user-avatar">
+                <div
+                  class="image"
+                  style="
+                    display: flex;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    justify-content: center;
+                  "
+                >
+                  <img
+                    data-user-avatar="image"
+                    src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+                    alt="Avatar missing"
+                    style="width: 50px"
+                  />
+                </div>
+                <div
+                  class="details"
+                  style="display: flex; justify-content: center"
+                >
+                  <span id="email"></span>
+                </div>
+              </a>
+            </div>
+
+            <ul
+              class="account-menu"
+              style="display: flex; align-items: center; flex-direction: column"
+            >
+              <li data-no-turbolink="true">
+                <a
+                  title="Clique para retornar"
+                  data-link="voltar"
+                  onclick="window.history.back()"
+                  style="cursor: pointer"
+                  >Voltar</a
+                >
+              </li>
+              <li class="logout" data-no-turbolink="true">
+                <a
+                  title="Clique para deslogar de sua conta"
+                  data-link="logout"
+                  onclick="logout()"
+                  style="cursor: pointer"
+                  >Sair</a
+                >
+              </li>
+            </ul>
           </div>
 
-          <ul
-            class="account-menu"
-            style="display: flex; align-items: center; flex-direction: column"
-          >
-            <li data-no-turbolink="true">
-              <a
-                title="Clique para retornar"
-                data-link="voltar"
-                onclick="window.history.back()"
-                style="cursor: pointer"
-                >Voltar</a
-              >
-            </li>
-            <li class="logout" data-no-turbolink="true">
-              <a
-                title="Clique para deslogar de sua conta"
-                data-link="logout"
-                onclick="logout()"
-                style="cursor: pointer"
-                >Sair</a
-              >
-            </li>
-          </ul>
+          <div class="user-menu-accounts hide" id="zze-user-accounts">
+            <h6 class="list-title">OUTRAS CONTAS</h6>
+            <ul class="list-accounts" id="zze-user-accounts-list"></ul>
+          </div>
         </div>
-
-        <div class="user-menu-accounts hide" id="zze-user-accounts">
-          <h6 class="list-title">OUTRAS CONTAS</h6>
-          <ul class="list-accounts" id="zze-user-accounts-list"></ul>
-        </div>
-      </div>
-    </li>
-
-    <!-- Informações da empresa -->
-    <div class="company-info-0">
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-name">NOME DA EMPRESA</p>
-        </div>
-      </div>
-      -
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-type">FILIAL OU MATRIZ</p>
-        </div>
-      </div>
-      -
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-state">EX: AL</p>
-        </div>
-      </div>
-    </div>
+      </li>
+    </nav>
 
     <div class="main-container">
-      <!-- Seu conteúdo HTML existente -->
-      <hr />
       <h1 style="margin-top: 40px; margin-bottom: 60px">ETAPA 1 - ABERTURA</h1>
       <div class="buttons">
         <button class="neumorphic" id="cpf_irpf">

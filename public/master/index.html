@@ -1,389 +1,442 @@
 <!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TELAS DE ETAPAS - TREE COMEX</title>
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/etapas.css" />
+    <link rel="stylesheet" href="/styles/stoled.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <title>TELAS DE ETAPAS - TREE COMEX</title>
-  <link rel="stylesheet" href="/styles/style.css" />
-  <link rel="stylesheet" href="/styles/etapas.css" />
-  <link rel="stylesheet" href="/styles/stoled.css" />
+    <style>
+      body {
+        background-color: #e5e9f4;
+        padding: 2rem;
+        background: #114766;
+      }
 
-  <style>
-    body {
-      background-color: #e5e9f4;
-      padding: 2rem;
-      background: #114766;
-    }
+      /* Estilos para o botão "Voltar" */
+      .back-button-cyan {
+        position: fixed;
+        bottom: 15px;
+        left: 15px;
+        padding: 15px 10px;
+        color: #fcfcfc;
+        background: none;
+        border: 2px solid #ffffff;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.5s;
+        letter-spacing: 4px;
+      }
 
-    /* Estilos para o botão "Voltar" */
-    .back-button-cyan {
-      position: fixed;
-      bottom: 15px;
-      left: 15px;
-      padding: 15px 10px;
-      color: #fcfcfc;
-      background: none;
-      border: 2px solid #ffffff;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: 0.5s;
-      letter-spacing: 4px;
-    }
+      .back-button-cyan:hover {
+        background: #03e9f4;
+        color: #050801;
+      }
 
-    .back-button-cyan:hover {
-      background: #03e9f4;
-      color: #050801;
-    }
+      /* Estilos para o botão "Abrir" */
+      .open-button {
+        padding: 10px 20px;
+        color: #fff;
+        background-color: #0e454d;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
-    /* Estilos para o botão "Abrir" */
-    .open-button {
-      padding: 10px 20px;
-      color: #fff;
-      background-color: #0e454d;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+      .open-button:hover {
+        background-color: #2a949b;
+      }
 
-    .open-button:hover {
-      background-color: #2a949b;
-    }
+      /* Estilos para o campo de entrada */
+      .input-field {
+        max-height: 100px;
+        padding: 10px;
+        margin: 10px 0;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+        overflow-y: auto;
+      }
 
-    /* Estilos para o campo de entrada */
-    .input-field {
-      max-height: 100px;
-      padding: 10px;
-      margin: 10px 0;
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-      transition: border-color 0.3s ease;
-      overflow-y: auto;
-    }
+      .input-field:focus {
+        border-color: #03e9f4;
+      }
 
-    .input-field:focus {
-      border-color: #03e9f4;
-    }
+      /* Estilos para o contêiner da janela modal */
+      .modal-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        /* Para garantir que a janela modal esteja sempre na frente */
+      }
 
-    /* Estilos para o contêiner da janela modal */
-    .modal-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      /* Para garantir que a janela modal esteja sempre na frente */
-    }
+      /* Estilos para a janela modal */
+      .modal {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        max-width: 600px;
+        /* Largura máxima da janela modal */
+        max-height: 80vh;
+        /* Altura máxima da janela modal (80% da altura da viewport) */
+        overflow-y: auto;
+        /* Adiciona barra de rolagem vertical se necessário */
+        text-align: center;
+        /* Centraliza o conteúdo horizontalmente */
+        border: 5px solid #3fc1c8;
+        /* Adiciona a borda azul clara bonita */
+      }
 
-    /* Estilos para a janela modal */
-    .modal {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      max-width: 600px;
-      /* Largura máxima da janela modal */
-      max-height: 80vh;
-      /* Altura máxima da janela modal (80% da altura da viewport) */
-      overflow-y: auto;
-      /* Adiciona barra de rolagem vertical se necessário */
-      text-align: center;
-      /* Centraliza o conteúdo horizontalmente */
-      border: 5px solid #3fc1c8;
-      /* Adiciona a borda azul clara bonita */
-    }
+      /* Estilos para o botão de fechar */
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 24px;
+        color: #06202e;
+      }
+    </style>
+  </head>
 
-    /* Estilos para o botão de fechar */
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 24px;
-      color: #06202e;
-    }
-  </style>
-</head>
-
-<body>
-  <nav class="header">
-    <!-- Contêiner da logo -->
-    <div class="logo-container">
-      <img class="logo" src="/assets/TREICO.png" alt="Logo" />
-    </div>
-
-    <div id="overlay" class="overlay" style="display: none">
-      <div class="modal-container">
-        <div class="modal">
-          <span class="close-btn" onclick="closeModal()">&times;</span>
-          <h2 style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)"></h2>
-          <select id="process-id-dropdown" class="input-field"></select>
-          <button id="save-process" class="open-button">VER EMPRESA</button>
-        </div>
+  <body>
+    <nav class="header">
+      <!-- Contêiner da logo -->
+      <div class="logo-container">
+        <img class="logo" src="/assets/TREICO.png" alt="Logo" />
       </div>
-    </div>
 
-    <!-- Informações da empresa -->
-    <div class="company-info-0">
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-name"></p>
+      <div id="overlay" class="overlay" style="display: none">
+        <div class="modal-container">
+          <div class="modal">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2
+              style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)"
+            ></h2>
+            <select id="process-id-dropdown" class="input-field"></select>
+            <button id="save-process" class="open-button">VER EMPRESA</button>
+          </div>
         </div>
       </div>
 
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-type"></p>
+      <!-- Informações da empresa -->
+      <div class="company-info-0">
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-name"></p>
+          </div>
+        </div>
+
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-type"></p>
+          </div>
+        </div>
+
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-state"></p>
+          </div>
         </div>
       </div>
 
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-state"></p>
-        </div>
-      </div>
-    </div>
+      <li
+        class="my-account drop-down arrow-right"
+        data-drop-down="hover"
+        id="account-popover"
+      >
+        <a href="#" onclick="return false" class="user-avatar">
+          <img
+            data-user-avatar="image"
+            class="user-pic"
+            src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+            alt="Avatar missing"
+          />
+        </a>
 
-    <li class="my-account drop-down arrow-right" data-drop-down="hover" id="account-popover">
-      <a href="#" onclick="return false" class="user-avatar">
-        <img data-user-avatar="image" class="user-pic" src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-          alt="Avatar missing" />
-      </a>
+        <!-- user-accounts select -->
+        <div
+          id="account-content"
+          class="drop-down-box"
+          zze-scope="user-accounts-select"
+          data-drop-down="box"
+          style="display: none"
+        >
+          <div class="user-menu-group">
+            <div class="user-info" zze-mark="current">
+              <a class="user-avatar">
+                <div
+                  class="image"
+                  style="
+                    display: flex;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    justify-content: center;
+                  "
+                >
+                  <img
+                    data-user-avatar="image"
+                    src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+                    alt="Avatar missing"
+                    style="width: 50px"
+                  />
+                </div>
+                <div
+                  class="details"
+                  style="display: flex; justify-content: center"
+                >
+                  <span id="email"></span>
+                </div>
+              </a>
+            </div>
 
-      <!-- user-accounts select -->
-      <div id="account-content" class="drop-down-box" zze-scope="user-accounts-select" data-drop-down="box"
-        style="display: none">
-        <div class="user-menu-group">
-          <div class="user-info" zze-mark="current">
-            <a class="user-avatar">
-              <div class="image" style="
-                  display: flex;
-                  margin-top: 10px;
-                  margin-bottom: 10px;
-                  justify-content: center;
-                ">
-                <img data-user-avatar="image" src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-                  alt="Avatar missing" style="width: 50px" />
-              </div>
-              <div class="details" style="display: flex; justify-content: center">
-                <span id="email"></span>
-              </div>
-            </a>
+            <ul
+              class="account-menu"
+              style="display: flex; align-items: center; flex-direction: column"
+            >
+              <li class="logout" data-no-turbolink="true">
+                <a
+                  title="Clique para deslogar de sua conta"
+                  data-link="logout"
+                  onclick="logout()"
+                  style="cursor: pointer"
+                  >Sair</a
+                >
+              </li>
+            </ul>
           </div>
 
-          <ul class="account-menu" style="display: flex; align-items: center; flex-direction: column">
-            <li class="logout" data-no-turbolink="true">
-              <a title="Clique para deslogar de sua conta" data-link="logout" onclick="logout()"
-                style="cursor: pointer">Sair</a>
-            </li>
-          </ul>
+          <div class="user-menu-accounts hide" id="zze-user-accounts">
+            <h6 class="list-title">OUTRAS CONTAS</h6>
+            <ul class="list-accounts" id="zze-user-accounts-list"></ul>
+          </div>
         </div>
+      </li>
+    </nav>
 
-        <div class="user-menu-accounts hide" id="zze-user-accounts">
-          <h6 class="list-title">OUTRAS CONTAS</h6>
-          <ul class="list-accounts" id="zze-user-accounts-list"></ul>
-        </div>
-      </div>
-    </li>
-  </nav>
+    <div class="main-container">
+      <span id="current-process" class="process-number"></span>
 
-  <div class="main-container">
-    <span id="current-process" class="process-number"></span>
-
-    <div>
-      <div style="
+      <div>
+        <div
+          style="
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             top: 162px;
           "
-        class="selectize-control zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope single plugin-clear_button">
-        <div id="dropdown-container" class="selectize-input items not-full has-options ng-valid ng-pristine">
-          <input type="undefined" autocomplete="off" tabindex="0" id="showCategories-selectized"
-            placeholder="Selecione uma empresa" style="width: 157px; opacity: 1; position: relative; left: 0px" />
-        </div>
-        <div id="dropdown-modal"
-          class="selectize-dropdown single zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope plugin-clear_button"
-          style="
+          class="selectize-control zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope single plugin-clear_button"
+        >
+          <div
+            id="dropdown-container"
+            class="selectize-input items not-full has-options ng-valid ng-pristine"
+          >
+            <input
+              type="undefined"
+              autocomplete="off"
+              tabindex="0"
+              id="showCategories-selectized"
+              placeholder="Selecione uma empresa"
+              style="width: 157px; opacity: 1; position: relative; left: 0px"
+            />
+          </div>
+          <div
+            id="dropdown-modal"
+            class="selectize-dropdown single zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope plugin-clear_button"
+            style="
               display: none;
               width: 30%;
               top: 36px;
               left: 368px;
               visibility: visible;
-            ">
-          <div class="selectize-dropdown-content" id="selectize-content"></div>
+            "
+          >
+            <div
+              class="selectize-dropdown-content"
+              id="selectize-content"
+            ></div>
+          </div>
+          <span
+            class="clearAll"
+            tabindex="-1"
+            title="Limpar"
+            style="display: none"
+            ><i class="icon-close"></i
+          ></span>
         </div>
-        <span class="clearAll" tabindex="-1" title="Limpar" style="display: none"><i class="icon-close"></i></span>
       </div>
     </div>
-  </div>
 
-  <script>
-    let codes;
-    const dropdownContent = document.getElementById("selectize-content");
-    const searchInput = document.getElementById("showCategories-selectized");
+    <script>
+      let codes;
+      const dropdownContent = document.getElementById("selectize-content");
+      const searchInput = document.getElementById("showCategories-selectized");
 
-    window.onload = async function () {
-      let response = await fetch("/user", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      window.onload = async function () {
+        let response = await fetch("/user", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
 
-      if (response.ok) {
+        if (response.ok) {
+          const data = await response.json();
+          const email = document.getElementById("email");
+          email.innerHTML = data.email;
+        }
+
+        response = await fetch("/companies/codes", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+
         const data = await response.json();
-        const email = document.getElementById("email");
-        email.innerHTML = data.email;
-      }
+        if (response.ok && data.length > 0) {
+          codes = data;
+          codes.forEach((code) => {
+            const div = document.createElement("div");
+            div.className = "category zze-truncate zze-icon-left";
+            div.style.cursor = "pointer";
+            div.addEventListener("click", function () {
+              const company = JSON.stringify({
+                cnpj: code,
+              });
 
-      response = await fetch("/companies/codes", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-
-      const data = await response.json();
-      if (response.ok && data.length > 0) {
-        codes = data;
-        codes.forEach((code) => {
-          const div = document.createElement("div");
-          div.className = "category zze-truncate zze-icon-left";
-          div.style.cursor = "pointer";
-          div.addEventListener("click", function () {
-            const company = JSON.stringify({
-              cnpj: code,
+              localStorage.setItem("company", btoa(company));
+              window.location.href = "/botoesetapas.html";
             });
-
-            localStorage.setItem("company", btoa(company));
-            window.location.href = "/botoesetapas.html";
+            const i = document.createElement("i");
+            i.className = "zze-icon-categories icon-category-ship";
+            i.style.display = "flex";
+            i.style.justifyContent = "center";
+            i.style.backgroundColor = "#626491";
+            const span = document.createElement("span");
+            span.textContent = code;
+            span.className = "zze-selectize-label";
+            div.appendChild(i);
+            div.appendChild(span);
+            dropdownContent.appendChild(div);
           });
-          const i = document.createElement("i");
-          i.className = "zze-icon-categories icon-category-ship";
-          i.style.display = "flex";
-          i.style.justifyContent = "center";
-          i.style.backgroundColor = "#626491";
-          const span = document.createElement("span");
-          span.textContent = code;
-          span.className = "zze-selectize-label";
-          div.appendChild(i);
-          div.appendChild(span);
-          dropdownContent.appendChild(div);
+        }
+      };
+
+      function filterCodes() {
+        const searchText = searchInput.value.toLowerCase();
+        dropdownContent.innerHTML = "";
+
+        codes.forEach((code) => {
+          if (searchText === "" || code.toLowerCase().includes(searchText)) {
+            const div = document.createElement("div");
+            div.className = "category zze-truncate zze-icon-left";
+            div.style.cursor = "pointer";
+            div.addEventListener("click", function () {
+              const company = JSON.stringify({
+                cnpj: code,
+              });
+
+              localStorage.setItem("company", btoa(company));
+              window.location.href = "/botoesetapas.html";
+            });
+            const i = document.createElement("i");
+            i.className = "zze-icon-categories icon-category-ship";
+            i.style.display = "flex";
+            i.style.justifyContent = "center";
+            i.style.backgroundColor = "#626491";
+            const span = document.createElement("span");
+            span.textContent = code;
+            span.className = "zze-selectize-label";
+            div.appendChild(i);
+            div.appendChild(span);
+            dropdownContent.appendChild(div);
+          }
         });
       }
-    };
 
-    function filterCodes() {
-      const searchText = searchInput.value.toLowerCase();
-      dropdownContent.innerHTML = "";
+      searchInput.addEventListener("input", filterCodes);
 
-      codes.forEach((code) => {
-        if (searchText === "" || code.toLowerCase().includes(searchText)) {
-          const div = document.createElement("div");
-          div.className = "category zze-truncate zze-icon-left";
-          div.style.cursor = "pointer";
-          div.addEventListener("click", function () {
-            const company = JSON.stringify({
-              cnpj: code,
-            });
+      function handleModal(event) {
+        const modal = document.getElementById("dropdown-modal");
+        if (modal.style.display === "none") {
+          modal.style.display = "flex";
+        } else {
+          modal.style.display = "none";
+        }
 
-            localStorage.setItem("company", btoa(company));
-            window.location.href = "/botoesetapas.html";
-          });
-          const i = document.createElement("i");
-          i.className = "zze-icon-categories icon-category-ship";
-          i.style.display = "flex";
-          i.style.justifyContent = "center";
-          i.style.backgroundColor = "#626491";
-          const span = document.createElement("span");
-          span.textContent = code;
-          span.className = "zze-selectize-label";
-          div.appendChild(i);
-          div.appendChild(span);
-          dropdownContent.appendChild(div);
+        event.stopPropagation();
+      }
+
+      function handleUserModal(event) {
+        const userModal = document.getElementById("account-content");
+        if (userModal.style.display === "none") {
+          userModal.style.display = "flex";
+        } else {
+          userModal.style.display = "none";
+        }
+
+        event.stopPropagation();
+      }
+
+      document
+        .getElementById("dropdown-container")
+        .addEventListener("click", handleModal);
+
+      document
+        .getElementById("account-popover")
+        .addEventListener("click", handleUserModal);
+
+      document.addEventListener("click", function (event) {
+        const accountContent = document.getElementById("account-content");
+        const modal = document.getElementById("dropdown-modal");
+
+        if (
+          event.target !== accountContent &&
+          !accountContent.contains(event.target)
+        ) {
+          accountContent.style.display = "none";
+        }
+
+        if (event.target !== modal && !modal.contains(event.target)) {
+          modal.style.display = "none";
         }
       });
-    }
 
-    searchInput.addEventListener("input", filterCodes);
+      searchInput.addEventListener("input", function () {
+        let value = searchInput.value.replace(/\D/g, "");
 
-    function handleModal(event) {
-      const modal = document.getElementById("dropdown-modal");
-      if (modal.style.display === "none") {
-        modal.style.display = "flex";
-      } else {
-        modal.style.display = "none";
+        if (value.length > 14) {
+          value = value.substr(0, 14);
+        }
+
+        let formattedValue = value.replace(/^(\d{2})(\d)/, "$1.$2");
+        formattedValue = formattedValue.replace(
+          /^(\d{2})\.(\d{3})(\d)/,
+          "$1.$2.$3",
+        );
+        formattedValue = formattedValue.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        formattedValue = formattedValue.replace(/(\d{4})(\d)/, "$1-$2");
+
+        searchInput.value = formattedValue;
+      });
+
+      function showMessage() {
+        alert("Está em desenvolvimento!");
       }
+    </script>
 
-      event.stopPropagation();
-    }
-
-    function handleUserModal(event) {
-      const userModal = document.getElementById("account-content");
-      if (userModal.style.display === "none") {
-        userModal.style.display = "flex";
-      } else {
-        userModal.style.display = "none";
-      }
-
-      event.stopPropagation();
-    }
-
-    document
-      .getElementById("dropdown-container")
-      .addEventListener("click", handleModal);
-
-    document
-      .getElementById("account-popover")
-      .addEventListener("click", handleUserModal);
-
-    document.addEventListener("click", function (event) {
-      const accountContent = document.getElementById("account-content");
-      const modal = document.getElementById("dropdown-modal");
-
-      if (
-        event.target !== accountContent &&
-        !accountContent.contains(event.target)
-      ) {
-        accountContent.style.display = "none";
-      }
-
-      if (event.target !== modal && !modal.contains(event.target)) {
-        modal.style.display = "none";
-      }
-    });
-
-    searchInput.addEventListener("input", function () {
-      let value = searchInput.value.replace(/\D/g, "");
-
-      if (value.length > 14) {
-        value = value.substr(0, 14);
-      }
-
-      let formattedValue = value.replace(/^(\d{2})(\d)/, "$1.$2");
-      formattedValue = formattedValue.replace(
-        /^(\d{2})\.(\d{3})(\d)/,
-        "$1.$2.$3",
-      );
-      formattedValue = formattedValue.replace(/\.(\d{3})(\d)/, ".$1/$2");
-      formattedValue = formattedValue.replace(/(\d{4})(\d)/, "$1-$2");
-
-      searchInput.value = formattedValue;
-    });
-
-    function showMessage() {
-      alert("Está em desenvolvimento!");
-    }
-  </script>
-
-  <script src="/scripts/utils.js"></script>
-  <script src="/scripts/session.js"></script>
-</body>
-
+    <script src="/scripts/utils.js"></script>
+    <script src="/scripts/session.js"></script>
+  </body>
 </html>

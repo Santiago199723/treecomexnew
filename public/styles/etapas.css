@@ -27,23 +27,24 @@ body {
 /* Estilo para as informações da empresa */
 .company-info-0 {
   color: #fcfcfc;
-  top: 35px;
   background-color: #0000;
-  padding: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: -20px;
-  position: absolute;
-  left: 475px;
 }
 
 #company-name,
 #company-type,
 #company-state {
-  font-size: 20px;
+  font-size: 13px;
   color: white;
+}
+
+#company-name:hover,
+#company-type:hover,
+#company-state:hover {
+  color: yellow;
 }
 
 hr {
@@ -160,7 +161,7 @@ hr {
 }
 
 .data-restante-container {
-  top: 35px;
+  top: 10px;
   align-items: center;
   right: 115px;
   z-index: 8000;
@@ -176,7 +177,7 @@ hr {
 }
 
 .current-process-container {
-  top: 35px;
+  top: 10px;
   right: 115px;
   z-index: 9999;
   position: absolute;

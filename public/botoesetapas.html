@@ -107,131 +107,131 @@
   </head>
 
   <body>
-    <!-- Contêiner da logo -->
-    <div class="logo-container">
-      <img class="logo" src="assets/TREICO.png" alt="Logo" />
-    </div>
+    <nav class="header">
+      <!-- Contêiner da logo -->
+      <div class="logo-container">
+        <img class="logo" src="/assets/TREICO.png" alt="Logo" />
+      </div>
+
+      <!-- Informações da empresa -->
+      <div class="company-info-0">
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-name">NOME DA EMMPRESA</p>
+          </div>
+        </div>
+        -
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-type">FILIAL OU MATRIZ</p>
+          </div>
+        </div>
+        -
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-state">EX: AL</p>
+          </div>
+        </div>
+      </div>
+
+      <li
+        class="my-account drop-down arrow-right"
+        data-drop-down="hover"
+        id="account-popover"
+      >
+        <a href="#" onclick="return false" class="user-avatar">
+          <img
+            data-user-avatar="image"
+            class="user-pic"
+            src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+            alt="Avatar missing"
+          />
+        </a>
+
+        <!-- user-accounts select -->
+        <div
+          id="account-content"
+          class="drop-down-box"
+          zze-scope="user-accounts-select"
+          data-drop-down="box"
+          style="display: none"
+        >
+          <div class="user-menu-group">
+            <div class="user-info" zze-mark="current">
+              <a class="user-avatar">
+                <div
+                  class="image"
+                  style="
+                    display: flex;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    justify-content: center;
+                  "
+                >
+                  <img
+                    data-user-avatar="image"
+                    src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+                    alt="Avatar missing"
+                    style="width: 50px"
+                  />
+                </div>
+                <div
+                  class="details"
+                  style="display: flex; justify-content: center"
+                >
+                  <span id="email"></span>
+                </div>
+              </a>
+            </div>
+
+            <ul
+              class="account-menu"
+              style="display: flex; align-items: center; flex-direction: column"
+            >
+              <li data-no-turbolink="true">
+                <a
+                  title="Clique para retornar"
+                  data-link="voltar"
+                  onclick="window.history.back()"
+                  style="cursor: pointer"
+                  >Voltar</a
+                >
+              </li>
+              <li class="logout" data-no-turbolink="true">
+                <a
+                  title="Clique para deslogar de sua conta"
+                  data-link="logout"
+                  onclick="logout()"
+                  style="cursor: pointer"
+                  >Sair</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="user-menu-accounts hide" id="zze-user-accounts">
+            <h6 class="list-title">OUTRAS CONTAS</h6>
+            <ul class="list-accounts" id="zze-user-accounts-list"></ul>
+          </div>
+        </div>
+      </li>
+    </nav>
 
     <div id="overlay" class="overlay" style="display: none">
       <div class="modal-container">
         <div class="modal">
           <span class="close-btn" onclick="closeModal()">&times;</span>
-          <h2 style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)">
-            IDENTIFICAR PROCESSO
-          </h2>
+          <h2
+            style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)"
+          ></h2>
           <select id="process-id-dropdown" class="input-field"></select>
-          <button id="save-process" class="open-button">VER PROCESSO</button>
-        </div>
-      </div>
-    </div>
-
-    <li
-      class="my-account drop-down arrow-right"
-      data-drop-down="hover"
-      id="account-popover"
-    >
-      <a href="#" onclick="return false" class="user-avatar">
-        <img
-          data-user-avatar="image"
-          height="37"
-          width="37"
-          src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-          alt="Avatar missing"
-        />
-      </a>
-
-      <!-- user-accounts select -->
-      <div
-        id="account-content"
-        class="drop-down-box"
-        zze-scope="user-accounts-select"
-        data-drop-down="box"
-        style="display: none"
-      >
-        <div class="user-menu-group">
-          <div class="user-info" zze-mark="current">
-            <a class="user-avatar">
-              <div
-                class="image"
-                style="
-                  display: flex;
-                  margin-top: 10px;
-                  margin-bottom: 10px;
-                  justify-content: center;
-                "
-              >
-                <img
-                  data-user-avatar="image"
-                  src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-                  alt="Avatar missing"
-                  style="width: 50px"
-                />
-              </div>
-              <div
-                class="details"
-                style="display: flex; justify-content: center"
-              >
-                <span id="email"></span>
-              </div>
-            </a>
-          </div>
-
-          <ul
-            class="account-menu"
-            style="display: flex; align-items: center; flex-direction: column"
-          >
-            <li data-no-turbolink="true">
-              <a
-                title="Clique para retornar"
-                data-link="voltar"
-                onclick="window.history.back()"
-                style="cursor: pointer"
-                >Voltar</a
-              >
-            </li>
-            <li class="logout" data-no-turbolink="true">
-              <a
-                title="Clique para deslogar de sua conta"
-                data-link="logout"
-                onclick="logout()"
-                style="cursor: pointer"
-                >Sair</a
-              >
-            </li>
-          </ul>
-        </div>
-
-        <div class="user-menu-accounts hide" id="zze-user-accounts">
-          <h6 class="list-title">OUTRAS CONTAS</h6>
-          <ul class="list-accounts" id="zze-user-accounts-list"></ul>
-        </div>
-      </div>
-    </li>
-
-    <!-- Informações da empresa -->
-    <div class="company-info-0">
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-name">NOME DA EMMPRESA</p>
-        </div>
-      </div>
-      -
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-type">FILIAL OU MATRIZ</p>
-        </div>
-      </div>
-      -
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-state">EX: AL</p>
+          <button id="save-process" class="open-button">VER EMPRESA</button>
         </div>
       </div>
     </div>
 
     <div class="main-container">
       <span id="current-process" class="process-number"></span>
-      <hr />
 
       <div class="button-container">
         <a class="stage-selectors" href="etapa1.html"> ETAPA 1 - ESTRUTURA </a>
