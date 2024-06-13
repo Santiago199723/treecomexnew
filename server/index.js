@@ -310,6 +310,35 @@ app.get("/companies/codes", async (req, res) => {
   return res.status(200).json(codes);
 });
 
+app.get("/companies/names", async (req, res) => {
+  const { userId } = req.cookies;
+  if (!userId) {
+    return res.redirect("/index.html");
+  }
+
+  const admin = await Admin.findOne({
+    where: {
+      id: userId,
+    },
+  });
+
+  const user = await User.findOne({
+    where: {
+      id: userId,
+    },
+  });
+
+  if ((!admin && !user) || (user && user.userType !== UserType.MASTER)) {
+    return res.redirect("/index.html");
+  }
+
+  const companies = await Company.findAll();
+
+  const names = companies.map((company) => company.companyName);
+
+  return res.status(200).json(names);
+});
+
 app.post("/upload-file", async (req, res) => {
   try {
     const { name, blob, mimeType } = req.body;
@@ -526,7 +555,7 @@ app.get("/process/data", async (req, res) => {
 
     return res.status(200).json({ data: data });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return res.status(500).json({ error: "Erro interno do servidor" });
   }
 });

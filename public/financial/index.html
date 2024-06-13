@@ -120,7 +120,7 @@
                                     style="width: 50px" />
                             </div>
                             <div class="details" style="display: flex; justify-content: center">
-                                <span style="color: #2e312d" id="email"></span>
+                                <span style="color: #2e312d">Financeiro TCX</span>
                             </div>
                         </a>
                     </div>
@@ -221,8 +221,8 @@
                                     bis_skin_checked="1">
 
                                     <div id="widget-accounts_overview" class="zze-sortable-item ng-scope"
-                                        style="height: 308px;" bis_skin_checked="1"><zze-widget-accounts
-                                            id="accounts-zze">
+                                        style="height: 308px; position: absolute; width: 98%;" bis_skin_checked="1">
+                                        <zze-widget-accounts id="accounts-zze">
                                             <div class="zze-sortable-header"
                                                 ng-class="{&#39;zze-loading&#39;: dash.tracker.loadDataServer.active()}"
                                                 data-minimized-height="90" bis_skin_checked="1">
@@ -293,8 +293,8 @@
                                     bis_skin_checked="1">
 
                                     <div id="widget-accounts_overview" class="zze-sortable-item ng-scope"
-                                        style="height: 308px;" bis_skin_checked="1"><zze-widget-accounts
-                                            id="accounts-zze">
+                                        style="height: 308px; width: 100%; position: absolute;" bis_skin_checked="1">
+                                        <zze-widget-accounts id="accounts-zze">
                                             <div class="zze-sortable-header"
                                                 ng-class="{&#39;zze-loading&#39;: dash.tracker.loadDataServer.active()}"
                                                 data-minimized-height="90" bis_skin_checked="1">
@@ -350,9 +350,13 @@
                                                 </zze-bar-filters>
                                             </div>
 
-                                            <div id="proccess" style="    overflow: auto;
-                                            height: 178px;
+                                            <div id="process" style="    overflow: auto;
+                                                height: 115px;
                                             width: 100%;"></div>
+
+                                            <div class="zze-sortable-content empty" bis_skin_checked="1" style="">
+                                                <a class="btn-sc-dv" href="">Lançar contas</a>
+                                            </div>
                                         </zze-widget-accounts></div>
 
 
@@ -424,8 +428,8 @@
         let processCodes = []
 
         const companyDivContent = document.getElementById("companies")
-        const processDivContent = document.getElementById("proccess")
-        
+        const processDivContent = document.getElementById("process")
+
         window.onload = async function () {
             var currentDate = new Date();
             var hour = currentDate.getHours();
@@ -449,8 +453,6 @@
 
             if (ur.ok) {
                 const data = await ur.json();
-                const email = document.getElementById("email");
-                email.innerHTML = data.email;
                 const userType = document.getElementById("user-type");
 
                 let userTypeText = null
@@ -469,7 +471,7 @@
                 userType.innerHTML = userTypeText;
             }
 
-            const ccr = await fetch("/companies/codes", {
+            const ccr = await fetch("/companies/names", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -534,7 +536,7 @@
                     div.style.cursor = "pointer";
                     div.addEventListener("click", function (e) {
                         if (e.target !== e.currentTarget.querySelector("img")) {
-                      
+
                         }
                     });
 
@@ -617,7 +619,7 @@
                     div.style.cursor = "pointer";
                     div.addEventListener("click", function (e) {
                         if (e.target !== e.currentTarget.querySelector("img")) {
-                         
+
                         }
                     });
 
@@ -657,6 +659,17 @@
         document
             .getElementById("account-popover")
             .addEventListener("click", handleUserModal);
+
+        document.addEventListener("click", function (event) {
+            const accountContent = document.getElementById("account-content");
+
+            if (
+                event.target !== accountContent &&
+                !accountContent.contains(event.target)
+            ) {
+                accountContent.style.display = "none";
+            }
+        });
     </script>
     <script src="/scripts/utils.js"></script>
 </body>

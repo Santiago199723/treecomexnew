@@ -22485,7 +22485,8 @@ form .input-row .zze-datepicker .ui-datepicker-trigger {
   .zze-sortable-col
   .zze-sortable-item
   .zze-sortable-content {
-  padding: 35px;
+  padding-left: 35px;
+  padding-right: 35px;
   transition: all linear 200ms;
 }
 
@@ -22607,8 +22608,6 @@ form .input-row .zze-datepicker .ui-datepicker-trigger {
 }
 
 .zze-layout_content .zze-context_dashboard .btn-link:hover {
-  background-color: #129e3f;
-  border: 1px solid #129e3f;
   color: #fefdf9;
 }
 
@@ -23944,18 +23943,8 @@ form .input-row .zze-datepicker .ui-datepicker-trigger {
   font-size: 15px;
   line-height: 38px;
   transition: 0.3s ease-in;
-  color: #a0a0a0;
+  color: #f6efef;
   margin-top: 20px;
-}
-
-.zze-layout_content
-  .zze-context_dashboard
-  #widget-accounts_overview.zze-sortable-item
-  .zze-sortable-content
-  > a:hover {
-  background-color: #129e3f;
-  border: 1px solid #129e3f;
-  color: #fefdf9;
 }
 
 .zze-layout_content
@@ -24731,6 +24720,10 @@ form .input-row .zze-datepicker .ui-datepicker-trigger {
   .zze-sortable-content.zze-loading
   > h2.widget-title {
   opacity: 0.2;
+}
+
+.btn-sc-dv {
+  background: linear-gradient(to right, #65abf6, #164f6a);
 }
 
 .zze-layout_content
