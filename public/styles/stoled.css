@@ -96,7 +96,6 @@
 .col-lg-12 {
   position: relative;
   min-height: 1px;
-  padding-left: 15px;
   padding-right: 15px;
 }
 
@@ -7066,9 +7065,8 @@ body.ngdialog-open {
 
 .zze-component_bar-tools .zze-bar-search a {
   position: absolute;
-  right: 4px;
-  width: 36px;
-  height: 45px;
+  right: 17px;
+  cursor: pointer;
 }
 
 .zze-component_bar-tools .zze-bar-search a i {
@@ -7081,6 +7079,15 @@ body.ngdialog-open {
 .zze-component_bar-tools .zze-bar-search .zze-input-search {
   margin-right: 26px;
   overflow: hidden;
+}
+
+.icon-category-recipient:after {
+  content: "";
+  display: block;
+  width: 20px;
+  background-size: cover;
+  height: 20px;
+  background-image: url(/assets/recipient.png);
 }
 
 .zze-component_bar-tools .zze-bar-search .zze-input-search .zze-iText {

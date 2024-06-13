@@ -525,7 +525,8 @@ app.get("/process/data", async (req, res) => {
     }
 
     return res.status(200).json({ data: data });
-  } catch (_) {
+  } catch (err) {
+    console.log(err)
     return res.status(500).json({ error: "Erro interno do servidor" });
   }
 });
