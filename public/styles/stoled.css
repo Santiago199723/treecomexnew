@@ -23375,7 +23375,7 @@ form .input-row .zze-datepicker .ui-datepicker-trigger {
   #widget-accounts_overview.zze-sortable-item
   .zze-sortable-header:after {
   display: flex;
-  margin-top: 24px;
+  margin-top: 15px;
   width: 100%;
   height: 1px;
   content: "";
@@ -23400,7 +23400,6 @@ form .input-row .zze-datepicker .ui-datepicker-trigger {
   display: flex;
   content: "";
   width: 4px;
-  background-color: #129e3f;
   border-radius: 2.5px;
 }
 
@@ -23610,7 +23609,6 @@ form .input-row .zze-datepicker .ui-datepicker-trigger {
   .zze-context_dashboard
   #widget-accounts_overview.zze-sortable-item
   .zze-sortable-content {
-  padding-top: 25px;
   display: flex;
   flex-direction: column;
   align-items: stretch;

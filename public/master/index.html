@@ -280,8 +280,8 @@
       const dropdownContent = document.getElementById("selectize-content");
       const searchInput = document.getElementById("showCategories-selectized");
 
-      window.onload = async function () {
-        let response = await fetch("/user", {
+      window.addEventListener("load", async () => {
+        const ur = await fetch("/user", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -289,13 +289,13 @@
           credentials: "include",
         });
 
-        if (response.ok) {
-          const data = await response.json();
+        if (ur.ok) {
+          const data = await ur.json();
           const email = document.getElementById("email");
           email.innerHTML = data.email;
         }
 
-        response = await fetch("/companies/codes", {
+        const ccr = await fetch("/companies/codes", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -303,8 +303,8 @@
           credentials: "include",
         });
 
-        const data = await response.json();
-        if (response.ok && data.length > 0) {
+        const data = await ccr.json();
+        if (ccr.ok && data.length > 0) {
           codes = data;
           codes.forEach((code) => {
             const div = document.createElement("div");
@@ -331,7 +331,7 @@
             dropdownContent.appendChild(div);
           });
         }
-      };
+      });
 
       function filterCodes() {
         const searchText = searchInput.value.toLowerCase();

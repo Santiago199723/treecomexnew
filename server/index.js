@@ -562,10 +562,11 @@ app.post("/process/remove", async (req, res) => {
 
 app.get("/user", async (req, res) => {
   try {
+    let user = null;
     const userId = req.cookies.userId;
 
     if (userId) {
-      let user = await User.findOne({
+      user = await User.findOne({
         where: {
           id: userId,
         },
@@ -580,13 +581,19 @@ app.get("/user", async (req, res) => {
       }
 
       if (user) {
-        return res.status(200).send(user);
+        const userObj = user.toJSON();
+
+        if (user instanceof Admin) {
+          userObj.userType = UserType.ADMIN;
+        }
+
+        return res.status(200).send(userObj);
       } else {
         return res.status(404).send({ message: "Usuário não encontrado" });
       }
+    } else {
+      return res.redirect("/index.html");
     }
-
-    res.status(404).send({ message: "ID do usuário não fornecido" });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
@@ -681,7 +688,7 @@ app.post("/change-password", async (req, res) => {
 const port = process.env.APP_PORT || 8080;
 
 sequelize.sync().then(async function () {
-  await redis.on("error", (err) => k.fail(err)).connect();
+  // await redis.on("error", (err) => k.fail(err)).connect();
 
   k.succeed("Redis connected successfully");
 

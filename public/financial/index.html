@@ -1,169 +1,581 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>TELAS DE ETAPAS - TREE COMEX</title>
-    <link rel="stylesheet" href="../styles/style.css" />
-    <link rel="stylesheet" href="../styles/etapas.css" />
+<!-- saved from url=(0045)https://app.organizze.com.br/5557101/a/inicio -->
+<html>
+
+<link rel="stylesheet" href="/styles/stoled.css" />
+<link rel="stylesheet" href="/styles/style.css" />
+<link rel="stylesheet" href="/styles/etapas.css" />
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+        @charset "UTF-8";
+
+        [ng\:cloak],
+        [ng-cloak],
+        [data-ng-cloak],
+        [x-ng-cloak],
+        .ng-cloak,
+        .x-ng-cloak,
+        .ng-hide:not(.ng-hide-animate) {
+            display: none !important;
+        }
+
+        ng\:form {
+            display: block;
+        }
+
+        .ng-animate-shim {
+            visibility: hidden;
+        }
+
+        .ng-anchor {
+            position: absolute;
+        }
+
+        body {
+            overflow: hidden;
+        }
+    </style>
+
+    <title>Financeiro | Visão geral</title>
+
+    <meta name="csrf-param" content="authenticity_token">
+    <meta name="csrf-token"
+        content="0Q1gbuVy+tSS2wHy2nHeoYuUl+XPG4XsKpCGCGPnjwMWvwQ05ij7KqYF/90digpYlGBxMlhBbxqyuD19h3Y9dA==">
+    <link rel="apple-touch-icon" sizes="180x180" href="">
+    <link rel="icon" type="image/png" sizes="32x32" href="">
+    <link rel="icon" type="image/png" sizes="16x16" href="">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="robots" content="nofollow, noindex, noarchive, noimageindex, nosnippet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+
+</head>
+
+<body ng-controller="zze.MainCtrl as main" zze-loading="main.tracker.loadHeader" zze-loading-type="headerSmall"
+    ng-class="main.getContentClass()" class="ng-scope"
+    bis_register=""
+    __processed_df699d66-8fe9-401e-8c76-1b7d1ef8f76a__="true" style="">
+
+
+
+    <nav class="header">
+        <!-- Contêiner da logo -->
+        <div class="logo-container">
+            <img class="logo" src="/assets/TREICO.png" alt="Logo" />
+        </div>
+
+        <!-- Informações da empresa -->
+        <div class="company-info-0">
+            <div class="info-item-0">
+                <div class="info-value-0">
+                    <p id="company-name">VISAO GERAL</p>
+                </div>
+            </div>
+
+            <div class="info-item-0">
+                <div class="info-value-0">
+                    <p id="company-type">LANÇAMENTOS</p>
+                </div>
+            </div>
+
+            <div class="info-item-0">
+                <div class="info-value-0">
+                    <p id="company-type">RELATÓRIO</p>
+                </div>
+            </div>
+        </div>
+
+        <li class="my-account drop-down arrow-right" data-drop-down="hover" id="account-popover">
+            <a href="#" onclick="return false" class="user-avatar">
+                <img data-user-avatar="image" src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+                    alt="Avatar missing" class="user-pic" />
+            </a>
+
+            <!-- user-accounts select -->
+            <div id="account-content" class="drop-down-box" zze-scope="user-accounts-select" data-drop-down="box"
+                style="display: none; left: -196px; width: 240px">
+                <div class="user-menu-group">
+                    <div class="user-info" zze-mark="current">
+                        <a class="user-avatar">
+                            <div class="image" style="
+                      display: flex;
+                      margin-top: 10px;
+                      margin-bottom: 10px;
+                      justify-content: center;
+                    ">
+                                <img data-user-avatar="image"
+                                    src="https://utils.organizze.com.br/avatar/avatar-missing.png" alt="Avatar missing"
+                                    style="width: 50px" />
+                            </div>
+                            <div class="details" style="display: flex; justify-content: center">
+                                <span style="color: #2e312d" id="email"></span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <ul class="account-menu" style="display: flex; align-items: center; flex-direction: column">
+                        <li class="logout" data-no-turbolink="true">
+                            <a title="Clique para deslogar de sua conta" data-link="logout" onclick="logout()"
+                                style="cursor: pointer">Sair</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="user-menu-accounts hide" id="zze-user-accounts">
+                    <h6 class="list-title">OUTRAS CONTAS</h6>
+                    <ul class="list-accounts" id="zze-user-accounts-list"></ul>
+                </div>
+            </div>
+        </li>
+    </nav>
+
+    <section class="zze-layout_content">
+
+        <!-- Class the Bootstrap for controle responsive. -->
+        <!-- uiView: zze-front -->
+        <div ui-view="zze-front" class="container ng-scope" id="content" bis_skin_checked="1">
+            <div class="zze-context_dashboard ng-scope" bis_skin_checked="1">
+                <div class="zze-box-content" bis_skin_checked="1"><!-- ngIf: main.isAccountFree -->
+                    <div class="zze-group-content" bis_skin_checked="1">
+                        <div class="row" bis_skin_checked="1">
+                            <div id="widget-top_overview" bis_skin_checked="1">
+                                <div bis_skin_checked="1">
+                                    <div class="leftside-box"
+                                        ng-class="{&#39;zze-lazy-loading&#39;: dash.tracker.loadTopOverview.active()}"
+                                        bis_skin_checked="1" style="">
+                                        <div class="greeting" bis_skin_checked="1">
+                                            <p class="ng-binding" id="time"></p>
+                                            <p class="ng-binding" id="user-type"></p>
+                                        </div>
+                                        <div class="blocks-of-info"
+                                            ng-class="{&#39;hide-balance&#39;: dash.config.hideBalance}"
+                                            bis_skin_checked="1">
+                                            <div bis_skin_checked="1"><label>receita mensal</label> <strong
+                                                    class="earning hidden-placeholder ng-binding">R$ -----
+                                                </strong><strong class="earning ng-binding">R$ 0,00</strong></div>
+                                            <div bis_skin_checked="1"><label>despesa mensal</label> <strong
+                                                    class="expense hidden-placeholder ng-binding">R$ -----
+                                                </strong><strong class="expense ng-binding">R$ 0,00</strong></div><a
+                                                href="https://app.organizze.com.br/5557101/relatorios/geral"
+                                                tooltip-static="Ir para seção de Relatórios"><i class="icon-report"></i>
+                                                <p>ver relatórios</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="rightside-box"
+                                        ng-class="{&#39;zze-lazy-loading&#39;: dash.tracker.loadDataServer.active()}"
+                                        bis_skin_checked="1" style="">
+                                        <h2 class="widget-title">Acesso rápido</h2>
+                                        <ul>
+                                            <li><a ng-click="dash.showCadTransaction(&#39;expense&#39;)"
+                                                    href="https://app.organizze.com.br/5557101/a/inicio" class="expense"
+                                                    data-mixpanel-click="Dashboard FastAddExpense"
+                                                    ng-disabled="dash.tracker.loadDataServer.active()"
+                                                    tooltip-static="Clique para adcionar uma Despesa"><i
+                                                        class="icon-expense-dashboard"></i>
+                                                    <p class="btn-title">DESPESA</p>
+                                                </a></li>
+                                            <li><a ng-click="dash.showCadTransaction(&#39;earning&#39;)"
+                                                    href="https://app.organizze.com.br/5557101/a/inicio" class="earning"
+                                                    data-mixpanel-click="Dashboard FastAddEarning"
+                                                    ng-disabled="dash.tracker.loadDataServer.active()"
+                                                    tooltip-static="Clique para adicionar uma Receita"><i
+                                                        class="icon-earning-dashboard"></i>
+                                                    <p class="btn-title">RECEITA</p>
+                                                </a></li>
+                                            <li><a href="https://app.organizze.com.br/5557101/conciliations/account-statements/new/"
+                                                    class="conexoes" data-mixpanel-click="Dashboard FastAddImport"
+                                                    ng-disabled="dash.tracker.loadDataServer.active()"
+                                                    tooltip-static="Clique para importar arquivos OFX">
+                                                    <div bis_skin_checked="1"><svg width="32" height="32"
+                                                            viewBox="0 0 32 32" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="link">
+                                                                <path id="Vector"
+                                                                    d="M22.668 9.33337H18.668C17.9346 9.33337 17.3346 9.93337 17.3346 10.6667C17.3346 11.4 17.9346 12 18.668 12H22.668C24.868 12 26.668 13.8 26.668 16C26.668 18.2 24.868 20 22.668 20H18.668C17.9346 20 17.3346 20.6 17.3346 21.3334C17.3346 22.0667 17.9346 22.6667 18.668 22.6667H22.668C26.348 22.6667 29.3346 19.68 29.3346 16C29.3346 12.32 26.348 9.33337 22.668 9.33337ZM10.668 16C10.668 16.7334 11.268 17.3334 12.0013 17.3334H20.0013C20.7346 17.3334 21.3346 16.7334 21.3346 16C21.3346 15.2667 20.7346 14.6667 20.0013 14.6667H12.0013C11.268 14.6667 10.668 15.2667 10.668 16ZM13.3346 20H9.33464C7.13464 20 5.33464 18.2 5.33464 16C5.33464 13.8 7.13464 12 9.33464 12H13.3346C14.068 12 14.668 11.4 14.668 10.6667C14.668 9.93337 14.068 9.33337 13.3346 9.33337H9.33464C5.65464 9.33337 2.66797 12.32 2.66797 16C2.66797 19.68 5.65464 22.6667 9.33464 22.6667H13.3346C14.068 22.6667 14.668 22.0667 14.668 21.3334C14.668 20.6 14.068 20 13.3346 20Z"
+                                                                    fill="#3062D4"></path>
+                                                            </g>
+                                                        </svg></div>
+                                                    <p class="btn-title">IMPORTAR</p>
+                                                </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-class="{&#39;zze-lazy-loading&#39;: dash.tracker.loadWidgetsPosition.active()}"
+                                class="" style="" bis_skin_checked="1">
+                                <div id="col-sortable-1"
+                                    class="col-md-6 col-sm-6 col-xs-6 zze-sortable-col zze-sortable-col-first ui-sortable"
+                                    bis_skin_checked="1">
+
+                                    <div id="widget-accounts_overview" class="zze-sortable-item ng-scope" style="height: 308px;"
+                                        bis_skin_checked="1"><zze-widget-accounts id="accounts-zze">
+                                            <div class="zze-sortable-header"
+                                                ng-class="{&#39;zze-loading&#39;: dash.tracker.loadDataServer.active()}"
+                                                data-minimized-height="90" bis_skin_checked="1">
+                                                <div class="sum-of-all-balances-box" bis_skin_checked="1">
+                                                    <label style="font-weight: bold;">ACESSAR EMPRESAS</label>
+                                                </div>
+
+                                                <zze-bar-filters style="margin-top: 10px; width: 100%;"
+                                                    ng-show="!main.contextSource.currentEntity.showIntro"
+                                                    zze-bar-config="transactions.configs.filter"
+                                                    class="zze-ng-animate-if-fade">
+                                                    <div ng-class="barFilters.status.filterOpen ? 'zze-filter-open' : ''"
+                                                        class="zze-component_bar-tools" bis_skin_checked="1"
+                                                        style="border-radius: 63px;">
+                                                        <div class="row" bis_skin_checked="1">
+                                                            <div ng-class="barFilters.status.showSearch ? 'col-md-9 col-sm-9 col-xs-9' : 'col-md-12 col-sm-12 col-xs-12' "
+                                                                class="zze-bar-filter col-md-9 col-sm-9 col-xs-9"
+                                                                bis_skin_checked="1" style="">
+                                                                <ul><!-- ngIf: barFilters.status.filterControl -->
+                                                                    <li ng-if="barFilters.status.filterControl"
+                                                                        class="ng-scope" style="">
+                                                                        <!-- ngIf: !barFilters.status.filterOpen --><a
+                                                                            ng-if="!barFilters.status.filterOpen"
+                                                                            ng-click="barFilters.toggleFilter()"
+                                                                            class="zze-bar-control ng-binding ng-scope"
+                                                                            title="Exibir opções de filtros" href=""><i
+                                                                                class="icon-filter-hamburguer"></i>
+                                                                            Buscar empresa...
+                                                                        </a><!-- end ngIf: !barFilters.status.filterOpen --><!-- ngIf: barFilters.status.filterOpen -->
+                                                                    </li>
+                                                                    <!-- end ngIf: barFilters.status.filterControl --><ng-transclude><!-- ngIf: barFilters.status.filterOpen --><!-- ngIf: barFilters.status.filterOpen --><!-- ngIf: barFilters.status.filterOpen --><!-- ngIf: barFilters.status.filterOpen --></ng-transclude>
+                                                                </ul>
+                                                            </div><!-- ngIf: barFilters.status.showSearch -->
+                                                            <div class="col-md-3 col-sm-3 col-xs-3 zze-bar-search ng-scope"
+                                                                ng-class=""
+                                                                ng-if="barFilters.status.showSearch"
+                                                                bis_skin_checked="1" style=""><a
+                                                                    ng-click="barFilters.toggleSearch()" href=""><i
+                                                                        ng-class="barFilters.status.searchOpen ? 'icon-close-2' : 'icon-search'"
+                                                                        class="icon-search"></i></a>
+                                                                <div class="zze-input-search" bis_skin_checked="1">
+                                                                    <input ng-model="barFilters.data.search"
+                                                                        ng-keydown="barFilters.getDataSearch()"
+                                                                        id="search"
+                                                                        class="zze-iText ng-pristine ng-untouched ng-valid ng-empty"
+                                                                        placeholder="Buscar por..." type="text"
+                                                                        zze-check-esc="barFilters.toggleSearch()">
+                                                                </div>
+                                                            </div><!-- end ngIf: barFilters.status.showSearch -->
+                                                        </div>
+                                                    </div>
+                                                </zze-bar-filters>
+                                            </div>
+
+                                            <div id="companies" style="    overflow: auto;
+                                            height: 178px;
+                                            width: 100%;"></div>
+                                        </zze-widget-accounts></div>
+
+
+                                </div>
+                            </div>
+                            <div ng-class="{&#39;zze-lazy-loading&#39;: dash.tracker.loadWidgetsPosition.active()}"
+                                class="" style="" bis_skin_checked="1">
+                                <div id="col-sortable-1"
+                                    class="col-md-6 col-sm-6 col-xs-6 zze-sortable-col zze-sortable-col-first ui-sortable"
+                                    bis_skin_checked="1">
+                                    <div id="widget-accounts_overview" class="zze-sortable-item ng-scope"
+                                        bis_skin_checked="1"><zze-widget-accounts>
+                                            <div class="zze-sortable-header"
+                                                ng-class="{&#39;zze-loading&#39;: dash.tracker.loadDataServer.active()}"
+                                                data-minimized-height="90" bis_skin_checked="1">
+                                                <div class="sum-of-all-balances-box"
+                                                    ng-class="{ &#39;negative&#39;: accounts.data.balanceIsNegative &amp;&amp; !dash.config.hideBalance }"
+                                                    bis_skin_checked="1">
+                                                    <div bis_skin_checked="1"><label>Saldo geral</label>
+                                                        <div ng-class="{&#39;hide-balance&#39;: dash.config.hideBalance}"
+                                                            bis_skin_checked="1"><small class="ng-binding">R$
+                                                            </small><strong class="hidden-placeholder">-----
+                                                            </strong><strong class="ng-binding">0,00 </strong><a
+                                                                ng-click="dash.hideBalance()"
+                                                                title="Clique para esconder o saldo geral"
+                                                                href="https://app.organizze.com.br/5557101/a/inicio"
+                                                                tabindex="-1"><svg width="20" height="16"
+                                                                    viewBox="0 0 20 16" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    class="hidden-placeholder">
+                                                                    <path
+                                                                        d="M10.0002 2.97921C13.1585 2.97921 15.9752 4.75421 17.3502 7.56254C16.8585 8.57921 16.1668 9.45421 15.3418 10.1625L16.5168 11.3375C17.6752 10.3125 18.5918 9.02921 19.1668 7.56254C17.7252 3.90421 14.1668 1.31254 10.0002 1.31254C8.94183 1.31254 7.92516 1.47921 6.96683 1.78754L8.34183 3.16254C8.8835 3.05421 9.4335 2.97921 10.0002 2.97921ZM9.1085 3.92921L10.8335 5.65421C11.3085 5.86254 11.6918 6.24587 11.9002 6.72087L13.6252 8.44587C13.6918 8.16254 13.7418 7.86254 13.7418 7.55421C13.7502 5.48754 12.0668 3.81254 10.0002 3.81254C9.69183 3.81254 9.40016 3.85421 9.1085 3.92921ZM1.67516 1.20421L3.9085 3.43754C2.55016 4.50421 1.47516 5.92087 0.833496 7.56254C2.27516 11.2209 5.8335 13.8125 10.0002 13.8125C11.2668 13.8125 12.4835 13.5709 13.6002 13.1292L16.4502 15.9792L17.6252 14.8042L2.85016 0.020874L1.67516 1.20421ZM7.92516 7.45421L10.1002 9.62921C10.0668 9.63754 10.0335 9.64587 10.0002 9.64587C8.85016 9.64587 7.91683 8.71254 7.91683 7.56254C7.91683 7.52087 7.92516 7.49587 7.92516 7.45421ZM5.09183 4.62087L6.55016 6.07921C6.3585 6.53754 6.25016 7.03754 6.25016 7.56254C6.25016 9.62921 7.9335 11.3125 10.0002 11.3125C10.5252 11.3125 11.0252 11.2042 11.4752 11.0125L12.2918 11.8292C11.5585 12.0292 10.7918 12.1459 10.0002 12.1459C6.84183 12.1459 4.02516 10.3709 2.65016 7.56254C3.2335 6.37087 4.0835 5.38754 5.09183 4.62087Z"
+                                                                        fill="#858782"></path>
+                                                                </svg> <svg width="20" height="16" viewBox="0 0 20 16"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10.0002 2.41667C13.1585 2.41667 15.9752 4.19167 17.3502 7C15.9752 9.80833 13.1668 11.5833 10.0002 11.5833C6.8335 11.5833 4.02516 9.80833 2.65016 7C4.02516 4.19167 6.84183 2.41667 10.0002 2.41667ZM10.0002 0.75C5.8335 0.75 2.27516 3.34167 0.833496 7C2.27516 10.6583 5.8335 13.25 10.0002 13.25C14.1668 13.25 17.7252 10.6583 19.1668 7C17.7252 3.34167 14.1668 0.75 10.0002 0.75ZM10.0002 4.91667C11.1502 4.91667 12.0835 5.85 12.0835 7C12.0835 8.15 11.1502 9.08333 10.0002 9.08333C8.85016 9.08333 7.91683 8.15 7.91683 7C7.91683 5.85 8.85016 4.91667 10.0002 4.91667ZM10.0002 3.25C7.9335 3.25 6.25016 4.93333 6.25016 7C6.25016 9.06667 7.9335 10.75 10.0002 10.75C12.0668 10.75 13.7502 9.06667 13.7502 7C13.7502 4.93333 12.0668 3.25 10.0002 3.25Z"
+                                                                        fill="#858782"></path>
+                                                                </svg></a></div>
+                                                    </div>
+                                                </div><zze-sortable-toogle class="ng-isolate-scope"><a
+                                                        ng-click="zzeSortableToogle($event)" class="zze-sortable-close"
+                                                        href="https://app.organizze.com.br/5557101/a/inicio"><i
+                                                            class="icon-caret-down"
+                                                            id="tag-toogle"></i></a></zze-sortable-toogle>
+                                            </div>
+                                            <div class="zze-sortable-content"
+                                                ng-class="{&#39;zze-loading&#39;: dash.tracker.loadDataServer.active()}"
+                                                bis_skin_checked="1"><!-- ngIf: dash.tracker.loadDataServer.active() -->
+                                                <h2 class="widget-title" ng-hide="dash.tracker.loadDataServer.active()">
+                                                    Minhas contas</h2>
+                                                <ul ng-hide="dash.tracker.loadDataServer.active()">
+                                                    <!-- ngRepeat: account in accounts.data.activeAccounts | orderBy:['position', 'name'] track by $index -->
+                                                    <li ng-repeat="account in accounts.data.activeAccounts | orderBy:[&#39;position&#39;, &#39;name&#39;] track by $index"
+                                                        ng-class="{&#39;conected&#39;: account.automatic}"
+                                                        class="ng-scope" style=""><a
+                                                            href=""
+                                                            title="Clique para ver os lançamentos">
+                                                            <div class="leftie" bis_skin_checked="1">
+                                                                <div class="zze-component_institution-icon fg-color-1a1c19"
+                                                                    style="background-color: #f2f4ef"
+                                                                    ng-bind-html="::innerIcon"
+                                                                    ng-class="{&#39;credit-card&#39;: ngModel.isCreditCard}" "="" ng-model="
+                                                                    account" bis_skin_checked="1"><svg
+                                                                        viewBox="0 0 40 40" fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <g id="Wallet">
+                                                                            <g id="Vector">
+                                                                                <mask id="path-1-inside-1_639_1523"
+                                                                                    fill="white">
+                                                                                    <path fill-rule="evenodd"
+                                                                                        clip-rule="evenodd"
+                                                                                        d="M25.7417 25.5635C23.225 25.5635 21.175 23.5135 21.175 20.9801V19.0135C21.175 16.4802 23.225 14.4302 25.7417 14.4302C27.7092 14.4302 31.5609 14.4411 32.9464 14.4453C33.2274 14.4461 33.4549 14.2149 33.4325 13.9349C33.0767 9.4751 29.3524 5.9635 24.8084 5.9635H13.3916C8.60831 5.9635 4.72498 9.86352 4.72498 14.6468V25.3635C4.72498 30.1468 8.60831 34.0301 13.3916 34.0301H24.8084C29.353 34.0301 33.093 30.5176 33.4344 26.0571C33.4557 25.7776 33.2284 25.5476 32.9482 25.5485C31.564 25.5525 27.71 25.5635 25.7417 25.5635Z">
+                                                                                    </path>
+                                                                                </mask>
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M25.7417 25.5635C23.225 25.5635 21.175 23.5135 21.175 20.9801V19.0135C21.175 16.4802 23.225 14.4302 25.7417 14.4302C27.7092 14.4302 31.5609 14.4411 32.9464 14.4453C33.2274 14.4461 33.4549 14.2149 33.4325 13.9349C33.0767 9.4751 29.3524 5.9635 24.8084 5.9635H13.3916C8.60831 5.9635 4.72498 9.86352 4.72498 14.6468V25.3635C4.72498 30.1468 8.60831 34.0301 13.3916 34.0301H24.8084C29.353 34.0301 33.093 30.5176 33.4344 26.0571C33.4557 25.7776 33.2284 25.5476 32.9482 25.5485C31.564 25.5525 27.71 25.5635 25.7417 25.5635Z"
+                                                                                    fill="#FEFDF9"></path>
+                                                                                <path
+                                                                                    d="M32.9464 14.4453L32.9434 15.4453H32.9434L32.9464 14.4453ZM33.4325 13.9349L34.4294 13.8554L34.4294 13.8553L33.4325 13.9349ZM33.4344 26.0571L34.4315 26.1334L34.4315 26.1332L33.4344 26.0571ZM32.9482 25.5485L32.9511 26.5485H32.9512L32.9482 25.5485ZM25.7417 24.5635C23.7797 24.5635 22.175 22.9636 22.175 20.9801H20.175C20.175 24.0634 22.6704 26.5635 25.7417 26.5635V24.5635ZM22.175 20.9801V19.0135H20.175V20.9801H22.175ZM22.175 19.0135C22.175 17.0301 23.7797 15.4302 25.7417 15.4302V13.4302C22.6704 13.4302 20.175 15.9303 20.175 19.0135H22.175ZM25.7417 15.4302C27.7074 15.4302 31.5574 15.4411 32.9434 15.4453L32.9494 13.4453C31.5644 13.4411 27.711 13.4302 25.7417 13.4302V15.4302ZM32.9434 15.4453C33.7713 15.4477 34.5012 14.7554 34.4294 13.8554L32.4357 14.0144C32.4086 13.6743 32.6834 13.4445 32.9493 13.4453L32.9434 15.4453ZM34.4294 13.8553C34.0326 8.88213 29.8802 4.9635 24.8084 4.9635V6.9635C28.8246 6.9635 32.1208 10.0681 32.4357 14.0144L34.4294 13.8553ZM24.8084 4.9635H13.3916V6.9635H24.8084V4.9635ZM13.3916 4.9635C8.05352 4.9635 3.72498 9.31374 3.72498 14.6468H5.72498C5.72498 10.4133 9.16309 6.9635 13.3916 6.9635V4.9635ZM3.72498 14.6468V25.3635H5.72498V14.6468H3.72498ZM3.72498 25.3635C3.72498 30.6991 8.05602 35.0301 13.3916 35.0301V33.0301C9.16059 33.0301 5.72498 29.5945 5.72498 25.3635H3.72498ZM13.3916 35.0301H24.8084V33.0301H13.3916V35.0301ZM24.8084 35.0301C29.8781 35.0301 34.0504 31.1128 34.4315 26.1334L32.4373 25.9808C32.1357 29.9225 28.828 33.0301 24.8084 33.0301V35.0301ZM34.4315 26.1332C34.5001 25.2346 33.7707 24.546 32.9452 24.5485L32.9512 26.5485C32.6861 26.5492 32.4114 26.3207 32.4373 25.981L34.4315 26.1332ZM32.9453 24.5485C31.5605 24.5525 27.7083 24.5635 25.7417 24.5635V26.5635C27.7118 26.5635 31.5676 26.5525 32.9511 26.5485L32.9453 24.5485Z"
+                                                                                    fill="#FEFDF9"
+                                                                                    mask="url(#path-1-inside-1_639_1523)">
+                                                                                </path>
+                                                                            </g>
+                                                                            <path id="Vector_2"
+                                                                                d="M25.375 19.997C25.375 20.9277 26.1368 21.6803 27.0751 21.6803C28.0012 21.6803 28.7584 20.9231 28.7584 19.997C28.7584 19.0708 28.0012 18.3136 27.0751 18.3136C26.1368 18.3136 25.375 19.0663 25.375 19.997ZM25.7417 17.4303H33.1917C34.0656 17.4303 34.7751 18.1398 34.7751 19.0136V20.9803C34.7751 21.8542 34.0656 22.5636 33.1917 22.5636H25.7417C24.8731 22.5636 24.175 21.8594 24.175 20.9803V19.0136C24.175 18.1345 24.8731 17.4303 25.7417 17.4303Z"
+                                                                                fill="#FEFDF9" stroke="#FEFDF9"></path>
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="connect-symbol" bis_skin_checked="1"><svg
+                                                                        width="14" height="14" viewBox="0 0 14 14"
+                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <g id="Link-2">
+                                                                            <path id="Vector" fill-rule="evenodd"
+                                                                                clip-rule="evenodd"
+                                                                                d="M11.6966 2.72132C10.3784 1.44543 8.31242 1.44543 6.99414 2.72132C6.76669 2.94132 6.76039 3.30397 6.98039 3.53142C7.20096 3.75944 7.56304 3.7646 7.79049 3.5446C8.66304 2.70127 10.0289 2.70241 10.9003 3.54517C11.33 3.95996 11.5729 4.51684 11.5832 5.11325C11.5935 5.70965 11.3706 6.27513 10.9622 6.69794L9.66737 7.99216C9.59403 8.06779 9.5144 8.13425 9.42961 8.19784C8.95237 8.55591 8.36627 8.70487 7.77445 8.62237C7.18148 8.53701 6.65726 8.22591 6.29804 7.74638C6.10841 7.49258 5.74979 7.43987 5.49598 7.63008C5.24275 7.81972 5.19119 8.17836 5.38083 8.43216C5.92336 9.15748 6.7157 9.62841 7.61231 9.75617C7.77445 9.77966 7.93659 9.79112 8.09757 9.79112C8.82346 9.79112 9.52643 9.55852 10.116 9.11508C10.2575 9.01024 10.3789 8.90425 10.4832 8.79711L11.7791 7.50117C12.4071 6.85091 12.7445 5.99612 12.7285 5.09377C12.713 4.19028 12.3463 3.34809 11.6966 2.72132Z"
+                                                                                fill="#FEFDF9"></path>
+                                                                            <path id="Vector_2" fill-rule="evenodd"
+                                                                                clip-rule="evenodd"
+                                                                                d="M6.20946 10.4558C5.33749 11.2997 3.97166 11.2986 3.09968 10.4552C2.66942 10.0399 2.4265 9.48185 2.41676 8.88315C2.40703 8.28675 2.62989 7.723 3.03895 7.3019L4.32057 6.01456C4.40249 5.93492 4.4913 5.86044 4.56921 5.79797C5.55635 5.0612 6.9617 5.26401 7.70248 6.25003C7.89268 6.50383 8.25076 6.55367 8.50456 6.36404C8.75779 6.17383 8.80878 5.81459 8.61914 5.56193C7.49909 4.0712 5.37473 3.76526 3.86796 4.89162C3.7465 4.98959 3.63135 5.08698 3.51619 5.19813L2.22197 6.49867C1.59406 7.1455 1.25604 7.99857 1.2715 8.90206C1.2864 9.80727 1.65307 10.6517 2.3039 11.2791C2.96275 11.9173 3.80838 12.2359 4.65458 12.2359C5.50078 12.2359 6.34696 11.9173 7.00638 11.2791C7.23383 11.0597 7.23956 10.697 7.01956 10.469C6.79956 10.241 6.4369 10.2358 6.20946 10.4558Z"
+                                                                                fill="#FEFDF9"></path>
+                                                                        </g>
+                                                                    </svg></div>
+                                                                <div class="naming" bis_skin_checked="1"><strong
+                                                                        class="ng-binding">Conta inicial</strong>
+                                                                    <!-- ngIf: dash.isFeatureFlaggedConexoes --> <small
+                                                                        class="conected">Conta conectada</small></div>
+                                                            </div>
+                                                            <div class="rightie"
+                                                                ng-class="{&#39;hide-balance&#39;: dash.config.hideBalance}"
+                                                                bis_skin_checked="1"><big
+                                                                    class="hidden-placeholder ng-binding">R$ -----
+                                                                </big><big
+                                                                    ng-class="{&#39;negative&#39;:account.balance &lt; 0}"
+                                                                    class="ng-binding">R$ 0,00</big></div>
+                                                        </a></li>
+                                                    <!-- end ngRepeat: account in accounts.data.activeAccounts | orderBy:['position', 'name'] track by $index --><!-- ngRepeat: account in accounts.data.archivedAccounts | orderBy:['position', 'name'] track by $index -->
+                                                </ul><a href="https://app.organizze.com.br/5557101/configuracoes/contas"
+                                                    ng-hide="dash.tracker.loadDataServer.active()">Gerenciar contas</a>
+                                            </div>
+                                        </zze-widget-accounts></div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ngIf: dash.widgetsConfig.widgets.grid1 && dash.widgetsConfig.widgets.grid2 --><zze-sortable
+                        ng-if="dash.widgetsConfig.widgets.grid1 &amp;&amp; dash.widgetsConfig.widgets.grid2"
+                        zze-config="dash.widgetsConfig" class="ng-scope"
+                        style=""></zze-sortable><!-- end ngIf: dash.widgetsConfig.widgets.grid1 && dash.widgetsConfig.widgets.grid2 -->
+                </div>
+            </div>
+
+    </section>
+
+    <footer class="zze-layout_footer">
+
+        <div class="container" bis_skin_checked="1"></div>
+
+    </footer>
+
+    <!-- Nothing here for now -->
 
     <style>
-      body {
-        background-color: #e5e9f4;
-        padding: 2rem;
-        background: #114766;
-      }
-
-      /* Estilos para o botão "Voltar" */
-      .back-button-cyan {
-        position: fixed;
-        bottom: 15px;
-        left: 15px;
-        padding: 15px 10px;
-        color: #fcfcfc;
-        background: none;
-        border: 2px solid #ffffff;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: 0.5s;
-        letter-spacing: 4px;
-      }
-
-      .back-button-cyan:hover {
-        background: #03e9f4;
-        color: #050801;
-      }
-
-      /* Estilos para o botão "Abrir" */
-      .open-button {
-        padding: 10px 20px;
-        color: #fff;
-        background-color: #0e454d;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      .open-button:hover {
-        background-color: #2a949b;
-      }
-
-      /* Estilos para o campo de entrada */
-      .input-field {
-        max-height: 100px;
-        padding: 10px;
-        margin: 10px 0;
-        width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-        transition: border-color 0.3s ease;
-        overflow-y: auto;
-      }
-
-      .input-field:focus {
-        border-color: #03e9f4;
-      }
-
-      /* Estilos para o contêiner da janela modal */
-      .modal-container {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 9999; /* Para garantir que a janela modal esteja sempre na frente */
-      }
-
-      /* Estilos para a janela modal */
-      .modal {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        max-width: 600px; /* Largura máxima da janela modal */
-        max-height: 80vh; /* Altura máxima da janela modal (80% da altura da viewport) */
-        overflow-y: auto; /* Adiciona barra de rolagem vertical se necessário */
-        text-align: center; /* Centraliza o conteúdo horizontalmente */
-        border: 5px solid #3fc1c8; /* Adiciona a borda azul clara bonita */
-      }
-
-      /* Estilos para o botão de fechar */
-      .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-        font-size: 24px;
-        color: #06202e;
-      }
+        .onesignal-bell-container {
+            display: none !important;
+        }
     </style>
-  </head>
-  <body>
-    <!-- Contêiner da logo -->
-    <div class="logo-container">
-      <img class="logo" src="/assets/TREICO.png" alt="Logo" />
-    </div>
 
-    <div id="overlay" class="overlay" style="display: none">
-      <div class="modal-container">
-        <div class="modal">
-          <span class="close-btn" onclick="closeModal()">&times;</span>
-          <h2 style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)">
-          </h2>
-          <select id="process-id-dropdown" class="input-field"></select>
-          <button id="save-process" class="open-button">VER EMPRESA</button>
+    <div id="onesignal-bell-container"
+        class="onesignal-bell-container onesignal-reset onesignal-bell-container-bottom-right" bis_skin_checked="1">
+        <div id="onesignal-bell-launcher"
+            class="onesignal-bell-launcher onesignal-bell-launcher-md onesignal-bell-launcher-bottom-right onesignal-bell-launcher-theme-default onesignal-bell-launcher-active"
+            bis_skin_checked="1">
+            <div class="onesignal-bell-launcher-button" bis_skin_checked="1"><svg class="onesignal-bell-svg"
+                    xmlns="http://www.w3.org/2000/svg" width="99.7" height="99.7" viewBox="0 0 99.7 99.7"
+                    style="filter: drop-shadow(0 2px 4px rgba(34,36,38,0.35));; -webkit-filter: drop-shadow(0 2px 4px rgba(34,36,38,0.35));;">
+                    <circle class="background" cx="49.9" cy="49.9" r="49.9" style=""></circle>
+                    <path class="foreground"
+                        d="M50.1 66.2H27.7s-2-.2-2-2.1c0-1.9 1.7-2 1.7-2s6.7-3.2 6.7-5.5S33 52.7 33 43.3s6-16.6 13.2-16.6c0 0 1-2.4 3.9-2.4 2.8 0 3.8 2.4 3.8 2.4 7.2 0 13.2 7.2 13.2 16.6s-1 11-1 13.3c0 2.3 6.7 5.5 6.7 5.5s1.7.1 1.7 2c0 1.8-2.1 2.1-2.1 2.1H50.1zm-7.2 2.3h14.5s-1 6.3-7.2 6.3-7.3-6.3-7.3-6.3z"
+                        style=""></path>
+                    <ellipse class="stroke" cx="49.9" cy="49.9" rx="37.4" ry="36.9" style=""></ellipse>
+                </svg></div>
+            <div class="onesignal-bell-launcher-badge"
+                style="filter: drop-shadow(0 2px 4px rgba(34,36,38,0));; -webkit-filter: drop-shadow(0 2px 4px rgba(34,36,38,0));;"
+                bis_skin_checked="1"></div>
+            <div class="onesignal-bell-launcher-message" bis_skin_checked="1">
+                <div class="onesignal-bell-launcher-message-body" bis_skin_checked="1"></div>
+            </div>
+            <div class="onesignal-bell-launcher-dialog"
+                style="filter: drop-shadow(0px 2px 2px rgba(34,36,38,.15));; -webkit-filter: drop-shadow(0px 2px 2px rgba(34,36,38,.15));;"
+                bis_skin_checked="1">
+                <div class="onesignal-bell-launcher-dialog-body" bis_skin_checked="1"></div>
+            </div>
         </div>
-      </div>
     </div>
-
-    <!-- Informações da empresa -->
-    <div class="company-info-0">
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-name"></p>
-        </div>
-      </div>
-      
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-type"></p>
-        </div>
-      </div>
-      
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-state"></p>
-        </div>
-      </div>
+    <div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"
+        bis_skin_checked="1">
+        <div bis_skin_checked="1" style="display: none;">Ir para seção de Relatórios</div>
+        <div bis_skin_checked="1" style="display: none;">Clique para adcionar uma Despesa</div>
+        <div bis_skin_checked="1" style="display: none;">Clique para adicionar uma Receita</div>
+        <div bis_skin_checked="1">Clique para adicionar uma Transferência</div>
     </div>
-
-    <div class="main-container">
-      <span id="current-process" class="process-number"></span>
-      <hr />
-
-      <div class="button-container">
-        <a onclick="openModal()">SELECIONAR EMPRESA</a>
-        <div class="button-container">
-            <a onclick="openModal()">SELECIONAR PROCESSO</a>
-
-        <a
-          id="register-master"
-          style="display: none"
-          onclick="routeTo('/manager/processos.html')"
-          >EMPRESAS CADASTRADAS</a
-        >
-      </div>
-    </div>
-
-    <button class="back-button-cyan" onclick="logout()">
-      <image style="width: 20px" src="/assets/back-white.png"></image>
-    </button>
+    <div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"
+        bis_skin_checked="1"></div>
     <script>
-      function showMessage() {
-          alert("Está em desenvolvimento!");
-      }
-  </script>
+        window.onload = async function () {
+            var currentDate = new Date();
+            var hour = currentDate.getHours();
 
+            let message = document.getElementById("time");
+            if (hour >= 6 && hour < 12) {
+                message.textContent = "Bom dia,";
+            } else if (hour >= 12 && hour < 18) {
+                message.textContent = "Boa tarde,";
+            } else {
+                message.textContent = "Boa noite,";
+            }
+
+            const ur = await fetch("/user", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            });
+
+            if (ur.ok) {
+                const data = await ur.json();
+                const email = document.getElementById("email");
+                email.innerHTML = data.email;
+                const userType = document.getElementById("user-type");
+
+                let userTypeText = null
+                switch (data.userType) {
+                    case UserType.ADMIN:
+                        userTypeText = "Administrador!";
+                        break;
+                    case UserType.FINANCIAL:
+                        userTypeText = "Financiero!";
+                        break;
+                    default:
+                        userTypeText = undefined;
+                        break;
+                }
+
+                userType.innerHTML = userTypeText;
+            }
+
+            const ccr = await fetch("/companies/codes", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            });
+
+
+            if (ccr.ok) {
+                const divContent = document.getElementById("companies")
+                const data = await ccr.json();
+                data.forEach((code) => {
+                    const div = document.createElement("div");
+                    div.style.alignItems = "center"
+                    div.style.display = "flex"
+                    div.style.padding = "8px 15px 8px 37px";
+                    div.style.cursor = "pointer";
+                    div.addEventListener("click", function (e) {
+                        if (e.target !== e.currentTarget.querySelector("img")) {
+                            const company = JSON.stringify({
+                                cnpj: code,
+                            });
+
+                            localStorage.setItem("company", btoa(company));
+                            window.location.href = "/botoesetapas.html";
+                        }
+                    });
+
+                    const i = document.createElement("i");
+                    i.className = "zze-icon-categories icon-category-ship";
+                    i.style.display = "flex";
+                    i.style.justifyContent = "center";
+                    i.style.backgroundColor = "#626491";
+
+                    const span = document.createElement("span");
+                    span.textContent = code;
+                    span.className = "zze-selectize-label";
+                    span.style.marginLeft = "28%"
+
+                    div.appendChild(i);
+                    div.appendChild(span);
+
+                    divContent.appendChild(div);
+                });
+            }
+        }
+
+        function handleUserModal(event) {
+            const userModal = document.getElementById("account-content");
+            if (userModal.style.display === "none") {
+                userModal.style.display = "flex";
+            } else {
+                userModal.style.display = "none";
+            }
+
+            event.stopPropagation();
+        }
+
+        document
+            .getElementById("account-popover")
+            .addEventListener("click", handleUserModal);
+    </script>
     <script src="/scripts/utils.js"></script>
-  </body>
+</body>
+
 </html>
