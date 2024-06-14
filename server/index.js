@@ -504,6 +504,15 @@ app.get("/process", async (req, res) => {
       if (admin) {
         processes = await Process.findAll();
       }
+
+const user = await User.findOne({
+ where: {
+   id: userId
+}})
+
+if (user && user.userType === UserType.FINANCIAL) {
+processes = await Process.findAll();
+}
     } else if (company) {
       processes = await Process.findAll({
         where: {
