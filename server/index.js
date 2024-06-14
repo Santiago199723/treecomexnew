@@ -54,7 +54,7 @@ app.post("/register", async (req, res) => {
     });
 
     return res.status(200).json({
-      message: "Usuário criado com sucesso",
+      message: "Usuário criado com sucesso!",
       user: newUser.id,
     });
   } catch (error) {
@@ -127,7 +127,7 @@ app.post("/login", async (req, res) => {
           });
       } else {
         return res.status(404).json({
-          message: "Usuário não possui cadastro de empresa",
+          message: "Usuário não possui cadastro de empresa. Entre em contato com o suporte!",
         });
       }
     }
@@ -140,7 +140,7 @@ app.post("/login", async (req, res) => {
         sameSite: "strict",
       })
       .json({
-        message: "Bem vindo administrador!",
+        message: "Bem-vindo(a), administrador(a)!",
         userType: UserType.ADMIN,
       });
   } catch (error) {
@@ -328,7 +328,7 @@ app.get("/companies/names", async (req, res) => {
     },
   });
 
-  if ((!admin && !user) || (user && user.userType !== UserType.MASTER)) {
+  if ((!admin && !user) || (user && user.userType !== UserType.FINANCIAL)) {
     return res.redirect("/index.html");
   }
 
