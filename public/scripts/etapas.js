@@ -1,5 +1,6 @@
 let buttons;
 let offsetX, offsetY;
+const submenu = document.querySelector(".submenu");
 const csn = Number(window.location.pathname.match(/[0-9]+/)[0]);
 
 function handleFileUpload(btnIndex) {
@@ -56,7 +57,6 @@ function handleFileUpload(btnIndex) {
 
       alert(data.message);
       showSubmenuData(btnIndex);
-      await refreshButtons();
     });
   };
 
@@ -95,17 +95,7 @@ function handleFileRemove(fileId, btnIndex) {
   }
 }
 
-function showSubmenu(btnIndex) {
-  const submenus = document.querySelectorAll(".submenu");
-  if (submenus[0].style != "flex") {
-    submenus[0].style.display = "flex";
-  }
-
-  showSubmenuData(btnIndex);
-}
-
 function showSubmenuData(btnIndex) {
-  const submenu = document.querySelector("#submenu_botao");
   const fileDetailsElements = submenu.querySelectorAll(".file-details");
   fileDetailsElements.forEach((element) => {
     element.remove();
@@ -188,6 +178,24 @@ function showSubmenuData(btnIndex) {
           trash.onclick = () => handleFileRemove(file.id, btnIndex);
           fileName.style.display = "flex";
           trash.style.display = "flex";
+
+          const spans = document.querySelectorAll("span")
+          spans.forEach((span) => {
+            if (span.textContent === option) {
+              const div = span.closest(".neumorphic");
+              const img = div.querySelector("img")
+              img.style.display = "flex"
+            }
+          });
+        } else {
+          const spans = document.querySelectorAll("span")
+          spans.forEach((span) => {
+            if (span.textContent === option) {
+              const div = span.closest(".neumorphic");
+              const img = div.querySelector("img")
+              img.style.display = "none"
+            }
+          });
         }
 
         sortedData.forEach((value) => {
@@ -258,8 +266,18 @@ window.onload = async function () {
 
   buttons = document.querySelectorAll(".neumorphic");
 
+  buttons.forEach((button, index) => {
+    const submenuIndex = index + 1;
+    showSubmenuData(submenuIndex);
+    
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      showSubmenuData(submenuIndex);
+      submenu.style.display = "flex"
+    });
+  });
+
   await refreshCompanyData();
-  await refreshButtons()
 
   if (csn === 1) {
     const creationDate = new Date(companyData.createdAt);
@@ -296,16 +314,6 @@ window.onload = async function () {
         "flex";
     }
   }
-
-  buttons.forEach((button, index) => {
-    button.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const submenuIndex = index + 1;
-      showSubmenu(submenuIndex);
-
-      event.stopPropagation();
-    });
-  });
 };
 
 let draggable = document.querySelector("#submenu_botao");
@@ -339,44 +347,6 @@ document.addEventListener("click", function (event) {
 
   event.stopPropagation();
 });
-
-async function refreshButtons() {
-  console.log(buttons)
-  buttons.forEach(async (button, index) => {
-    const submenuIndex = index + 1;
-
-    const option = getOptionType(submenuIndex);
-    if (option) {
-      let params = new URLSearchParams({
-        company: companyData.cnpj,
-        stage: csn,
-        option: option,
-      });
-
-      if (csn !== 1) params.processId = processId;
-
-      const s = await fetch(`/stage?${params}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-
-      if (s.ok) {
-        const data = await s.json();
-        const clip = button.querySelector("img")
-
-        if (data.length !== 0) {
-          clip.style.display = "flex"
-
-        } else {
-          clip.style.display = "none"
-        }
-      }
-    }
-  });
-}
 
 function handleUserModal(event) {
   const userModal = document.getElementById("account-content");

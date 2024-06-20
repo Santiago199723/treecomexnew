@@ -407,20 +407,26 @@ app.get("/stage", async (req, res) => {
       ) {
         const user = await User.findOne({
           where: {
-            id: req.cookies.userId,
+            id: permData.triggeredUser
           },
         });
 
-        if (!user) return res.status(404).send({ code: "MISSING_USER" });
+        const admin = await Admin.findOne({
+          where: {
+            id: permData.triggeredUser
+          },
+        });
+
+        if (!user && !admin) return res.status(404).send({ code: "MISSING_USER" });
 
         if (Number(stage) === 1) {
           if (result.action === Actions.UPLOADED_FILE) {
             value.set("attachedDate", result.createdAt);
-            value.set("attachedBy", user.email);
+            value.set("attachedBy", (user || admin).email);
             value.set("type", 1);
           } else {
             value.set("removedDate", result.createdAt);
-            value.set("removedBy", user.email);
+            value.set("removedBy", (user || admin).email);
             value.set("type", 2);
           }
         } else if (
@@ -430,11 +436,11 @@ app.get("/stage", async (req, res) => {
         ) {
           if (result.action === Actions.UPLOADED_FILE) {
             value.set("attachedDate", result.createdAt);
-            value.set("attachedBy", user.email);
+            value.set("attachedBy", (user || admin).email);
             value.set("type", 1);
           } else {
             value.set("removedDate", result.createdAt);
-            value.set("removedBy", user.email);
+            value.set("removedBy", (user || admin).email);
             value.set("type", 2);
           }
         }
@@ -452,10 +458,14 @@ app.get("/stage", async (req, res) => {
 
 app.post("/sniff", async (req, res) => {
   try {
-    const userId = req.cookies.userId;
+    const { userId } = req.cookies;
     const { action, company, data } = req.body;
 
-    if (userId) data.triggeredUser = userId;
+    if (!userId) {
+      return res.redirect("/index.html")
+    }
+
+    data.triggeredUser = userId;
 
     await Perm.create({
       action: action,

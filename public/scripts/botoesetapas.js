@@ -43,7 +43,7 @@ window.onload = async function () {
   }
 
   await refreshCompanyData();
-  showCompanyData();
+  await showCompanyData();
 };
 
 function openModal() {
