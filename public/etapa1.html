@@ -1,367 +1,118 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>TREE COMEX - ABERTURA</title>
-    <link rel="stylesheet" href="styles/style.css" />
-    <link rel="stylesheet" href="styles/etapas.css" />
-    <link rel="stylesheet" href="styles/stoled.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-  </head>
 
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <title>TREE COMEX - ABERTURA</title>
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/etapas.css" />
+  <link rel="stylesheet" href="styles/stoled.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+
+<body>
+  <!-- Contêiner da logo -->
+  <nav class="header">
     <!-- Contêiner da logo -->
-    <nav class="header">
-      <!-- Contêiner da logo -->
-      <div class="logo-container">
-        <img class="logo" src="/assets/TREICO.png" alt="Logo" />
-      </div>
+    <div class="logo-container">
+      <img class="logo" src="/assets/TREICO.png" alt="Logo" />
+    </div>
 
-      <div class="data-restante-container">
-        <p id="rest-remainer"></p>
-        <span style="width: 5px"></span>
-        <p id="hint-text-remaining"></p>
-      </div>
+    <div class="data-restante-container">
+      <p id="rest-remainer"></p>
+      <span style="width: 5px"></span>
+      <p id="hint-text-remaining"></p>
+    </div>
 
-      <!-- Informações da empresa -->
-      <div class="company-info-0">
-        <div class="info-item-0">
-          <div class="info-value-0">
-            <p id="company-name">NOME DA EMMPRESA</p>
-          </div>
-        </div>
-        -
-        <div class="info-item-0">
-          <div class="info-value-0">
-            <p id="company-type">FILIAL OU MATRIZ</p>
-          </div>
-        </div>
-        -
-        <div class="info-item-0">
-          <div class="info-value-0">
-            <p id="company-state">EX: AL</p>
-          </div>
+    <!-- Informações da empresa -->
+    <div class="company-info-0">
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-name">NOME DA EMMPRESA</p>
         </div>
       </div>
-
-      <li
-        class="my-account drop-down arrow-right"
-        data-drop-down="hover"
-        id="account-popover"
-      >
-        <a href="#" onclick="return false" class="user-avatar">
-          <img
-            data-user-avatar="image"
-            class="user-pic"
-            src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-            alt="Avatar missing"
-          />
-        </a>
-
-        <!-- user-accounts select -->
-        <div
-          id="account-content"
-          class="drop-down-box"
-          zze-scope="user-accounts-select"
-          data-drop-down="box"
-          style="display: none"
-        >
-          <div class="user-menu-group">
-            <div class="user-info" zze-mark="current">
-              <a class="user-avatar">
-                <div
-                  class="image"
-                  style="
-                    display: flex;
-                    margin-top: 10px;
-                    margin-bottom: 10px;
-                    justify-content: center;
-                  "
-                >
-                  <img
-                    data-user-avatar="image"
-                    src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-                    alt="Avatar missing"
-                    style="width: 50px"
-                  />
-                </div>
-                <div
-                  class="details"
-                  style="display: flex; justify-content: center"
-                >
-                  <span id="email"></span>
-                </div>
-              </a>
-            </div>
-
-            <ul
-              class="account-menu"
-              style="display: flex; align-items: center; flex-direction: column"
-            >
-              <li data-no-turbolink="true">
-                <a
-                  title="Clique para retornar"
-                  data-link="voltar"
-                  onclick="window.history.back()"
-                  style="cursor: pointer"
-                  >Voltar</a
-                >
-              </li>
-              <li class="logout" data-no-turbolink="true">
-                <a
-                  title="Clique para deslogar de sua conta"
-                  data-link="logout"
-                  onclick="logout()"
-                  style="cursor: pointer"
-                  >Sair</a
-                >
-              </li>
-            </ul>
-          </div>
-
-          <div class="user-menu-accounts hide" id="zze-user-accounts">
-            <h6 class="list-title">OUTRAS CONTAS</h6>
-            <ul class="list-accounts" id="zze-user-accounts-list"></ul>
-          </div>
+      -
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-type">FILIAL OU MATRIZ</p>
         </div>
-      </li>
-    </nav>
-
-    <div class="main-container">
-      <h1 style="margin-top: 40px; margin-bottom: 60px">ETAPA 1 - ABERTURA</h1>
-      <div class="buttons">
-        <button class="neumorphic" id="cpf_irpf">
-          <i class="fa-light fa-folder-open"></i>
-          <span>SÓCIO RG</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button type="button" class="neumorphic">
-          <!-- Corrigi um erro aqui -->
-          <i class="fa-light fa-certificate"></i>
-          <span>SÓCIO CPF</span>
-          <div class="message">PENDENTE</div>
-        </button>
-        <button type="button" class="neumorphic">
-          <!-- Corrigi um erro aqui -->
-          <i class="fa-light fa-certificate"></i>
-          <span>SÓCIO CNH</span>
-          <div class="message">PENDENTE</div>
-        </button>
-        <!-- Adicionei as setas aqui -->
-        <button type="button" class="neumorphic" id="locacao_sala">
-          <i class="fa-light fa-handshake-o"></i>
-          <span>SÓCIO COMPROVANTE DE ENDEREÇO</span>
-          <div class="message">CONCLUÍDO!</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="contratacao_hospedagem">
-          <i class="fa-light fa-home"></i>
-          <span>SÓCIO IR</span>
-          <div class="message">CONCLUÍDO!</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="contrato_social">
-          <i class="fa-light fa-address-card-o"></i>
-          <span>SÓCIO CERTIFICADO DIGITAL</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa fa-bolt"></i>
-          <span>CONTRATO COM O CONTADOR</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-wifi"></i>
-          <span>CONTRATO DA SALA (EM NOME DA EMPRESA)</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-industry"></i>
-          <span>CERTIFICADO DIGITAL DA EMPRESA</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-credit-card-alt"></i>
-          <span>DADOS BANCÁRIOS DA EMPRESA</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-thumbs-up"></i>
-          <span>CONTA DE ENERGIA (EM NOME DA EMPRESA)</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-cloud"></i>
-          <span>CONTA DE INTERNET/TELEFONE</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-at"></i>
-          <span>CONTRATO DO ARMAZÉM LOGÍSTICO</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>NOTA FISCAL DOS MÓVEIS DA SALA</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>PAPEL TIMBRADO DA EMPRESA</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>DADOS DE ACESSO AO SITE E E-MAILS</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>EMPRESA CONTRATO SOCIAL</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>EMPRESA CARTÃO DE CNPJ</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>EMPRESA INSCRIÇÃO ESTADUAL</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>EMPRESA CONTA GRÁFICA</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>EMPRESA RADAR ILIMITADO</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>CONTADOR PROCURAÇÃO PF</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>CONTADOR PROCURAÇÃO PJ</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>CONTRATO CRÉDITO PRECATÓRIO</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>CONTRATO EXONERAÇÃO DE PROCESSOS</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>ADVOGADO PROCURAÇÃO EXONERAÇÃO</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>ADVOGADO PROCURAÇÃO SEFAZ</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>DESPACHANTE_1 PROCURAÇÃO</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>DESPACHANTE_2 PROCURAÇÃO</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>CONTRATO DE LOGÍSTICA_1</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>CONTRATO DE LOGÍSTICA_2</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>CONTRATO MAINO</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-        <button type="button" class="neumorphic" id="habilitacao_radar">
-          <i class="fa-light fa-users"></i>
-          <span>CONTRATO TCX</span>
-          <div class="message">PENDENTE</div>
-          <div class="arrow-right"></div>
-        </button>
-
-        <div id="submenu_botao" class="submenu">
-          <div style="display: flex; flex-direction: row">
-            <button
-              class="attach-file-button"
-              onclick="chooseFile('opcao1_1_input')"
-            >
-              <i class="fa-light fa-paperclip"></i> Anexar arquivo
-            </button>
-            <span style="width: 10px"></span>
-            <span class="file-name" style="display: none"></span>
-            <span style="width: 10px"></span>
-            <i
-              style="cursor: pointer; display: none; font-size: 24px"
-              class="fa"
-              id="trash"
-              >&#xf014;</i
-            >
-            <label
-              class="attach-file-label"
-              for="opcao1_1_input"
-              id="opcao1_1_label"
-            ></label>
-            <input type="file" class="file-input" style="display: none" />
-          </div>
+      </div>
+      -
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-state">EX: AL</p>
         </div>
       </div>
     </div>
 
-    <script src="scripts/etapas.js"></script>
-    <script src="scripts/utils.js"></script>
-  </body>
+    <li class="my-account drop-down arrow-right" data-drop-down="hover" id="account-popover">
+      <a href="#" onclick="return false" class="user-avatar">
+        <img data-user-avatar="image" class="user-pic" src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+          alt="Avatar missing" />
+      </a>
+
+      <!-- user-accounts select -->
+      <div id="account-content" class="drop-down-box" zze-scope="user-accounts-select" data-drop-down="box"
+        style="display: none">
+        <div class="user-menu-group">
+          <div class="user-info" zze-mark="current">
+            <a class="user-avatar">
+              <div class="image" style="
+                    display: flex;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    justify-content: center;
+                  ">
+                <img data-user-avatar="image" src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+                  alt="Avatar missing" style="width: 50px" />
+              </div>
+              <div class="details" style="display: flex; justify-content: center">
+                <span id="email"></span>
+              </div>
+            </a>
+          </div>
+
+          <ul class="account-menu" style="display: flex; align-items: center; flex-direction: column">
+            <li data-no-turbolink="true">
+              <a title="Clique para retornar" data-link="voltar" onclick="window.history.back()"
+                style="cursor: pointer">Voltar</a>
+            </li>
+            <li class="logout" data-no-turbolink="true">
+              <a title="Clique para deslogar de sua conta" data-link="logout" onclick="logout()"
+                style="cursor: pointer">Sair</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="user-menu-accounts hide" id="zze-user-accounts">
+          <h6 class="list-title">OUTRAS CONTAS</h6>
+          <ul class="list-accounts" id="zze-user-accounts-list"></ul>
+        </div>
+      </div>
+    </li>
+  </nav>
+
+  <div class="main-container">
+    <h1 style="margin-top: 40px; margin-bottom: 60px">ETAPA 1 - ABERTURA</h1>
+    <div class="buttons">
+      <div id="submenu_botao" class="submenu">
+        <div style="display: flex; flex-direction: row">
+          <button class="attach-file-button" onclick="chooseFile('opcao1_1_input')">
+            <i class="fa-light fa-paperclip"></i> Anexar arquivo
+          </button>
+          <span style="width: 10px"></span>
+          <span class="file-name" style="display: none"></span>
+          <span style="width: 10px"></span>
+          <i style="cursor: pointer; display: none; font-size: 24px" class="fa" id="trash">&#xf014;</i>
+          <label class="attach-file-label" for="opcao1_1_input" id="opcao1_1_label"></label>
+          <input type="file" class="file-input" style="display: none" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/etapas.js"></script>
+  <script src="scripts/utils.js"></script>
+</body>
+
 </html>

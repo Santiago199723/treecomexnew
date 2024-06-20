@@ -273,7 +273,7 @@ span {
   z-index: 9999;
 }
 
-.neumorphic::after {
+rphic::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -295,7 +295,7 @@ span {
   /* Muda o cursor para indicar que é clicável */
 }
 
-.neumorphic::before {
+rphic::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -310,9 +310,9 @@ span {
   /* Cor do traço */
 }
 
-.neumorphic.last-button .arrow-right,
-.neumorphic.last-button::after,
-.neumorphic.last-button::before {
+rphic.last-button .arrow-right,
+rphic.last-button::after,
+rphic.last-button::before {
   display: none;
 }
 
@@ -355,7 +355,7 @@ span {
   color: #df391c;
 }
 
-.neumorphic {
+rphic {
   display: inline-block;
   padding: 10px 20px;
   border: 2px solid #ddd;
@@ -366,12 +366,12 @@ span {
   position: relative;
 }
 
-.neumorphic:hover {
+rphic:hover {
   transform: translateY(-2px);
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
 }
 
-.neumorphic span {
+rphic span {
   font-size: 16px;
 }
 
@@ -421,12 +421,12 @@ span {
   /* Espaçamento acima e abaixo da linha */
 }
 
-.neumorphic.active .message {
+rphic.active .message {
   background-color: rgba(19, 114, 19, 0.5);
   display: block;
 }
 
-.neumorphic.pending .message {
+rphic.pending .message {
   background-color: rgba(0, 0, 255, 0.5);
   display: block;
 }

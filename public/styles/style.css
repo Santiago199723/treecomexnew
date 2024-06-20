@@ -12,6 +12,17 @@
 }
 
 button.neumorphic {
+  background-image: url('https://creazilla-store.fra1.digitaloceanspaces.com/emojis/52561/file-folder-emoji-clipart-lg.png');
+  background-size: cover;
+  width: 200px;
+  height: 200px;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  cursor: pointer;
+
   container-type: inline-size;
   height: 131px;
   width: 131px;
@@ -20,14 +31,10 @@ button.neumorphic {
   border: 0.5rem solid transparent;
   border-radius: 1rem;
   color: #e5e9f4;
-  background: #00000075;
 
   display: grid;
   place-content: center;
 
-  --shadow: -0.5rem -0.5rem 1rem hsl(0 0% 100% / 0.75),
-    0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5);
-  box-shadow: var(--shadow);
   outline: none;
   transition: all 0.1s;
 
@@ -45,23 +52,48 @@ button.neumorphic {
       inset -0.5rem -0.5rem 1rem hsl(0 0% 100% / 0.75);
     color: hsl(10 80% 50%);
 
-    > i {
+    >i {
       font-size: 28cqi;
     }
 
-    > span {
+    >span {
       font-size: 13cqi;
     }
   }
 
-  > i {
+  >i {
     font-size: 31cqi;
   }
 
-  > span {
+  >span {
     font-family: system-ui, sans-serif;
-    font-size: 16cqi;
+    font-size: 11cqi;
+    color: #000045;
   }
+}
+
+.neumorphic::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -25px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #ddd;
+}
+
+.neumorphic::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -15px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 2px;
+  background-color: #ddd;
 }
 
 body {

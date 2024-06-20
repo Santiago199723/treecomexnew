@@ -13,6 +13,7 @@ import { Actions, UserType } from "./enums.js";
 import { sendRecoveryEmail } from "./smtp.js";
 import { redis, sequelize } from "./database.js";
 import { Company, User, File, Perm, Process, Admin } from "./models.js";
+import { isUUID } from "./utils.js";
 
 const app = express();
 const k = ora("Initializing...");
@@ -127,7 +128,8 @@ app.post("/login", async (req, res) => {
           });
       } else {
         return res.status(404).json({
-          message: "Usuário não possui cadastro de empresa. Entre em contato com o suporte!",
+          message:
+            "Usuário não possui cadastro de empresa. Entre em contato com o suporte!",
         });
       }
     }
@@ -187,6 +189,12 @@ app.post("/company/register", async (req, res) => {
       } else {
         userRegId = userReg.id;
       }
+    } else if (isUUID(ofUser)) {
+      userRegId = ofUser;
+    } else {
+      return res.status(400).json({
+        message: "O valor deve ser um e-mail válido ou uuid",
+      });
     }
 
     await Company.create({
@@ -196,13 +204,14 @@ app.post("/company/register", async (req, res) => {
       country,
       matriz,
       registrant: req.cookies.userId,
-      ofUser: userRegId || ofUser,
+      ofUser: userRegId,
     });
 
     return res.status(200).json({
       message: "Registro bem-sucedido",
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       code: "SERVER_ERROR",
       message: "Ocorreu um erro interno do servidor",
@@ -398,7 +407,7 @@ app.get("/stage", async (req, res) => {
       ) {
         const user = await User.findOne({
           where: {
-            id: permData.triggeredUser,
+            id: req.cookies.userId,
           },
         });
 
@@ -505,14 +514,15 @@ app.get("/process", async (req, res) => {
         processes = await Process.findAll();
       }
 
-const user = await User.findOne({
- where: {
-   id: userId
-}})
+      const user = await User.findOne({
+        where: {
+          id: userId,
+        },
+      });
 
-if (user && user.userType === UserType.FINANCIAL) {
-processes = await Process.findAll();
-}
+      if (user && user.userType === UserType.FINANCIAL) {
+        processes = await Process.findAll();
+      }
     } else if (company) {
       processes = await Process.findAll({
         where: {

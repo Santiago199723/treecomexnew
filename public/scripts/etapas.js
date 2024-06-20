@@ -1,5 +1,5 @@
+let buttons;
 let offsetX, offsetY;
-const buttons = document.querySelectorAll(".neumorphic");
 const csn = Number(window.location.pathname.match(/[0-9]+/)[0]);
 
 function handleFileUpload(btnIndex) {
@@ -198,14 +198,12 @@ function showSubmenuData(btnIndex) {
           const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
 
           fileDetails.innerHTML = `
-            <p>Data de ${
-              value.type === 1 ? "anexo" : "exclusão"
+            <p>Data de ${value.type === 1 ? "anexo" : "exclusão"
             }: <span class="submenu-span-red">${formatDate(
               value[dateKey],
             )}</span></p>
             <span style="width: 10px"></span>
-            <p>${
-              value.type === 1 ? "Anexado por" : "Removido por"
+            <p>${value.type === 1 ? "Anexado por" : "Removido por"
             }: <span class="submenu-span-red">${value[actionKey]}</span></p>
           `;
 
@@ -231,9 +229,37 @@ window.onload = async function () {
     email.innerHTML = data.email;
   }
 
+  const buttonContainer = document.querySelector('.buttons');
+
+  let keys;
+  if (csn == 1) {
+    keys = Object.keys(etapas).slice(0, 33);
+  } else {
+    keys = Object.keys(etapas).slice(33, 41);
+  }
+
+  keys.forEach((label) => {
+    const button = document.createElement('button');
+    button.setAttribute('type', 'button');
+    button.classList.add('neumorphic');
+    const img = document.createElement("img");
+    img.src = "https://toppng.com/uploads/thumbnail/stationery-11550723051vefvxugbko.png"
+    img.style.width = "40px"
+    img.style.transform = "rotate(-45deg)"
+    img.style.position = "absolute"
+    img.style.right = "0"
+    img.style.display = "none"
+    const span = document.createElement('span');
+    span.textContent = label;
+    button.appendChild(img)
+    button.appendChild(span);
+    buttonContainer.appendChild(button);
+  })
+
+  buttons = document.querySelectorAll(".neumorphic");
+
   await refreshCompanyData();
-  showCompanyData();
-  await refreshButtons();
+  await refreshButtons()
 
   if (csn === 1) {
     const creationDate = new Date(companyData.createdAt);
@@ -315,6 +341,7 @@ document.addEventListener("click", function (event) {
 });
 
 async function refreshButtons() {
+  console.log(buttons)
   buttons.forEach(async (button, index) => {
     const submenuIndex = index + 1;
 
@@ -338,12 +365,13 @@ async function refreshButtons() {
 
       if (s.ok) {
         const data = await s.json();
+        const clip = button.querySelector("img")
+
         if (data.length !== 0) {
-          button.style.boxShadow =
-            "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+          clip.style.display = "flex"
+
         } else {
-          button.style.boxShadow =
-            "-0.5rem -0.5rem 1rem hsl(0 0% 100% / 0.75), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+          clip.style.display = "none"
         }
       }
     }
