@@ -182,8 +182,10 @@ function showSubmenuData(btnIndex) {
           const spans = document.querySelectorAll("span")
           spans.forEach((span) => {
             if (span.textContent === option) {
-              const div = span.closest(".neumorphic");
-              const img = div.querySelector("img")
+              const button = span.closest(".neumorphic");
+              button.style.boxShadow =
+            "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+              const img = button.querySelector("img")
               img.style.display = "flex"
             }
           });
@@ -191,8 +193,8 @@ function showSubmenuData(btnIndex) {
           const spans = document.querySelectorAll("span")
           spans.forEach((span) => {
             if (span.textContent === option) {
-              const div = span.closest(".neumorphic");
-              const img = div.querySelector("img")
+              const button = span.closest(".neumorphic");
+              const img = button.querySelector("img")
               img.style.display = "none"
             }
           });
@@ -251,7 +253,7 @@ window.onload = async function () {
     button.setAttribute('type', 'button');
     button.classList.add('neumorphic');
     const img = document.createElement("img");
-    img.src = "https://toppng.com/uploads/thumbnail/stationery-11550723051vefvxugbko.png"
+    img.src = "https://i.ibb.co/8P3QHKf/clipes-de-papel.png"
     img.style.width = "40px"
     img.style.transform = "rotate(-45deg)"
     img.style.position = "absolute"
@@ -269,7 +271,7 @@ window.onload = async function () {
   buttons.forEach((button, index) => {
     const submenuIndex = index + 1;
     showSubmenuData(submenuIndex);
-    
+
     button.addEventListener("click", (event) => {
       event.stopPropagation();
       showSubmenuData(submenuIndex);
