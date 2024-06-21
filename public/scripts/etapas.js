@@ -183,8 +183,7 @@ function showSubmenuData(btnIndex) {
           spans.forEach((span) => {
             if (span.textContent === option) {
               const button = span.closest(".neumorphic");
-              button.style.boxShadow =
-            "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+              // button.style.boxShadow = "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
               const img = button.querySelector("img")
               img.style.display = "flex"
             }
