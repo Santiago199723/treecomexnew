@@ -252,7 +252,7 @@ window.onload = async function () {
     button.setAttribute('type', 'button');
     button.classList.add('neumorphic');
     const img = document.createElement("img");
-    img.src = "https://i.ibb.co/8P3QHKf/clipes-de-papel.png"
+    img.src = "https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
     img.style.width = "40px"
     img.style.transform = "rotate(-45deg)"
     img.style.position = "absolute"
