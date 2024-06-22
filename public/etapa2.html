@@ -1,354 +1,433 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>TREE COMEX - ABERTURA</title>
-    <link rel="stylesheet" href="styles/style.css" />
-    <link rel="stylesheet" href="styles/etapas.css" />
-    <link rel="stylesheet" href="styles/stoled.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-  </head>
 
-  <body>
-    <nav class="header">
-      <!-- Contêiner da logo -->
-      <div class="logo-container">
-        <img class="logo" src="/assets/TREICO.png" alt="Logo" />
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <title>TREE COMEX - ABERTURA</title>
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/etapas.css" />
+  <link rel="stylesheet" href="styles/stoled.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
 
-      <div class="current-process-container">
-        <p id="current-process"></p>
-        <span style="width: 5px"></span>
-        <p id="current-process-number"></p>
-      </div>
+<body>
+  <nav class="header">
+    <!-- Contêiner da logo -->
+    <div class="logo-container">
+      <img class="logo" src="/assets/TREICO.png" alt="Logo" />
+    </div>
 
-      <!-- Informações da empresa -->
-      <div class="company-info-0">
-        <div class="info-item-0">
-          <div class="info-value-0">
-            <p id="company-name">NOME DA EMMPRESA</p>
-          </div>
-        </div>
-        -
-        <div class="info-item-0">
-          <div class="info-value-0">
-            <p id="company-type">FILIAL OU MATRIZ</p>
-          </div>
-        </div>
-        -
-        <div class="info-item-0">
-          <div class="info-value-0">
-            <p id="company-state">EX: AL</p>
-          </div>
+    <div class="current-process-container">
+      <p id="current-process"></p>
+      <span style="width: 5px"></span>
+      <p id="current-process-number"></p>
+    </div>
+
+    <!-- Informações da empresa -->
+    <div class="company-info-0">
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-name">NOME DA EMMPRESA</p>
         </div>
       </div>
-
-      <li
-        class="my-account drop-down arrow-right"
-        data-drop-down="hover"
-        id="account-popover"
-      >
-        <a href="#" onclick="return false" class="user-avatar">
-          <img
-            data-user-avatar="image"
-            class="user-pic"
-            src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-            alt="Avatar missing"
-          />
-        </a>
-
-        <!-- user-accounts select -->
-        <div
-          id="account-content"
-          class="drop-down-box"
-          zze-scope="user-accounts-select"
-          data-drop-down="box"
-          style="display: none"
-        >
-          <div class="user-menu-group">
-            <div class="user-info" zze-mark="current">
-              <a class="user-avatar">
-                <div
-                  class="image"
-                  style="
-                    display: flex;
-                    margin-top: 10px;
-                    margin-bottom: 10px;
-                    justify-content: center;
-                  "
-                >
-                  <img
-                    data-user-avatar="image"
-                    src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-                    alt="Avatar missing"
-                    style="width: 50px"
-                  />
-                </div>
-                <div
-                  class="details"
-                  style="display: flex; justify-content: center"
-                >
-                  <span id="email"></span>
-                </div>
-              </a>
-            </div>
-
-            <ul
-              class="account-menu"
-              style="display: flex; align-items: center; flex-direction: column"
-            >
-              <li data-no-turbolink="true">
-                <a
-                  title="Clique para retornar"
-                  data-link="voltar"
-                  onclick="window.history.back()"
-                  style="cursor: pointer"
-                  >Voltar</a
-                >
-              </li>
-              <li class="logout" data-no-turbolink="true">
-                <a
-                  title="Clique para deslogar de sua conta"
-                  data-link="logout"
-                  onclick="logout()"
-                  style="cursor: pointer"
-                  >Sair</a
-                >
-              </li>
-            </ul>
-          </div>
-
-          <div class="user-menu-accounts hide" id="zze-user-accounts">
-            <h6 class="list-title">OUTRAS CONTAS</h6>
-            <ul class="list-accounts" id="zze-user-accounts-list"></ul>
-          </div>
+      -
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-type">FILIAL OU MATRIZ</p>
         </div>
-      </li>
-    </nav>
-
-    <div class="main-container">
-      <!-- Seu conteúdo HTML existente -->
-      <h1 style="margin-top: 40px; margin-bottom: 60px">ETAPA 2 - PROCESSOS</h1>
-      <div class="buttons">
-        <button class="neumorphic" id="catalogo_produto">
-          <i class="fa-light fa-user"></i>
-          <span>CATÁLOGO DE PRODUTO</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="troca_email">
-          <i class="fa-light fa-user"></i>
-          <span>TROCA DE E-MAIL</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="numerario">
-          <i class="fa-light fa-user"></i>
-          <span>NUMERÁRIO</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="proforma_invoice">
-          <i class="fa-light fa-user"></i>
-          <span>PROFORMA INVOICE</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="packlist">
-          <i class="fa-light fa-user"></i>
-          <span>PACKLIST</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="certificado_origem">
-          <i class="fa-light fa-user"></i>
-          <span>CERTIFICADO DE ORIGEM</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="li_deferida">
-          <i class="fa-light fa-user"></i>
-          <span>LI DEFERIDA (SE FOR PRÉ EMBARQUE)</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="comercial_invoice">
-          <i class="fa-light fa-user"></i>
-          <span>COMERCIAL INVOICE</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="bill_of_lading">
-          <i class="fa-light fa-user"></i>
-          <span>BILL OF LADING (BL)</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="ce_mercante">
-          <i class="fa-light fa-user"></i>
-          <span>CE MERCANTE</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="declaracao_importacao">
-          <i class="fa-light fa-user"></i>
-          <span>DECLARAÇÃO DE IMPORTAÇÃO (DI)</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="xml">
-          <i class="fa-light fa-user"></i>
-          <span>XML (DI E NOTA ENTRADA)</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="comprovante_importacao">
-          <i class="fa-light fa-user"></i>
-          <span>COMPROVANTE DE IMPORTAÇÃO (CI)</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="planilha_custo_operacional">
-          <i class="fa-light fa-user"></i>
-          <span>PLANILHA CUSTO OPERACIONAL</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="planilha_master">
-          <i class="fa-light fa-user"></i>
-          <span>PLANILHA MASTER</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="nota_fiscal_entrada">
-          <i class="fa-light fa-user"></i>
-          <span>NOTA FISCAL ENTRADA</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="extrato_fatura_lib_bl">
-          <i class="fa-light fa-user"></i>
-          <span>EXTRATO E FATURA LIB BL</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="compr_pagamento_lib_bl">
-          <i class="fa-light fa-user"></i>
-          <span>COMPR PAGAMENTO LIB BL</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="extrato_fatura_armazem">
-          <i class="fa-light fa-user"></i>
-          <span>EXTRATO E FATURA ARMAZÉM</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="compr_pagamento_armazem">
-          <i class="fa-light fa-user"></i>
-          <span>COMPR PAGAMENTO ARMAZÉM</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="extrato_fatura_afrmm">
-          <i class="fa-light fa-user"></i>
-          <span>EXTRATO E FATURA AFRMM</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="compr_pagamento_afrmm">
-          <i class="fa-light fa-user"></i>
-          <span>COMPR PAGAMENTO AFRMM</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="extrato_fatura_gnre">
-          <i class="fa-light fa-user"></i>
-          <span>EXTRATO E FATURA GNRE</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="compr_pagamento_gnre">
-          <i class="fa-light fa-user"></i>
-          <span>COMPR PAGAMENTO GNRE</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="extrato_fatura_aduaneiro">
-          <i class="fa-light fa-user"></i>
-          <span>EXTRATO E FATURA ADUANEIRO</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="compr_pagamento_aduaneiro">
-          <i class="fa-light fa-user"></i>
-          <span>COMPR PAGAMENTO ADUANEIRO</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="extrato_serasa">
-          <i class="fa-light fa-user"></i>
-          <span>EXTRATO SERASA</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="compr_pagamento_serasa">
-          <i class="fa-light fa-user"></i>
-          <span>COMPR PAGAMENTO SERASA</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="nota_fiscal_saida">
-          <i class="fa-light fa-user"></i>
-          <span>NOTA FISCAL SAÍDA</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="pagamento_nota_fiscal">
-          <i class="fa-light fa-user"></i>
-          <span>PAGAMENTO NOTA FISCAL</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <button class="neumorphic" id="recibo_devolucao_container">
-          <i class="fa-light fa-user"></i>
-          <span>RECIBO DEVOLUÇÃO CONTAINER</span>
-          <div class="message">CONCLUÍDO!</div>
-        </button>
-
-        <!-- Submenu do primeiro botao -->
-        <div id="submenu_botao" class="submenu">
-          <div style="display: flex; flex-direction: row">
-            <button
-              class="attach-file-button"
-              onclick="chooseFile('opcao1_1_input')"
-            >
-              <i class="fa-light fa-paperclip"></i> Anexar arquivo
-            </button>
-            <span style="width: 10px"></span>
-            <span class="file-name" style="display: none"></span>
-            <span style="width: 10px"></span>
-            <i
-              style="cursor: pointer; display: none; font-size: 24px"
-              class="fa"
-              id="trash"
-              >&#xf014;</i
-            >
-            <label
-              class="attach-file-label"
-              for="opcao1_1_input"
-              id="opcao1_1_label"
-            ></label>
-            <input type="file" class="file-input" style="display: none" />
-          </div>
+      </div>
+      -
+      <div class="info-item-0">
+        <div class="info-value-0">
+          <p id="company-state">EX: AL</p>
         </div>
       </div>
     </div>
 
-    <script src="scripts/etapas.js"></script>
-    <script src="scripts/utils.js"></script>
-  </body>
+    <li class="my-account drop-down arrow-right" data-drop-down="hover" id="account-popover">
+      <a href="#" onclick="return false" class="user-avatar">
+        <img data-user-avatar="image" class="user-pic" src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+          alt="Avatar missing" />
+      </a>
+
+      <!-- user-accounts select -->
+      <div id="account-content" class="drop-down-box" zze-scope="user-accounts-select" data-drop-down="box"
+        style="display: none">
+        <div class="user-menu-group">
+          <div class="user-info" zze-mark="current">
+            <a class="user-avatar">
+              <div class="image" style="
+                    display: flex;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    justify-content: center;
+                  ">
+                <img data-user-avatar="image" src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+                  alt="Avatar missing" style="width: 50px" />
+              </div>
+              <div class="details" style="display: flex; justify-content: center">
+                <span id="email"></span>
+              </div>
+            </a>
+          </div>
+
+          <ul class="account-menu" style="display: flex; align-items: center; flex-direction: column">
+            <li data-no-turbolink="true">
+              <a title="Clique para retornar" data-link="voltar" onclick="window.history.back()"
+                style="cursor: pointer">Voltar</a>
+            </li>
+            <li class="logout" data-no-turbolink="true">
+              <a title="Clique para deslogar de sua conta" data-link="logout" onclick="logout()"
+                style="cursor: pointer">Sair</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="user-menu-accounts hide" id="zze-user-accounts">
+          <h6 class="list-title">OUTRAS CONTAS</h6>
+          <ul class="list-accounts" id="zze-user-accounts-list"></ul>
+        </div>
+      </div>
+    </li>
+  </nav>
+
+  <div class="main-container">
+    <!-- Seu conteúdo HTML existente -->
+    <h1 style="margin-top: 40px; margin-bottom: 60px">ETAPA 2 - PROCESSOS</h1>
+    <div class="buttons">
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/FxCrLxg/1.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/swSz4dm/2.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/Bc7Z5tB/3.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/x1j7FGM/4.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/1M1jfKc/5.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/jW4qy7R/6.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/c3dGRvh/7.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/tMQXZKn/8.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/pwWnH83/9.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/9Gyk845/10.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/jRkFGqj/11.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/dmmFcqS/12.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/YyQDvD1/13.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/3cH96N3/14.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/kxN1Sp5/15.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/N9gbbLt/16.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/thbmbmh/17.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/72Lkj4C/18.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/nwpvR7V/19.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/pvwQQ72/20.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/MSnc8S3/21.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/xXF9rK2/22.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/pLmtdm2/23.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/5RM2J16/24.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/GMgHMv5/25.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/xzSYNdZ/26.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/jyXRdPS/27.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/cXmSdwY/28.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/SBmHRJV/29.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/0ckr60v/30.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <button type="button" class="neumorphic" style="background-image: url(https://i.ibb.co/n83h8Vw/31.png)">
+        <img src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png" style="
+            width: 40px;
+            transform: rotate(-45deg);
+            position: absolute;
+            right: -6px;
+            display: none;
+          " />
+      </button>
+
+      <!-- Submenu do primeiro botao -->
+      <div id="submenu_botao" class="submenu">
+        <div style="display: flex; flex-direction: row">
+          <button class="attach-file-button" onclick="chooseFile('opcao1_1_input')">
+            <i class="fa-light fa-paperclip"></i> Anexar arquivo
+          </button>
+          <span style="width: 10px"></span>
+          <span class="file-name" style="display: none"></span>
+          <span style="width: 10px"></span>
+          <i style="cursor: pointer; display: none; font-size: 24px" class="fa" id="trash">&#xf014;</i>
+          <label class="attach-file-label" for="opcao1_1_input" id="opcao1_1_label"></label>
+          <input type="file" class="file-input" style="display: none" />
+        </div>
+      </div>
+    </div>
+
+    <button class="back-button-cyan" onclick="logout()">
+      <image style="width: 20px" src="/assets/back-white.png"></image>
+    </button>
+  </div>
+
+  <script src="scripts/etapas.js"></script>
+  <script src="scripts/utils.js"></script>
+</body>
+
 </html>
