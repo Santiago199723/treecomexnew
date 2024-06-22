@@ -3,7 +3,7 @@ let offsetX, offsetY;
 const submenu = document.querySelector(".submenu");
 const csn = Number(window.location.pathname.match(/[0-9]+/)[0]);
 
-function handleFileUpload(btnIndex) {
+function handleFileUpload(btnIndex, button) {
   const fileInput = document.querySelector(".file-input");
 
   if (!fileInput.files || fileInput.files.length === 0) return;
@@ -50,7 +50,7 @@ function handleFileUpload(btnIndex) {
       }
 
       alert(data.message);
-      showSubmenuData(btnIndex);
+      showSubmenuData(btnIndex, button);
     });
   };
 
@@ -104,7 +104,7 @@ function showSubmenuData(btnIndex, button) {
   trash.style.display = "none";
 
   attachBtn.onclick = () => input.click();
-  input.onchange = () => handleFileUpload(btnIndex);
+  input.onchange = () => handleFileUpload(btnIndex, button);
 
   const option = getOptionType(btnIndex);
   if (option) {
