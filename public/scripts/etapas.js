@@ -9,6 +9,13 @@ function handleFileUpload(btnIndex, button) {
   if (!fileInput.files || fileInput.files.length === 0) return;
 
   const file = fileInput.files[0];
+  const allowedTypes = ["application/pdf", "image/png", "image/jpeg", "text/xml"];
+
+  if (!allowedTypes.includes(file.type)) {
+    alert("Por favor, selecione um arquivo PDF, PNG, JPEG ou XML.");
+    return;
+  }
+
   const reader = new FileReader();
 
   reader.onload = function (event) {
@@ -56,6 +63,7 @@ function handleFileUpload(btnIndex, button) {
 
   reader.readAsDataURL(file);
 }
+
 
 function handleFileRemove(fileId, btnIndex, button) {
   const resp = confirm("Tem certeza de que deseja excluir o arquivo?");
