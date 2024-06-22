@@ -173,16 +173,12 @@ function showSubmenuData(btnIndex, button) {
           fileName.style.display = "flex";
           trash.style.display = "flex";
 
-          if (button) {
-            // button.style.boxShadow = "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
-            const img = button.querySelector("img");
-            img.style.display = "flex";
-          }
+          // button.style.boxShadow = "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+          const img = button.querySelector("img");
+          img.style.display = "flex";
         } else {
-          if (button) {
-            const img = button.querySelector("img");
-            img.style.display = "none";
-          }
+          const img = button.querySelector("img");
+          img.style.display = "none";
         }
 
         sortedData.forEach((value) => {
@@ -193,14 +189,12 @@ function showSubmenuData(btnIndex, button) {
           const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
 
           fileDetails.innerHTML = `
-            <p>Data de ${
-              value.type === 1 ? "anexo" : "exclusão"
+            <p>Data de ${value.type === 1 ? "anexo" : "exclusão"
             }: <span class="submenu-span-red">${formatDate(
               value[dateKey],
             )}</span></p>
             <span style="width: 10px"></span>
-            <p>${
-              value.type === 1 ? "Anexado por" : "Removido por"
+            <p>${value.type === 1 ? "Anexado por" : "Removido por"
             }: <span class="submenu-span-red">${value[actionKey]}</span></p>
           `;
 
