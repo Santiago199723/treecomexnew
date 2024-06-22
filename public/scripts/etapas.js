@@ -12,7 +12,7 @@ function handleFileUpload(btnIndex, button) {
   const allowedTypes = ["application/pdf", "image/png", "image/jpeg", "text/xml"];
 
   if (!allowedTypes.includes(file.type)) {
-    alert("Por favor, selecione um arquivo PDF, PNG, JPEG ou XML.");
+    alert("Por favor, selecione arquivos apenas nas extensões PDF, PMG, JPEG ou XML");
     return;
   }
 
