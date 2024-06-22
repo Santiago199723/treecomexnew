@@ -407,17 +407,18 @@ app.get("/stage", async (req, res) => {
       ) {
         const user = await User.findOne({
           where: {
-            id: permData.triggeredUser
+            id: permData.triggeredUser,
           },
         });
 
         const admin = await Admin.findOne({
           where: {
-            id: permData.triggeredUser
+            id: permData.triggeredUser,
           },
         });
 
-        if (!user && !admin) return res.status(404).send({ code: "MISSING_USER" });
+        if (!user && !admin)
+          return res.status(404).send({ code: "MISSING_USER" });
 
         if (Number(stage) === 1) {
           if (result.action === Actions.UPLOADED_FILE) {
@@ -462,7 +463,7 @@ app.post("/sniff", async (req, res) => {
     const { action, company, data } = req.body;
 
     if (!userId) {
-      return res.redirect("/index.html")
+      return res.redirect("/index.html");
     }
 
     data.triggeredUser = userId;

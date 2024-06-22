@@ -14,20 +14,17 @@ function handleFileUpload(btnIndex) {
   reader.onload = function (event) {
     const fileBlob = event.target.result.split(",")[1];
 
-    fetch(
-      `${window.location.protocol}//${window.location.hostname}/upload-file`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: file.name,
-          blob: fileBlob,
-          mimeType: file.type,
-        }),
+    fetch("/upload-file", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ).then(async (response) => {
+      body: JSON.stringify({
+        name: file.name,
+        blob: fileBlob,
+        mimeType: file.type,
+      }),
+    }).then(async (response) => {
       const data = await response.json();
 
       if (response.ok) {
@@ -38,21 +35,18 @@ function handleFileUpload(btnIndex) {
           processId: csn !== 1 ? processId : undefined,
         };
 
-        await fetch(
-          `${window.location.protocol}//${window.location.hostname}/sniff`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              action: "uploaded_file",
-              data: obj,
-              company: companyData.cnpj,
-            }),
-            credentials: "include",
+        await fetch("/sniff", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify({
+            action: "uploaded_file",
+            data: obj,
+            company: companyData.cnpj,
+          }),
+          credentials: "include",
+        });
       }
 
       alert(data.message);
@@ -63,7 +57,7 @@ function handleFileUpload(btnIndex) {
   reader.readAsDataURL(file);
 }
 
-function handleFileRemove(fileId, btnIndex) {
+function handleFileRemove(fileId, btnIndex, button) {
   const resp = confirm("Tem certeza de que deseja excluir o arquivo?");
   if (resp === true) {
     const obj = {
@@ -73,7 +67,7 @@ function handleFileRemove(fileId, btnIndex) {
       processId: csn !== 1 ? processId : undefined,
     };
 
-    fetch(`${window.location.protocol}//${window.location.hostname}/sniff`, {
+    fetch("/sniff", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +81,7 @@ function handleFileRemove(fileId, btnIndex) {
     }).then((response) => {
       if (response.ok) {
         alert("Arquivo excluido com sucesso");
-        showSubmenuData(btnIndex);
+        showSubmenuData(btnIndex, button);
       }
     });
   } else {
@@ -95,7 +89,7 @@ function handleFileRemove(fileId, btnIndex) {
   }
 }
 
-function showSubmenuData(btnIndex) {
+function showSubmenuData(btnIndex, button) {
   const fileDetailsElements = submenu.querySelectorAll(".file-details");
   fileDetailsElements.forEach((element) => {
     element.remove();
@@ -175,28 +169,20 @@ function showSubmenuData(btnIndex) {
             URL.revokeObjectURL(url);
           };
 
-          trash.onclick = () => handleFileRemove(file.id, btnIndex);
+          trash.onclick = () => handleFileRemove(file.id, btnIndex, button);
           fileName.style.display = "flex";
           trash.style.display = "flex";
 
-          const spans = document.querySelectorAll("span")
-          spans.forEach((span) => {
-            if (span.textContent === option) {
-              const button = span.closest(".neumorphic");
-              // button.style.boxShadow = "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
-              const img = button.querySelector("img")
-              img.style.display = "flex"
-            }
-          });
+          if (button) {
+            // button.style.boxShadow = "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+            const img = button.querySelector("img");
+            img.style.display = "flex";
+          }
         } else {
-          const spans = document.querySelectorAll("span")
-          spans.forEach((span) => {
-            if (span.textContent === option) {
-              const button = span.closest(".neumorphic");
-              const img = button.querySelector("img")
-              img.style.display = "none"
-            }
-          });
+          if (button) {
+            const img = button.querySelector("img");
+            img.style.display = "none";
+          }
         }
 
         sortedData.forEach((value) => {
@@ -207,12 +193,14 @@ function showSubmenuData(btnIndex) {
           const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
 
           fileDetails.innerHTML = `
-            <p>Data de ${value.type === 1 ? "anexo" : "exclusão"
+            <p>Data de ${
+              value.type === 1 ? "anexo" : "exclusão"
             }: <span class="submenu-span-red">${formatDate(
               value[dateKey],
             )}</span></p>
             <span style="width: 10px"></span>
-            <p>${value.type === 1 ? "Anexado por" : "Removido por"
+            <p>${
+              value.type === 1 ? "Anexado por" : "Removido por"
             }: <span class="submenu-span-red">${value[actionKey]}</span></p>
           `;
 
@@ -238,43 +226,44 @@ window.onload = async function () {
     email.innerHTML = data.email;
   }
 
-  const buttonContainer = document.querySelector('.buttons');
+  //const buttonContainer = document.querySelector(".buttons");
 
-  let keys;
-  if (csn == 1) {
-    keys = Object.keys(etapas).slice(0, 33);
-  } else {
-    keys = Object.keys(etapas).slice(33, 41);
-  }
+  //let keys;
+  //if (csn == 1) {
+  //keys = Object.keys(etapas).slice(0, 33);
+  //} else {
+  //keys = Object.keys(etapas).slice(33, 41);
+  //}
 
-  keys.forEach((label) => {
-    const button = document.createElement('button');
-    button.setAttribute('type', 'button');
-    button.classList.add('neumorphic');
-    const img = document.createElement("img");
-    img.src = "https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
-    img.style.width = "40px"
-    img.style.transform = "rotate(-45deg)"
-    img.style.position = "absolute"
-    img.style.right = "0"
-    img.style.display = "none"
-    const span = document.createElement('span');
-    span.textContent = label;
-    button.appendChild(img)
-    button.appendChild(span);
-    buttonContainer.appendChild(button);
-  })
+  //keys.forEach((label) => {
+  //const button = document.createElement("button");
+  //button.setAttribute("type", "button");
+  //button.classList.add("neumorphic");
+  //button.style.backgroundImage = "https://ibb.co/dtGjdmK";
+  //const img = document.createElement("img");
+  //img.src = "https://i.ibb.co/89mwDty/clipes-de-papel-1.png";
+  //img.style.width = "40px";
+  //img.style.transform = "rotate(-45deg)";
+  //img.style.position = "absolute";
+  //img.style.right = "0";
+  //img.style.display = "none";
+  //const span = document.createElement("span");
+  //span.textContent = label;
+  //button.appendChild(img);
+  //button.appendChild(span);
+  //buttonContainer.appendChild(button);
+  //});
 
-  buttons = document.querySelectorAll(".neumorphic");
+  const buttons = document.querySelectorAll(".neumorphic");
 
   buttons.forEach((button, index) => {
     const submenuIndex = index + 1;
-    showSubmenuData(submenuIndex);
+    showSubmenuData(submenuIndex, button);
 
     button.addEventListener("click", (event) => {
       event.stopPropagation();
-      showSubmenuData(submenuIndex);
-      submenu.style.display = "flex"
+      showSubmenuData(submenuIndex, button);
+      submenu.style.display = "flex";
     });
   });
 
@@ -316,29 +305,6 @@ window.onload = async function () {
     }
   }
 };
-
-let draggable = document.querySelector("#submenu_botao");
-
-function drag(event) {
-  draggable.style.left = event.clientX - offsetX + "px";
-  draggable.style.top = event.clientY - offsetY + "px";
-}
-
-function stopDragging(event) {
-  document.removeEventListener("mousemove", drag);
-  document.removeEventListener("mouseup", stopDragging);
-}
-
-draggable.addEventListener("mousedown", function (event) {
-  event.preventDefault();
-
-  offsetX = event.clientX - draggable.getBoundingClientRect().left;
-  offsetY = event.clientY - draggable.getBoundingClientRect().top;
-
-  document.addEventListener("mousemove", drag);
-
-  document.addEventListener("mouseup", stopDragging);
-});
 
 document.addEventListener("click", function (event) {
   const submenuBotao = document.querySelector("#submenu_botao");

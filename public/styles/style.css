@@ -11,8 +11,26 @@
   justify-content: space-around;
 }
 
+.back-button-cyan {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  padding: 15px 10px;
+  color: #fcfcfc;
+  background: none;
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.5s;
+  letter-spacing: 4px;
+}
+
+.back-button-cyan:hover {
+  background: #03e9f4;
+  color: #050801;
+}
+
 button.neumorphic {
-  background-image: url('https://creazilla-store.fra1.digitaloceanspaces.com/emojis/52561/file-folder-emoji-clipart-lg.png');
   background-size: cover;
   width: 200px;
   height: 200px;
@@ -25,8 +43,7 @@ button.neumorphic {
 
   container-type: inline-size;
   height: 131px;
-  width: 131px;
-  margin-left: 10px;
+  width: 165px;
   margin-right: 10px;
   border: 0.5rem solid transparent;
   border-radius: 1rem;
@@ -52,20 +69,20 @@ button.neumorphic {
       inset -0.5rem -0.5rem 1rem hsl(0 0% 100% / 0.75);
     color: hsl(10 80% 50%);
 
-    >i {
+    > i {
       font-size: 28cqi;
     }
 
-    >span {
+    > span {
       font-size: 13cqi;
     }
   }
 
-  >i {
+  > i {
     font-size: 31cqi;
   }
 
-  >span {
+  > span {
     font-family: system-ui, sans-serif;
     font-size: 11cqi;
     color: #000045;

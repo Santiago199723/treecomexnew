@@ -1,119 +1,732 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TREE COMEX - ABERTURA</title>
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/etapas.css" />
+    <link rel="stylesheet" href="styles/stoled.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>TREE COMEX - ABERTURA</title>
-  <link rel="stylesheet" href="styles/style.css" />
-  <link rel="stylesheet" href="styles/etapas.css" />
-  <link rel="stylesheet" href="styles/stoled.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-</head>
-
-<body>
-  <!-- Contêiner da logo -->
-  <nav class="header">
+  <body>
     <!-- Contêiner da logo -->
-    <div class="logo-container">
-      <img class="logo" src="/assets/TREICO.png" alt="Logo" />
-    </div>
+    <nav class="header">
+      <!-- Contêiner da logo -->
+      <div class="logo-container">
+        <img class="logo" src="/assets/TREICO.png" alt="Logo" />
+      </div>
 
-    <div class="data-restante-container">
-      <p id="rest-remainer"></p>
-      <span style="width: 5px"></span>
-      <p id="hint-text-remaining"></p>
-    </div>
+      <div class="data-restante-container">
+        <p id="rest-remainer"></p>
+        <span style="width: 5px"></span>
+        <p id="hint-text-remaining"></p>
+      </div>
 
-    <!-- Informações da empresa -->
-    <div class="company-info-0">
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-name">NOME DA EMMPRESA</p>
+      <!-- Informações da empresa -->
+      <div class="company-info-0">
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-name">NOME DA EMMPRESA</p>
+          </div>
+        </div>
+        -
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-type">FILIAL OU MATRIZ</p>
+          </div>
+        </div>
+        -
+        <div class="info-item-0">
+          <div class="info-value-0">
+            <p id="company-state">EX: AL</p>
+          </div>
         </div>
       </div>
-      -
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-type">FILIAL OU MATRIZ</p>
-        </div>
-      </div>
-      -
-      <div class="info-item-0">
-        <div class="info-value-0">
-          <p id="company-state">EX: AL</p>
-        </div>
-      </div>
-    </div>
 
-    <li class="my-account drop-down arrow-right" data-drop-down="hover" id="account-popover">
-      <a href="#" onclick="return false" class="user-avatar">
-        <img data-user-avatar="image" class="user-pic" src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-          alt="Avatar missing" />
-      </a>
+      <li
+        class="my-account drop-down arrow-right"
+        data-drop-down="hover"
+        id="account-popover"
+      >
+        <a href="#" onclick="return false" class="user-avatar">
+          <img
+            data-user-avatar="image"
+            class="user-pic"
+            src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+            alt="Avatar missing"
+          />
+        </a>
 
-      <!-- user-accounts select -->
-      <div id="account-content" class="drop-down-box" zze-scope="user-accounts-select" data-drop-down="box"
-        style="display: none">
-        <div class="user-menu-group">
-          <div class="user-info" zze-mark="current">
-            <a class="user-avatar">
-              <div class="image" style="
+        <!-- user-accounts select -->
+        <div
+          id="account-content"
+          class="drop-down-box"
+          zze-scope="user-accounts-select"
+          data-drop-down="box"
+          style="display: none"
+        >
+          <div class="user-menu-group">
+            <div class="user-info" zze-mark="current">
+              <a class="user-avatar">
+                <div
+                  class="image"
+                  style="
                     display: flex;
                     margin-top: 10px;
                     margin-bottom: 10px;
                     justify-content: center;
-                  ">
-                <img data-user-avatar="image" src="https://utils.organizze.com.br/avatar/avatar-missing.png"
-                  alt="Avatar missing" style="width: 50px" />
-              </div>
-              <div class="details" style="display: flex; justify-content: center">
-                <span id="email"></span>
-              </div>
-            </a>
+                  "
+                >
+                  <img
+                    data-user-avatar="image"
+                    src="https://utils.organizze.com.br/avatar/avatar-missing.png"
+                    alt="Avatar missing"
+                    style="width: 50px"
+                  />
+                </div>
+                <div
+                  class="details"
+                  style="display: flex; justify-content: center"
+                >
+                  <span id="email"></span>
+                </div>
+              </a>
+            </div>
+
+            <ul
+              class="account-menu"
+              style="display: flex; align-items: center; flex-direction: column"
+            >
+              <li data-no-turbolink="true">
+                <a
+                  title="Clique para retornar"
+                  data-link="voltar"
+                  onclick="window.history.back()"
+                  style="cursor: pointer"
+                  >Voltar</a
+                >
+              </li>
+              <li class="logout" data-no-turbolink="true">
+                <a
+                  title="Clique para deslogar de sua conta"
+                  data-link="logout"
+                  onclick="logout()"
+                  style="cursor: pointer"
+                  >Sair</a
+                >
+              </li>
+            </ul>
           </div>
 
-          <ul class="account-menu" style="display: flex; align-items: center; flex-direction: column">
-            <li data-no-turbolink="true">
-              <a title="Clique para retornar" data-link="voltar" onclick="window.history.back()"
-                style="cursor: pointer">Voltar</a>
-            </li>
-            <li class="logout" data-no-turbolink="true">
-              <a title="Clique para deslogar de sua conta" data-link="logout" onclick="logout()"
-                style="cursor: pointer">Sair</a>
-            </li>
-          </ul>
+          <div class="user-menu-accounts hide" id="zze-user-accounts">
+            <h6 class="list-title">OUTRAS CONTAS</h6>
+            <ul class="list-accounts" id="zze-user-accounts-list"></ul>
+          </div>
         </div>
+      </li>
+    </nav>
 
-        <div class="user-menu-accounts hide" id="zze-user-accounts">
-          <h6 class="list-title">OUTRAS CONTAS</h6>
-          <ul class="list-accounts" id="zze-user-accounts-list"></ul>
+    <div class="main-container">
+      <h1 style="margin-top: 40px; margin-bottom: 60px">ETAPA 1 - ABERTURA</h1>
+      <div class="buttons">
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/pQY1QJK/1.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/BtbBrhy/2.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/mTYSBwM/3.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/NNTsC2s/4.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/41Cs1Mp/5.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/zXnyMWd/6.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/hRKsDf6/7.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/027Fznr/8.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/L97TsDn/9.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/JCd7fvq/10.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/NjF6c7j/11.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/FhYFxwb/12.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/xqr0DRM/13.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/Npj0wT1/14.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/rZVjmn1/15.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/L0jD9GG/16.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/C0DKNX4/17.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/pZJGP21/18.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/sv3x8Tv/19.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/bd8Dj6R/20.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/T18Y7PV/21.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/CWndMg7/22.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/CWndMg7/22.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/tMQs2tZ/23.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/q0XPysY/24.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/YRvDJYj/25.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/VxRBjGM/26.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/Gk028WC/27.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/3dR8dZN/28.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/kqFjHKN/29.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/NrzJGbq/30.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/1mgpfHX/31.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <button
+          type="button"
+          class="neumorphic"
+          style="background-image: url(https://i.ibb.co/yP3Gxn8/32.png)"
+        >
+          <img
+            src="https://i.ibb.co/89mwDty/clipes-de-papel-1.png"
+            style="
+              width: 40px;
+              transform: rotate(-45deg);
+              position: absolute;
+              right: 0px;
+              display: none;
+            "
+          />
+        </button>
+
+        <div id="submenu_botao" class="submenu">
+          <div style="display: flex; flex-direction: row">
+            <button
+              class="attach-file-button"
+              onclick="chooseFile('opcao1_1_input')"
+            >
+              <i class="fa-light fa-paperclip"></i>
+              Anexar arquivo
+            </button>
+            <span style="width: 10px"></span>
+            <span class="file-name" style="display: none"></span>
+            <span style="width: 10px"></span>
+            <i
+              style="cursor: pointer; display: none; font-size: 24px"
+              class="fa"
+              id="trash"
+              >&#xf014;</i
+            >
+            <label
+              class="attach-file-label"
+              for="opcao1_1_input"
+              id="opcao1_1_label"
+            ></label>
+            <input type="file" class="file-input" style="display: none" />
+          </div>
         </div>
       </div>
-    </li>
-  </nav>
 
-  <div class="main-container">
-    <h1 style="margin-top: 40px; margin-bottom: 60px">ETAPA 1 - ABERTURA</h1>
-    <div class="buttons">
-      <div id="submenu_botao" class="submenu">
-        <div style="display: flex; flex-direction: row">
-          <button class="attach-file-button" onclick="chooseFile('opcao1_1_input')">
-            <i class="fa-light fa-paperclip"></i>
-            Anexar arquivo
-          </button>
-          <span style="width: 10px"></span>
-          <span class="file-name" style="display: none"></span>
-          <span style="width: 10px"></span>
-          <i style="cursor: pointer; display: none; font-size: 24px" class="fa" id="trash">&#xf014;</i>
-          <label class="attach-file-label" for="opcao1_1_input" id="opcao1_1_label"></label>
-          <input type="file" class="file-input" style="display: none" />
-        </div>
-      </div>
+      <button class="back-button-cyan" onclick="logout()">
+        <image style="width: 20px" src="/assets/back-white.png"></image>
+      </button>
     </div>
-  </div>
 
-  <script src="/scripts/etapas.js"></script>
-  <script src="/scripts/utils.js"></script>
-</body>
-
+    <script src="/scripts/etapas.js"></script>
+    <script src="/scripts/utils.js"></script>
+  </body>
 </html>
