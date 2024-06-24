@@ -229,7 +229,7 @@ window.onload = async function () {
         if (file) {
           if (validateFile(file)) {
             await addFile(file, submenuIndex, button);
-            await loadData(btnIndex, button, true);
+            await loadData(submenuIndex, button, true);
           } else {
             alert(
               "Formato de arquivo inválido. Permitido apenas PDF, XML, PNG, JPEG e JPG.",
