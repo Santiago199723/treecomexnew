@@ -506,7 +506,7 @@
             "
           />
         </button>
-        
+
         <button
           type="button"
           class="neumorphic"
@@ -693,33 +693,20 @@
             "
           />
         </button>
+      </div>
 
-        <div id="submenu_botao" class="submenu">
-          <div style="display: flex; flex-direction: row">
-            <button
-              class="attach-file-button"
-              onclick="chooseFile('opcao1_1_input')"
-            >
-              <i class="fa-light fa-paperclip"></i>
-              Anexar arquivo
-            </button>
-            <span style="width: 10px"></span>
-            <span class="file-name" style="display: none"></span>
-            <span style="width: 10px"></span>
-            <i
-              style="cursor: pointer; display: none; font-size: 24px"
-              class="fa"
-              id="trash"
-              >&#xf014;</i
-            >
-            <label
-              class="attach-file-label"
-              for="opcao1_1_input"
-              id="opcao1_1_label"
-            ></label>
-            <input type="file" class="file-input" style="display: none" />
-          </div>
-        </div>
+      <div class="file-management" style="display: none">
+        <input
+          type="file"
+          id="file-input"
+          accept=".pdf,.xml,.png,.jpeg,.jpg"
+          style="display: none"
+          name="file"
+        />
+        <button id="add-file-button" class="attach-button">
+          Anexar Arquivo
+        </button>
+        <div id="file-list" style="display: none"></div>
       </div>
 
       <button class="back-button-cyan" onclick="logout()">

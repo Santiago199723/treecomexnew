@@ -2,6 +2,8 @@ import fs from "fs";
 import ora from "ora";
 import cors from "cors";
 import path from "path";
+import multer from "multer";
+import mime from "mime-types";
 import express from "express";
 import { Op } from "sequelize";
 import { fileURLToPath } from "url";
@@ -12,7 +14,7 @@ import cookieParser from "cookie-parser";
 import { Actions, UserType } from "./enums.js";
 import { sendRecoveryEmail } from "./smtp.js";
 import { redis, sequelize } from "./database.js";
-import { Company, User, File, Perm, Process, Admin } from "./models.js";
+import { Company, User, Perm, Process, Admin, File } from "./models.js";
 import { isUUID } from "./utils.js";
 
 const app = express();
@@ -22,8 +24,21 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(cookieParser());
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true }));
 
-app.use((err, req, res, next) => {
+const filesDir = path.join(__dirname, "..", "container", "files");
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (request, file, callback) {
+      callback(null, filesDir);
+    },
+    filename: function (request, file, callback) {
+      callback(null, file.originalname);
+    },
+  }),
+});
+
+app.use((err, _, res, next) => {
   if (err instanceof SyntaxError && err.status === 413 && "body" in err) {
     return res.status(413).json({
       error: "PayloadTooLargeError",
@@ -210,8 +225,7 @@ app.post("/company/register", async (req, res) => {
     return res.status(200).json({
       message: "Registro bem-sucedido",
     });
-  } catch (error) {
-    console.log(error);
+  } catch (_) {
     return res.status(500).json({
       code: "SERVER_ERROR",
       message: "Ocorreu um erro interno do servidor",
@@ -348,37 +362,44 @@ app.get("/companies/names", async (req, res) => {
   return res.status(200).json(names);
 });
 
-app.post("/upload-file", async (req, res) => {
+app.post("/upload-file", upload.single("file"), async (req, res) => {
   try {
-    const { name, blob, mimeType } = req.body;
-
     const file = await File.create({
-      name: name,
-      blob: blob,
-      mimeType: mimeType,
+      name: req.file.filename,
     });
 
     res
       .status(200)
       .send({ message: "Arquivo enviado com sucesso", fileId: file.id });
-  } catch (error) {
-    console.log(error);
+  } catch (_) {
     res.status(500).send({ message: "Erro ao carregar o arquivo" });
   }
 });
 
-app.get("/file", async (req, res) => {
+app.get("/file/:id", async (req, res) => {
   try {
-    const { id } = req.query;
-
+    const id = req.params.id;
     const file = await File.findOne({
       where: {
         id: id,
       },
     });
 
-    res.status(200).send({ file: file });
-  } catch (error) {
+    const filePath = path.join(filesDir, file.name);
+
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        return res.status(500).send({ message: "Erro ao obter arquivo" });
+      }
+
+      res.setHeader("Content-Disposition", "attachment; filename=" + file.name);
+      res.setHeader(
+        "Content-Type",
+        mime.lookup(file.name) || "application/octet-stream",
+      );
+      res.send(data);
+    });
+  } catch (_) {
     res.status(500).send({ message: "Erro ao obter arquivo" });
   }
 });

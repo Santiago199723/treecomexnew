@@ -36767,8 +36767,6 @@ body.settings .alert-box {
   width: 10px;
   height: 10px;
   opacity: 0.5;
-  background: url(/assets/application/bg-images-48a8320715afce4c86ba98db5efd418ccc81992e5728463d36bed2aecd22c32a.png)
-    no-repeat -30px 0;
 }
 
 .chosen-container a.chosen-single.chosen-default span {
@@ -37202,8 +37200,7 @@ body.settings .alert-box {
   .ui-widget-header.ui-datepicker-header
   a.ui-datepicker-next
   span {
-  background: url(/assets/application/bg-images-48a8320715afce4c86ba98db5efd418ccc81992e5728463d36bed2aecd22c32a.png)
-    no-repeat;
+   
   display: block;
   width: 16px;
   height: 16px;
@@ -38196,8 +38193,7 @@ p.empty {
 }
 
 .file-icon {
-  background: url(/assets/application/bg-images-48a8320715afce4c86ba98db5efd418ccc81992e5728463d36bed2aecd22c32a.png)
-    no-repeat;
+   
   display: block;
   width: 30px;
   height: 30px;
@@ -39514,8 +39510,7 @@ body.pessoal textarea:focus {
 }
 
 .icon {
-  background: url(/assets/application/bg-images-48a8320715afce4c86ba98db5efd418ccc81992e5728463d36bed2aecd22c32a.png)
-    no-repeat;
+   
   display: block;
 }
 
@@ -51859,8 +51854,7 @@ body.credit-card-invoice
   tr
   td.type
   span {
-  background: url(/assets/application/bg-images-48a8320715afce4c86ba98db5efd418ccc81992e5728463d36bed2aecd22c32a.png)
-    no-repeat;
+   
   display: block;
   text-indent: -5000px;
   display: block;
@@ -68556,8 +68550,7 @@ body.settings.transactions
   tr
   td.type
   span {
-  background: url(/assets/application/bg-images-48a8320715afce4c86ba98db5efd418ccc81992e5728463d36bed2aecd22c32a.png)
-    no-repeat;
+   
   display: block;
   margin: 0 auto;
   width: 16px;
@@ -71587,8 +71580,7 @@ body.settings.transactions
   tr
   td.type
   span {
-  background: url(/assets/application/bg-images-48a8320715afce4c86ba98db5efd418ccc81992e5728463d36bed2aecd22c32a.png)
-    no-repeat;
+   
   display: block;
   text-indent: -5000px;
   display: block;

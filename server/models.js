@@ -90,14 +90,6 @@ export const File = sequelize.define("file", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  blob: {
-    type: DataTypes.BLOB("long"),
-    allowNull: false,
-  },
-  mimeType: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
 });
 
 export const Perm = sequelize.define("perm", {

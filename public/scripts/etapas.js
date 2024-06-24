@@ -1,118 +1,75 @@
-let buttons;
-let offsetX, offsetY;
-const submenu = document.querySelector(".submenu");
+const submenu = document.querySelector(".file-management");
 const csn = Number(window.location.pathname.match(/[0-9]+/)[0]);
 
-function handleFileUpload(btnIndex, button) {
-  const fileInput = document.querySelector(".file-input");
+async function addFile(file, btnIndex, button) {
+  const formData = new FormData();
 
-  if (!fileInput.files || fileInput.files.length === 0) return;
+  formData.append("file", file);
+  formData.append("name", "file");
+  formData.append("mimeType", file.type);
 
-  const file = fileInput.files[0];
-  const allowedTypes = ["application/pdf", "image/png", "image/jpeg", "text/xml"];
+  const response = await fetch("/upload-file", {
+    method: "POST",
+    body: formData,
+  });
 
-  if (!allowedTypes.includes(file.type)) {
-    alert("Por favor, selecione arquivos apenas nas extensões PDF, PMG, JPEG ou XML");
-    return;
-  }
+  const data = await response.json();
 
-  const reader = new FileReader();
-
-  reader.onload = function (event) {
-    const fileBlob = event.target.result.split(",")[1];
-
-    fetch("/upload-file", {
+  if (response.ok) {
+    await fetch("/sniff", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: file.name,
-        blob: fileBlob,
-        mimeType: file.type,
-      }),
-    }).then(async (response) => {
-      const data = await response.json();
-
-      if (response.ok) {
-        const obj = {
+        action: "uploaded_file",
+        data: {
           fileId: data.fileId,
           optionType: getOptionType(btnIndex),
           stageNumber: csn,
-          processId: csn !== 1 ? processId : undefined,
-        };
-
-        await fetch("/sniff", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            action: "uploaded_file",
-            data: obj,
-            company: companyData.cnpj,
-          }),
-          credentials: "include",
-        });
-      }
-
-      alert(data.message);
-      showSubmenuData(btnIndex, button);
-    });
-  };
-
-  reader.readAsDataURL(file);
-}
-
-
-function handleFileRemove(fileId, btnIndex, button) {
-  const resp = confirm("Tem certeza de que deseja excluir o arquivo?");
-  if (resp === true) {
-    const obj = {
-      fileId: fileId,
-      optionType: getOptionType(btnIndex),
-      stageNumber: csn,
-      processId: csn !== 1 ? processId : undefined,
-    };
-
-    fetch("/sniff", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        action: "removed_file",
-        data: obj,
+          processId: csn === 2 ? processId : "",
+        },
         company: companyData.cnpj,
       }),
       credentials: "include",
-    }).then((response) => {
-      if (response.ok) {
-        alert("Arquivo excluido com sucesso");
-        showSubmenuData(btnIndex, button);
-      }
     });
-  } else {
-    alert("Operação cancelada!");
+  }
+
+  alert(data.message);
+  loadData(btnIndex, button);
+}
+
+async function removeFile(fileId, btnIndex, button) {
+  const response = await fetch("/sniff", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      action: "removed_file",
+      data: {
+        fileId: fileId,
+        optionType: getOptionType(btnIndex),
+        stageNumber: csn,
+        processId: csn !== 1 ? processId : undefined,
+      },
+      company: companyData.cnpj,
+    }),
+    credentials: "include",
+  });
+
+  if (response.ok) {
+    alert("Arquivo excluido com sucesso");
+    loadData(btnIndex, button);
   }
 }
 
-function showSubmenuData(btnIndex, button) {
-  const fileDetailsElements = submenu.querySelectorAll(".file-details");
-  fileDetailsElements.forEach((element) => {
-    element.remove();
-  });
+document.getElementById("add-file-button").addEventListener("click", () => {
+  document.getElementById("file-input").click();
+});
 
-  let trash = submenu.querySelector("#trash");
-  let attachBtn = submenu.querySelector(".attach-file-button");
-  let input = submenu.querySelector(".file-input");
-  let fileName = submenu.querySelector(".file-name");
-
-  fileName.style.display = "none";
-  trash.style.display = "none";
-
-  attachBtn.onclick = () => input.click();
-  input.onchange = () => handleFileUpload(btnIndex, button);
+async function loadData(btnIndex, button, show = false) {
+  const fileList = document.getElementById("file-list");
 
   const option = getOptionType(btnIndex);
   if (option) {
@@ -123,93 +80,122 @@ function showSubmenuData(btnIndex, button) {
     };
 
     if (csn !== 1) obj.processId = processId;
-
     const params = new URLSearchParams(obj);
-
-    fetch(`/stage?${params}`, {
+    const response = await fetch(`/stage?${params}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",
-    }).then(async (response) => {
-      const data = await response.json();
-      if (response.ok && data.length !== 0) {
-        const attachedFiles = [];
-        const removedFiles = [];
+    });
 
-        data.forEach((value) => {
-          if (value.type === 1) {
-            attachedFiles.push(value);
-          } else {
-            removedFiles.push(value);
+    const data = await response.json();
+    if (response.ok && data.length !== 0) {
+      const attachedFiles = data.filter((value) => value.type === 1);
+      const removedFiles = data.filter((value) => value.type !== 1);
+
+      attachedFiles.sort(
+        (a, b) => new Date(b.attachedDate) - new Date(a.attachedDate),
+      );
+      removedFiles.sort(
+        (a, b) => new Date(b.removedDate) - new Date(a.removedDate),
+      );
+
+      const sortedData = removedFiles.concat(attachedFiles);
+      sortedData.sort(
+        (a, b) =>
+          new Date(b.attachedDate || b.removedDate) -
+          new Date(a.attachedDate || a.removedDate),
+      );
+
+      if (sortedData[0].type === 1) {
+        // button.style.boxShadow = "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+        const img = button.querySelector("img");
+        img.style.display = "flex";
+      } else {
+        const img = button.querySelector("img");
+        img.style.display = "none";
+      }
+
+      if (show) {
+        sortedData.forEach(async (value) => {
+          if (value.fileId) {
+            const fileItem = document.createElement("div");
+            fileItem.className = "file-item";
+
+            const fileInfo = document.createElement("div");
+            fileInfo.className = "file-info";
+
+            const fileActions = document.createElement("div");
+            fileActions.className = "file-actions";
+
+            const fileName = document.createElement("span");
+            fileName.className = "file-name";
+
+            const downloadLink = document.createElement("a");
+            downloadLink.className = "icon download-link";
+
+            const removeLink = document.createElement("a");
+            removeLink.className = "icon remove-link";
+
+            const fileDetails = document.createElement("div");
+            fileDetails.classList.add("file-details");
+
+            const dateKey = value.type === 1 ? "attachedDate" : "removedDate";
+            const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
+
+            const flabelText =
+              value.type === 1 ? "Data de anexo" : "Data de exclusão";
+            const slabelText = value.type === 1 ? "Anexado por" : "Removido por";
+
+            fileInfo.innerHTML = `
+          <div><span class="label" style="color: black;">${flabelText}:</span> ${formatDate(value[dateKey])}</div>
+          <div><span class="label" style="color: black;">${slabelText}:</span> ${value[actionKey]}</div>
+        `;
+
+            const { filename, blob } = await getFile(value.fileId);
+
+            if (value.type === 1) {
+              fileName.innerText = filename;
+              const url = URL.createObjectURL(blob);
+
+              downloadLink.href = url;
+              downloadLink.download = filename;
+              downloadLink.innerHTML =
+                '<img src="/assets/download.png" alt="Download">';
+
+              removeLink.innerHTML =
+                '<img src="/assets/remover.png" alt="Remover">';
+              removeLink.addEventListener("click", async () => {
+                if (!fileItem.classList.contains("removed")) {
+                  if (confirm("Tem certeza que deseja apagar o arquivo?")) {
+                    await removeFile(value.fileId, btnIndex, button);
+                  }
+                } else {
+                  alert("O arquivo já foi excluído.");
+                }
+              });
+            } else {
+              fileItem.classList.add("removed");
+              downloadLink.classList.add("disabled");
+              removeLink.classList.add("disabled");
+            }
+
+            fileActions.appendChild(fileName);
+            fileActions.appendChild(downloadLink);
+            fileActions.appendChild(removeLink);
+
+            fileItem.appendChild(fileInfo);
+            fileItem.appendChild(fileActions);
+
+            fileList.appendChild(fileItem);
           }
         });
 
-        attachedFiles.sort(
-          (a, b) => new Date(b.attachedDate) - new Date(a.attachedDate),
-        );
-        removedFiles.sort(
-          (a, b) => new Date(b.removedDate) - new Date(a.removedDate),
-        );
-
-        const sortedData = removedFiles.concat(attachedFiles);
-        sortedData.sort(
-          (a, b) =>
-            new Date(b.attachedDate || b.removedDate) -
-            new Date(a.attachedDate || a.removedDate),
-        );
-
-        if (sortedData[0].type === 1) {
-          const file = await getFileData(sortedData[0].fileId);
-          fileName.innerText = file.name;
-          fileName.onclick = () => {
-            const parts = String.fromCharCode(
-              ...new Uint8Array(file.blob.data),
-            );
-
-            const blob = new Blob([atob(parts)], { type: file.mimeType });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = file.name;
-            a.click();
-            URL.revokeObjectURL(url);
-          };
-
-          trash.onclick = () => handleFileRemove(file.id, btnIndex, button);
-          fileName.style.display = "flex";
-          trash.style.display = "flex";
-
-          // button.style.boxShadow = "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
-          const img = button.querySelector("img");
-          img.style.display = "flex";
-        } else {
-          const img = button.querySelector("img");
-          img.style.display = "none";
-        }
-
-        sortedData.forEach((value) => {
-          const fileDetails = document.createElement("div");
-          fileDetails.classList.add("file-details");
-
-          const dateKey = value.type === 1 ? "attachedDate" : "removedDate";
-          const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
-
-          fileDetails.innerHTML = `
-            <p>Data de ${value.type === 1 ? "anexo" : "exclusão"
-            }: <span class="submenu-span-red">${formatDate(
-              value[dateKey],
-            )}</span></p>
-            <span style="width: 10px"></span>
-            <p>${value.type === 1 ? "Anexado por" : "Removido por"
-            }: <span class="submenu-span-red">${value[actionKey]}</span></p>
-          `;
-
-          submenu.appendChild(fileDetails);
-        });
+        document.getElementById("file-list").style.display = "block";
+        submenu.style.display = "flex";
       }
-    });
+    }
   }
 }
 
@@ -228,45 +214,30 @@ window.onload = async function () {
     email.innerHTML = data.email;
   }
 
-  //const buttonContainer = document.querySelector(".buttons");
-
-  //let keys;
-  //if (csn == 1) {
-  //keys = Object.keys(etapas).slice(0, 33);
-  //} else {
-  //keys = Object.keys(etapas).slice(33, 41);
-  //}
-
-  //keys.forEach((label) => {
-  //const button = document.createElement("button");
-  //button.setAttribute("type", "button");
-  //button.classList.add("neumorphic");
-  //button.style.backgroundImage = "https://ibb.co/dtGjdmK";
-  //const img = document.createElement("img");
-  //img.src = "https://i.ibb.co/89mwDty/clipes-de-papel-1.png";
-  //img.style.width = "40px";
-  //img.style.transform = "rotate(-45deg)";
-  //img.style.position = "absolute";
-  //img.style.right = "0";
-  //img.style.display = "none";
-  //const span = document.createElement("span");
-  //span.textContent = label;
-  //button.appendChild(img);
-  //button.appendChild(span);
-  //buttonContainer.appendChild(button);
-  //});
-
   const buttons = document.querySelectorAll(".neumorphic");
 
   buttons.forEach((button, index) => {
     const submenuIndex = index + 1;
-    showSubmenuData(submenuIndex, button);
+    loadData(submenuIndex, button);
 
     button.addEventListener("click", (event) => {
       event.stopPropagation();
-      showSubmenuData(submenuIndex, button);
-      submenu.style.display = "flex";
+
+      document.getElementById("file-input").onchange = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          if (validateFile(file)) {
+            await addFile(file, submenuIndex, button);
+          } else {
+            alert(
+              "Formato de arquivo inválido. Permitido apenas PDF, XML, PNG, JPEG e JPG.",
+            );
+          }
+        }
+      };
     });
+
+    loadData(submenuIndex, button, true);
   });
 
   await refreshCompanyData();
@@ -296,7 +267,7 @@ window.onload = async function () {
 
   if (csn === 2) {
     if (!processId) {
-      window.location.href = "botoesetapas.html";
+      window.location.href = "/botoesetapas.html";
       return;
     } else {
       document.getElementById("current-process").innerText =
@@ -309,9 +280,8 @@ window.onload = async function () {
 };
 
 document.addEventListener("click", function (event) {
-  const submenuBotao = document.querySelector("#submenu_botao");
-  if (!submenuBotao.contains(event.target)) {
-    submenuBotao.style.display = "none";
+  if (!submenu.contains(event.target)) {
+    submenu.style.display = "none";
   }
 
   event.stopPropagation();
@@ -344,3 +314,28 @@ document.addEventListener("click", function (event) {
 
   event.stopPropagation();
 });
+
+function validateFile(file) {
+  const allowedExtensions = ["pdf", "xml", "png", "jpeg", "jpg"];
+  const fileExtension = file.name.split(".").pop().toLowerCase();
+  return allowedExtensions.includes(fileExtension);
+}
+
+async function getFile(fileId) {
+  const response = await fetch(`/file/${fileId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+
+  if (response.ok) {
+    const filename = response.headers
+      .get("Content-Disposition")
+      .split("filename=")[1];
+    const blob = await response.blob();
+
+    return { filename, blob };
+  }
+}

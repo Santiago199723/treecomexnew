@@ -28,24 +28,6 @@ async function checkSession() {
   return response.ok;
 }
 
-async function getFileData(fileId) {
-  const params = new URLSearchParams({ id: fileId });
-
-  const response = await fetch(`/file?${params}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-  });
-  if (response.ok) {
-    const data = await response.json();
-    return data.file;
-  }
-
-  return {};
-}
-
 function showCompanyData() {
   if (companyData) {
     document.getElementById("company-name").innerText =
@@ -127,9 +109,9 @@ const etapas = {
   "CONTRATO TCX": 33,
   "CATÁLOGO DE PRODUTO": 34,
   "TROCA DE E-MAIL": 35,
-  'NUMERÁRIO': 36,
+  NUMERÁRIO: 36,
   "PROFORMA INVOICE": 37,
-  'PACKLIST': 38,
+  PACKLIST: 38,
   "CERTIFICADO DE ORIGEM": 39,
   "LI DEFERIDA (SE FOR PRÉ EMBARQUE)": 40,
   "COMERCIAL INVOICE": 41,

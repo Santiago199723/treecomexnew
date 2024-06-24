@@ -410,17 +410,6 @@ rphic span {
   display: none;
 }
 
-#submenu_botao6 hr {
-  border: none;
-  /* Remove a borda padrão */
-  height: 3px;
-  /* Define a altura da linha */
-  background-color: #90c2ee;
-  /* Cor da linha */
-  margin: 15px 0;
-  /* Espaçamento acima e abaixo da linha */
-}
-
 rphic.active .message {
   background-color: rgba(19, 114, 19, 0.5);
   display: block;
@@ -448,4 +437,108 @@ rphic.pending .message {
 .file-details {
   display: flex;
   flex-direction: row;
+}
+
+.file-management {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#file-list {
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e8f5e9;
+  border: 1px solid #c8e6c9;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.file-item.removed {
+  background-color: #ffebee;
+  border-color: #ffcdd2;
+}
+
+.file-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-info .label {
+  font-weight: bold;
+}
+
+.file-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.attach-button {
+  background-color: #007bff;
+  /* Cor azul */
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
+  display: flex;
+  justify-content: center;
+}
+
+.attach-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.icon {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s;
+  position: relative;
+}
+
+.icon img {
+  width: 100%;
+  height: 100%;
+}
+
+.icon:hover {
+  transform: scale(1.2);
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.file-name {
+  color: red;
+  /* Cor vermelha para o nome do arquivo */
 }
