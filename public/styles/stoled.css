@@ -37200,7 +37200,6 @@ body.settings .alert-box {
   .ui-widget-header.ui-datepicker-header
   a.ui-datepicker-next
   span {
-   
   display: block;
   width: 16px;
   height: 16px;
@@ -38193,7 +38192,6 @@ p.empty {
 }
 
 .file-icon {
-   
   display: block;
   width: 30px;
   height: 30px;
@@ -39510,7 +39508,6 @@ body.pessoal textarea:focus {
 }
 
 .icon {
-   
   display: block;
 }
 
@@ -51854,7 +51851,6 @@ body.credit-card-invoice
   tr
   td.type
   span {
-   
   display: block;
   text-indent: -5000px;
   display: block;
@@ -68550,7 +68546,6 @@ body.settings.transactions
   tr
   td.type
   span {
-   
   display: block;
   margin: 0 auto;
   width: 16px;
@@ -71580,7 +71575,6 @@ body.settings.transactions
   tr
   td.type
   span {
-   
   display: block;
   text-indent: -5000px;
   display: block;

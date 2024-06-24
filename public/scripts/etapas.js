@@ -144,7 +144,8 @@ async function loadData(btnIndex, button, show = false) {
 
             const flabelText =
               value.type === 1 ? "Data de anexo" : "Data de exclusão";
-            const slabelText = value.type === 1 ? "Anexado por" : "Removido por";
+            const slabelText =
+              value.type === 1 ? "Anexado por" : "Removido por";
 
             fileInfo.innerHTML = `
           <div><span class="label" style="color: black;">${flabelText}:</span> ${formatDate(value[dateKey])}</div>
@@ -216,11 +217,11 @@ window.onload = async function () {
 
   const buttons = document.querySelectorAll(".neumorphic");
 
-  buttons.forEach((button, index) => {
+  buttons.forEach(async (button, index) => {
     const submenuIndex = index + 1;
-    loadData(submenuIndex, button);
+    await loadData(submenuIndex, button);
 
-    button.addEventListener("click", (event) => {
+    button.addEventListener("click", async (event) => {
       event.stopPropagation();
 
       document.getElementById("file-input").onchange = async (e) => {
@@ -236,9 +237,9 @@ window.onload = async function () {
           }
         }
       };
-    });
 
-    loadData(submenuIndex, button, true);
+      await loadData(submenuIndex, button, true);
+    });
   });
 
   await refreshCompanyData();
