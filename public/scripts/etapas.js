@@ -1,7 +1,7 @@
 const submenu = document.querySelector(".file-management");
 const csn = Number(window.location.pathname.match(/[0-9]+/)[0]);
 
-async function addFile(file, btnIndex, button) {
+async function addFile(file, btnIndex) {
   const formData = new FormData();
 
   formData.append("file", file);
@@ -36,10 +36,9 @@ async function addFile(file, btnIndex, button) {
   }
 
   alert(data.message);
-  loadData(btnIndex, button);
 }
 
-async function removeFile(fileId, btnIndex, button) {
+async function removeFile(fileId, btnIndex) {
   const response = await fetch("/sniff", {
     method: "POST",
     headers: {
@@ -60,7 +59,6 @@ async function removeFile(fileId, btnIndex, button) {
 
   if (response.ok) {
     alert("Arquivo excluido com sucesso");
-    loadData(btnIndex, button);
   }
 }
 
@@ -170,6 +168,7 @@ async function loadData(btnIndex, button, show = false) {
                 if (!fileItem.classList.contains("removed")) {
                   if (confirm("Tem certeza que deseja apagar o arquivo?")) {
                     await removeFile(value.fileId, btnIndex, button);
+                    await loadData(btnIndex, button, show);
                   }
                 } else {
                   alert("O arquivo já foi excluído.");
@@ -190,9 +189,10 @@ async function loadData(btnIndex, button, show = false) {
 
             fileList.appendChild(fileItem);
           }
+
+          document.getElementById("file-list").style.display = "block";
         });
 
-        document.getElementById("file-list").style.display = "block";
         submenu.style.display = "flex";
       }
     }
@@ -228,6 +228,7 @@ window.onload = async function () {
         if (file) {
           if (validateFile(file)) {
             await addFile(file, submenuIndex, button);
+            await loadData(btnIndex, button, true);
           } else {
             alert(
               "Formato de arquivo inválido. Permitido apenas PDF, XML, PNG, JPEG e JPG.",

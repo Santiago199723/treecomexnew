@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "forever": "^4.0.3",
+    "forever": "^4.0.3"
   }
 }
