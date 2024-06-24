@@ -389,7 +389,7 @@ app.get("/file/:id", async (req, res) => {
 
     fs.readFile(filePath, (err, data) => {
       if (err) {
-        return res.status(500).send({ message: "Erro ao obter arquivo" });
+        return res.status(404).send({ message: "Arquivo não encontrado" });
       }
 
       res.setHeader("Content-Disposition", "attachment; filename=" + file.name);
@@ -399,7 +399,8 @@ app.get("/file/:id", async (req, res) => {
       );
       res.send(data);
     });
-  } catch (_) {
+  } catch (err) {
+    
     res.status(500).send({ message: "Erro ao obter arquivo" });
   }
 });

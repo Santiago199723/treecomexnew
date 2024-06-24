@@ -116,6 +116,7 @@ async function loadData(btnIndex, button, show = false) {
       }
 
       if (show) {
+        fileList.innerHTML = '';
         sortedData.forEach(async (value) => {
           if (value.fileId) {
             const fileItem = document.createElement("div");
