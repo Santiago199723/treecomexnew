@@ -117,7 +117,8 @@ async function loadData(btnIndex, button, withFiles = false) {
       }
 
       if (withFiles) {
-        sortedData.forEach(async (value) => {
+        for (let i = 0; i < sortedData.length; i++) {
+          const value = sortedData[i]
           if (value.fileId) {
             const fileItem = document.createElement("div");
             fileItem.className = "file-item";
@@ -140,66 +141,89 @@ async function loadData(btnIndex, button, withFiles = false) {
             const fileDetails = document.createElement("div");
             fileDetails.classList.add("file-details");
 
-            const dateKey = value.type === 1 ? "attachedDate" : "removedDate";
-            const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
-
             const flabelText =
               value.type === 1 ? "Data de anexo" : "Data de exclusão";
             const slabelText =
               value.type === 1 ? "Anexado por" : "Removido por";
 
-            fileInfo.innerHTML = `
-             <div><span class="label" style="color: black;">${flabelText}:</span> ${formatDate(value[dateKey])}</div>
-             <div><span class="label" style="color: black;">${slabelText}:</span> ${value[actionKey]}</div>
-            `;
+            const dateKey = value.type === 1 ? "attachedDate" : "removedDate";
+            const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
+
+            if (
+              i + 1 < sortedData.length &&
+              sortedData[i + 1].fileId === value.fileId
+            ) {
+              const nextItemType = sortedData[i + 1].type;
+              const nextDateKey =
+                nextItemType === 1 ? "attachedDate" : "removedDate";
+              const nextActionKey =
+                nextItemType === 1 ? "attachedBy" : "removedBy";
+
+              fileInfo.innerHTML += `
+                    <div><span class="label" style="color: black;">Data de anexo:</span> ${formatDate(sortedData[i + 1][nextDateKey])}</div>
+                    <div><span class="label" style="color: black;">Anexado por:</span> ${sortedData[i + 1][nextActionKey]}</div>
+                    <div><span class="label" style="color: black;">Data de exclusão:</span> ${formatDate(value[dateKey])}</div>
+                    <div><span class="label" style="color: black;">Removido por:</span> ${value[actionKey]}</div>
+                `;
+
+              fileItem.classList.add("removed");
+              downloadLink.classList.add("disabled");
+              removeLink.classList.add("disabled");
+              i = i+1
+            } else {
+              fileInfo.innerHTML += `
+                    <div><span class="label" style="color: black;">${flabelText}:</span> ${formatDate(value[dateKey])}</div>
+                    <div><span class="label" style="color: black;">${slabelText}:</span> ${value[actionKey]}</div>
+                `;
+            }
 
             const { filename, blob } = await getFile(value.fileId);
 
-            if (value.type === 1) {
-              fileName.innerText = filename;
+            fileName.innerText = filename;
 
-              downloadLink.innerHTML =
-                '<img src="/assets/download.png" alt="Download">';
-              downloadLink.classList.add("wrapper");
-              downloadLink.addEventListener("click", () => {
-                const div = document.createElement("div");
-                div.classList.add("downloader");
-                document.querySelector(".main-container").appendChild(div);
+            downloadLink.innerHTML =
+              '<img src="/assets/download.png" alt="Download">';
+            downloadLink.classList.add("wrapper");
+            downloadLink.addEventListener("click", () => {
+              const div = document.createElement("div");
+              div.classList.add("downloader");
+              document.querySelector(".main-container").appendChild(div);
 
-                setTimeout(() => {
-                  div.classList.add("load");
-                  div.innerHTML = `<div class="loader"></div>`;
-                }, 1000);
+              setTimeout(() => {
+                div.classList.add("load");
+                div.innerHTML = `<div class="loader"></div>`;
+              }, 1000);
 
-                setTimeout(() => {
-                  div.classList.add("check");
-                  div.innerHTML = `<div class="check"><i class="fas fa-check"></i></div>`;
-                }, 4500);
+              setTimeout(() => {
+                div.classList.add("check");
+                div.innerHTML = `<div class="check"><i class="fas fa-check"></i></div>`;
+              }, 4500);
 
-                setTimeout(() => {
-                  const a = document.createElement("a");
-                  const url = URL.createObjectURL(blob);
-                  a.href = url;
-                  a.download = filename;
-                  a.click();
-                  URL.revokeObjectURL(url);
-                  div.remove();
-                }, 6000);
-              });
+              setTimeout(() => {
+                const a = document.createElement("a");
+                const url = URL.createObjectURL(blob);
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+                div.remove();
+              }, 6000);
+            });
 
-              removeLink.innerHTML =
-                '<img src="/assets/remover.png" alt="Remover">';
-              removeLink.addEventListener("click", async () => {
-                if (!fileItem.classList.contains("removed")) {
-                  if (confirm("Tem certeza que deseja apagar o arquivo?")) {
-                    await removeFile(value.fileId, btnIndex, button);
-                    await loadData(btnIndex, button, show);
-                  }
-                } else {
-                  alert("O arquivo já foi excluído.");
+            removeLink.innerHTML =
+              '<img src="/assets/remover.png" alt="Remover">';
+            removeLink.addEventListener("click", async () => {
+              if (!fileItem.classList.contains("removed")) {
+                if (confirm("Tem certeza que deseja apagar o arquivo?")) {
+                  await removeFile(value.fileId, btnIndex, button);
+                  await loadData(btnIndex, button, withFiles);
                 }
-              });
-            } else {
+              } else {
+                alert("O arquivo já foi excluído.");
+              }
+            });
+
+            if (value.type === 2) {
               fileItem.classList.add("removed");
               downloadLink.classList.add("disabled");
               removeLink.classList.add("disabled");
@@ -216,7 +240,7 @@ async function loadData(btnIndex, button, withFiles = false) {
           }
 
           document.getElementById("file-list").style.display = "block";
-        });
+        }
       }
     }
   }
