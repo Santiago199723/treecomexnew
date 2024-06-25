@@ -204,7 +204,7 @@ async function loadData(btnIndex, button, withFiles = false) {
                 a.download = filename;
                 a.click();
                 URL.revokeObjectURL(url);
-                div.remove();
+                //div.remove();
               }, 6000);
             });
 
