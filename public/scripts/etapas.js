@@ -223,6 +223,7 @@ async function loadData(btnIndex, button, withFiles = false) {
 }
 
 window.onload = async function () {
+  setLoading(true);
   const response = await fetch("/user", {
     method: "GET",
     headers: {
@@ -304,6 +305,8 @@ window.onload = async function () {
         "flex";
     }
   }
+
+  setLoading(false);
 };
 
 document.addEventListener("click", function (event) {
