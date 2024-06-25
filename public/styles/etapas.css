@@ -588,11 +588,11 @@ rphic.pending .message {
   max-width: 500px;
   width: 500px;
   height: 15px;
-  border-radius: 10px;
 }
 
 .load .loader {
   height: 100%;
+  border-radius: 10px;
   background: #06e851;
   animation: loadAnim 4s linear;
 }
