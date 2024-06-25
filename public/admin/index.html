@@ -324,7 +324,7 @@
           separatedElements.forEach(element => {
             dataDiv.appendChild(element);
           });
-          dataDiv.style.display="flex"
+          dataDiv.style.display = "flex"
 
           const pencil = document.createElement("img");
           pencil.src = "/assets/pencil.png";
@@ -339,32 +339,34 @@
           trash.src = "/assets/trash.png";
           trash.style.cursor = "pointer";
           trash.style.width = "15px";
-          trash.style.marginLeft="10px"
+          trash.style.marginLeft = "10px"
           trash.addEventListener("click", async function (event) {
             event.stopPropagation();
-            const response = await fetch("/company/remove", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                code: data.id,
-              }),
-              credentials: "include",
-            });
+            if (confirm("Você tem certeza que deseja excluir esta empresa?")) {
+              const response = await fetch("/company/remove", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  code: data.id,
+                }),
+                credentials: "include",
+              });
 
-            if (response.ok) {
-              div.style.display = "none";
+              if (response.ok) {
+                div.style.display = "none";
+              }
+
+              const rdata = await response.json();
+              alert(rdata.message);
             }
-
-            const rdata = await response.json();
-            alert(rdata.message);
           });
 
           const actions = document.createElement("div")
           actions.appendChild(pencil)
           actions.appendChild(trash)
-          
+
           div.appendChild(i);
           div.appendChild(dataDiv)
           div.appendChild(actions);
@@ -440,7 +442,7 @@
           separatedElements.forEach(element => {
             dataDiv.appendChild(element);
           });
-          dataDiv.style.display="flex"
+          dataDiv.style.display = "flex"
 
           const pencil = document.createElement("img");
           pencil.src = "/assets/pencil.png";
@@ -455,32 +457,34 @@
           trash.src = "/assets/trash.png";
           trash.style.cursor = "pointer";
           trash.style.width = "15px";
-          trash.style.marginLeft="10px"
+          trash.style.marginLeft = "10px"
           trash.addEventListener("click", async function (event) {
             event.stopPropagation();
-            const response = await fetch("/company/remove", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                code: data.id,
-              }),
-              credentials: "include",
-            });
+            if (confirm("Você tem certeza que deseja excluir esta empresa?")) {
+              const response = await fetch("/company/remove", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  code: data.id,
+                }),
+                credentials: "include",
+              });
 
-            if (response.ok) {
-              div.style.display = "none";
+              if (response.ok) {
+                div.style.display = "none";
+              }
+
+              const rdata = await response.json();
+              alert(rdata.message);
             }
-
-            const rdata = await response.json();
-            alert(rdata.message);
           });
 
           const actions = document.createElement("div")
           actions.appendChild(pencil)
           actions.appendChild(trash)
-          
+
           div.appendChild(i);
           div.appendChild(dataDiv)
           div.appendChild(actions);
