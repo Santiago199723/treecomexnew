@@ -261,7 +261,7 @@
           div.addEventListener("click", function (e) {
             if (e.target !== e.currentTarget.querySelector("img")) {
               const company = JSON.stringify({
-                cnpj: data.id,
+                cnpj: c.id,
               });
 
               localStorage.setItem("company", btoa(company));
@@ -276,22 +276,22 @@
           i.style.backgroundColor = "#626491";
 
           const cnpj = document.createElement("span");
-          cnpj.textContent = data.id;
+          cnpj.textContent = c.id;
           cnpj.className = "zze-selectize-label";
           cnpj.style.paddingRight = "10px"
 
           const name = document.createElement("span");
           const MAX_LENGTH = 20;
-          if (data.name.length > MAX_LENGTH) {
+          if (c.name.length > MAX_LENGTH) {
             name.textContent = `${data.name.slice(0, MAX_LENGTH - 3)}...`;
           } else {
-            name.textContent = data.name;
+            name.textContent = c.name;
           }
           name.className = "zze-selectize-label";
           name.style.paddingRight = "10px"
 
           const type = document.createElement("span");
-          type.textContent = data.type.toUpperCase();
+          type.textContent = c.type.toUpperCase();
           type.className = "zze-selectize-label";
           type.style.paddingRight = "10px"
 
@@ -338,7 +338,7 @@
           div.addEventListener("click", function (e) {
             if (e.target !== e.currentTarget.querySelector("img")) {
               const company = JSON.stringify({
-                cnpj: data.id,
+                cnpj: c.id,
               });
 
               localStorage.setItem("company", btoa(company));
@@ -353,22 +353,22 @@
           i.style.backgroundColor = "#626491";
 
           const cnpj = document.createElement("span");
-          cnpj.textContent = data.id;
+          cnpj.textContent = c.id;
           cnpj.className = "zze-selectize-label";
           cnpj.style.paddingRight = "10px"
 
           const name = document.createElement("span");
           const MAX_LENGTH = 20;
-          if (data.name.length > MAX_LENGTH) {
+          if (c.name.length > MAX_LENGTH) {
             name.textContent = `${data.name.slice(0, MAX_LENGTH - 3)}...`;
           } else {
-            name.textContent = data.name;
+            name.textContent = c.name;
           }
           name.className = "zze-selectize-label";
           name.style.paddingRight = "10px"
 
           const type = document.createElement("span");
-          type.textContent = data.type.toUpperCase();
+          type.textContent = c.type.toUpperCase();
           type.className = "zze-selectize-label";
           type.style.paddingRight = "10px"
 
