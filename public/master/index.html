@@ -306,13 +306,13 @@
         const data = await ccr.json();
         if (ccr.ok && data.length > 0) {
           codes = data;
-          codes.forEach((code) => {
+          codes.forEach((c) => {
             const div = document.createElement("div");
             div.className = "category zze-truncate zze-icon-left";
             div.style.cursor = "pointer";
             div.addEventListener("click", function () {
               const company = JSON.stringify({
-                cnpj: code,
+                cnpj: c.id,
               });
 
               localStorage.setItem("company", btoa(company));
@@ -324,7 +324,7 @@
             i.style.justifyContent = "center";
             i.style.backgroundColor = "#626491";
             const span = document.createElement("span");
-            span.textContent = code;
+            span.textContent = c.id;
             span.className = "zze-selectize-label";
             div.appendChild(i);
             div.appendChild(span);
@@ -337,14 +337,14 @@
         const searchText = searchInput.value.toLowerCase();
         dropdownContent.innerHTML = "";
 
-        codes.forEach((code) => {
-          if (searchText === "" || code.toLowerCase().includes(searchText)) {
+        codes.forEach((c) => {
+          if (searchText === "" || c.id.toLowerCase().includes(searchText)) {
             const div = document.createElement("div");
             div.className = "category zze-truncate zze-icon-left";
             div.style.cursor = "pointer";
             div.addEventListener("click", function () {
               const company = JSON.stringify({
-                cnpj: code,
+                cnpj: c.id,
               });
 
               localStorage.setItem("company", btoa(company));
@@ -356,7 +356,7 @@
             i.style.justifyContent = "center";
             i.style.backgroundColor = "#626491";
             const span = document.createElement("span");
-            span.textContent = code;
+            span.textContent = c.id;
             span.className = "zze-selectize-label";
             div.appendChild(i);
             div.appendChild(span);
