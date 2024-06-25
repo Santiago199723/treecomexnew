@@ -471,7 +471,7 @@
                 userType.innerHTML = userTypeText;
             }
 
-            const ccr = await fetch("/companies/names", {
+            const ccr = await fetch("/companies", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -482,7 +482,7 @@
 
             if (ccr.ok) {
                 companyCodes = await ccr.json();
-                companyCodes.forEach((code) => {
+                companyCodes.forEach((c) => {
                     const div = document.createElement("div");
                     div.style.alignItems = "center"
                     div.style.display = "flex"
@@ -491,7 +491,7 @@
                     div.addEventListener("click", function (e) {
                         if (e.target !== e.currentTarget.querySelector("img")) {
                             const company = JSON.stringify({
-                                cnpj: code,
+                                cnpj: c.id,
                             });
 
                             localStorage.setItem("company", btoa(company));
@@ -506,7 +506,7 @@
                     i.style.backgroundColor = "#626491";
 
                     const span = document.createElement("span");
-                    span.textContent = code;
+                    span.textContent = c.name;
                     span.className = "zze-selectize-label";
                     span.style.marginLeft = "28%"
 
@@ -565,8 +565,8 @@
             const searchText = companySearchInput.value.toLowerCase();
             companyDivContent.innerHTML = "";
 
-            companyCodes.forEach((code) => {
-                if (searchText === "" || code.toLowerCase().includes(searchText)) {
+            companyCodes.forEach((c) => {
+                if (searchText === "" || c.name.toLowerCase().includes(searchText)) {
                     const div = document.createElement("div");
                     div.style.alignItems = "center"
                     div.style.display = "flex"
@@ -575,7 +575,7 @@
                     div.addEventListener("click", function (e) {
                         if (e.target !== e.currentTarget.querySelector("img")) {
                             const company = JSON.stringify({
-                                cnpj: code,
+                                cnpj: c.id,
                             });
 
                             localStorage.setItem("company", btoa(company));
@@ -590,7 +590,7 @@
                     i.style.backgroundColor = "#626491";
 
                     const span = document.createElement("span");
-                    span.textContent = code;
+                    span.textContent = c.name;
                     span.className = "zze-selectize-label";
                     span.style.marginLeft = "28%"
 
