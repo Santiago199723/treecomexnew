@@ -66,9 +66,10 @@ document.getElementById("add-file-button").addEventListener("click", () => {
   document.getElementById("file-input").click();
 });
 
-async function loadData(btnIndex, button, show = false) {
+async function loadData(btnIndex, button, withFiles = false) {
   const fileList = document.getElementById("file-list");
-
+  fileList.innerHTML = "";
+  
   const option = getOptionType(btnIndex);
   if (option) {
     let obj = {
@@ -115,8 +116,7 @@ async function loadData(btnIndex, button, show = false) {
         img.style.display = "none";
       }
 
-      if (show) {
-        fileList.innerHTML = "";
+      if (withFiles) {
         sortedData.forEach(async (value) => {
           if (value.fileId) {
             const fileItem = document.createElement("div");
@@ -217,8 +217,6 @@ async function loadData(btnIndex, button, show = false) {
 
           document.getElementById("file-list").style.display = "block";
         });
-
-        submenu.style.display = "flex";
       }
     }
   }
@@ -264,6 +262,7 @@ window.onload = async function () {
 
       setLoading(true);
       await loadData(submenuIndex, button, true);
+      submenu.style.display = "flex";
       setLoading(false);
     });
   });
