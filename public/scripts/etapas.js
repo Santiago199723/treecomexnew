@@ -183,7 +183,7 @@ async function loadData(btnIndex, button, withFiles = false) {
                   a.download = filename;
                   a.click();
                   URL.revokeObjectURL(url);
-                  div.style.display = "none";
+                  div.remove();
                 }, 6000);
               });
 

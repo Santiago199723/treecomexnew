@@ -592,7 +592,7 @@ rphic.pending .message {
 
 .load .loader {
   height: 100%;
-  background: #1280b3;
+  background: #06e851;
   animation: loadAnim 3s linear;
 }
 
