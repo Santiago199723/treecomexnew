@@ -194,7 +194,7 @@ async function loadData(btnIndex, button, withFiles = false) {
                 div.innerHTML = `<div class="loader"></div>`;
               }, 1000);
 
-              setTimeout(() => {
+              /*setTimeout(() => {
                 div.classList.add("check");
                 div.innerHTML = `<div class="check"><i class="fas fa-check"></i></div>`;
               }, 4500);
@@ -207,7 +207,7 @@ async function loadData(btnIndex, button, withFiles = false) {
                 a.click();
                 URL.revokeObjectURL(url);
                 div.remove();
-              }, 6000);
+              }, 6000);*/
             });
 
             removeLink.innerHTML =
