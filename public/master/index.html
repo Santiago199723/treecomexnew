@@ -283,7 +283,7 @@
           const name = document.createElement("span");
           const MAX_LENGTH = 20;
           if (c.name.length > MAX_LENGTH) {
-            name.textContent = `${data.name.slice(0, MAX_LENGTH - 3)}...`;
+            name.textContent = `${c.name.slice(0, MAX_LENGTH - 3)}...`;
           } else {
             name.textContent = c.name;
           }
@@ -360,7 +360,7 @@
           const name = document.createElement("span");
           const MAX_LENGTH = 20;
           if (c.name.length > MAX_LENGTH) {
-            name.textContent = `${data.name.slice(0, MAX_LENGTH - 3)}...`;
+            name.textContent = `${c.name.slice(0, MAX_LENGTH - 3)}...`;
           } else {
             name.textContent = c.name;
           }
