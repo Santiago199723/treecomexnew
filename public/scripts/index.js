@@ -46,13 +46,11 @@ document
 
     if (!usuario.value || !senha.value) {
       showErrorMessage("Preencha todos os campos para poder logar.");
-      hideLoading();
       return;
     }
 
     if (!isValidEmail(email)) {
       showErrorMessage("Formato de e-mail inválido.");
-      hideLoading();
       return;
     }
 
