@@ -194,7 +194,6 @@ async function loadData(btnIndex, button, withFiles = false) {
 
               setTimeout(() => {
                 div.classList.remove("load")
-                div.classList.add("check");
                 div.innerHTML = `<div class="check"><i class="fas fa-check"></i></div>`;
               }, 4500);
 
