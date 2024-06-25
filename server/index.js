@@ -744,7 +744,7 @@ app.post("/change-password", async (req, res) => {
 const port = process.env.APP_PORT || 8080;
 
 sequelize.sync().then(async function () {
-  // await redis.on("error", (err) => k.fail(err)).connect();
+  await redis.on("error", (err) => k.fail(err)).connect();
 
   k.succeed("Redis connected successfully");
 
