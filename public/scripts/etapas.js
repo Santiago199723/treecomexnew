@@ -189,10 +189,8 @@ async function loadData(btnIndex, button, withFiles = false) {
               div.classList.add("downloader");
               document.querySelector(".main-container").appendChild(div);
 
-              setTimeout(() => {
-                div.classList.add("load");
-                div.innerHTML = `<div class="loader"></div>`;
-              }, 4000);
+              div.classList.add("load");
+              div.innerHTML = `<div class="loader"></div>`;
 
               setTimeout(() => {
                 div.classList.add("check");
