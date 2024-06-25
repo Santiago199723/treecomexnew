@@ -625,9 +625,7 @@ rphic.pending .message {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #fff;
   border-radius: 50%;
-  transform: scale(1);
   animation: checkAnim 1s linear;
 }
 
