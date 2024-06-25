@@ -43236,7 +43236,8 @@ table tr:last-child td {
   position: relative;
   z-index: 1;
   display: inline-block;
-  width: 45%;
+  width: 100%;
+  max-width: 525px;
   padding: 2px 4px;
   overflow: hidden;
   border: 2px solid #e8eaeb;
