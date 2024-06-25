@@ -588,13 +588,12 @@ rphic.pending .message {
 .load {
   max-width: 500px;
   width: 500px;
-  height: 15px;
+  height: 25px;
 }
 
 .load .loader {
   height: 100%;
   border-radius: 10px;
-  background: #06e851;
   animation: loadAnim 4s linear;
 }
 
@@ -615,7 +614,7 @@ rphic.pending .message {
 .check {
   width: 80px;
   height: 80px;
-  background: #06e851;
+  background: #3cc3e9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -642,7 +641,7 @@ rphic.pending .message {
   }
 
   100% {
-    transform: scale(1);
+    transform: scale(1.5);
   }
 }
 
@@ -652,4 +651,27 @@ rphic.pending .message {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 99999;
+}
+
+.progress-bar {
+  position: absolute;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(to right, #00c3ff, #00e6b8);
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+@keyframes wave {
+  0% {
+      transform: translate(-50%, -75%);
+  }
+  100% {
+      transform: translate(-50%, -25%);
+  }
 }

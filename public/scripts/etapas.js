@@ -192,22 +192,40 @@ async function loadData(btnIndex, button, withFiles = false) {
             document.querySelector(".main-container").appendChild(div);
 
             div.classList.add("load");
-            div.innerHTML = `<div class="loader"></div>`;
+            div.innerHTML = `
+              <div class="progress-bar" id="progress-bar">
+                <div class="water"></div>
+                <span id="progress-text">0%</span>
+              </div>
+            `;
 
-            setTimeout(() => {
-              div.classList.remove("load")
-              div.innerHTML = `<div class="check"><i class="fas fa-check"></i></div>`;
-            }, 4500);
+            let percentage = 0;
+            const interval = setInterval(async () => {
+              if (percentage >= 100) {
+                clearInterval(interval);
+              } else {
+                percentage++;
+                const progressBar = document.getElementById('progress-bar');
+                const progressText = document.getElementById('progress-text');
+                progressBar.style.width = percentage + '%';
+                progressText.textContent = percentage + '%';
 
-            setTimeout(() => {
-              const a = document.createElement("a");
-              const url = URL.createObjectURL(blob);
-              a.href = url;
-              a.download = filename;
-              a.click();
-              URL.revokeObjectURL(url);
-              div.remove();
-            }, 6000);
+                if (percentage === 100) {
+                  div.classList.remove("load")
+                  div.innerHTML = `<div class="check"><i class="fas fa-check"></i></div>`;
+
+                  await delay(2500);
+
+                  const a = document.createElement("a");
+                  const url = URL.createObjectURL(blob);
+                  a.href = url;
+                  a.download = filename;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                  div.remove();
+                }
+              }
+            }, 30);
           });
 
           removeLink.innerHTML =
@@ -391,4 +409,5 @@ async function getFile(fileId) {
 
     return { filename, blob };
   }
+
 }
