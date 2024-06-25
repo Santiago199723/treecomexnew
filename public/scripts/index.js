@@ -74,6 +74,7 @@ document
     } else {
       showMessage(data.message);
       await delay(2000);
+      await showLoading(false);
       if (data.userType === UserType.MASTER) {
         localStorage.setItem("__sess_master__", "true");
         window.location.href = "/master/index.html";
@@ -91,7 +92,6 @@ document
         localStorage.setItem("company", encodedCompany);
       }
 
-      await showLoading(false);
       window.location.href = "/botoesetapas.html";
     }
   });
