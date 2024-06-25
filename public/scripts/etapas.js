@@ -120,7 +120,7 @@ async function loadData(btnIndex, button, withFiles = false) {
 
     if (withFiles) {
       for (let i = 0; i < sortedData.length; i++) {
-        const value = sortedData[i]
+        const value = sortedData[i];
         if (value.fileId) {
           const fileItem = document.createElement("div");
           fileItem.className = "file-item";
@@ -145,8 +145,7 @@ async function loadData(btnIndex, button, withFiles = false) {
 
           const flabelText =
             value.type === 1 ? "Data de anexo" : "Data de exclusão";
-          const slabelText =
-            value.type === 1 ? "Anexado por" : "Removido por";
+          const slabelText = value.type === 1 ? "Anexado por" : "Removido por";
 
           const dateKey = value.type === 1 ? "attachedDate" : "removedDate";
           const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
@@ -171,7 +170,7 @@ async function loadData(btnIndex, button, withFiles = false) {
             fileItem.classList.add("removed");
             downloadLink.classList.add("disabled");
             removeLink.classList.add("disabled");
-            i++
+            i++;
           } else {
             fileInfo.innerHTML += `
                     <div><span class="label" style="color: black;">${flabelText}:</span> ${formatDate(value[dateKey])}</div>
@@ -205,13 +204,13 @@ async function loadData(btnIndex, button, withFiles = false) {
                 clearInterval(interval);
               } else {
                 percentage++;
-                const progressBar = document.getElementById('progress-bar');
-                const progressText = document.getElementById('progress-text');
-                progressBar.style.width = percentage + '%';
-                progressText.textContent = percentage + '%';
+                const progressBar = document.getElementById("progress-bar");
+                const progressText = document.getElementById("progress-text");
+                progressBar.style.width = percentage + "%";
+                progressText.textContent = percentage + "%";
 
                 if (percentage === 100) {
-                  div.classList.remove("load")
+                  div.classList.remove("load");
                   div.innerHTML = `<div class="check"><i class="fas fa-check"></i></div>`;
 
                   await delay(2500);
@@ -409,5 +408,4 @@ async function getFile(fileId) {
 
     return { filename, blob };
   }
-
 }

@@ -33,7 +33,6 @@ document
     event.preventDefault();
 
     hideMessages();
-    showLoading();
 
     const email = usuario.value;
     const password = senha.value;
@@ -57,6 +56,8 @@ document
       return;
     }
 
+    await showLoading(true);
+
     const response = await fetch("/login", {
       method: "POST",
       headers: {
@@ -71,6 +72,7 @@ document
     const data = await response.json();
     if (!response.ok) {
       showErrorMessage(data.message);
+      await showLoading(false);
     } else {
       showMessage(data.message);
       await delay(2000);
@@ -91,6 +93,7 @@ document
         localStorage.setItem("company", encodedCompany);
       }
 
+      await showLoading(false);
       window.location.href = "/botoesetapas.html";
     }
   });
@@ -128,3 +131,27 @@ document
       showMessage(data.message);
     }
   });
+
+async function showLoading(show) {
+  if (show) {
+    const div = document.createElement("div");
+    div.classList.add("loader")
+    div.innerHTML = `
+      <img src="/assets/icone.png" alt="Loading...">
+      <p>Conectando...</p>
+  `;
+
+    const grid = document.querySelector(".grid-login");
+    grid.appendChild(div);
+
+    await delay(6000);
+
+    const loadingText = document.querySelector(".loader p");
+    loadingText.style.animation = "none";
+  } else {
+    const loader = document.querySelector(".loader");
+    if (loader) {
+      loader.remove();
+    }
+  }
+}

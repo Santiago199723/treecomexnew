@@ -328,10 +328,10 @@ app.get("/companies", async (req, res) => {
 
   const companies = await Company.findAll();
 
-  const companyData = companies.map(c => ({
+  const companyData = companies.map((c) => ({
     id: c.cnpj,
     name: c.companyName,
-    type: c.matriz ? "matriz" : "filial"
+    type: c.matriz ? "matriz" : "filial",
   }));
 
   return res.status(200).json(companyData);

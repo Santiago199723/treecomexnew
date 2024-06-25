@@ -669,9 +669,9 @@ rphic.pending .message {
 
 @keyframes wave {
   0% {
-      transform: translate(-50%, -75%);
+    transform: translate(-50%, -75%);
   }
   100% {
-      transform: translate(-50%, -25%);
+    transform: translate(-50%, -25%);
   }
 }
