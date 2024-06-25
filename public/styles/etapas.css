@@ -220,6 +220,7 @@ hr {
 }
 
 .stage-selectors:hover {
+  background: #03e9f4;
   color: #050801;
 }
 
