@@ -169,7 +169,7 @@ async function loadData(btnIndex, button, withFiles = false) {
               fileItem.classList.add("removed");
               downloadLink.classList.add("disabled");
               removeLink.classList.add("disabled");
-              i = i+1
+              i++
             } else {
               fileInfo.innerHTML += `
                     <div><span class="label" style="color: black;">${flabelText}:</span> ${formatDate(value[dateKey])}</div>
