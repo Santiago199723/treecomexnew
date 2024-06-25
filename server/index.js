@@ -304,7 +304,7 @@ app.post("/company/remove", async (req, res) => {
   return res.status(403).json({ message: "Acesso não autorizado" });
 });
 
-app.get("/companies/codes", async (req, res) => {
+app.get("/companies", async (req, res) => {
   const { userId } = req.cookies;
   if (!userId) {
     return res.redirect("/index.html");
@@ -328,38 +328,13 @@ app.get("/companies/codes", async (req, res) => {
 
   const companies = await Company.findAll();
 
-  const codes = companies.map((company) => company.cnpj);
+  const companyData = companies.map(c => ({
+    id: c.cnpj,
+    name: c.companyName,
+    type: c.matriz ? "matriz" : "filial"
+  }));
 
-  return res.status(200).json(codes);
-});
-
-app.get("/companies/names", async (req, res) => {
-  const { userId } = req.cookies;
-  if (!userId) {
-    return res.redirect("/index.html");
-  }
-
-  const admin = await Admin.findOne({
-    where: {
-      id: userId,
-    },
-  });
-
-  const user = await User.findOne({
-    where: {
-      id: userId,
-    },
-  });
-
-  if ((!admin && !user) || (user && user.userType !== UserType.FINANCIAL)) {
-    return res.redirect("/index.html");
-  }
-
-  const companies = await Company.findAll();
-
-  const names = companies.map((company) => company.companyName);
-
-  return res.status(200).json(names);
+  return res.status(200).json(companyData);
 });
 
 app.post("/upload-file", upload.single("file"), async (req, res) => {

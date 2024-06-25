@@ -71,174 +71,175 @@ async function loadData(btnIndex, button, withFiles = false) {
   fileList.innerHTML = "";
 
   const option = getOptionType(btnIndex);
-  if (option) {
-    let obj = {
-      company: companyData.cnpj,
-      stage: csn,
-      option: option,
-    };
+  if (!option) return;
 
-    if (csn !== 1) obj.processId = processId;
-    const params = new URLSearchParams(obj);
-    const response = await fetch(`/stage?${params}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
+  const obj = {
+    company: companyData.cnpj,
+    stage: csn,
+    option,
+    ...(csn !== 1 && { processId }),
+  };
 
-    const data = await response.json();
-    if (response.ok && data.length !== 0) {
-      const attachedFiles = data.filter((value) => value.type === 1);
-      const removedFiles = data.filter((value) => value.type !== 1);
+  if (csn !== 1) obj.processId = processId;
+  const params = new URLSearchParams(obj);
+  const response = await fetch(`/stage?${params}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
 
-      attachedFiles.sort(
-        (a, b) => new Date(b.attachedDate) - new Date(a.attachedDate),
-      );
-      removedFiles.sort(
-        (a, b) => new Date(b.removedDate) - new Date(a.removedDate),
-      );
+  const data = await response.json();
+  if (response.ok && data.length !== 0) {
+    const attachedFiles = data.filter((value) => value.type === 1);
+    const removedFiles = data.filter((value) => value.type !== 1);
 
-      const sortedData = removedFiles.concat(attachedFiles);
-      sortedData.sort(
-        (a, b) =>
-          new Date(b.attachedDate || b.removedDate) -
-          new Date(a.attachedDate || a.removedDate),
-      );
+    attachedFiles.sort(
+      (a, b) => new Date(b.attachedDate) - new Date(a.attachedDate),
+    );
+    removedFiles.sort(
+      (a, b) => new Date(b.removedDate) - new Date(a.removedDate),
+    );
 
-      if (sortedData[0].type === 1) {
-        // button.style.boxShadow = "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
-        const img = button.querySelector("img");
-        img.style.display = "flex";
-      } else {
-        const img = button.querySelector("img");
-        img.style.display = "none";
-      }
+    const sortedData = removedFiles.concat(attachedFiles);
+    sortedData.sort(
+      (a, b) =>
+        new Date(b.attachedDate || b.removedDate) -
+        new Date(a.attachedDate || a.removedDate),
+    );
 
-      if (withFiles) {
-        for (let i = 0; i < sortedData.length; i++) {
-          const value = sortedData[i]
-          if (value.fileId) {
-            const fileItem = document.createElement("div");
-            fileItem.className = "file-item";
+    if (sortedData[0].type === 1) {
+      // button.style.boxShadow = "-0.5rem -0.5rem 1rem hsl(183, 72%, 54%), 0.5rem 0.5rem 1rem hsl(0 0% 50% / 0.5)";
+      const img = button.querySelector("img");
+      img.style.display = "flex";
+    } else {
+      const img = button.querySelector("img");
+      img.style.display = "none";
+    }
 
-            const fileInfo = document.createElement("div");
-            fileInfo.className = "file-info";
+    if (withFiles) {
+      for (let i = 0; i < sortedData.length; i++) {
+        const value = sortedData[i]
+        if (value.fileId) {
+          const fileItem = document.createElement("div");
+          fileItem.className = "file-item";
 
-            const fileActions = document.createElement("div");
-            fileActions.className = "file-actions";
+          const fileInfo = document.createElement("div");
+          fileInfo.className = "file-info";
 
-            const fileName = document.createElement("span");
-            fileName.className = "file-name";
+          const fileActions = document.createElement("div");
+          fileActions.className = "file-actions";
 
-            const downloadLink = document.createElement("a");
-            downloadLink.className = "icon download-link";
+          const fileName = document.createElement("span");
+          fileName.className = "file-name";
 
-            const removeLink = document.createElement("a");
-            removeLink.className = "icon remove-link";
+          const downloadLink = document.createElement("a");
+          downloadLink.className = "icon download-link";
 
-            const fileDetails = document.createElement("div");
-            fileDetails.classList.add("file-details");
+          const removeLink = document.createElement("a");
+          removeLink.className = "icon remove-link";
 
-            const flabelText =
-              value.type === 1 ? "Data de anexo" : "Data de exclusão";
-            const slabelText =
-              value.type === 1 ? "Anexado por" : "Removido por";
+          const fileDetails = document.createElement("div");
+          fileDetails.classList.add("file-details");
 
-            const dateKey = value.type === 1 ? "attachedDate" : "removedDate";
-            const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
+          const flabelText =
+            value.type === 1 ? "Data de anexo" : "Data de exclusão";
+          const slabelText =
+            value.type === 1 ? "Anexado por" : "Removido por";
 
-            if (
-              i + 1 < sortedData.length &&
-              sortedData[i + 1].fileId === value.fileId
-            ) {
-              const nextItemType = sortedData[i + 1].type;
-              const nextDateKey =
-                nextItemType === 1 ? "attachedDate" : "removedDate";
-              const nextActionKey =
-                nextItemType === 1 ? "attachedBy" : "removedBy";
+          const dateKey = value.type === 1 ? "attachedDate" : "removedDate";
+          const actionKey = value.type === 1 ? "attachedBy" : "removedBy";
 
-              fileInfo.innerHTML += `
+          if (
+            i + 1 < sortedData.length &&
+            sortedData[i + 1].fileId === value.fileId
+          ) {
+            const nextItemType = sortedData[i + 1].type;
+            const nextDateKey =
+              nextItemType === 1 ? "attachedDate" : "removedDate";
+            const nextActionKey =
+              nextItemType === 1 ? "attachedBy" : "removedBy";
+
+            fileInfo.innerHTML += `
                     <div><span class="label" style="color: black;">Data de anexo:</span> ${formatDate(sortedData[i + 1][nextDateKey])}</div>
                     <div><span class="label" style="color: black;">Anexado por:</span> ${sortedData[i + 1][nextActionKey]}</div>
                     <div><span class="label" style="color: black;">Data de exclusão:</span> ${formatDate(value[dateKey])}</div>
                     <div><span class="label" style="color: black;">Removido por:</span> ${value[actionKey]}</div>
                 `;
 
-              fileItem.classList.add("removed");
-              downloadLink.classList.add("disabled");
-              removeLink.classList.add("disabled");
-              i++
-            } else {
-              fileInfo.innerHTML += `
+            fileItem.classList.add("removed");
+            downloadLink.classList.add("disabled");
+            removeLink.classList.add("disabled");
+            i++
+          } else {
+            fileInfo.innerHTML += `
                     <div><span class="label" style="color: black;">${flabelText}:</span> ${formatDate(value[dateKey])}</div>
                     <div><span class="label" style="color: black;">${slabelText}:</span> ${value[actionKey]}</div>
                 `;
-            }
-
-            const { filename, blob } = await getFile(value.fileId);
-
-            fileName.innerText = filename;
-
-            downloadLink.innerHTML =
-              '<img src="/assets/download.png" alt="Download">';
-            downloadLink.classList.add("wrapper");
-            downloadLink.addEventListener("click", () => {
-              const div = document.createElement("div");
-              div.classList.add("downloader");
-              document.querySelector(".main-container").appendChild(div);
-
-              div.classList.add("load");
-              div.innerHTML = `<div class="loader"></div>`;
-
-              setTimeout(() => {
-                div.classList.remove("load")
-                div.innerHTML = `<div class="check"><i class="fas fa-check"></i></div>`;
-              }, 4500);
-
-              setTimeout(() => {
-                const a = document.createElement("a");
-                const url = URL.createObjectURL(blob);
-                a.href = url;
-                a.download = filename;
-                a.click();
-                URL.revokeObjectURL(url);
-                div.remove();
-              }, 6000);
-            });
-
-            removeLink.innerHTML =
-              '<img src="/assets/remover.png" alt="Remover">';
-            removeLink.addEventListener("click", async () => {
-              if (!fileItem.classList.contains("removed")) {
-                if (confirm("Tem certeza que deseja apagar o arquivo?")) {
-                  await removeFile(value.fileId, btnIndex, button);
-                  await loadData(btnIndex, button, withFiles);
-                }
-              } else {
-                alert("O arquivo já foi excluído.");
-              }
-            });
-
-            if (value.type === 2) {
-              fileItem.classList.add("removed");
-              downloadLink.classList.add("disabled");
-              removeLink.classList.add("disabled");
-            }
-
-            fileActions.appendChild(fileName);
-            fileActions.appendChild(downloadLink);
-            fileActions.appendChild(removeLink);
-
-            fileItem.appendChild(fileInfo);
-            fileItem.appendChild(fileActions);
-
-            fileList.appendChild(fileItem);
           }
 
-          document.getElementById("file-list").style.display = "block";
+          const { filename, blob } = await getFile(value.fileId);
+
+          fileName.innerText = filename;
+
+          downloadLink.innerHTML =
+            '<img src="/assets/download.png" alt="Download">';
+          downloadLink.classList.add("wrapper");
+          downloadLink.addEventListener("click", () => {
+            const div = document.createElement("div");
+            div.classList.add("downloader");
+            document.querySelector(".main-container").appendChild(div);
+
+            div.classList.add("load");
+            div.innerHTML = `<div class="loader"></div>`;
+
+            setTimeout(() => {
+              div.classList.remove("load")
+              div.innerHTML = `<div class="check"><i class="fas fa-check"></i></div>`;
+            }, 4500);
+
+            setTimeout(() => {
+              const a = document.createElement("a");
+              const url = URL.createObjectURL(blob);
+              a.href = url;
+              a.download = filename;
+              a.click();
+              URL.revokeObjectURL(url);
+              div.remove();
+            }, 6000);
+          });
+
+          removeLink.innerHTML =
+            '<img src="/assets/remover.png" alt="Remover">';
+          removeLink.addEventListener("click", async () => {
+            if (!fileItem.classList.contains("removed")) {
+              if (confirm("Tem certeza que deseja apagar o arquivo?")) {
+                await removeFile(value.fileId, btnIndex, button);
+                await loadData(btnIndex, button, withFiles);
+              }
+            } else {
+              alert("O arquivo já foi excluído.");
+            }
+          });
+
+          if (value.type === 2) {
+            fileItem.classList.add("removed");
+            downloadLink.classList.add("disabled");
+            removeLink.classList.add("disabled");
+          }
+
+          fileActions.appendChild(fileName);
+          fileActions.appendChild(downloadLink);
+          fileActions.appendChild(removeLink);
+
+          fileItem.appendChild(fileInfo);
+          fileItem.appendChild(fileActions);
+
+          fileList.appendChild(fileItem);
         }
+
+        document.getElementById("file-list").style.display = "block";
       }
     }
   }

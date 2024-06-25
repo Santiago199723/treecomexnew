@@ -295,7 +295,7 @@
           email.innerHTML = data.email;
         }
 
-        const ccr = await fetch("/companies/codes", {
+        const ccr = await fetch("/companies", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
