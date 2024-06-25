@@ -69,7 +69,7 @@ document.getElementById("add-file-button").addEventListener("click", () => {
 async function loadData(btnIndex, button, withFiles = false) {
   const fileList = document.getElementById("file-list");
   fileList.innerHTML = "";
-  
+
   const option = getOptionType(btnIndex);
   if (option) {
     let obj = {
@@ -149,9 +149,9 @@ async function loadData(btnIndex, button, withFiles = false) {
               value.type === 1 ? "Anexado por" : "Removido por";
 
             fileInfo.innerHTML = `
-          <div><span class="label" style="color: black;">${flabelText}:</span> ${formatDate(value[dateKey])}</div>
-          <div><span class="label" style="color: black;">${slabelText}:</span> ${value[actionKey]}</div>
-        `;
+             <div><span class="label" style="color: black;">${flabelText}:</span> ${formatDate(value[dateKey])}</div>
+             <div><span class="label" style="color: black;">${slabelText}:</span> ${value[actionKey]}</div>
+            `;
 
             const { filename, blob } = await getFile(value.fileId);
 
@@ -161,7 +161,7 @@ async function loadData(btnIndex, button, withFiles = false) {
               downloadLink.innerHTML =
                 '<img src="/assets/download.png" alt="Download">';
               downloadLink.classList.add("wrapper");
-              downloadLink.addEventListener("click", (event) => {
+              downloadLink.addEventListener("click", () => {
                 const div = document.createElement("div");
                 div.classList.add("downloader");
                 document.querySelector(".main-container").appendChild(div);
