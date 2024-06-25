@@ -400,7 +400,6 @@ app.get("/file/:id", async (req, res) => {
       res.send(data);
     });
   } catch (err) {
-    
     res.status(500).send({ message: "Erro ao obter arquivo" });
   }
 });

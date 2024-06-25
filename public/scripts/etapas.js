@@ -116,7 +116,7 @@ async function loadData(btnIndex, button, show = false) {
       }
 
       if (show) {
-        fileList.innerHTML = '';
+        fileList.innerHTML = "";
         sortedData.forEach(async (value) => {
           if (value.fileId) {
             const fileItem = document.createElement("div");
@@ -157,12 +157,35 @@ async function loadData(btnIndex, button, show = false) {
 
             if (value.type === 1) {
               fileName.innerText = filename;
-              const url = URL.createObjectURL(blob);
 
-              downloadLink.href = url;
-              downloadLink.download = filename;
               downloadLink.innerHTML =
                 '<img src="/assets/download.png" alt="Download">';
+              downloadLink.classList.add("wrapper");
+              downloadLink.addEventListener("click", (event) => {
+                const div = document.createElement("div");
+                div.classList.add("downloader");
+                document.querySelector(".main-container").appendChild(div);
+
+                setTimeout(() => {
+                  div.classList.add("load");
+                  div.innerHTML = `<div class="loader"></div>`;
+                }, 1000);
+
+                setTimeout(() => {
+                  div.classList.add("check");
+                  div.innerHTML = `<div class="check"><i class="fas fa-check"></i></div>`;
+                }, 4500);
+
+                setTimeout(() => {
+                  const a = document.createElement("a");
+                  const url = URL.createObjectURL(blob);
+                  a.href = url;
+                  a.download = filename;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                  div.style.display = "none";
+                }, 6000);
+              });
 
               removeLink.innerHTML =
                 '<img src="/assets/remover.png" alt="Remover">';
@@ -239,7 +262,9 @@ window.onload = async function () {
         }
       };
 
+      setLoading(true);
       await loadData(submenuIndex, button, true);
+      setLoading(false);
     });
   });
 

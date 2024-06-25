@@ -542,3 +542,114 @@ rphic.pending .message {
   color: red;
   /* Cor vermelha para o nome do arquivo */
 }
+
+.wrapper {
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.25s ease-in-out;
+  z-index: 99999;
+}
+
+.wrapper .button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+  gap: 10px;
+}
+
+.wrapper .button.anim {
+  animation: btnAnim 1s linear;
+}
+
+@keyframes btnAnim {
+  0% {
+    top: 110%;
+  }
+
+  20% {
+    top: 110%;
+  }
+
+  100% {
+    top: 0%;
+  }
+}
+
+.load {
+  width: 600px;
+  height: 15px;
+}
+
+.load .loader {
+  width: 100%;
+  height: 100%;
+  background: #1280b3;
+  animation: loadAnim 3s linear;
+}
+
+@keyframes loadAnim {
+  0% {
+    width: 0;
+  }
+
+  50% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+.check {
+  width: 80px;
+  height: 80px;
+  background: #0f6385;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  transform: scale(1);
+  animation: checkAnim 1s linear;
+}
+
+.check i {
+  font-size: 35px;
+  color: #fff;
+}
+
+@keyframes checkAnim {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.downloader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+}

@@ -40,6 +40,15 @@ function showCompanyData() {
   }
 }
 
+function setLoading(state) {
+  const spinner = document.querySelector(".lds-ring");
+  if (state) {
+    spinner.style.display = "inline-block";
+  } else {
+    spinner.style.display = "none";
+  }
+}
+
 async function refreshCompanyData() {
   if (companyData) {
     const params = new URLSearchParams({
