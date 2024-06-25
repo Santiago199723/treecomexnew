@@ -585,15 +585,15 @@ rphic.pending .message {
 }
 
 .load {
-  max-width: 560px;
-  width: 560px;
+  max-width: 500px;
+  width: 500px;
   height: 15px;
 }
 
 .load .loader {
   height: 100%;
   background: #06e851;
-  animation: loadAnim 3s linear;
+  animation: loadAnim 4s linear;
 }
 
 @keyframes loadAnim {
