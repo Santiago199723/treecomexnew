@@ -588,6 +588,7 @@ rphic.pending .message {
   max-width: 500px;
   width: 500px;
   height: 15px;
+  border-radius: 10px;
 }
 
 .load .loader {
