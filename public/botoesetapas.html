@@ -53,46 +53,228 @@
       background-color: #2a949b;
     }
 
-    /* Estilos para o campo de entrada */
-    .input-field {
-      max-height: 100px;
-      padding: 10px;
-      margin: 10px 0;
-      width: 150%;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+    input {
+      font-family: inherit;
+    }
+
+    .selectize-control.zze-selectize .selectize-dropdown .selectize-dropdown-content .zze-icon-left {
+      position: relative;
+      padding: 8px 15px 8px 37px;
+    }
+
+    .selectize-control.zze-selectize .selectize-dropdown .selectize-dropdown-content .zze-icon-left.category>i {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 14px;
+      width: 26px;
+      height: 26px;
+      margin: auto;
+      font-size: 17px;
+      border-radius: 50%;
+    }
+
+    .zze-icon-categories {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background: #dbded8;
+      margin-right: 9px;
+      border-radius: 50%;
+    }
+
+    .zze-icon-categories {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background: #dbded8;
+      margin-right: 15px;
+      border-radius: 50%;
+    }
+
+    .selectize-control.zze-selectize .selectize-dropdown .selectize-dropdown-content .zze-icon-left .zze-selectize-label {
+      display: block;
+      padding-left: 10px;
+    }
+
+    .selectize-control.zze-selectize .selectize-dropdown {
+      box-shadow: 0 0 22px rgba(0, 0, 0, 0.2);
+      border-radius: 2px;
+    }
+
+    .selectize-dropdown {
+      z-index: 10;
+      margin-top: 0;
+      background: #fefdf9;
+      border-radius: 2px;
+      box-shadow: 2px 2px 40px rgba(0, 0, 0, 0.2);
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
       box-sizing: border-box;
-      transition: border-color 0.3s ease;
     }
 
-    .input-field:focus {
-      border-color: #03e9f4;
+    .zze-selectize-label {
+      color: black;
     }
 
-    /* Estilos para o contêiner da janela modal */
-    .modal-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      /* Para garantir que a janela modal esteja sempre na frente */
-    }
-
-    /* Estilos para a janela modal */
-    .modal {
-      background-color: #fff;
-      padding: 62px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      max-width: 600px;
-      max-height: 80vh;
+    span {
+      color: #fff;
       text-align: center;
-      border: 5px solid #3fc1c8;
-      justify-content: center;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
+    }
+
+    .zze-icon-categories {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      height: 30px;
+      background: #dbded8;
+      margin-right: 15px;
+      border-radius: 50%;
+    }
+
+    .selectize-dropdown-content {
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-height: 200px;
+    }
+
+    .selectize-control.zze-selectize .selectize-dropdown .selectize-dropdown-content {
+      width: 100%;
+      max-height: 367px;
+    }
+
+    .selectize-control.zze-selectize .selectize-input {
+      display: block;
+      height: 36px;
+    }
+
+    .selectize-input {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      width: 30%;
+      padding: 2px 4px;
+      overflow: hidden;
+      border: 2px solid #e8eaeb;
+      min-height: 36px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      border-radius: 3px;
+      appearance: none;
+      transition: none;
+    }
+
+    .selectize-input>input {
+      display: inline-block !important;
+      max-width: 100% !important;
+      max-height: none !important;
+      min-height: 0 !important;
+      line-height: inherit !important;
+      font-size: 14px !important;
+      text-indent: 0 !important;
+      background: 0 0 !important;
+      border: 0 !important;
+      -webkit-user-select: auto !important;
+      -webkit-box-shadow: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 4px 6px !important;
+      transition: none;
+    }
+
+    .selectize-dropdown,
+    .selectize-input,
+    .selectize-input input {
+      color: #2e312d;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 18px;
+      -webkit-font-smoothing: inherit;
+      outline: none;
+    }
+
+    .icon-category-recipient:after {
+      content: "";
+      display: block;
+      width: 20px;
+      background-size: cover;
+      height: 20px;
+      background-image: url(/assets/recipient.png);
+    }
+
+    .selectize-input * {
+      vertical-align: baseline;
+      display: -moz-inline-stack;
+      display: inline-block;
+      zoom: 1;
+    }
+
+    .selectize-control.single .selectize-input:after {
+      padding: 3px 5px;
+      content: "\e006";
+      cursor: pointer;
+    }
+
+    .selectize-control.single .selectize-input:after,
+    .selectize-control.single .selectize-input.dropdown-active:after {
+      font-family: organizze-icon !important;
+      line-height: 2;
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #fefdf9;
+      height: 32px;
+      font-size: 13px;
+      width: 22px;
+      color: #898989;
+    }
+
+    .selectize-control.single .selectize-input:after {
+      padding: 3px 5px;
+      content: "\e006";
+      cursor: pointer;
+    }
+
+    .selectize-input::after {
+      display: block;
+      clear: left;
+      content: " ";
+    }
+
+    .selectize-control.single .selectize-input:after,
+    .selectize-control.single .selectize-input.dropdown-active:after {
+      font-family: organizze-icon !important;
+      line-height: 2;
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #fefdf9;
+      height: 32px;
+      font-size: 13px;
+      width: 22px;
+      color: #898989;
+    }
+
+    @font-face {
+      font-family: organizze-icon;
+      src: url(/assets/organizze-icon-1c6b2791e9af11e4819b2fd69d356ac04b0f9ee0e74fe553fcc44986cf3003fa.eot);
+      src:
+        url(/assets/organizze-icon-1c6b2791e9af11e4819b2fd69d356ac04b0f9ee0e74fe553fcc44986cf3003fa.eot?#iefix) format("embedded-opentype"),
+        url(/assets/organizze-icon-9890c4a82fa203aa1385584509019d1f33a4b29daca11bc37cf003c3769aba53.woff) format("woff"),
+        url(/assets/organizze-icon-b54398962d22be924f2ea546267cc63ecf22e8d3a8a0d9c55a633db0d998fb9d.ttf) format("truetype"),
+        url(/assets/organizze-icon-b5531bb68788f8b1cc9cc50db7cb1c0572869e8850f3ead1ee70642d3b4106d8.svg#1620909847) format("svg");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    #dropdown-container {
+      width: 100%;
+      margin-bottom: 20px;
     }
 
     /* Estilos para o botão de fechar */
@@ -183,12 +365,33 @@
   </nav>
 
   <div id="overlay" class="overlay" style="display: none">
-    <div class="modal-container">
-      <div class="modal">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <h2 style="font-family: Arial, sans-serif; color: rgb(18, 71, 74)"></h2>
-        <select id="process-id-dropdown" class="input-field"></select>
-        <button id="save-process" class="open-button">VER EMPRESA</button>
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div>
+      <div style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          top: 162px;
+        "
+        class="selectize-control zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope single plugin-clear_button">
+        <div id="dropdown-container" class="selectize-input items not-full has-options ng-valid ng-pristine">
+          <input type="undefined" autocomplete="off" tabindex="0" id="showCategories-selectized"
+            placeholder="Informe o processo" style="opacity: 1; position: absolute; left: 0px" />
+        </div>
+        <div id="dropdown-modal"
+          class="selectize-dropdown single zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope plugin-clear_button"
+          style="
+            display: none;
+            width: 88%;
+            top: 181px;
+            visibility: visible;
+            position: absolute;
+            z-index: 999999;
+          ">
+          <div class="selectize-dropdown-content" id="selectize-content"></div>
+        </div>
+        <span class="clearAll" tabindex="-1" title="Limpar" style="display: none"><i class="icon-close"></i></span>
       </div>
     </div>
   </div>
