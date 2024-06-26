@@ -510,7 +510,7 @@ app.get("/process", async (req, res) => {
     const { company } = req.query;
     const { userId } = req.cookies;
 
-    if (userId) {
+    if (userId && !company) {
       const admin = await Admin.findOne({
         where: {
           id: userId,
