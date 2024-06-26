@@ -66,6 +66,18 @@
       font-size: 24px;
       color: #06202e;
     }
+
+    .overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      max-width: 330px;
+      max-height: 220px;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 
@@ -146,22 +158,21 @@
 
   <div id="overlay" class="overlay" style="display: none">
     <span class="close-btn" onclick="closeModal()">&times;</span>
-    <div>
-      <div style="
+    <div style="
           display: flex;
           align-items: center;
           justify-content: center;
           flex-direction: column;
           top: 162px;
         "
-        class="selectize-control zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope single plugin-clear_button">
-        <div id="dropdown-container" class="selectize-input items not-full has-options ng-valid ng-pristine">
-          <input type="undefined" autocomplete="off" tabindex="0" id="showCategories-selectized"
-            placeholder="Informe o processo" style="opacity: 1; position: absolute; left: 0px" />
-        </div>
-        <div id="dropdown-modal"
-          class="selectize-dropdown single zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope plugin-clear_button"
-          style="
+      class="selectize-control zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope single plugin-clear_button">
+      <div id="dropdown-container" class="selectize-input items not-full has-options ng-valid ng-pristine">
+        <input type="undefined" autocomplete="off" tabindex="0" id="showCategories-selectized"
+          placeholder="Informe o processo" style="opacity: 1; position: absolute; left: 0px" />
+      </div>
+      <div id="dropdown-modal"
+        class="selectize-dropdown single zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope plugin-clear_button"
+        style="
             display: none;
             width: 88%;
             top: 181px;
@@ -169,10 +180,9 @@
             position: absolute;
             z-index: 999999;
           ">
-          <div class="selectize-dropdown-content" id="selectize-content"></div>
-        </div>
-        <span class="clearAll" tabindex="-1" title="Limpar" style="display: none"><i class="icon-close"></i></span>
+        <div class="selectize-dropdown-content" id="selectize-content"></div>
       </div>
+      <span class="clearAll" tabindex="-1" title="Limpar" style="display: none"><i class="icon-close"></i></span>
     </div>
   </div>
 
