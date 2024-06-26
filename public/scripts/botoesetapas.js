@@ -1,4 +1,6 @@
 let codes;
+
+const modal = document.getElementById("dropdown-modal");
 const saveButton = document.getElementById("save-process");
 const dropdownContent = document.getElementById("selectize-content");
 let processID = document.getElementById("showCategories-selectized");
@@ -49,7 +51,7 @@ window.onload = async function () {
           div.style.cursor = "pointer";
           div.addEventListener("click", function (e) {
             if (e.target !== e.currentTarget.querySelector("img")) {
-              localStorage.setItem("processId", code)
+              localStorage.setItem("processId", code);
               window.location.href = "/etapa2.html";
             }
           });
@@ -73,9 +75,7 @@ window.onload = async function () {
     }
   } catch (error) {
     console.error(error);
-    alert(
-      "Ocorreu um erro ao carregar os dados. Por favor, tente novamente.",
-    );
+    alert("Ocorreu um erro ao carregar os dados. Por favor, tente novamente.");
   }
 
   await refreshCompanyData();
@@ -124,3 +124,22 @@ function filterProcesses() {
 }
 
 processID.addEventListener("input", filterProcesses);
+
+function handleModal(event) {
+  if (modal.style.display === "none") {
+    modal.style.display = "flex";
+  } else {
+    modal.style.display = "none";
+  }
+
+  event.stopPropagation();
+}
+document
+  .getElementById("dropdown-container")
+  .addEventListener("click", handleModal);
+
+document.addEventListener("click", function (event) {
+  if (event.target !== modal && !modal.contains(event.target)) {
+    modal.style.display = "none";
+  }
+});
