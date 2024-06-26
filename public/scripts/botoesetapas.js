@@ -50,6 +50,7 @@ window.onload = async function () {
           div.addEventListener("click", function (e) {
             if (e.target !== e.currentTarget.querySelector("img")) {
               localStorage.setItem("processId", code)
+              window.location.href = "/etapa2.html";
             }
           });
 
@@ -88,12 +89,6 @@ function openModal() {
 function closeModal() {
   document.getElementById("overlay").style.display = "none";
 }
-
-saveButton.addEventListener("click", function () {
-  const selectedProcessId = processIdDropdown.value;
-  localStorage.setItem("processId", selectedProcessId);
-  window.location.href = "etapa2.html";
-});
 
 function filterProcesses() {
   const searchText = processID.value.toLowerCase();
