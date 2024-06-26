@@ -78,6 +78,7 @@
         background: #fff;
         width: 100%;
         height: 100%;
+        border: #07e7f6 3px solid;
       }
     </style>
   </head>
@@ -215,7 +216,7 @@
             autocomplete="off"
             tabindex="0"
             id="showCategories-selectized"
-            placeholder="Selecione um processo"
+            placeholder="Informe ou selecione um processo"
             style="opacity: 1; position: absolute; left: 0px"
           />
         </div>
@@ -223,12 +224,12 @@
           id="dropdown-modal"
           class="selectize-dropdown single zze-selectize ng-pristine ng-untouched ng-valid ng-scope ng-isolate-scope plugin-clear_button"
           style="
-            display: none;
-            width: 88%;
-            top: 181px;
+            display: flex;
+            width: 100%;
+            top: 100px;
             visibility: visible;
-            position: absolute;
             z-index: 999999;
+            position: absolute;
           "
         >
           <div class="selectize-dropdown-content" id="selectize-content"></div>
