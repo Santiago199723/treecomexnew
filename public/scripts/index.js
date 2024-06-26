@@ -133,7 +133,7 @@ document
 async function showLoading(show) {
   if (show) {
     const div = document.createElement("div");
-    div.classList.add("loader")
+    div.classList.add("loader");
     div.innerHTML = `
       <img src="/assets/icone.png" alt="Loading...">
       <p>Conectando...</p>
